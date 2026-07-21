@@ -1,0 +1,1956 @@
+<!DOCTYPE html><html lang="nb"><head>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Innovasjonsmiljøene ved NTNU — FRAM</title>
+<link rel="preconnect" href="https://app.atlas.co" crossorigin>
+<link rel="preload" href="assets/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Self-hostede fonter */
+@font-face{font-family:'Poppins';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/poppins-400.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/poppins-500.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:swap;src:url(assets/fonts/poppins-600.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:700;font-display:swap;src:url(assets/fonts/poppins-700.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:800;font-display:swap;src:url(assets/fonts/poppins-800.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:900;font-display:swap;src:url(assets/fonts/poppins-900.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:italic;font-weight:400;font-display:swap;src:url(assets/fonts/poppins-400i.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:italic;font-weight:500;font-display:swap;src:url(assets/fonts/poppins-500i.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/jetbrainsmono-400.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/jetbrainsmono-500.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:600;font-display:swap;src:url(assets/fonts/jetbrainsmono-600.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:700;font-display:swap;src:url(assets/fonts/jetbrainsmono-700.woff2) format('woff2')}
+@font-face{font-family:'Poppins Fallback';src:local('Arial'),local('Helvetica Neue'),local('Roboto');size-adjust:113.64%;ascent-override:92.40%;descent-override:30.80%;line-gap-override:8.80%}
+</style>
+<style>
+  :root{
+    --yellow:#FDC82F; --blue:#2E86C1; --red:#E85A5A; --teal:#3FC4A3;
+    --bg:#FAF7F2; --bg-soft:#F2EDE3; --ink:#1E1E1E; --ink-soft:#555; --muted:#8A8A8A;
+    --line:#E6E0D5; --card:#FFFFFF;
+    --radius-l: 28px; --radius-m: 18px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:'Poppins','Poppins Fallback',sans-serif; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1360px; margin:0 auto; padding:0 48px;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  nav.top{
+    position:sticky; top:0; z-index:50;
+    background: color-mix(in oklab, var(--bg) 88%, transparent);
+    backdrop-filter: blur(14px); border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex; align-items:center; justify-content:space-between; height:82px;}
+  .logo{display:flex; align-items:center; gap:10px; text-decoration:none;}
+  .logo-img, .logo img{height:38px; width:auto; display:block;}
+  .logo .logo-sub{color:var(--muted); font-weight:500; font-size:13px;}
+  .nav-links{display:flex; gap:32px; align-items:center; font-size:14px; font-weight:500;}
+  .nav-links a{
+    color:var(--ink-soft); text-decoration:none; padding:6px 0;
+    position:relative; transition:color .2s;
+  }
+  .nav-links a:hover, .nav-links a.active{color:var(--ink);}
+  .nav-links a::after{
+    content:''; position:absolute; left:0; right:0; bottom:-4px; height:3px;
+    background:var(--red, #E85A5A); border-radius:2px;
+    transform:scaleX(0); transform-origin:left; transition:transform .25s ease;
+  }
+  .nav-links a:hover::after, .nav-links a.active::after{transform:scaleX(1);}
+  .nav-cta{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:12px 22px; border-radius:12px;
+    background: linear-gradient(135deg, var(--blue) 0%, #1a4d7a 100%);
+    color:#fff;
+    text-decoration:none; font-size:14px; font-weight:700;
+    transition:all .25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 8px 20px -4px rgba(46,134,193,.35), inset 0 1px 0 rgba(255,255,255,.15);
+    position:relative;
+    overflow:hidden;
+  }
+  .nav-cta::before{
+    content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent);
+    transition: left .4s ease-out;
+  }
+  .nav-cta:hover{
+    transform:translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 28px -4px rgba(46,134,193,.42), inset 0 1px 0 rgba(255,255,255,.2);
+  }
+  .nav-cta:hover::before{
+    left:100%;
+  }
+  .nav-cta:active{
+    transform:translateY(-1px) scale(0.98);
+  }
+
+
+  .crumbs{
+    font-family:'JetBrains Mono',monospace; font-size:12px;
+    color:var(--muted); padding:28px 0 0;
+  }
+  .crumbs a{color:var(--muted); text-decoration:none;}
+  .crumbs a:hover{color:var(--ink);}
+
+  header.page{
+    padding: 36px 0 36px;
+    border-bottom:1px solid var(--line);
+  }
+  header.page .wrap{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  header.page .text-col{ min-width: 0; }
+  header.page .eye{
+    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.14em;
+    color:var(--muted); text-transform:uppercase; margin-bottom:24px;
+  }
+  header.page .eye::before{
+    content:''; display:inline-block; width:32px; height:2px;
+    background:var(--ink); vertical-align:middle; margin-right:14px; border-radius:1px;
+  }
+  header.page h1{
+    font-size: clamp(32px, 3.8vw, 50px);
+    line-height:1.05; letter-spacing:-.025em; font-weight:800;
+    margin:0 0 16px; max-width:none; white-space:nowrap;
+  }
+  header.page .lede{
+    font-size:18px; line-height:1.55; max-width:660px; color:var(--ink-soft); margin:0;
+  }
+  header.page .stats{
+    display:flex; align-items:flex-start; gap:40px; margin-top:28px;
+  }
+  header.page .stat-num{
+    font-size:clamp(38px,3.6vw,52px); font-weight:800; line-height:.9;
+    letter-spacing:-.03em;
+  }
+  header.page .stat-lab{
+    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--muted); margin-top:14px;
+  }
+  header.page .stat-div{
+    align-self:stretch; width:1px; background:var(--line);
+  }
+  .org-media.dark{ background:#16181D !important; }
+  .org-media.dark-navy{ background:#022641 !important; }
+  .org-word{
+    z-index:1; font-weight:800; font-size:24px; line-height:1.05;
+    letter-spacing:-.02em; text-align:center; padding:0 18px;
+    transition: transform .35s ease;
+  }
+  .org-card:hover .org-word{ transform: scale(1.05); }
+  .org-card[data-accent="yellow"] .org-word{ color:#B07D00; }
+  .org-card[data-accent="blue"]   .org-word{ color:var(--blue); }
+  .org-card[data-accent="red"]    .org-word{ color:var(--red); }
+  .org-card[data-accent="teal"]   .org-word{ color:#1E9E81; }
+  .y{color:var(--yellow);} .b{color:var(--blue);} .r{color:var(--red);} .t{color:var(--teal);}
+
+  section{ padding: 110px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:0; }
+  .sec-head{
+    display:grid; grid-template-columns: 1.2fr 1fr; gap:48px;
+    align-items:end; margin-bottom: 56px;
+  }
+  .sec-kick{
+    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.14em;
+    color:var(--muted); text-transform:uppercase; margin-bottom:18px;
+  }
+  .sec-kick::before{
+    content:''; display:inline-block; width:32px; height:2px;
+    background:var(--ink); vertical-align:middle; margin-right:14px; border-radius:1px;
+  }
+  .sec-head h2{
+    font-size: clamp(40px, 4.2vw, 64px);
+    line-height:1.02; letter-spacing:-.025em; font-weight:800;
+    margin:0; max-width:12ch;
+  }
+  .sec-head p{
+    font-size:16px; line-height:1.55; color:var(--ink-soft);
+    max-width:460px; margin:0;
+  }
+
+  #paraply{ background: var(--bg); padding-top: 48px; }
+
+  /* ---- Organisasjons-grid ---- */
+  .org-grid{
+    display:grid; grid-template-columns: repeat(4, 1fr); gap:18px;
+  }
+  @media (max-width:1180px){ .org-grid{ grid-template-columns: repeat(3,1fr); } }
+  @media (max-width:760px){  .org-grid{ grid-template-columns: repeat(2,1fr); gap:10px; } }
+  @media (max-width:760px){
+    .org-body{ padding:12px 14px 16px; gap:5px; }
+    .org-body h3{ font-size:16px; }
+    .org-body p{ font-size:12px; }
+    .org-media{ height:110px; }
+    .wrap{ padding:0 16px; }
+    .origami{ display:none; }
+    #kart{ padding:0 !important; border-bottom:0; }
+    #kart > div{ padding:0 !important; }
+    #kart .map-wrap{ border-radius:0 !important; border-left:0 !important; border-right:0 !important; border-top:0 !important; }
+    #kart .engage-map{ border-radius:0 !important; border-left:0 !important; border-right:0 !important; }
+  }
+
+  .org-card{
+    position:relative; display:flex; flex-direction:column;
+    background:var(--card); border:1px solid var(--line);
+    border-radius: var(--radius-m); overflow:hidden;
+    text-decoration:none; color:var(--ink);
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .org-card:hover{
+    transform: translateY(-5px);
+    border-color: var(--ink);
+    box-shadow: 0 24px 46px -26px rgba(0,0,0,.28);
+  }
+
+  .org-media{
+    position:relative; height:140px; overflow:hidden;
+    display:grid; place-items:center;
+    border-bottom:1px solid var(--line);
+  }
+  .org-card[data-accent="yellow"] .org-media{ background:color-mix(in srgb, var(--yellow) 16%, #fff); }
+  .org-card[data-accent="blue"]   .org-media{ background:color-mix(in srgb, var(--blue) 13%, #fff); }
+  .org-card[data-accent="red"]    .org-media{ background:color-mix(in srgb, var(--red) 13%, #fff); }
+  .org-card[data-accent="teal"]   .org-media{ background:color-mix(in srgb, var(--teal) 15%, #fff); }
+
+  .org-logo{
+    position:relative; z-index:2; width:auto; object-fit:contain;
+    max-width:74%; max-height:74px;
+    opacity:0; transform:scale(.88);
+    transition: opacity .35s ease, transform .45s ease;
+  }
+  .org-logo.tall{ max-height:106px; max-width:54%; }
+  .org-logo.big{ max-height:90px; max-width:76%; }
+  .org-logo.big-tall{ max-height:120px; max-width:60%; }
+
+  .org-word{
+    position:relative; z-index:2;
+    font-weight:800; font-size:30px; line-height:1.05;
+    letter-spacing:-.02em; text-align:center; padding:0 16px;
+    opacity:0; transform:scale(.88);
+    transition: opacity .35s ease, transform .45s ease;
+  }
+  .org-card[data-accent="yellow"] .org-word{ color:#B07D00; }
+  .org-card[data-accent="blue"]   .org-word{ color:var(--blue); }
+  .org-card[data-accent="red"]    .org-word{ color:var(--red); }
+  .org-card[data-accent="teal"]   .org-word{ color:#1E9E81; }
+
+  .org-mono{
+    position:relative; z-index:2;
+    font-weight:800; font-size:48px; line-height:1; letter-spacing:-.04em;
+    opacity:0; transform:scale(.88);
+    transition: opacity .35s ease, transform .45s ease;
+  }
+  .org-card[data-accent="yellow"] .org-mono{ color:#B07D00; }
+  .org-card[data-accent="blue"]   .org-mono{ color:var(--blue); }
+  .org-card[data-accent="red"]    .org-mono{ color:var(--red); }
+  .org-card[data-accent="teal"]   .org-mono{ color:#1E9E81; }
+
+  .org-card[data-accent="red"] .org-media.deeper{ background:color-mix(in srgb, var(--red) 22%, #fff); }
+
+  /* hero photo: full-bleed and dominant at rest */
+  .org-photo{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; z-index:0; opacity:1; transform:scale(1.001);
+    transition: transform .7s ease, opacity .4s ease;
+  }
+  /* panel the large logo sits on — fades in on hover */
+  .org-media::after{
+    content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    opacity:0; transition: opacity .35s ease;
+  }
+  .org-card[data-accent="yellow"] .org-media::after{ background:color-mix(in srgb, var(--yellow) 17%, #fff); }
+  .org-card[data-accent="blue"]   .org-media::after{ background:color-mix(in srgb, var(--blue) 14%, #fff); }
+  .org-card[data-accent="red"]    .org-media::after{ background:color-mix(in srgb, var(--red) 14%, #fff); }
+  .org-card[data-accent="teal"]   .org-media::after{ background:color-mix(in srgb, var(--teal) 16%, #fff); }
+  .org-media.dark::after{ background:#16181D !important; }
+  .org-media.dark-navy::after{ background:#022641 !important; }
+
+  /* HOVER → panel fades in, logo grows large & visible, photo nudges */
+  .org-card:hover .org-photo{ transform:scale(1.05); }
+  .org-card:hover .org-media::after{ opacity:.97; }
+  .org-card:hover .org-logo,
+  .org-card:hover .org-word,
+  .org-card:hover .org-mono{
+    opacity:1; transform:scale(1);
+  }
+
+  /* no-photo cards: logo always visible (nothing to reveal) */
+  .org-media.no-photo::after{ opacity:0 !important; }
+  .org-media.no-photo .org-logo,
+  .org-media.no-photo .org-word,
+  .org-media.no-photo .org-mono{ opacity:1; transform:none; }
+  .org-media.no-photo .org-logo{ max-height:62px; max-width:62%; }
+  .org-media.no-photo .org-logo.tall{ max-height:90px; max-width:48%; }
+  .org-media.no-photo .org-logo.big-tall{ max-height:106px; max-width:56%; }
+  .org-media.no-photo .org-word{ font-size:26px; }
+  .org-card:hover .org-media.no-photo .org-logo,
+  .org-card:hover .org-media.no-photo .org-word,
+  .org-card:hover .org-media.no-photo .org-mono{ transform:scale(1.04); }
+
+  /* ---- toggle: vis logoer / bilder først ---- */
+  .grid-toggle{
+    display:flex; align-items:center; gap:14px; margin:0 0 28px;
+  }
+  .gt-label{
+    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--muted);
+  }
+  .gt-seg{
+    display:inline-flex; gap:4px; padding:4px;
+    background:var(--bg-soft); border:1px solid var(--line); border-radius:999px;
+  }
+  .gt-btn{
+    border:0; background:transparent; cursor:pointer;
+    font-family:'Poppins','Poppins Fallback',sans-serif; font-weight:600; font-size:13px;
+    padding:8px 18px; border-radius:999px; color:var(--ink-soft);
+    transition: background .2s ease, color .2s ease;
+  }
+  .gt-btn:hover{ color:var(--ink); }
+  .gt-btn.active{ background:var(--ink); color:var(--bg); }
+
+  /* LOGO-FIRST mode: invert resting state */
+  .org-grid.show-logos .org-photo{ opacity:0; }
+  .org-grid.show-logos .org-media::after{ opacity:.97; }
+  .org-grid.show-logos .org-logo,
+  .org-grid.show-logos .org-word,
+  .org-grid.show-logos .org-mono{ opacity:1; transform:scale(1); }
+  .org-grid.show-logos .org-card:hover .org-photo{ opacity:1; }
+  .org-grid.show-logos .org-card:hover .org-media::after{ opacity:0; }
+  .org-grid.show-logos .org-card:hover .org-logo,
+  .org-grid.show-logos .org-card:hover .org-word,
+  .org-grid.show-logos .org-card:hover .org-mono{ opacity:0; transform:scale(.96); }
+
+  .org-body{
+    padding:18px 20px 22px; display:flex; flex-direction:column; gap:7px; flex:1;
+  }
+  .org-cat{
+    font-family:'JetBrains Mono',monospace; font-size:10px;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--muted);
+    display:flex; align-items:center; gap:7px;
+  }
+  .org-card[data-accent="yellow"] .org-cat::before{ background:var(--yellow); }
+  .org-card[data-accent="blue"]   .org-cat::before{ background:var(--blue); }
+  .org-card[data-accent="red"]    .org-cat::before{ background:var(--red); }
+  .org-card[data-accent="teal"]   .org-cat::before{ background:var(--teal); }
+  .org-cat::before{
+    content:''; width:6px; height:6px; border-radius:50%; flex:none;
+  }
+  .org-body h3{
+    font-size:19px; line-height:1.12; letter-spacing:-.015em;
+    font-weight:700; margin:1px 0 0;
+  }
+  .org-body p{
+    font-size:13.5px; line-height:1.5; color:var(--ink-soft); margin:0;
+  }
+
+  .dark-section{ background: #0F1A2B; color:#F4F7FA; border-bottom:0; }
+  .dark-section .sec-head h2{ color:#FFFFFF; }
+  .dark-section .sec-head p{ color:#AFBFD4; }
+  .dark-section .sec-kick{ color:#AFBFD4; }
+  .dark-section .sec-kick::before{ background:#F4F7FA; }
+
+  .to-intro{
+    display:grid; grid-template-columns: 1.2fr 1fr; gap:48px;
+    align-items:end; margin-bottom:64px;
+  }
+  .to-intro h2{
+    font-size: clamp(40px, 4.2vw, 64px);
+    line-height:1.02; letter-spacing:-.025em; font-weight:800;
+    margin:0; max-width:12ch; color:#FFF;
+  }
+  .to-intro p{
+    font-size:16px; line-height:1.55; color:#AFBFD4;
+    max-width:480px; margin:0;
+  }
+  .to-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:14px; }
+  .to-card{
+    position:relative;
+    background: rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    padding: 24px;
+    display:flex; flex-direction:column; gap:14px;
+    transition: all .25s;
+    cursor:pointer;
+    min-height: 200px;
+    text-decoration:none;
+  }
+  .to-card:hover{
+    background: rgba(255,255,255,.06);
+    border-color: rgba(63,196,163,.55);
+    transform: translateY(-3px);
+  }
+  .to-card .logo-tile{
+    width:64px; height:64px; border-radius:14px;
+    background:#FFF;
+    display:grid; place-items:center;
+    padding:8px; overflow:hidden;
+  }
+  .to-card .logo-tile img{
+    max-width:100%; max-height:100%; object-fit:contain; display:block;
+  }
+  .to-card h4{
+    font-size:17px; line-height:1.1; letter-spacing:-.01em; font-weight:700;
+    margin:0; color:#FFF;
+  }
+  .to-card p{
+    font-size:13px; line-height:1.5; color:#AFBFD4;
+    margin:0; flex:1;
+  }
+  .to-card .to-tag{
+    font-family:'JetBrains Mono',monospace; font-size:10px;
+    letter-spacing:.12em; text-transform:uppercase;
+    color:var(--teal);
+    display:flex; align-items:center; gap:8px;
+  }
+  .to-card .to-tag::before{
+    content:''; width:6px; height:6px; border-radius:50%;
+    background:var(--teal);
+  }
+
+  .to-foot{
+    margin-top:56px;
+    background: rgba(63,196,163,.1);
+    border:1px solid rgba(63,196,163,.3);
+    border-radius: var(--radius-l);
+    padding: 32px 40px;
+    display:grid; grid-template-columns: 1fr auto; gap:32px;
+    align-items:center;
+  }
+  .to-foot h3{
+    margin:0 0 8px; font-size:26px; line-height:1.1;
+    letter-spacing:-.015em; font-weight:800; color:#FFF;
+  }
+  .to-foot p{
+    margin:0; color:#AFBFD4; font-size:15px; line-height:1.5; max-width:560px;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 22px; border-radius:999px;
+    font-family:'Poppins','Poppins Fallback',sans-serif; font-weight:600; font-size:14px;
+    text-decoration:none; transition: all .2s; border:1px solid transparent;
+    white-space:nowrap;
+  }
+  .btn-teal{ background:var(--teal); color:#0F1A2B; }
+  .btn-teal:hover{ background:#FFF; }
+  .btn-ink{ background:var(--ink); color:var(--bg); }
+  .btn-ink:hover{ background:var(--blue); color:#fff; }
+
+  /* ---- Hvordan bli medlem ---- */
+  #bli-medlem{ background:var(--bg-soft); }
+  .bm-layout{
+    display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;
+  }
+  @media (max-width:860px){ .bm-layout{ grid-template-columns:1fr; gap:32px; } }
+  .bm-intro h2{
+    font-size:clamp(34px,4vw,52px); line-height:1.02; letter-spacing:-.025em;
+    font-weight:800; margin:0 0 20px; max-width:14ch;
+  }
+  .bm-intro p{
+    font-size:17px; line-height:1.6; color:var(--ink-soft); margin:0; max-width:48ch;
+  }
+  .bm-card{
+    background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius-l, 24px); padding:36px;
+    box-shadow:0 24px 60px -40px rgba(0,0,0,.45);
+  }
+  .bm-card h3{
+    margin:0 0 12px; font-size:23px; line-height:1.2; letter-spacing:-.02em; font-weight:800;
+  }
+  .bm-card p{ margin:0 0 24px; font-size:15px; line-height:1.55; color:var(--ink-soft); }
+
+  footer{
+    background: var(--bg); color: var(--ink);
+    border-top: 1px solid var(--line);
+    padding: 40px 0 32px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px; color:var(--muted);
+    letter-spacing:.04em;
+  }
+  .foot-main{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap:40px; flex-wrap:wrap;
+    margin-bottom:28px; padding-bottom:28px;
+    border-bottom:1px solid var(--line);
+  }
+  .foot-left{ display:flex; flex-direction:column; gap:10px; }
+  .foot-brand{ display:flex; align-items:center; gap:12px; margin-bottom:4px; }
+  .foot-brand img{ height:26px; width:auto; display:block; }
+  .foot-info{ line-height:1.9; }
+  .foot-info a{ color:var(--muted); text-decoration:none; transition:color .2s; }
+  .foot-info a:hover{ color:var(--ink); }
+  .foot-links{ display:flex; gap:32px; align-items:flex-start; flex-wrap:wrap; }
+  .foot-group{ display:flex; flex-direction:column; gap:8px; }
+  .foot-group-label{
+    font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:4px; font-weight:600;
+  }
+  .foot-group a{
+    color:var(--ink-soft); text-decoration:none; font-size:12px;
+    transition:color .2s; line-height:1.8;
+  }
+  .foot-group a:hover{ color:var(--ink); }
+  .foot-socials{ display:flex; gap:10px; align-items:center; }
+  .foot-social{
+    display:flex; align-items:center; justify-content:center;
+    width:36px; height:36px; border-radius:10px;
+    border:1px solid var(--line); background:var(--card);
+    color:var(--ink-soft); text-decoration:none;
+    transition:all .2s;
+  }
+  .foot-social:hover{ border-color:var(--ink); color:var(--ink); transform:translateY(-2px); }
+  .foot-social svg{ width:16px; height:16px; fill:currentColor; }
+  .foot-bot{
+    display:flex; justify-content:space-between; align-items:center; gap:24px;
+    flex-wrap:wrap;
+  }
+  .ntnu-line{ display:flex; align-items:center; gap:12px; }
+  .ntnu-label{ font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+  .ntnu-logo{ height:22px; width:auto; opacity:.75; }
+
+  /* ---- kart-gate (klikk for å aktivere) ---- */
+  /* grået-ut lag (frost) — ligger UNDER origami så fargene ikke avmettes */
+  .map-frost{
+    position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:rgba(22,24,29,.42);
+    backdrop-filter:saturate(.35) brightness(.92);
+    -webkit-backdrop-filter:saturate(.35) brightness(.92);
+    transition:opacity .35s ease;
+  }
+  /* knappen — gjennomsiktig lag som ligger OVER origami */
+  .map-gate{
+    position:absolute; inset:0; z-index:4;
+    display:flex; align-items:center; justify-content:center;
+    border:0; margin:0; padding:0; width:100%; height:100%;
+    cursor:pointer; font-family:inherit; background:transparent;
+    transition:opacity .3s ease;
+  }
+  .map-gate-label{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:14px 24px; border-radius:999px;
+    background:var(--ink); color:#fff;
+    font-size:15px; font-weight:600; letter-spacing:.01em;
+    box-shadow:0 10px 30px -10px rgba(0,0,0,.5);
+    transition:transform .2s ease;
+  }
+  .map-gate-label::before{
+    content:''; width:8px; height:8px; border-radius:50%;
+    background:var(--teal); flex:none;
+  }
+  .map-gate:hover .map-gate-label{ transform:translateY(-2px); }
+  .map-active .map-gate{ opacity:0; pointer-events:none; }
+  .map-active .map-frost{ opacity:0; }
+
+  /* ---- SFU Engage-ramme rundt kartet ---- */
+  .engage-map{
+    border:1px solid var(--line); border-radius:20px; overflow:hidden;
+    background:var(--bg-soft); box-shadow:0 14px 40px -28px rgba(0,0,0,.4);
+  }
+  .engage-map-head{
+    display:flex; align-items:center; gap:22px;
+    padding:20px 26px; border-bottom:1px solid var(--line);
+    background:var(--card);
+  }
+  .engage-map-logo{ height:94px; width:auto; flex:none; }
+  .engage-map-text{ flex:1; min-width:0; }
+  .engage-map-cat{
+    font-family:'JetBrains Mono',monospace; font-size:10px;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--muted);
+    display:flex; align-items:center; gap:7px; margin-bottom:5px;
+  }
+  .engage-map-cat::before{
+    content:''; width:6px; height:6px; border-radius:50%; flex:none;
+    background:var(--blue);
+  }
+  .engage-map-name{ font-weight:700; font-size:16px; color:var(--ink); letter-spacing:.01em; }
+  .engage-map-text p{ margin:3px 0 0; font-size:13.5px; line-height:1.45; color:var(--ink-soft); }
+  .engage-map-link{
+    flex:none; font-size:14px; font-weight:600; color:var(--ink);
+    text-decoration:none; white-space:nowrap;
+  }
+  .engage-map-link:hover{ text-decoration:underline; }
+  @media (max-width:640px){
+    .engage-map-head{ flex-wrap:wrap; gap:14px; padding:16px 18px; }
+    .engage-map-logo{ height:66px; }
+    .engage-map-link{ width:100%; }
+  }
+
+  /* ---- origami-trekant fold-in (skjuler kart-lasting) ---- */
+  .map-shell{ position:relative; perspective:1700px; }
+  .map-iframe{
+    display:block; width:100%; height:600px; border:0;
+    filter:grayscale(.7) brightness(.98) blur(2px);
+    transform:scale(1.012); transform-origin:center;
+    opacity:.6; will-change:filter,opacity,transform;
+    transition:filter 1s ease .25s, opacity 1s ease .25s, transform 1.2s ease .25s;
+  }
+  .map-shell.revealed .map-iframe{ filter:none; opacity:1; transform:scale(1); }
+
+  .origami{
+    position:absolute; inset:0; z-index:2; pointer-events:none;
+    display:grid;
+    transform-style:preserve-3d;
+  }
+  .origami.gone{ display:none; }
+  .ori-cell{ position:relative; transform-style:preserve-3d; }
+  /* hver celle = ett foldet papirark: to trekant-fasetter (lys + skygge) av samme farge */
+  .ori-tri{
+    position:absolute; inset:-0.6px;
+    opacity:1; backface-visibility:hidden;
+    transform:rotateX(0deg) translateZ(0);
+    transition:transform 1.05s cubic-bezier(.62,0,.22,1), opacity 1.05s ease;
+    transition-delay:var(--d);
+  }
+  .ori-tri.a{
+    clip-path:polygon(0 0, 100% 0, 0 100%); transform-origin:top center;
+    /* lys fasett — papiret fanger lyset */
+    background:linear-gradient(135deg, rgba(255,255,255,.34), rgba(255,255,255,.04) 60%, rgba(0,0,0,.04)), var(--tc, #ECE4D6);
+  }
+  .ori-tri.b{
+    clip-path:polygon(100% 0, 100% 100%, 0 100%); transform-origin:bottom center;
+    /* skygge-fasett — den andre halvdelen av bretten */
+    background:linear-gradient(135deg, rgba(0,0,0,.02), rgba(0,0,0,.10) 55%, rgba(0,0,0,.22)), var(--tc, #ECE4D6);
+  }
+  .map-shell.revealed .ori-tri.a{ transform:rotateX(-102deg) translateZ(0); opacity:0; }
+  .map-shell.revealed .ori-tri.b{ transform:rotateX(102deg)  translateZ(0); opacity:0; }
+
+  @media (prefers-reduced-motion: reduce){
+    .map-iframe{ filter:none; opacity:1; transform:none; transition:none; }
+    .origami{ display:none; }
+  }
+
+  /* Arealer &amp; rom-dropdown i nav */
+  .nav-dd{ position:relative; display:inline-flex; align-items:center; }
+  .nav-dd-btn{
+    display:inline-flex; align-items:center; gap:6px;
+    background:none; border:0; cursor:pointer; font-family:inherit;
+    font-size:14px; font-weight:500; color:var(--ink-soft);
+    padding:6px 0; transition:color .2s;
+  }
+  .nav-dd-btn .dd-caret{ font-size:10px; transition:transform .2s; }
+  .nav-dd:hover .nav-dd-btn, .nav-dd-btn.active{ color:var(--ink); }
+  .nav-dd:hover .dd-caret{ transform:rotate(180deg); }
+  .nav-dd::after{ content:''; position:absolute; top:100%; left:0; right:0; height:14px; }
+  .nav-dd-menu{
+    position:absolute; top:100%; left:50%; transform:translateX(-50%) translateY(10px);
+    min-width:190px; background:var(--card,#fff); border:1px solid var(--line,#E6E0D5);
+    border-radius:14px; padding:8px; display:flex; flex-direction:column; gap:2px;
+    box-shadow:0 18px 40px -18px rgba(0,0,0,.28);
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease; z-index:60;
+  }
+  .nav-dd:hover .nav-dd-menu{ opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(8px); }
+@media (max-width: 600px){
+  .nav-dd-menu{ left:0; transform:translateY(10px); }
+  .nav-dd:hover .nav-dd-menu{ transform:translateY(8px); }
+}
+  .nav-dd-menu a{
+    display:block; padding:10px 14px; border-radius:9px;
+    font-size:14px; font-weight:500; color:var(--ink-soft); text-decoration:none;
+    white-space:nowrap; transition:background .15s, color .15s;
+  }
+  .nav-dd-menu a::after{ display:none !important; }
+  .nav-dd-menu a:hover{ background:var(--bg-soft,#F2EDE3); color:var(--ink); }
+</style>
+
+<!-- ===== SEO / sosial deling (lagt til ved produksjonsklargjøring) ===== -->
+<meta name="description" content="Oversikt over alle innovasjonsmiljøer og studentorganisasjoner ved NTNU i Trondheim tilknyttet FRAM — fra dronebygging og AI til entreprenørskap og design."/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://www.framntnu.no/miljoer"/>
+<meta name="theme-color" content="#FAF7F2"/>
+<meta name="author" content="FRAM NTNU"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="FRAM NTNU"/>
+<meta property="og:locale" content="nb_NO"/>
+<meta property="og:title" content="Innovasjonsmiljøene ved NTNU — FRAM"/>
+<meta property="og:description" content="Oversikt over alle innovasjonsmiljøer og studentorganisasjoner ved NTNU i Trondheim tilknyttet FRAM — fra dronebygging og AI til entreprenørskap og design."/>
+<meta property="og:url" content="https://www.framntnu.no/miljoer"/>
+<meta property="og:image" content="https://www.framntnu.no/assets/og-fram.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Innovasjonsmiljøene ved NTNU — FRAM"/>
+<meta name="twitter:description" content="Oversikt over alle innovasjonsmiljøer og studentorganisasjoner ved NTNU i Trondheim tilknyttet FRAM — fra dronebygging og AI til entreprenørskap og design."/>
+<meta name="twitter:image" content="https://www.framntnu.no/assets/og-fram.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"/>
+<link rel="icon" type="image/webp" href="assets/fram-symbol.webp"/>
+<link rel="apple-touch-icon" href="assets/favicon-180.png"/>
+<link rel="stylesheet" href="assets/site.css"/>
+  <script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Hjem", "item": "https://www.framntnu.no/"},
+    {"@type": "ListItem", "position": 2, "name": "Innovasjonsmiljøene", "item": "https://www.framntnu.no/miljoer"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Innovasjonsmiljøene og studentorganisasjonene ved NTNU",
+  "description": "Studentorganisasjoner i innovasjonsmiljøet ved NTNU i Trondheim, tilknyttet FRAM NTNU.",
+  "url": "https://www.framntnu.no/miljoer",
+  "numberOfItems": 29,
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "item": {"@type": "Organization", "name": "Ascend NTNU"}},
+    {"@type": "ListItem", "position": 2, "item": {"@type": "Organization", "name": "Boost Henne"}},
+    {"@type": "ListItem", "position": 3, "item": {"@type": "Organization", "name": "BRAIN NTNU"}},
+    {"@type": "ListItem", "position": 4, "item": {"@type": "Organization", "name": "Cogito"}},
+    {"@type": "ListItem", "position": 5, "item": {"@type": "Organization", "name": "Designhjelpen"}},
+    {"@type": "ListItem", "position": 6, "item": {"@type": "Organization", "name": "DRIV NTNU"}},
+    {"@type": "ListItem", "position": 7, "item": {"@type": "Organization", "name": "Entreprenørskolen"}},
+    {"@type": "ListItem", "position": 8, "item": {"@type": "Organization", "name": "Fuel Fighter"}},
+    {"@type": "ListItem", "position": 9, "item": {"@type": "Organization", "name": "Gridville"}},
+    {"@type": "ListItem", "position": 10, "item": {"@type": "Organization", "name": "Gründerbrakka"}},
+    {"@type": "ListItem", "position": 11, "item": {"@type": "Organization", "name": "Hackerspace NTNU"}},
+    {"@type": "ListItem", "position": 12, "item": {"@type": "Organization", "name": "Ingeniører uten grenser"}},
+    {"@type": "ListItem", "position": 13, "item": {"@type": "Organization", "name": "Innovatio"}},
+    {"@type": "ListItem", "position": 14, "item": {"@type": "Organization", "name": "Make NTNU"}},
+    {"@type": "ListItem", "position": 15, "item": {"@type": "Organization", "name": "Njord"}},
+    {"@type": "ListItem", "position": 16, "item": {"@type": "Organization", "name": "Nordlys"}},
+    {"@type": "ListItem", "position": 17, "item": {"@type": "Organization", "name": "NORSTEC"}},
+    {"@type": "ListItem", "position": 18, "item": {"@type": "Organization", "name": "NORSTEC Summit"}},
+    {"@type": "ListItem", "position": 19, "item": {"@type": "Organization", "name": "Orbit NTNU"}},
+    {"@type": "ListItem", "position": 20, "item": {"@type": "Organization", "name": "Propulse NTNU"}},
+    {"@type": "ListItem", "position": 21, "item": {"@type": "Organization", "name": "Relu"}},
+    {"@type": "ListItem", "position": 22, "item": {"@type": "Organization", "name": "Revolve NTNU"}},
+    {"@type": "ListItem", "position": 23, "item": {"@type": "Organization", "name": "Solan"}},
+    {"@type": "ListItem", "position": 24, "item": {"@type": "Organization", "name": "Spark* NTNU"}},
+    {"@type": "ListItem", "position": 25, "item": {"@type": "Organization", "name": "Start NTNU"}},
+    {"@type": "ListItem", "position": 26, "item": {"@type": "Organization", "name": "Studio Beta"}},
+    {"@type": "ListItem", "position": 27, "item": {"@type": "Organization", "name": "Støttehjulet"}},
+    {"@type": "ListItem", "position": 28, "item": {"@type": "Organization", "name": "Vortex NTNU"}},
+    {"@type": "ListItem", "position": 29, "item": {"@type": "Organization", "name": "WIC"}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "FRAM NTNU",
+  "url": "https://www.framntnu.no",
+  "logo": "https://www.framntnu.no/assets/og-fram.png",
+  "description": "FRAM NTNU er NTNUs senter for studentinnovasjon — et fellesskap for studenter som vil skape noe.",
+  "sameAs": [
+    "https://www.instagram.com/framntnu/",
+    "https://www.facebook.com/framntnu",
+    "https://www.linkedin.com/company/framntnu/"
+  ]
+}
+</script>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap nav-inner">
+    <a href="/" class="logo">
+      <img width="400" height="142" decoding="async" src="assets/fram-logo.webp" alt="FRAM NTNU">
+    </a>
+    <div class="nav-links">
+      <a href="/">Utforsk</a>
+        <div class="nav-dd">
+        <button class="nav-dd-btn" type="button">Arrangementer <span class="dd-caret" aria-hidden="true">▾</span></button>
+        <div class="nav-dd-menu">
+          <a href="innovasjonsdagene">Innovasjonsdagene</a>
+          <a href="arrangementer#koble">Koble</a>
+          <a href="arrangementer">Alle arrangementer</a>
+        </div>
+      </div>
+      <a href="miljoer" class="active">Miljøene</a>
+      <a href="booking">Booking</a>
+      <div class="nav-dd">
+        <button class="nav-dd-btn" type="button">Arealer &amp; rom <span class="dd-caret" aria-hidden="true">▾</span></button>
+        <div class="nav-dd-menu">
+          <a href="https://www.gruvantnu.no/" target="_blank" rel="noopener">Gruva</a>
+          <a href="idegarasjen">Idégarasjen</a>
+        </div>
+      </div>
+      <a href="om">Om Fram</a>
+    </div>
+  </div>
+</nav>
+
+
+<header class="page">
+  <div class="wrap">
+    <div class="text-col">
+      <h1>Innovasjonsmiljøet ved <span class="b" style="color:#000">NTNU</span>.</h1>
+      <p class="lede">FRAM samler studentorganisasjonene innen innovasjon og entreprenørskap ved NTNU — fra robotikk og kunstig intelligens til design og gründerskap. Miljøene gir studenter muligheten til å jobbe med reelle prosjekter, bygge nettverk og utvikle ferdigheter ved siden av studiene i Trondheim.</p>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num y">30</div>
+          <div class="stat-lab">organisasjoner</div>
+        </div>
+        <div class="stat-div" aria-hidden="true"></div>
+        <div class="stat">
+          <div class="stat-num b">1000+</div>
+          <div class="stat-lab">aktive studenter</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ FINN DITT MILJØ (interesse-matcher · UTKAST front-end) ============ -->
+<style id="fm-styles">
+  /* Knapp i verktøylinja */
+  .grid-toggle{ flex-wrap:wrap; row-gap:12px; }
+  .fm-open{
+    margin-left:auto; display:inline-flex; align-items:center; gap:7px;
+    border:none; background:var(--blue); color:#fff; cursor:pointer;
+    font-family:'Poppins','Poppins Fallback',sans-serif; font-weight:600; font-size:14px;
+    padding:10px 18px; border-radius:999px;
+    box-shadow:0 4px 14px color-mix(in srgb, var(--blue) 32%, transparent);
+    transition:background .2s ease, box-shadow .2s ease, transform .12s ease;
+  }
+  .fm-open:hover{
+    background:color-mix(in srgb, var(--blue) 90%, #000);
+    box-shadow:0 7px 20px color-mix(in srgb, var(--blue) 42%, transparent);
+    transform:translateY(-1px);
+  }
+  .fm-open:active{ transform:translateY(0); }
+  /* lat liten twinkle på ✨ – eneste bevegelse, holder knappen nonchalant */
+  .fm-open .fm-spark{
+    font-size:14px; line-height:1; display:inline-block;
+    animation:fm-twinkle 3.4s ease-in-out infinite;
+  }
+  @keyframes fm-twinkle{
+    0%,100%{ opacity:.7; transform:scale(1) rotate(0deg); }
+    50%    { opacity:1;  transform:scale(1.18) rotate(10deg); }
+  }
+  @media (max-width:520px){ .fm-open{ margin-left:0; width:100%; justify-content:center; } }
+  @media (prefers-reduced-motion: reduce){ .fm-open .fm-spark{ animation:none; opacity:1; } }
+
+  /* Modal-vindu */
+  .fm-overlay{
+    display:none; position:fixed; inset:0; z-index:9999;
+    background:rgba(0,0,0,.55); align-items:flex-start; justify-content:center;
+    padding:6vh 20px 24px; overflow-y:auto;
+  }
+  .fm-overlay.open{ display:flex; }
+  .fm-modal{
+    background:var(--card); border-radius:var(--radius-l);
+    padding:34px 40px 30px; max-width:720px; width:100%;
+    box-shadow:0 20px 60px rgba(0,0,0,.25); position:relative; animation:fm-pop .24s ease;
+  }
+  @keyframes fm-pop{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:none; } }
+  @media (max-width:640px){ .fm-modal{ padding:28px 22px 24px; } }
+  .fm-close{
+    position:absolute; top:12px; right:16px; background:none; border:none;
+    font-size:1.7rem; line-height:1; cursor:pointer; color:var(--ink-soft); padding:4px;
+  }
+  .fm-close:hover{ color:var(--ink); }
+  .fm-lede{ margin:0 0 22px; color: var(--ink-soft); max-width:58ch; font-size:15px; line-height:1.5; }
+
+  .fm-form{ display:flex; gap:12px; align-items:stretch; }
+  @media (max-width:640px){ .fm-form{ flex-direction:column; } }
+  .fm-input{
+    flex:1; resize:none; font-family:inherit; font-size:16px; color:var(--ink);
+    background: var(--bg); border:1.5px solid var(--line); border-radius: var(--radius-m);
+    padding:14px 16px; line-height:1.45; transition:border-color .2s, box-shadow .2s;
+  }
+  .fm-input::placeholder{ color:var(--muted); }
+  .fm-input:focus{ outline:none; border-color: var(--blue); box-shadow:0 0 0 3px color-mix(in srgb, var(--blue) 18%, transparent); }
+  .fm-btn{
+    flex:0 0 auto; border:none; cursor:pointer; background: var(--ink); color:#fff;
+    font-family:inherit; font-weight:600; font-size:15px; padding:0 26px;
+    border-radius: var(--radius-m); min-height:54px; transition:transform .12s, background .2s, opacity .2s;
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  }
+  .fm-btn:hover{ background:#000; transform:translateY(-1px); }
+  .fm-btn:disabled{ opacity:.6; cursor:default; transform:none; }
+  .fm-spinner{
+    width:16px; height:16px; border:2px solid rgba(255,255,255,.35);
+    border-top-color:#fff; border-radius:50%; animation:fm-spin .7s linear infinite;
+  }
+  @keyframes fm-spin{ to{ transform:rotate(360deg); } }
+
+  .fm-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+  .fm-chip{
+    border:1px solid var(--line); background:transparent; cursor:pointer;
+    font-family:inherit; font-size:13px; color:var(--ink-soft);
+    padding:7px 13px; border-radius:999px; transition:border-color .18s, color .18s;
+  }
+  .fm-chip:hover{ border-color:var(--ink); color:var(--ink); }
+
+  .fm-results{ margin-top:26px; display:grid; gap:14px; }
+  .fm-results-head{ font-size:12px; font-weight:600; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; }
+  .fm-rescard{
+    display:block; text-decoration:none; color:inherit;
+    background: var(--bg); border:1px solid var(--line); border-left:4px solid var(--line);
+    border-radius: var(--radius-m); padding:18px 20px;
+    transition:transform .15s, box-shadow .2s;
+  }
+  .fm-rescard:hover{ transform:translateY(-2px); box-shadow:0 10px 30px rgba(0,0,0,.07); }
+  .fm-rescard[data-accent="yellow"]{ border-left-color:var(--yellow); }
+  .fm-rescard[data-accent="blue"]{   border-left-color:var(--blue); }
+  .fm-rescard[data-accent="red"]{    border-left-color:var(--red); }
+  .fm-rescard[data-accent="teal"]{   border-left-color:var(--teal); }
+  .fm-res-cat{ font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.04em; color:var(--muted); margin-bottom:5px; }
+  .fm-rescard h3{ margin:0 0 6px; font-size:18px; font-weight:700; }
+  .fm-res-grunn{ margin:0 0 10px; font-size:14px; color:var(--ink-soft); line-height:1.5; }
+  .fm-res-link{ font-size:13px; font-weight:600; color:var(--blue); }
+  .fm-empty{ font-size:14px; color:var(--ink-soft); }
+  .fm-note{ margin-top:4px; font-size:12px; color:var(--muted); }
+
+  /* ===== Framkompasset – emblem & branding (hero i modalen) ===== */
+  .fk-hero{
+    position:relative; overflow:hidden;
+    display:flex; align-items:center; gap:20px; margin-bottom:20px;
+    padding:22px 26px; border-radius:var(--radius-m);
+    background:
+      radial-gradient(110% 130% at 8% 0%, color-mix(in srgb, var(--blue) 9%, #fff) 0%, transparent 60%),
+      linear-gradient(135deg, #fbfdfe 0%, #f2f7fb 100%);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.9) inset, 0 16px 32px -24px rgba(16,36,58,.5);
+  }
+  /* navigasjons-/kartmotiv bak innholdet */
+  .fk-scenery{ position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+  .fk-hero > .fk-emblem, .fk-hero > .fk-brand{ position:relative; z-index:1; }
+  @media (max-width:560px){ .fk-hero{ flex-direction:column; text-align:center; gap:12px; padding:18px; } }
+  .fk-brand{ display:flex; flex-direction:column; min-width:0; }
+  .fk-kicker{ font-size:11px; letter-spacing:.16em; color:var(--ink-soft); margin-bottom:6px; }
+  .fk-name{
+    margin:0; font-size:34px; line-height:1; font-weight:800; letter-spacing:-.01em;
+    background:linear-gradient(95deg,#2E86C1 0%,#3FC4A3 100%);
+    -webkit-background-clip:text; background-clip:text;
+    color:transparent; -webkit-text-fill-color:transparent;
+  }
+  @media (max-width:560px){ .fk-name{ font-size:28px; } }
+
+  .fk-emblem{
+    flex:0 0 auto; width:86px; height:86px; position:relative; isolation:isolate;
+    filter:drop-shadow(0 10px 14px rgba(16,36,58,.3));
+    animation:fk-float 6s ease-in-out infinite;
+  }
+  .fk-emblem svg{ width:100%; height:100%; display:block; }
+  .fk-emblem::after{
+    content:""; position:absolute; inset:-16%; z-index:-1; border-radius:50%;
+    background:radial-gradient(closest-side, color-mix(in srgb,var(--blue) 45%, transparent), transparent 70%);
+    filter:blur(7px); animation:fk-pulse 4.5s ease-in-out infinite;
+  }
+  .fk-ring{ transform-box:view-box; transform-origin:50px 50px; animation:fk-spin 26s linear infinite; }
+  .fk-icon{ transform-box:view-box; transform-origin:50px 50px; animation:fk-rock 6s ease-in-out infinite; }
+
+  @keyframes fk-float{ 0%,100%{ transform:translateY(0) rotate(-1.5deg);} 50%{ transform:translateY(-6px) rotate(1.5deg);} }
+  @keyframes fk-spin{ to{ transform:rotate(360deg);} }
+  @keyframes fk-pulse{ 0%,100%{ opacity:.45; transform:scale(.92);} 50%{ opacity:.8; transform:scale(1.06);} }
+  @keyframes fk-rock{ 0%,100%{ transform:rotate(-3.5deg);} 50%{ transform:rotate(3.5deg);} }
+
+  @media (prefers-reduced-motion: reduce){
+    .fk-emblem, .fk-emblem::after, .fk-ring, .fk-icon{ animation:none; }
+  }
+</style>
+
+<div id="fm-modal" class="fm-overlay" role="dialog" aria-modal="true" aria-labelledby="fm-title">
+  <div class="fm-modal">
+    <button type="button" class="fm-close" id="fmClose" aria-label="Lukk">&times;</button>
+    <div class="fk-hero">
+      <svg class="fk-scenery" viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <!-- konsentriske kompassringer som buer inn fra høyre, som et sjøkart -->
+        <g fill="none" stroke="#2E86C1" stroke-opacity=".10" stroke-width="1.3">
+          <circle cx="398" cy="80" r="58"/>
+          <circle cx="398" cy="80" r="104"/>
+          <circle cx="398" cy="80" r="150"/>
+          <circle cx="398" cy="80" r="196"/>
+        </g>
+        <!-- en stiplet «breddegrad» i teal -->
+        <circle cx="398" cy="80" r="104" fill="none" stroke="#3FC4A3" stroke-opacity=".16" stroke-width="1.3" stroke-dasharray="2 7"/>
+        <!-- fine peilemarkører langs en akse -->
+        <g fill="#2E86C1" fill-opacity=".16">
+          <circle cx="340" cy="80" r="2"/>
+          <circle cx="294" cy="80" r="2"/>
+          <circle cx="248" cy="80" r="2"/>
+        </g>
+      </svg>
+      <div class="fk-emblem">
+        <svg viewBox="0 0 100 100" role="img" aria-label="Framkompasset – kompassrose med nål">
+          <defs>
+            <radialGradient id="fkBadge" cx="50%" cy="34%" r="74%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="100%" stop-color="#e8eef3"/>
+            </radialGradient>
+            <linearGradient id="fkOri" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#3FC4A3"/>
+              <stop offset="55%" stop-color="#2E86C1"/>
+              <stop offset="100%" stop-color="#1E5C86"/>
+            </linearGradient>
+          </defs>
+          <g class="fk-ring">
+            <circle cx="50" cy="50" r="47" fill="none" stroke="#0c2236" stroke-opacity=".22" stroke-width="3"/>
+            <g fill="#0c2236">
+              <circle cx="50" cy="3" r="2.2"/><circle cx="97" cy="50" r="2.2"/>
+              <circle cx="50" cy="97" r="2.2"/><circle cx="3" cy="50" r="2.2"/>
+            </g>
+          </g>
+          <g stroke="#0c2236" stroke-opacity=".22" stroke-width=".4" stroke-linejoin="round">
+            <g transform="rotate(45 50 50)"><path d="M50,18 L47,44.5 L50,50 Z" fill="#D6DEE5"/><path d="M50,18 L53,44.5 L50,50 Z" fill="#AEB9C4"/></g>
+            <g transform="rotate(135 50 50)"><path d="M50,18 L47,44.5 L50,50 Z" fill="#D6DEE5"/><path d="M50,18 L53,44.5 L50,50 Z" fill="#AEB9C4"/></g>
+            <g transform="rotate(225 50 50)"><path d="M50,18 L47,44.5 L50,50 Z" fill="#D6DEE5"/><path d="M50,18 L53,44.5 L50,50 Z" fill="#AEB9C4"/></g>
+            <g transform="rotate(315 50 50)"><path d="M50,18 L47,44.5 L50,50 Z" fill="#D6DEE5"/><path d="M50,18 L53,44.5 L50,50 Z" fill="#AEB9C4"/></g>
+            <g transform="rotate(0 50 50)"><path d="M50,9 L45.5,44 L50,50 Z" fill="#F18F8D"/><path d="M50,9 L54.5,44 L50,50 Z" fill="#E85A5A"/></g>
+            <g transform="rotate(90 50 50)"><path d="M50,9 L45.5,44 L50,50 Z" fill="#69ACDA"/><path d="M50,9 L54.5,44 L50,50 Z" fill="#2E86C1"/></g>
+            <g transform="rotate(180 50 50)"><path d="M50,9 L45.5,44 L50,50 Z" fill="#7CD8C0"/><path d="M50,9 L54.5,44 L50,50 Z" fill="#3FC4A3"/></g>
+            <g transform="rotate(270 50 50)"><path d="M50,9 L45.5,44 L50,50 Z" fill="#FCD667"/><path d="M50,9 L54.5,44 L50,50 Z" fill="#EBAE20"/></g>
+          </g>
+          <circle cx="50" cy="50" r="16.5" fill="url(#fkBadge)"/>
+          <g class="fk-icon">
+            <svg x="36.5" y="39.5" width="24" height="24" viewBox="76 76 848 848">
+              <polygon fill="url(#fkOri)" points="712.1,924.1 500.3,712.2 500.3,288.6 712.1,500.5"/>
+              <polygon fill="url(#fkOri)" points="76.5,288.6 288.4,500.5 712.1,500.5 500.2,288.6"/>
+              <polygon fill="url(#fkOri)" points="924,712.3 712.1,500.4 712.1,76.8 924,288.7"/>
+              <polygon fill="url(#fkOri)" points="288.4,76.8 500.3,288.7 924,288.7 712.1,76.8"/>
+              <polygon fill="#16415f" points="712.1,500.5 500.3,537.1 500.3,500.6"/>
+              <polygon fill="#16415f" points="924,288.6 712.1,325.2 712.1,288.7"/>
+            </svg>
+          </g>
+          <circle cx="50" cy="50" r="16.5" fill="none" stroke="#0c2236" stroke-opacity=".22" stroke-width="1.3"/>
+          <circle cx="50" cy="50" r="15.3" fill="none" stroke="#0c2236" stroke-opacity=".07" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="fk-brand">
+        <span class="fk-kicker">FINN DITT MILJØ</span>
+        <h2 id="fm-title" class="fk-name">Framkompasset</h2>
+      </div>
+    </div>
+    <p class="fm-lede">Skriv hva du interesserer deg for, så peiler <strong>Framkompasset</strong> deg mot miljøene som passer best.</p>
+
+    <form class="fm-form" id="fmForm" autocomplete="off">
+      <textarea id="fmInput" class="fm-input" rows="3" maxlength="300"
+        placeholder="F.eks. «Jeg liker å bygge ting med hendene og er fascinert av romfart og elektronikk»"></textarea>
+      <button type="submit" class="fm-btn" id="fmBtn"><span class="fm-btn-text">Foreslå miljøer</span></button>
+    </form>
+
+    <div class="fm-chips" id="fmChips" aria-label="Eksempler på interesser">
+      <button type="button" class="fm-chip">romfart og raketter</button>
+      <button type="button" class="fm-chip">bærekraft og energi</button>
+      <button type="button" class="fm-chip">kunstig intelligens</button>
+      <button type="button" class="fm-chip">design og arkitektur</button>
+      <button type="button" class="fm-chip">entreprenørskap</button>
+    </div>
+
+    <div class="fm-results" id="fmResults" aria-live="polite" hidden></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   FINN DITT MILJØ — interesse-matcher (UTKAST · front-end)
+   Backend (/api/forslag) er IKKE koblet på ennå. Inntil da kjører
+   en enkel lokal nøkkelord-matcher som placeholder, slik at UI-et
+   kan testes nå. Når API-et er bygd: sett USE_API = true.
+   API forventes å svare med: { "forslag": [{ "navn": "...", "grunn": "..." }] }
+   ============================================================ */
+(function(){
+  function init(){
+    var form    = document.getElementById('fmForm');
+    var input   = document.getElementById('fmInput');
+    var btn     = document.getElementById('fmBtn');
+    var results = document.getElementById('fmResults');
+    var chips   = document.getElementById('fmChips');
+    var modal   = document.getElementById('fm-modal');
+    var openBtn = document.getElementById('fmOpen');
+    var closeBtn= document.getElementById('fmClose');
+    if(!form || !input || !results || !modal) return;
+
+    var USE_API = true; // /api/forslag (Claude Haiku 4.5); faller tilbake til lokal matcher ved feil
+
+    // ---------- Åpne / lukke modal ----------
+    var lastFocus = null;
+    function openModal(){
+      lastFocus = document.activeElement;
+      results.hidden = true;
+      results.innerHTML = '';
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(function(){ input.focus(); }, 60);
+      // Spor åpning i GoatCounter
+      if(window.goatcounter && window.goatcounter.count){
+        window.goatcounter.count({ path: 'framkompasset-open', title: 'Framkompasset – åpnet', event: true });
+      }
+    }
+    function closeModal(){
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+      if(lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    if(openBtn)  openBtn.addEventListener('click', openModal);
+    if(closeBtn) closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
+    document.addEventListener('keydown', function(e){
+      if(!modal.classList.contains('open')) return;
+      if(e.key === 'Escape'){ closeModal(); return; }
+      // Enkel fokus-felle: hold Tab innenfor modalen
+      if(e.key === 'Tab'){
+        var f = modal.querySelectorAll('button, [href], textarea, input, select');
+        if(!f.length) return;
+        var first = f[0], last = f[f.length - 1];
+        if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+        else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+      }
+    });
+
+    // Indeks over alle miljøkortene som allerede ligger på siden
+    var ORGS = [].slice.call(document.querySelectorAll('#paraply .org-card')).map(function(card){
+      var n = card.querySelector('h3'), k = card.querySelector('.org-cat'), d = card.querySelector('p');
+      return {
+        navn:   n ? n.textContent.trim() : '',
+        kat:    k ? k.textContent.trim() : '',
+        desc:   d ? d.textContent.trim() : '',
+        href:   card.getAttribute('href'),
+        accent: card.getAttribute('data-accent') || ''
+      };
+    }).filter(function(o){ return o.navn; });
+
+    function setLoading(on){
+      btn.disabled = on;
+      btn.innerHTML = on
+        ? '<span class="fm-spinner" aria-hidden="true"></span><span class="fm-btn-text">Tenker…</span>'
+        : '<span class="fm-btn-text">Foreslå miljøer</span>';
+    }
+
+    function esc(s){
+      return String(s).replace(/[&<>"]/g, function(c){
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];
+      });
+    }
+
+    function findOrg(navn){
+      var n = (navn || '').toLowerCase().trim();
+      var exact = ORGS.filter(function(o){ return o.navn.toLowerCase() === n; })[0];
+      if(exact) return exact;
+      return ORGS.filter(function(o){
+        var on = o.navn.toLowerCase();
+        return on.indexOf(n) !== -1 || n.indexOf(on) !== -1;
+      })[0] || null;
+    }
+
+    function render(forslag){
+      results.hidden = false;
+      if(!forslag || !forslag.length){
+        results.innerHTML = '<p class="fm-empty">Fant ingen tydelige treff – prøv å beskrive interessene dine med litt andre ord.</p>';
+        return;
+      }
+      var html = '<div class="fm-results-head">Forslag til deg</div>';
+      forslag.forEach(function(f){
+        var org = findOrg(f.navn);
+        if(!org) return;
+        html +=
+          '<a class="fm-rescard" data-accent="' + esc(org.accent) + '" href="' + esc(org.href) + '" target="_blank" rel="noopener">' +
+            (org.kat ? '<div class="fm-res-cat">' + esc(org.kat) + '</div>' : '') +
+            '<h3>' + esc(org.navn) + '</h3>' +
+            '<p class="fm-res-grunn">' + esc(f.grunn || org.desc) + '</p>' +
+            '<span class="fm-res-link">Besøk nettsiden →</span>' +
+          '</a>';
+      });
+      html += '<p class="fm-note">Forslagene er veiledende. Bla gjennom alle miljøene under for å se hele bildet.</p>';
+      results.innerHTML = html;
+      results.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    }
+
+    // Klient-side cache av frie søk (localStorage). Gjentatte/identiske søk og
+    // sidelastinger slipper API-kall helt. Versjonert nøkkel så cachen kan tømmes
+    // ved å bumpe v-tallet hvis matchingen endres vesentlig.
+    var LS_PREFIX = 'fram_forslag_v2:';
+    var LS_TTL = 14 * 24 * 60 * 60 * 1000; // 14 dager
+    function lsKey(text){ return LS_PREFIX + text.toLowerCase().replace(/\s+/g, ' ').trim(); }
+    function lsGet(key){
+      try {
+        var raw = localStorage.getItem(key);
+        if(!raw) return null;
+        var o = JSON.parse(raw);
+        if(!o || (Date.now() - o.t) > LS_TTL){ localStorage.removeItem(key); return null; }
+        return o.f;
+      } catch(e){ return null; }
+    }
+    function lsSet(key, forslag){
+      try { localStorage.setItem(key, JSON.stringify({ t: Date.now(), f: forslag })); } catch(e){}
+    }
+
+    var pending = false; // in-flight-sperre mot dobbeltkall
+
+    // Pre-cachet svar for de 5 chip-forslagene – ingen API-kall nødvendig
+    var CACHE = {
+      'romfart og raketter': [
+        { navn: 'Orbit NTNU',    grunn: 'Bygger CubeSat-satellitter – første student-satellitt i bane fra NTNU.' },
+        { navn: 'Propulse NTNU', grunn: 'Designer, bygger og skyter opp væskedrevne forskningsraketter.' },
+        { navn: 'Ascend NTNU',   grunn: 'Konkurrerer i internasjonale drone-konkurranser med autonome systemer.' }
+      ],
+      'bærekraft og energi': [
+        { navn: 'Gridville',              grunn: 'Studentprosjekter på fornybar energi, mikronett og smart strømforsyning.' },
+        { navn: 'Fuel Fighter',           grunn: 'Bygger ultra-energieffektive kjøretøy til Shell Eco-marathon.' },
+        { navn: 'Ingeniører uten grenser', grunn: 'Teknisk bistand i utviklingsland – rent vann, skoler og energiprosjekter.' }
+      ],
+      'kunstig intelligens': [
+        { navn: 'Cogito',     grunn: 'Utvikler AI-løsninger og bygger erfaring gjennom semesterprosjekter.' },
+        { navn: 'Relu',       grunn: 'Utvikler AI-løsninger i samarbeid med næringslivet.' },
+        { navn: 'BRAIN NTNU', grunn: 'Arrangerer hackathons, foredrag og møteplasser innen kunstig intelligens.' }
+      ],
+      'design og arkitektur': [
+        { navn: 'Designhjelpen', grunn: 'Designstudenter hjelper andre orgs og oppstarter med visuell identitet, web og UX.' },
+        { navn: 'Studio Beta',   grunn: 'Studentdrevet arkitektur- og designstudio. Byggeprosjekter i full skala og prototyper.' },
+        { navn: 'Make NTNU',     grunn: 'Gir studenter tilgang til verktøy, utstyr og kompetanse for å bygge egne prosjekter.' }
+      ],
+      'entreprenørskap': [
+        { navn: 'Start NTNU',        grunn: 'Norges største studentorganisasjon for entreprenørskap – Startup Weekend og pitch-kvelder.' },
+        { navn: 'Entreprenørskolen', grunn: 'NTNUs master i entreprenørskap der du bygger et reelt selskap som eksamen.' },
+        { navn: 'DRIV NTNU',         grunn: 'Studentorganisasjon for de som vil starte og drive egne prosjekter og selskaper.' }
+      ]
+    };
+
+    // Ekte backend-kall (kobles på senere)
+    function askApi(text){
+      return fetch('/api/forslag', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ interesser: text })
+      }).then(function(r){
+        if(!r.ok) throw new Error('api');
+        return r.json();
+      }).then(function(data){ return data.forslag || []; });
+    }
+
+    // Lokal placeholder-matcher (til API-et er klart).
+    // Vanlige norske fyllord filtreres bort så de ikke matcher beskrivelsene.
+    var STOP = {};
+    ('jeg meg min mitt vi oss vår vårt du deg din ditt han hun den det de dem som og eller men for ' +
+     'med uten til fra over under mot etter før har hadde være er var blir ble vil ville kan kunne ' +
+     'skal skulle må liker like glad interessert interesse interesser noe noen ting litt veldig mye ' +
+     'masse også samt der her hvor når hva hvem slik sånn jobbe holde drive lære lage bli inn ut opp ' +
+     'ned gjerne hjelpe hjelper andre gjøre rundt mer mest').split(' ').forEach(function(w){ STOP[w] = true; });
+
+    // Mapper interesse-ord (inkl. vanlige bøyninger) til nøkkelord i miljøene.
+    var SYNONYM = {
+      'rom':['rom'],'romfart':['rom'],'rakett':['rakett','rom'],'raketter':['rakett','rom'],'satellitt':['satellitt','rom'],'satellitter':['satellitt','rom'],
+      'drone':['drone','luft'],'droner':['drone','luft'],'fly':['luft'],
+      'ai':['ai'],'kunstig':['ai'],'intelligens':['ai'],'maskinlæring':['ai'],
+      'bygge':['makerspace'],'verksted':['makerspace'],'hendene':['makerspace'],'elektronikk':['makerspace','ai'],'lodde':['makerspace'],
+      'energi':['energi'],'bærekraft':['energi'],'miljø':['energi'],'bil':['bil','motorsport'],'biler':['bil','motorsport'],'motorsport':['motorsport'],
+      'hav':['hav'],'undervann':['undervann','hav'],'båt':['hav'],
+      'design':['design'],'arkitektur':['arkitektur'],'kreativ':['design','arkitektur'],
+      'helse':['helse'],'medisin':['helse'],
+      'entreprenør':['entreprenør','master'],'entreprenørskap':['entreprenør','master'],'startup':['entreprenør'],'gründer':['coworking','entreprenør'],
+      'kvinne':['kvinnenettverk'],'kvinner':['kvinnenettverk'],'jente':['kvinnenettverk'],
+      'humanitær':['humanitær'],'humanitært':['humanitær'],'frivillig':['humanitær'],'bistand':['humanitær'],
+      'konsulent':['konsulent'],'organisasjon':['konsulent','organisasjon'],
+      'arrangement':['arrangør'],'arrangere':['arrangør'],'event':['arrangør']
+    };
+
+    function localMatch(text){
+      var words = text.toLowerCase().split(/[^a-zæøå]+/).filter(function(w){ return w.length > 2 && !STOP[w]; });
+      var terms = {};
+      words.forEach(function(w){ (SYNONYM[w] || [w]).forEach(function(t){ terms[t] = true; }); });
+
+      // Ordgrense-matching unngår at korte ord (f.eks. «rom») treffer inni andre ord.
+      var rx = Object.keys(terms).map(function(t){
+        return new RegExp('\\b' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+      });
+
+      var scored = ORGS.map(function(o){
+        var hay = (o.navn + ' ' + o.kat + ' ' + o.desc).toLowerCase();
+        var score = 0;
+        rx.forEach(function(r){ if(r.test(hay)) score += 1; });
+        return { org:o, score:score };
+      }).filter(function(s){ return s.score > 0; });
+
+      scored.sort(function(a,b){ return b.score - a.score; });
+      return scored.slice(0,4).map(function(s){ return { navn:s.org.navn, grunn:s.org.desc }; });
+    }
+
+    function submit(text){
+      text = (text || '').trim();
+      if(!text){ input.focus(); return; }
+      if(pending) return;                            // hindrer dobbeltkall
+      // Spor kjøring i GoatCounter (ekte bruk – uansett cache/API)
+      if(window.goatcounter && window.goatcounter.count){
+        window.goatcounter.count({ path: 'framkompasset-run', title: 'Framkompasset – kjørt søk', event: true });
+      }
+      if(CACHE[text]){ render(CACHE[text]); return; } // pre-cachede chip-svar
+
+      var key = lsKey(text);
+      var hit = lsGet(key);
+      if(hit){ render(hit); return; }                // localStorage-treff
+
+      pending = true;
+      setLoading(true);
+      var done = function(){ pending = false; setLoading(false); };
+      if(USE_API){
+        askApi(text)
+          .then(function(forslag){ lsSet(key, forslag); return forslag; }) // cache kun ekte API-svar
+          .catch(function(){ return localMatch(text); })                   // fallback caches ikke
+          .then(render).then(done).catch(done);
+      } else {
+        new Promise(function(res){ setTimeout(function(){ res(localMatch(text)); }, 450); })
+          .then(render).then(done).catch(done);
+      }
+    }
+
+    form.addEventListener('submit', function(e){ e.preventDefault(); submit(input.value); });
+    if(chips){
+      chips.addEventListener('click', function(e){
+        var c = e.target.closest('.fm-chip');
+        if(!c) return;
+        input.value = c.textContent.trim();
+        submit(input.value);
+      });
+    }
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else { init(); }
+})();
+</script>
+
+<!-- ============ ORGANISASJONENE ============ -->
+<section id="paraply">
+  <div class="wrap">
+    <div class="grid-toggle">
+      <span class="gt-label">Vis først</span>
+      <div class="gt-seg" role="group" aria-label="Vis først">
+        <button type="button" class="gt-btn active" data-mode="photo">Bilder</button>
+        <button type="button" class="gt-btn" data-mode="logo">Logoer</button>
+      </div>
+      <button type="button" class="fm-open" id="fmOpen" aria-haspopup="dialog">
+        <span class="fm-spark" aria-hidden="true">✨</span>Finn din match
+      </button>
+    </div>
+
+    <div class="org-grid">
+
+      <a class="org-card" data-accent="yellow" href="https://www.ascendntnu.no" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="469" height="590" loading="lazy" decoding="async" class="org-logo tall" src="assets/logos/ascend.webp" alt="Ascend NTNU">
+          <img width="1920" height="1280" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/ascend.webp" alt="Ascend-drone på bakken">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Luft · Droner</div>
+          <h3>Ascend NTNU</h3>
+          <p>Konkurrerer i internasjonale drone-konkurranser med autonome systemer.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="red" href="https://www.boosthenne.no" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="200" height="87" loading="lazy" decoding="async" class="org-logo" src="assets/logos/boosthenne.webp" alt="Boost Henne">
+          <img width="1423" height="1105" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/boosthenne.webp" alt="Boost Henne-arrangement" style="object-position:center top;">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Kvinnenettverk</div>
+          <h3>Boost Henne</h3>
+          <p>Kvinnenettverk for studenter som vil inn i entreprenørskap. Rollemodeller, mentorer og events.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="teal" href="https://www.brainntnu.no" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="1920" height="620" loading="lazy" decoding="async" class="org-logo" src="assets/partners/brain-ntnu.webp" alt="BRAIN NTNU">
+          <img width="1400" height="788" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/brain.webp" alt="BRAIN NTNU-teamet">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">AI · Teknologi</div>
+          <h3>BRAIN NTNU</h3>
+          <p>Arrangerer hackathons, foredrag og møteplasser innen kunstig intelligens.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="yellow" href="https://www.cogito-ntnu.no/" target="_blank" rel="noopener">
+        <div class="org-media dark">
+          <img width="1234" height="1069" loading="lazy" decoding="async" class="org-logo" src="assets/logos/cogito-white.webp" alt="Cogito">
+          <img width="800" height="450" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/cogito.webp" alt="Cogito-teamet">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">AI · Prosjekter</div>
+          <h3>Cogito</h3>
+          <p>Utvikler AI-løsninger og bygger erfaring gjennom semesterprosjekter.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="teal" href="https://www.designhjelpen.no" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="147" height="174" loading="lazy" decoding="async" class="org-logo big" src="assets/logos/designhjelpen.webp" alt="Designhjelpen">
+          <img width="1482" height="1048" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/designhjelpen.avif" alt="Designhjelpen-teamet">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Konsulent · Design</div>
+          <h3>Designhjelpen</h3>
+          <p>Designstudenter hjelper andre orgs og oppstarter med visuell identitet, web og UX.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="red" href="https://www.instagram.com/drivntnu" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="1000" height="528" loading="lazy" decoding="async" class="org-logo" src="assets/logos/driv.webp" alt="DRIV NTNU">
+          <img width="1920" height="1094" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/driv.webp" alt="DRIV NTNU-aktivitet">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Helse · Innovasjon</div>
+          <h3>DRIV NTNU</h3>
+          <p>Kobler studenter med reelle helseutfordringer og et tverrfaglig innovasjonsmiljø.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="red" href="https://www.entreprenorskolen.no/" target="_blank" rel="noopener">
+        <div class="org-media" style="background:#fff;">
+          <img width="622" height="158" loading="lazy" decoding="async" class="org-logo" src="assets/logos/entreprenorskolen.webp" alt="NTNU School of Entrepreneurship">
+          <img width="960" height="380" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/entreprenorskolen.webp" alt="Entreprenørskolen" style="object-fit:contain;">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Master</div>
+          <h3>Entreprenørskolen</h3>
+          <p>NTNUs master i entreprenørskap (NSE). To år der du bygger et reelt selskap som eksamen.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="teal" href="https://fuelfighter.no" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="421" height="134" loading="lazy" decoding="async" class="org-logo" src="assets/to/fuelfighter.webp" alt="Fuel Fighter">
+          <img width="1080" height="540" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/fuelfighter.webp" alt="Fuel Fighter-teamet med kjøretøy">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Energi · Bil</div>
+          <h3>Fuel Fighter</h3>
+          <p>Bygger ultra-energieffektive kjøretøy til Shell Eco-marathon.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="yellow" href="https://www.gridvillentnu.com/" target="_blank" rel="noopener">
+        <div class="org-media dark">
+          <img width="1500" height="545" loading="lazy" decoding="async" class="org-logo" src="assets/logos/gridville-white2.webp" alt="Gridville">
+          <img width="1920" height="1281" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/gridville.webp" alt="Gridville-teamet">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Energi · Nett</div>
+          <h3>Gridville</h3>
+          <p>Studentprosjekter på fornybar energi, mikro­nett og smart strømforsyning.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="blue" href="https://www.grunderbrakka.no" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="500" height="113" loading="lazy" decoding="async" class="org-logo" src="assets/logos/grunderbrakka.webp" alt="Gründerbrakka">
+          <img width="1920" height="1440" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/grunderbrakka.webp" alt="Gründerbrakka lokalene">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Coworking</div>
+          <h3>Gründerbrakka</h3>
+          <p>Coworking-plass for ambisiøse oppstarter. Faste kontorplasser og investor­nettverk.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="teal" href="https://www.hackerspace-ntnu.no" target="_blank" rel="noopener">
+        <div class="org-media dark">
+          <img width="1971" height="420" loading="lazy" decoding="async" class="org-logo big" src="assets/logos/hackerspace.webp" alt="Hackerspace NTNU">
+          <img width="960" height="548" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/hackerspace.webp" alt="Hackerspace NTNU-lokalet">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Makerspace</div>
+          <h3>Hackerspace NTNU</h3>
+          <p>Studentdrevet makerspace — lodding, 3D-print, software-prosjekter og workshops.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="yellow" href="https://iug.no/om-oss/lokalavdelinger/iug-ntnu" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="1920" height="496" loading="lazy" decoding="async" class="org-logo" src="assets/logos/iug.webp" alt="Ingeniører uten grenser">
+          <img width="1000" height="664" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/iug.webp" alt="Ingeniører uten grenser-prosjekt">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Humanitær</div>
+          <h3>Ingeniører uten grenser</h3>
+          <p>Teknisk bistand og prosjekter i utviklingsland — rent vann, skoler, energi.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="red" href="https://www.instagram.com/innovationtnu/" target="_blank" rel="noopener">
+        <div class="org-media dark-navy">
+          <img width="1080" height="1350" loading="lazy" decoding="async" class="org-logo big-tall" src="assets/logos/innovatio.webp" alt="Innovatio">
+          <img width="1744" height="1172" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/innovatio.webp" alt="Innovatio-teamet">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Linjeforening</div>
+          <h3>Innovatio</h3>
+          <p>Linjeforeningen for masterprogrammet i Innovasjon og bærekraftig samfunnsutvikling ved NTNU i Trondheim.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="teal" href="https://makentnu.no" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="1920" height="215" loading="lazy" decoding="async" class="org-logo" src="assets/logos/make.webp" alt="Make NTNU">
+          <img width="1920" height="1200" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/make.webp" alt="Make NTNU 3D-printere">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Makerspace</div>
+          <h3>Make NTNU</h3>
+          <p>Gir studenter tilgang til verktøy, utstyr og kompetanse for å bygge egne prosjekter.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="blue" href="https://www.njordntnu.no" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="369" height="191" loading="lazy" decoding="async" class="org-logo big" src="assets/to/njord.webp" alt="Njord">
+          <img width="1920" height="1143" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/njord.webp" alt="Njord autonome fartøy på vannet">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Hav · Autonomi</div>
+          <h3>Njord</h3>
+          <p>Arrangerer en internasjonal konkurranse for selvstyrte skip, og bygger sine egne autonome fartøy.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="red" href="https://www.nordlysntnu.no" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="1920" height="626" loading="lazy" decoding="async" class="org-logo big" src="assets/logos/nordlys.webp" alt="Nordlys Solar Racing">
+          <img width="751" height="500" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/nordlys.webp" alt="Nordlys-teamet med solbil">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Energi · Bil</div>
+          <h3>Nordlys</h3>
+          <p>Bygger og konkurrerer med soldrevne racerbiler i internasjonale solbilløp.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="blue" href="https://www.norstec.no" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="1920" height="577" loading="lazy" decoding="async" class="org-logo" src="assets/logos/norstec.webp" alt="NORSTEC">
+          <img width="1200" height="800" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/norstec-ledere.webp" alt="NORSTEC-lederne foran anlegget">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Rom · Nettverk</div>
+          <h3>NORSTEC</h3>
+          <p>Forener studentorganisasjoner innen romteknologi og skaper nye muligheter gjennom samarbeid.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="blue" href="https://norstec.no/summit" target="_blank" rel="noopener">
+        <div class="org-media dark">
+          <img width="1915" height="652" loading="lazy" decoding="async" class="org-logo" src="assets/logos/norstec-summit-white.webp" alt="NORSTEC Summit" style="max-height:64px; margin-left:20px;">
+          <img width="4158" height="2208" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/norstec.webp" alt="NORSTEC romkonferanse">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Rom · Konferanse</div>
+          <h3>NORSTEC Summit</h3>
+          <p>Samler studenter, industri og myndigheter til Norges største studentdrevne romkonferanse.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="blue" href="https://www.orbitntnu.com" target="_blank" rel="noopener">
+        <div class="org-media dark">
+          <img width="977" height="458" loading="lazy" decoding="async" class="org-logo" src="assets/logos/orbit.webp" alt="Orbit NTNU">
+          <img width="1536" height="1154" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/orbit.webp" alt="Orbit-satellitt i bane">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Rom · Satellitter</div>
+          <h3>Orbit NTNU</h3>
+          <p>Bygger CubeSat-satellitter. Første student-satellitt i bane fra NTNU.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="blue" href="https://www.propulse.no" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="1099" height="640" loading="lazy" decoding="async" class="org-logo big" src="assets/logos/propulse.webp" alt="Propulse NTNU">
+          <img width="960" height="548" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/propulse.webp" alt="Propulse-rakett avduking">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Rom · Raketter</div>
+          <h3>Propulse NTNU</h3>
+          <p>Designer, bygger og skyter opp væskedrevne forskningsraketter.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="red" href="https://reluntnu.no/" target="_blank" rel="noopener">
+        <div class="org-media dark">
+          <img width="1500" height="445" loading="lazy" decoding="async" class="org-logo" src="assets/logos/relu.webp" alt="Relu">
+          <img width="2048" height="1368" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/relu.webp" alt="Relu-presentasjon">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">AI · Industri</div>
+          <h3>Relu</h3>
+          <p>Utvikler AI-løsninger i samarbeid med næringslivet.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="teal" href="https://www.revolve.no" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="383" height="470" loading="lazy" decoding="async" class="org-logo tall" src="assets/logos/revolve.webp" alt="Revolve NTNU">
+          <img width="1920" height="1134" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/revolve.webp" alt="Revolve-bil på banen">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Motorsport · Bil</div>
+          <h3>Revolve NTNU</h3>
+          <p>Formula Student — designer og bygger en ny elektrisk racerbil hvert år.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="teal" href="https://www.instagram.com/solanlinjeforening" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="2000" height="2000" loading="lazy" decoding="async" class="org-logo tall" src="assets/logos/solan-new.webp" alt="Solan Linjeforening">
+          <img width="960" height="718" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/solan.webp" alt="Solan Linjeforening-teamet">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Linjeforening</div>
+          <h3>Solan</h3>
+          <p>Linjeforeningen for Entreprenørskolen ved NTNU i Trondheim.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="blue" href="https://sparkntnu.no" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="240" height="100" loading="lazy" decoding="async" class="org-logo" src="assets/spark-logo.webp" alt="Spark NTNU">
+          <img width="1182" height="740" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/spark-org.webp" alt="Spark NTNU-arrangement" style="object-position:center top;">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Veiledning</div>
+          <h3>Spark* NTNU</h3>
+          <p>Gratis veiledningstjeneste for studenter med en forretningsidé — mentorer, workshops og et program fra post-it til pilot.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="yellow" href="https://www.startntnu.no" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="1080" height="360" loading="lazy" decoding="async" class="org-logo" src="assets/partners/start-ntnu.webp" alt="Start NTNU">
+          <img width="1000" height="600" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/start.webp" alt="Start IT-arrangement">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Arrangør</div>
+          <h3>Start NTNU</h3>
+          <p>Norges største studentorganisasjon for entreprenørskap. Startup Weekend, pitch-kvelder og karriere­events.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="blue" href="https://www.instagram.com/studiobeta/" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="1262" height="382" loading="lazy" decoding="async" class="org-logo" src="assets/logos/studiobeta.webp" alt="Studio Beta">
+          <img width="1820" height="1302" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/studiobeta.webp" alt="Studio Beta-byggeprosjekt">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Arkitektur</div>
+          <h3>Studio Beta</h3>
+          <p>Studentdrevet arkitektur- og designstudio. Byggeprosjekter i full skala og prototyper.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="yellow" href="https://www.stottehjulet.no/" target="_blank" rel="noopener">
+        <div class="org-media">
+          <img width="192" height="192" loading="lazy" decoding="async" class="org-logo big-tall" src="assets/logos/stottehjulet.webp" alt="Støttehjulet">
+          <img width="1036" height="742" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/stottehjulet.avif" alt="Støttehjulet-teamet">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Konsulent · Organisasjon</div>
+          <h3>Støttehjulet</h3>
+          <p>Hjelper organisasjoner med ledelse, samarbeid og organisasjonsutvikling.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="red" href="https://www.vortexntnu.no" target="_blank" rel="noopener">
+        <div class="org-media deeper">
+          <img width="528" height="175" loading="lazy" decoding="async" class="org-logo big" src="assets/to/ascend.webp" alt="Vortex NTNU">
+          <img width="1536" height="1024" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/vortex.webp" alt="Vortex ORCA undervannsfarkost">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Hav · Undervann</div>
+          <h3>Vortex NTNU</h3>
+          <p>Bygger autonome undervannsfarkoster (ROV/AUV) til internasjonale konkurranser.</p>
+        </div>
+      </a>
+
+      <a class="org-card" data-accent="yellow" href="https://www.instagram.com/wic_ntnu/" target="_blank" rel="noopener">
+        <div class="org-media dark">
+          <img width="664" height="288" loading="lazy" decoding="async" class="org-logo" src="assets/logos/wic.webp" alt="WIC — Women’s Investment Club">
+          <img width="1920" height="1280" loading="lazy" decoding="async" class="org-photo" src="assets/heroes/wic.webp" alt="WIC-arrangement">
+        </div>
+        <div class="org-body">
+          <div class="org-cat">Kvinnenettverk</div>
+          <h3>WIC</h3>
+          <p>Women’s Investment Club skaper møteplasser for kvinner med interesse for finans, investering og kapitalmarkeder.</p>
+        </div>
+      </a>
+
+    
+    </div>
+  </div>
+</section>
+
+<!-- ============ KART ============ -->
+<section id="kart" style="padding-top:48px;">
+  <div style="max-width:1640px; margin:0 auto; padding:0 32px;">
+    <div class="engage-map">
+      <div class="engage-map-head">
+        <img width="1454" height="1454" class="engage-map-logo" loading="lazy" decoding="async" src="assets/logos/engage.webp" alt="SFU Engage"/>
+        <div class="engage-map-text">
+          <div class="engage-map-cat">Fasilitator</div>
+          <div class="engage-map-name">SFU Engage</div>
+          <p>Senter for fremragende utdanning og fasilitator for innovasjonsmiljøet ved NTNU. Kartet under viser økosystemet av studentorganisasjoner, miljøer og muligheter.</p>
+        </div>
+        <a class="engage-map-link" href="https://engage-centre.no" target="_blank" rel="noopener">Les mer →</a>
+      </div>
+    <div class="map-wrap" style="position:relative; overflow:hidden; background:var(--bg-soft);">
+      <div class="map-shell" id="mapShell">
+        <iframe class="map-iframe" id="mapFrame" src="https://app.atlas.co/shared/0s38wVERSNnDjC86AZRL?index=0" title="Kart over organisasjonene" loading="eager" fetchpriority="high" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="map-frost" aria-hidden="true"></div>
+        <div class="origami" id="origami" aria-hidden="true"></div>
+      </div>
+      <button type="button" class="map-gate" onclick="this.closest('.map-wrap').classList.add('map-active')" aria-label="Aktiver kartet">
+        <span class="map-gate-label">Trykk for å utforske økosystemet</span>
+      </button>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BLI MEDLEM ============ -->
+<section id="bli-medlem">
+  <div class="wrap">
+    <div class="bm-layout">
+      <div class="bm-intro">
+        <h2>Hvordan bli <span class="b">medlem?</span></h2>
+        <p>De fleste organisasjonene i FRAM tar opp nye medlemmer hvert semester. Finn et miljø som interesserer deg, ta kontakt direkte med organisasjonen og følg med på opptak og arrangementer.</p>
+      </div>
+
+      <div class="bm-card">
+        <h3>Finner du ikke organisasjonen du leter etter — eller vil starte en ny?</h3>
+        <p>Ta kontakt med oss, så hjelper vi deg videre.</p>
+        <a href="mailto:framntnu@gmail.com" class="btn btn-ink">framntnu@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+
+<script>
+  (function(){
+    var grid = document.querySelector('.org-grid');
+    var btns = document.querySelectorAll('.gt-btn');
+    if(!grid || !btns.length) return;
+    function setActive(mode){
+      grid.classList.toggle('show-logos', mode === 'logo');
+      btns.forEach(function(b){ b.classList.toggle('active', b.dataset.mode === mode); });
+    }
+    var saved = localStorage.getItem('framOrgMode');
+    if(saved) setActive(saved);
+    btns.forEach(function(b){
+      b.addEventListener('click', function(){
+        var mode = b.dataset.mode;
+        setActive(mode);
+        localStorage.setItem('framOrgMode', mode);
+      });
+    });
+  })();
+</script>
+
+
+<footer>
+  <div class="wrap">
+    <div class="foot-main">
+
+      <div class="foot-left">
+        <div class="foot-brand">
+          <img width="400" height="142" decoding="async" src="assets/fram-logo.webp" alt="FRAM NTNU"/>
+        </div>
+        <div class="foot-info">
+          Sem Sælands vei 1, 7034 Trondheim<br/>
+          <a href="mailto:framntnu@gmail.com">framntnu@gmail.com</a>
+        </div>
+        <div class="foot-socials">
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/framntnu/" target="_blank" rel="noopener" class="foot-social" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/framntnu" target="_blank" rel="noopener" class="foot-social" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/company/framntnu/" target="_blank" rel="noopener" class="foot-social" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <!-- YouTube -->
+          <a href="https://www.youtube.com/@FramNTNU" target="_blank" rel="noopener" class="foot-social" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <button onclick="document.getElementById('slack-modal').classList.add('open')" class="foot-social" aria-label="Slack">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52z" fill="#E01E5A"/><path d="M6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313z" fill="#E01E5A"/><path d="M8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834z" fill="#36C5F0"/><path d="M8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312z" fill="#36C5F0"/><path d="M18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834z" fill="#2EB67D"/><path d="M17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312z" fill="#2EB67D"/><path d="M15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52z" fill="#ECB22E"/><path d="M15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z" fill="#ECB22E"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="foot-partners">
+        <div class="foot-group-label">Samarbeidspartnere</div>
+        <div class="foot-partners-logos">
+          <img width="550" height="157" loading="lazy" decoding="async" src="assets/sparebank1SMNhvit.png" alt="SpareBank 1 SMN" class="sb1-logo"/>
+          <img width="500" height="198" loading="lazy" decoding="async" src="assets/partners/equinor.webp" alt="Equinor" class="eq-logo"/>
+          <img width="500" height="344" loading="lazy" decoding="async" src="assets/DNB_Logo.png" alt="DNB" class="dnb-logo"/>
+        </div>
+      </div>
+
+            <div class="foot-links">
+        <div class="foot-group">
+          <div class="foot-group-label">Sider</div>
+          <a href="miljoer">Miljøene</a>
+          <a href="arrangementer">Arrangementer</a>
+          <a href="booking">Book lokalene</a>
+          <a href="om">Om Fram</a>
+          <a href="innovasjonsdagene">Innovasjonsdagene</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="foot-bot">
+      <div>© 2015–2026 Fram NTNU</div>
+      <div class="ntnu-line" style="margin:0; padding:0; border:none;">
+        <span class="ntnu-label">Tilknyttet</span>
+        <span class="ntnu-logo" role="img" aria-label="NTNU"></span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ntnu-line{
+    display: flex; align-items: center; gap: 14px;
+  }
+  .ntnu-line .ntnu-label{
+    font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.16em;
+    text-transform:uppercase; color: var(--muted);
+  }
+  .ntnu-line .ntnu-logo{
+    height: 22px; width: auto; opacity: .75;
+  }
+</style>
+
+<script>
+  /* ---------- Origami-trekant fold-in over org-kartet (3s) ---------- */
+  (function(){
+    var shell = document.getElementById('mapShell');
+    var grid  = document.getElementById('origami');
+    if(!shell || !grid) return;
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var mobile = window.matchMedia && window.matchMedia('(max-width:760px)').matches;
+
+    var COLS = 9, ROWS = 5;
+    // FRAM-fargene i rene diagonale bånd (gul → korall → turkis → blå), som logoen
+    var BANDS = ['#FFD130','#E36672','#47B99F','#1385B3'];
+    grid.style.gridTemplateColumns = 'repeat(' + COLS + ',1fr)';
+    grid.style.gridTemplateRows    = 'repeat(' + ROWS + ',1fr)';
+
+    if(!reduce && !mobile){
+      var maxD = (COLS - 1) + (ROWS - 1);
+      var STAGGER = 0.9; // siste trekant starter etter 0,9s → + 1,05s fold ≈ 1,95s
+      for(var r=0; r<ROWS; r++){
+        for(var c=0; c<COLS; c++){
+          var cell = document.createElement('div');
+          cell.className = 'ori-cell';
+          var triA = document.createElement('div');
+          var triB = document.createElement('div');
+          triA.className = 'ori-tri a';
+          triB.className = 'ori-tri b';
+          // farge etter diagonal-bånd → rolige, sammenhengende fargesoner
+          var d = r + c;
+          var band = Math.min(BANDS.length - 1, Math.floor((d / (maxD + 1)) * BANDS.length));
+          var col = BANDS[band];
+          triA.style.setProperty('--tc', col);
+          triB.style.setProperty('--tc', col);
+          var base = (d / maxD) * STAGGER;
+          triA.style.setProperty('--d', base.toFixed(3) + 's');
+          triB.style.setProperty('--d', (base + 0.06).toFixed(3) + 's');
+          cell.appendChild(triA);
+          cell.appendChild(triB);
+          grid.appendChild(cell);
+        }
+      }
+    }
+
+    var revealed = false;
+    function reveal(){
+      if(revealed) return;
+      revealed = true;
+      shell.classList.add('revealed');
+      // fjern overlegget når foldingen er ferdig (~2s)
+      setTimeout(function(){ grid.classList.add('gone'); }, 2000);
+    }
+
+    if(reduce || mobile){ reveal(); return; }
+
+    // Når kartet scrolles inn i midten av skjermen: vent 1,5 sekunder
+    // (så kartet rekker å laste bak trekantene), og kjør så foldingen (~2s).
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          io.disconnect();
+          setTimeout(reveal, 1500);
+        }
+      });
+    }, { threshold: 0, rootMargin: '-35% 0px -35% 0px' });
+    io.observe(shell);
+  })();
+</script>
+
+<style>
+  /* Footer — Samarbeidspartnere + farger (oppdatert) */
+  .foot-partners{ display:flex; flex-direction:column; gap:12px; }
+  .foot-partners-logos{ display:flex; flex-direction:column; align-items:flex-start; gap:18px; }
+  .foot-partners-logos img{ height:26px; width:auto; opacity:1; filter:none; transition:opacity .2s, filter .2s; }
+  .foot-partners-logos img.eq-logo{ height:34px; }
+  .foot-partners-logos img.dnb-logo{ height:30px; margin-top:16px; }
+  .foot-partners-logos img.sb1-logo{ height:36px; margin-left:-8px; }
+  .foot-partners-logos img:hover{ opacity:1; filter:grayscale(0); }
+  .foot-brand img{ filter:saturate(.4); }
+  .foot-social[aria-label="Instagram"]{ color:#E1306C; }
+  .foot-social[aria-label="Facebook"]{ color:#1877F2; }
+  .foot-social[aria-label="LinkedIn"]{ color:#0A66C2; }
+  .foot-social[aria-label="Instagram"]:hover{ color:#E1306C; border-color:#E1306C; }
+  .foot-social[aria-label="Facebook"]:hover{ color:#1877F2; border-color:#1877F2; }
+  .foot-social[aria-label="LinkedIn"]:hover{ color:#0A66C2; border-color:#0A66C2; }
+  .foot-social[aria-label="YouTube"]{ color:#FF0000; }
+  .foot-social[aria-label="YouTube"]:hover{ color:#FF0000; border-color:#FF0000; }
+  .foot-social[aria-label="Slack"]:hover{ border-color:#4A154B; }
+  /* Slack-tilgangsmodal */
+  .slack-modal-overlay{
+    display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);
+    z-index:9999;align-items:center;justify-content:center;
+  }
+  .slack-modal-overlay.open{ display:flex; }
+  .slack-modal{
+    background:var(--card);border-radius:14px;padding:36px 32px 28px;max-width:380px;width:90%;
+    box-shadow:0 8px 40px rgba(0,0,0,.2);text-align:center;position:relative;
+  }
+  .slack-modal-close{
+    position:absolute;top:10px;right:14px;background:none;border:none;
+    font-size:1.5rem;cursor:pointer;color:var(--ink-soft);line-height:1;padding:4px;
+  }
+  .slack-modal-close:hover{ color:var(--ink); }
+  .slack-modal-icon{ width:44px;margin:0 auto 16px;display:block; }
+  .slack-modal h3{ margin:0 0 10px;font-size:1.1rem;color:var(--ink); }
+  .slack-modal p{ margin:0;color:var(--ink-soft);font-size:.95rem;line-height:1.6; }
+  button.foot-social{ font:inherit;cursor:pointer;background:var(--card);appearance:none; }
+  @media (max-width: 620px){ .foot-links{ display:none; } }
+  .ntnu-line .ntnu-logo{
+    display:inline-block; height:22px; width:116px; opacity:1;
+    background-color:#00509E;
+    -webkit-mask:url(assets/ntnu-logo-dark.webp) left center / contain no-repeat;
+    mask:url(assets/ntnu-logo-dark.webp) left center / contain no-repeat;
+  }
+</style>
+
+<script src="assets/site.js?v=2"></script>
+<div id="slack-modal" class="slack-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="slack-modal-title" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="slack-modal">
+    <button class="slack-modal-close" onclick="document.getElementById('slack-modal').classList.remove('open')" aria-label="Lukk">&times;</button>
+    <svg class="slack-modal-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52z" fill="#E01E5A"/><path d="M6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313z" fill="#E01E5A"/><path d="M8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834z" fill="#36C5F0"/><path d="M8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312z" fill="#36C5F0"/><path d="M18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834z" fill="#2EB67D"/><path d="M17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312z" fill="#2EB67D"/><path d="M15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52z" fill="#ECB22E"/><path d="M15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z" fill="#ECB22E"/></svg>
+    <h3 id="slack-modal-title">Kun for ledere</h3>
+    <p>Slacken er for tiden bare for lederne av våre medlemsorganisasjoner. Ønsker du tilgang, ta kontakt med oss.</p>
+  </div>
+</div>
+<script>document.addEventListener('keydown',function(e){if(e.key==='Escape')document.getElementById('slack-modal').classList.remove('open');});</script>
+</body></html>

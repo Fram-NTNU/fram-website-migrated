@@ -1,0 +1,21 @@
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@theme {
+  --font-sans: "Poppins", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --color-fram-teal: #47b99f;
+  --color-fram-blue: #1385b3;
+  --color-fram-red: #e36672;
+  --color-fram-yellow: #ffd130;
+  --color-fram-ink: #1e1e1e;
+  --color-fram-paper: #f7f4ee;
+  --breakpoint-nav: 56.25rem;
+}
+
+/* The legacy pages remain the visual source of truth during the parity phase.
+   Tailwind preflight is deliberately omitted so native element defaults do not
+   change before each section has been migrated and screenshot-verified. */
+.legacy-contents {
+  display: contents;
+}
