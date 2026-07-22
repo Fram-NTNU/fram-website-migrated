@@ -5,7 +5,6 @@ import path from "node:path";
 import type { Metadata } from "next";
 
 export const LEGACY_ROUTES = {
-  arrangementer: "arrangementer.html",
   miljoer: "miljoer.html",
 } as const;
 
