@@ -16,17 +16,18 @@ function Dropdown({ label, items, caretFontFamily, active = false }: DropdownPro
   const [open, setOpen] = useState(false);
 
   return (
-    <div className={`nav-dd group relative inline-flex items-center max-[900px]:block max-[900px]:w-full ${open ? "open" : ""}`}>
+    <div className={`nav-dd group relative inline-flex items-center after:absolute after:top-full after:right-0 after:left-0 after:h-3.5 after:content-[''] max-[900px]:block max-[900px]:w-full max-[900px]:after:hidden ${open ? "open" : ""}`}>
       <button
         type="button"
-        className={`nav-dd-btn inline-flex cursor-pointer items-center gap-1.5 border-0 bg-transparent px-0 py-1.5 font-sans text-sm leading-[normal] font-medium transition-colors hover:text-[var(--ink)] max-[900px]:w-full max-[900px]:justify-between max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:px-1 max-[900px]:py-[15px] max-[900px]:text-base ${active ? "text-[var(--ink)]" : "text-[var(--ink-soft)]"}`}
+        className={`nav-dd-btn inline-flex cursor-pointer items-center gap-1.5 border-0 bg-transparent px-0 py-1.5 font-sans text-sm leading-[normal] font-medium transition-colors hover:text-[var(--ink)] max-[900px]:w-full max-[900px]:justify-between max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:px-1 max-[900px]:py-[15px] max-[900px]:text-base ${active ? "!text-[var(--ink)]" : "text-[var(--ink-soft)]"}`}
         aria-expanded={open}
+        aria-current={active ? "page" : undefined}
         onClick={() => setOpen((value) => !value)}
       >
         {label}
         <span aria-hidden="true" style={{ fontFamily: caretFontFamily }} className={`dd-caret text-[10px] leading-[normal] [transition:transform_.2s] group-hover:[transform:rotate(180deg)] max-[900px]:group-hover:[transform:rotate(0deg)] ${open ? "max-[900px]:[transform:rotate(180deg)]" : ""}`}>▾</span>
       </button>
-      <div className={`nav-dd-menu invisible pointer-events-none absolute top-full left-1/2 z-[60] flex min-w-[190px] -translate-x-1/2 translate-y-2.5 flex-col gap-0.5 rounded-[14px] border border-[var(--line)] bg-[var(--card)] p-2 opacity-0 shadow-[0_18px_40px_-18px_rgba(0,0,0,.28)] transition-[opacity,transform] duration-200 group-hover:visible group-hover:pointer-events-auto group-hover:translate-y-2 group-hover:opacity-100 max-[900px]:static max-[900px]:min-w-0 max-[900px]:translate-x-0 max-[900px]:translate-y-0 max-[900px]:border-0 max-[900px]:bg-transparent max-[900px]:py-2 max-[900px]:pr-0 max-[900px]:pl-3 max-[900px]:shadow-none max-[900px]:group-hover:translate-y-0 ${open ? "max-[900px]:visible max-[900px]:pointer-events-auto max-[900px]:flex max-[900px]:opacity-100" : "max-[900px]:hidden"}`}>
+      <div className={`nav-dd-menu invisible pointer-events-none absolute top-full left-1/2 z-[60] flex min-w-[190px] -translate-x-1/2 translate-y-2.5 flex-col gap-0.5 rounded-[14px] border border-[var(--line)] bg-[var(--card)] p-2 opacity-0 shadow-[0_18px_40px_-18px_rgba(0,0,0,.28)] transition-[opacity,transform] duration-200 group-hover:visible group-hover:pointer-events-auto group-hover:translate-y-2 group-hover:opacity-100 max-[900px]:static max-[900px]:min-w-0 max-[900px]:translate-x-0 max-[900px]:translate-y-0 max-[900px]:border-0 max-[900px]:bg-transparent max-[900px]:py-2 max-[900px]:pr-0 max-[900px]:pl-3 max-[900px]:shadow-none max-[900px]:group-hover:translate-y-0 ${open ? "!visible !pointer-events-auto !translate-y-2 !opacity-100 max-[900px]:flex" : "max-[900px]:hidden"}`}>
         {items.map((item) => item.external ? (
           <a
             key={item.href}
@@ -60,7 +61,7 @@ export function SiteHeader({
   }, []);
 
   return (
-    <nav className="top sticky top-0 z-50 border-b border-[var(--line)] bg-[color-mix(in_oklab,var(--bg)_88%,transparent)] backdrop-blur-[14px]">
+    <nav className="top sticky top-0 z-50 border-b border-[var(--nav-border,var(--line))] bg-[color-mix(in_oklab,var(--nav-bg,var(--bg))_88%,transparent)] backdrop-blur-[14px]">
       <div className="nav-inner mx-auto flex h-[82px] max-w-[1360px] items-center justify-between px-12 max-[900px]:h-16 max-[900px]:px-5 max-[520px]:px-4">
         <Link href="/" className="logo flex items-center no-underline" aria-label="FRAM NTNU">
           {/* Plain img is retained deliberately during visual-parity migration. */}
@@ -70,19 +71,19 @@ export function SiteHeader({
         <div className={`nav-links flex items-center gap-8 text-sm font-medium max-[900px]:fixed max-[900px]:inset-x-0 max-[900px]:top-16 max-[900px]:z-40 max-[900px]:max-h-[calc(100vh-64px)] max-[900px]:flex-col max-[900px]:items-stretch max-[900px]:gap-0 max-[900px]:overflow-y-auto max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:bg-[var(--bg)] max-[900px]:px-5 max-[900px]:pt-2 max-[900px]:pb-5 max-[900px]:shadow-[0_24px_40px_-24px_rgba(0,0,0,.35)] max-[520px]:px-4 ${menuOpen ? "max-[900px]:translate-y-0 max-[900px]:opacity-100 max-[900px]:pointer-events-auto" : "max-[900px]:-translate-y-3 max-[900px]:opacity-0 max-[900px]:pointer-events-none"} max-[900px]:transition-[opacity,transform] max-[900px]:duration-200`} onClick={(event) => {
           if ((event.target as HTMLElement).closest("a")) setMenuOpen(false);
         }}>
-          <Link href="/" className={`${topLink} ${currentPath === "/" ? "text-[var(--ink)] after:scale-x-100" : ""}`}>Utforsk</Link>
-          <Dropdown caretFontFamily={caretFontFamily} label="Arrangementer" items={[
+          <Link href="/" aria-current={currentPath === "/" ? "page" : undefined} className={`${topLink} ${currentPath === "/" ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>Utforsk</Link>
+          <Dropdown active={currentPath === "/innovasjonsdagene" || currentPath === "/arrangementer"} caretFontFamily={caretFontFamily} label="Arrangementer" items={[
             { href: "/innovasjonsdagene", label: "Innovasjonsdagene" },
             { href: "/arrangementer#koble", label: "Koble" },
             { href: "/arrangementer", label: "Alle arrangementer" },
           ]} />
-          <Link href="/miljoer" className={`${topLink} ${currentPath === "/miljoer" ? "text-[var(--ink)] after:scale-x-100" : ""}`}>Miljøene</Link>
-          <Link href="/booking" className={`${topLink} ${currentPath === "/booking" ? "text-[var(--ink)] after:scale-x-100" : ""}`}>Booking</Link>
+          <Link href="/miljoer" aria-current={currentPath === "/miljoer" ? "page" : undefined} className={`${topLink} ${currentPath === "/miljoer" ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>Miljøene</Link>
+          <Link href="/booking" aria-current={currentPath === "/booking" ? "page" : undefined} className={`${topLink} ${currentPath === "/booking" ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>Booking</Link>
           <Dropdown active={currentPath === "/idegarasjen"} caretFontFamily={caretFontFamily} label="Arealer & rom" items={[
             { href: "https://www.gruvantnu.no/", label: "Gruva", external: true },
             { href: "/idegarasjen", label: "Idégarasjen" },
           ]} />
-          <Link href="/om" className={`${topLink} ${currentPath === "/om" ? "text-[var(--ink)] after:scale-x-100" : ""}`}>Om Fram</Link>
+          <Link href="/om" aria-current={currentPath === "/om" ? "page" : undefined} className={`${topLink} ${currentPath === "/om" ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>Om Fram</Link>
         </div>
         <button
           type="button"

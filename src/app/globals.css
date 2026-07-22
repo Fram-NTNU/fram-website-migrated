@@ -143,6 +143,11 @@ body {
   to { transform: scale(1); }
 }
 
+@keyframes innovasjon-ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 @media (max-width: 720px) {
   .origami-plane { --scale: .62; }
 }
