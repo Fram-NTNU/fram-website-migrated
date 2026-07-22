@@ -71,7 +71,7 @@ export function SiteHeader({
         <div className={`nav-links flex items-center gap-8 text-sm font-medium max-[900px]:fixed max-[900px]:inset-x-0 max-[900px]:top-16 max-[900px]:z-40 max-[900px]:max-h-[calc(100vh-64px)] max-[900px]:flex-col max-[900px]:items-stretch max-[900px]:gap-0 max-[900px]:overflow-y-auto max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:bg-[var(--bg)] max-[900px]:px-5 max-[900px]:pt-2 max-[900px]:pb-5 max-[900px]:shadow-[0_24px_40px_-24px_rgba(0,0,0,.35)] max-[520px]:px-4 ${menuOpen ? "max-[900px]:translate-y-0 max-[900px]:opacity-100 max-[900px]:pointer-events-auto" : "max-[900px]:-translate-y-3 max-[900px]:opacity-0 max-[900px]:pointer-events-none"} max-[900px]:transition-[opacity,transform] max-[900px]:duration-200`} onClick={(event) => {
           if ((event.target as HTMLElement).closest("a")) setMenuOpen(false);
         }}>
-          <Link href="/" aria-current={currentPath === "/" ? "page" : undefined} className={`${topLink} ${currentPath === "/" ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>Utforsk</Link>
+          <Link href="/" aria-current={currentPath === "/" ? "page" : undefined} className={`${topLink} ${currentPath === "/" ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>Hjem</Link>
           <Dropdown active={currentPath === "/innovasjonsdagene" || currentPath === "/arrangementer"} caretFontFamily={caretFontFamily} label="Arrangementer" items={[
             { href: "/innovasjonsdagene", label: "Innovasjonsdagene" },
             { href: "/arrangementer#koble", label: "Koble" },
