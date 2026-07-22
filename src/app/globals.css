@@ -138,6 +138,11 @@ body {
   to { transform: translateY(-20px) rotate(calc(var(--rot, 0deg) + 3deg)) scale(var(--scale, 1)); }
 }
 
+@keyframes idegarasjen-kb {
+  from { transform: scale(1.08); }
+  to { transform: scale(1); }
+}
+
 @media (max-width: 720px) {
   .origami-plane { --scale: .62; }
 }

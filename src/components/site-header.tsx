@@ -7,18 +7,19 @@ type DropdownProps = {
   label: string;
   items: Array<{ href: string; label: string; external?: boolean }>;
   caretFontFamily: string;
+  active?: boolean;
 };
 
 const topLink = "relative py-1.5 text-sm leading-[normal] font-medium text-[var(--ink-soft)] no-underline transition-colors duration-200 hover:text-[var(--ink)] after:absolute after:inset-x-0 after:-bottom-1 after:h-[3px] after:origin-left after:scale-x-0 after:rounded-sm after:bg-[var(--nav-accent)] after:transition-transform after:duration-200 hover:after:scale-x-100 max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:px-1 max-[900px]:py-[15px] max-[900px]:text-base max-[900px]:after:hidden";
 
-function Dropdown({ label, items, caretFontFamily }: DropdownProps) {
+function Dropdown({ label, items, caretFontFamily, active = false }: DropdownProps) {
   const [open, setOpen] = useState(false);
 
   return (
     <div className={`nav-dd group relative inline-flex items-center max-[900px]:block max-[900px]:w-full ${open ? "open" : ""}`}>
       <button
         type="button"
-        className="nav-dd-btn inline-flex cursor-pointer items-center gap-1.5 border-0 bg-transparent px-0 py-1.5 font-sans text-sm leading-[normal] font-medium text-[var(--ink-soft)] transition-colors hover:text-[var(--ink)] max-[900px]:w-full max-[900px]:justify-between max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:px-1 max-[900px]:py-[15px] max-[900px]:text-base"
+        className={`nav-dd-btn inline-flex cursor-pointer items-center gap-1.5 border-0 bg-transparent px-0 py-1.5 font-sans text-sm leading-[normal] font-medium transition-colors hover:text-[var(--ink)] max-[900px]:w-full max-[900px]:justify-between max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:px-1 max-[900px]:py-[15px] max-[900px]:text-base ${active ? "text-[var(--ink)]" : "text-[var(--ink-soft)]"}`}
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
       >
@@ -77,7 +78,7 @@ export function SiteHeader({
           ]} />
           <Link href="/miljoer" className={`${topLink} ${currentPath === "/miljoer" ? "text-[var(--ink)] after:scale-x-100" : ""}`}>Miljøene</Link>
           <Link href="/booking" className={`${topLink} ${currentPath === "/booking" ? "text-[var(--ink)] after:scale-x-100" : ""}`}>Booking</Link>
-          <Dropdown caretFontFamily={caretFontFamily} label="Arealer & rom" items={[
+          <Dropdown active={currentPath === "/idegarasjen"} caretFontFamily={caretFontFamily} label="Arealer & rom" items={[
             { href: "https://www.gruvantnu.no/", label: "Gruva", external: true },
             { href: "/idegarasjen", label: "Idégarasjen" },
           ]} />
