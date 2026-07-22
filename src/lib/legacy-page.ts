@@ -6,7 +6,6 @@ import type { Metadata } from "next";
 
 export const LEGACY_ROUTES = {
   arrangementer: "arrangementer.html",
-  booking: "booking.html",
   idegarasjen: "idegarasjen.html",
   innovasjonsdagene: "innovasjonsdagene.html",
   miljoer: "miljoer.html",

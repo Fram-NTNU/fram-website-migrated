@@ -23,7 +23,7 @@ function Dropdown({ label, items, caretFontFamily }: DropdownProps) {
         onClick={() => setOpen((value) => !value)}
       >
         {label}
-        <span aria-hidden="true" style={{ fontFamily: caretFontFamily }} className={`dd-caret text-[10px] leading-[normal] transition-transform duration-200 group-hover:rotate-180 max-[900px]:group-hover:rotate-0 ${open ? "max-[900px]:rotate-180" : ""}`}>▾</span>
+        <span aria-hidden="true" style={{ fontFamily: caretFontFamily }} className={`dd-caret text-[10px] leading-[normal] [transition:transform_.2s] group-hover:[transform:rotate(180deg)] max-[900px]:group-hover:[transform:rotate(0deg)] ${open ? "max-[900px]:[transform:rotate(180deg)]" : ""}`}>▾</span>
       </button>
       <div className={`nav-dd-menu invisible pointer-events-none absolute top-full left-1/2 z-[60] flex min-w-[190px] -translate-x-1/2 translate-y-2.5 flex-col gap-0.5 rounded-[14px] border border-[var(--line)] bg-[var(--card)] p-2 opacity-0 shadow-[0_18px_40px_-18px_rgba(0,0,0,.28)] transition-[opacity,transform] duration-200 group-hover:visible group-hover:pointer-events-auto group-hover:translate-y-2 group-hover:opacity-100 max-[900px]:static max-[900px]:min-w-0 max-[900px]:translate-x-0 max-[900px]:translate-y-0 max-[900px]:border-0 max-[900px]:bg-transparent max-[900px]:py-2 max-[900px]:pr-0 max-[900px]:pl-3 max-[900px]:shadow-none max-[900px]:group-hover:translate-y-0 ${open ? "max-[900px]:visible max-[900px]:pointer-events-auto max-[900px]:flex max-[900px]:opacity-100" : "max-[900px]:hidden"}`}>
         {items.map((item) => item.external ? (
@@ -46,7 +46,10 @@ function Dropdown({ label, items, caretFontFamily }: DropdownProps) {
   );
 }
 
-export function SiteHeader({ caretFontFamily = 'Poppins, "Poppins Fallback", system-ui, sans-serif' }: { caretFontFamily?: string } = {}) {
+export function SiteHeader({
+  caretFontFamily = 'Poppins, "Poppins Fallback", system-ui, sans-serif',
+  currentPath,
+}: { caretFontFamily?: string; currentPath?: string } = {}) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -66,19 +69,19 @@ export function SiteHeader({ caretFontFamily = 'Poppins, "Poppins Fallback", sys
         <div className={`nav-links flex items-center gap-8 text-sm font-medium max-[900px]:fixed max-[900px]:inset-x-0 max-[900px]:top-16 max-[900px]:z-40 max-[900px]:max-h-[calc(100vh-64px)] max-[900px]:flex-col max-[900px]:items-stretch max-[900px]:gap-0 max-[900px]:overflow-y-auto max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:bg-[var(--bg)] max-[900px]:px-5 max-[900px]:pt-2 max-[900px]:pb-5 max-[900px]:shadow-[0_24px_40px_-24px_rgba(0,0,0,.35)] max-[520px]:px-4 ${menuOpen ? "max-[900px]:translate-y-0 max-[900px]:opacity-100 max-[900px]:pointer-events-auto" : "max-[900px]:-translate-y-3 max-[900px]:opacity-0 max-[900px]:pointer-events-none"} max-[900px]:transition-[opacity,transform] max-[900px]:duration-200`} onClick={(event) => {
           if ((event.target as HTMLElement).closest("a")) setMenuOpen(false);
         }}>
-          <Link href="/" className={topLink}>Utforsk</Link>
+          <Link href="/" className={`${topLink} ${currentPath === "/" ? "text-[var(--ink)] after:scale-x-100" : ""}`}>Utforsk</Link>
           <Dropdown caretFontFamily={caretFontFamily} label="Arrangementer" items={[
             { href: "/innovasjonsdagene", label: "Innovasjonsdagene" },
             { href: "/arrangementer#koble", label: "Koble" },
             { href: "/arrangementer", label: "Alle arrangementer" },
           ]} />
-          <Link href="/miljoer" className={topLink}>Miljøene</Link>
-          <Link href="/booking" className={topLink}>Booking</Link>
+          <Link href="/miljoer" className={`${topLink} ${currentPath === "/miljoer" ? "text-[var(--ink)] after:scale-x-100" : ""}`}>Miljøene</Link>
+          <Link href="/booking" className={`${topLink} ${currentPath === "/booking" ? "text-[var(--ink)] after:scale-x-100" : ""}`}>Booking</Link>
           <Dropdown caretFontFamily={caretFontFamily} label="Arealer & rom" items={[
             { href: "https://www.gruvantnu.no/", label: "Gruva", external: true },
             { href: "/idegarasjen", label: "Idégarasjen" },
           ]} />
-          <Link href="/om" className={topLink}>Om Fram</Link>
+          <Link href="/om" className={`${topLink} ${currentPath === "/om" ? "text-[var(--ink)] after:scale-x-100" : ""}`}>Om Fram</Link>
         </div>
         <button
           type="button"

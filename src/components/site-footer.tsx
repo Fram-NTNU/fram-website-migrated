@@ -40,7 +40,7 @@ export function SiteFooter() {
     return () => window.removeEventListener("keydown", close);
   }, [slackOpen]);
 
-  const socialButton = "foot-social flex h-9 w-9 items-center justify-center rounded-[10px] border border-[var(--line)] bg-[var(--card)] no-underline transition-all duration-200 hover:-translate-y-0.5";
+  const socialButton = "foot-social flex h-9 w-9 items-center justify-center rounded-[10px] border border-[var(--line)] bg-[var(--card)] no-underline [transition:all_.2s] hover:[transform:translateY(-2px)]";
 
   return (
     <>
@@ -53,7 +53,7 @@ export function SiteFooter() {
                 <img width="400" height="142" decoding="async" src="/assets/fram-logo.webp" alt="FRAM NTNU" className="block h-[26px] w-auto saturate-[.4]" />
               </div>
               <div className="leading-[1.9]">Sem Sælands vei 1, 7034 Trondheim<br /><a href="mailto:framntnu@gmail.com" className="text-[var(--muted)] no-underline transition-colors hover:text-[var(--ink)]">framntnu@gmail.com</a></div>
-              <div className="flex items-center gap-2.5">
+              <div className="mt-1 flex items-center gap-2.5">
                 {socials.map(({ name, href, color }) => (
                   <a key={name} href={href} target="_blank" rel="noopener" aria-label={name} className={`${socialButton} hover:border-current`} style={{ color }}>
                     <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d={socialPath[name]} /></svg>
