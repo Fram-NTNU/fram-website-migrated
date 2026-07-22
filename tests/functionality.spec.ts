@@ -44,7 +44,7 @@ test("Slack dialog opens and closes", async ({ page }) => {
   await page.getByRole("button", { name: "Slack" }).click();
   await expect(page.locator("#slack-modal")).toHaveClass(/open/);
   await page.keyboard.press("Escape");
-  await expect(page.locator("#slack-modal")).not.toHaveClass(/open/);
+  await expect(page.locator("#slack-modal")).not.toBeAttached();
 });
 
 test("shared event data still renders event cards", async ({ page }) => {
@@ -84,13 +84,48 @@ test("API preserves method, origin and validation errors", async ({ request, bas
 
   const shortResponse = await request.post("/api/forslag", {
     data: { interesser: "a" },
-    headers: { Origin: baseURL! },
+    headers: { Origin: baseURL!, "X-Forwarded-For": "198.51.100.210" },
   });
   expect(shortResponse.status()).toBe(400);
 
   const longResponse = await request.post("/api/forslag", {
     data: { interesser: "a".repeat(2001) },
-    headers: { Origin: baseURL! },
+    headers: { Origin: baseURL!, "X-Forwarded-For": "198.51.100.211" },
   });
   expect(longResponse.status()).toBe(413);
+});
+
+test("API preserves malformed-body and rate-limit behavior", async ({ request, baseURL }) => {
+  const malformedResponse = await request.post("/api/forslag", {
+    data: "{",
+    headers: {
+      "Content-Type": "application/json",
+      Origin: baseURL!,
+      "X-Forwarded-For": "198.51.100.220",
+    },
+  });
+  expect(malformedResponse.status()).toBe(400);
+  await expect(malformedResponse.json()).resolves.toEqual({ error: "Mangler «interesser»." });
+
+  for (let attempt = 1; attempt <= 6; attempt += 1) {
+    const response = await request.post("/api/forslag", {
+      data: { interesser: "a" },
+      headers: {
+        Origin: baseURL!,
+        "X-Forwarded-For": "198.51.100.221",
+      },
+    });
+    expect(response.status()).toBe(attempt === 6 ? 429 : 400);
+  }
+});
+
+test("Framkompasset shows suggestions and closes with Escape", async ({ page }) => {
+  await page.goto("/miljoer");
+  await page.getByRole("button", { name: "Finn din match" }).click();
+  const dialog = page.getByRole("dialog");
+  await dialog.getByRole("button", { name: "kunstig intelligens" }).click();
+  await expect(dialog.getByText("Forslag til deg")).toBeVisible();
+  await expect(dialog.getByRole("heading", { name: "Cogito" })).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(dialog).not.toBeAttached();
 });

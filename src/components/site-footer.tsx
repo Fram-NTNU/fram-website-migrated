@@ -28,7 +28,7 @@ function SlackIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-export function SiteFooter() {
+export function SiteFooter({ mobileExtraBottomPadding = false }: { mobileExtraBottomPadding?: boolean } = {}) {
   const [slackOpen, setSlackOpen] = useState(false);
   const closeButton = useRef<HTMLButtonElement>(null);
 
@@ -44,7 +44,7 @@ export function SiteFooter() {
 
   return (
     <>
-      <footer className="border-t border-[var(--line)] bg-[var(--bg)] pt-10 pb-8 font-mono text-xs leading-[normal] tracking-[.04em] text-[var(--muted)]">
+      <footer className={`border-t border-[var(--line)] bg-[var(--bg)] pt-10 pb-8 font-mono text-xs leading-[normal] tracking-[.04em] text-[var(--muted)] ${mobileExtraBottomPadding ? "max-[520px]:pb-9" : ""}`}>
         <div className="mx-auto max-w-[1360px] px-12 max-[900px]:px-5 max-[520px]:px-4">
           <div className="mb-7 flex flex-wrap items-start justify-between gap-10 border-b border-[var(--line)] pb-7">
             <div className="flex flex-col gap-2.5">

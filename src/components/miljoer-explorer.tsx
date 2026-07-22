@@ -374,8 +374,15 @@ function FramCompass({
 
   useEffect(() => {
     const timer = window.setTimeout(() => inputRef.current?.focus(), 60);
-    return () => window.clearTimeout(timer);
-  }, []);
+    const closeOnEscape = (event: globalThis.KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [onClose]);
   function trapFocus(event: KeyboardEvent<HTMLDivElement>) {
     if (event.key === "Escape") return onClose();
     if (event.key !== "Tab") return;

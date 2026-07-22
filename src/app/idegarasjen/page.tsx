@@ -78,6 +78,6 @@ export default function IdegarasjenPage() {
         </div>
       </div></div>
     </section>
-    <SiteFooter />
+    <SiteFooter mobileExtraBottomPadding />
   </div>;
 }
