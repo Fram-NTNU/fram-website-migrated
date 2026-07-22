@@ -148,6 +148,12 @@ body {
   to { transform: translateX(-50%); }
 }
 
+@keyframes fm-twinkle { 0%, 100% { opacity: .7; transform: scale(1) rotate(0deg); } 50% { opacity: 1; transform: scale(1.18) rotate(10deg); } }
+@keyframes fm-pop { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes fk-float { 0%, 100% { transform: translateY(0) rotate(-1.5deg); } 50% { transform: translateY(-6px) rotate(1.5deg); } }
+@keyframes fk-spin { to { transform: rotate(360deg); } }
+@keyframes fk-rock { 0%, 100% { transform: rotate(-3.5deg); } 50% { transform: rotate(3.5deg); } }
+
 @media (max-width: 720px) {
   .origami-plane { --scale: .62; }
 }
