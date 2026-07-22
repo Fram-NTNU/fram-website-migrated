@@ -19,6 +19,19 @@ export type Organization = {
 };
 
 type Suggestion = { navn: string; grunn?: string };
+type GoatCounterWindow = Window & {
+  goatcounter?: {
+    count?: (event: { path: string; title: string; event: boolean }) => void;
+  };
+};
+
+function trackGoatCounter(path: string, title: string) {
+  (window as GoatCounterWindow).goatcounter?.count?.({
+    path,
+    title,
+    event: true,
+  });
+}
 
 const cachedSuggestions: Record<string, Suggestion[]> = {
   "romfart og raketter": [
@@ -402,6 +415,7 @@ function FramCompass({
   async function submit(text: string) {
     const clean = text.trim();
     if (!clean || loading) return inputRef.current?.focus();
+    trackGoatCounter("framkompasset-run", "Framkompasset – kjørt søk");
     if (cachedSuggestions[clean]) return setResults(cachedSuggestions[clean]);
     const key = `fram_forslag_v2:${clean.toLowerCase().replace(/\s+/g, " ")}`;
     try {
@@ -631,7 +645,10 @@ export function MiljoerExplorer({
           </div>
           <button
             type="button"
-            onClick={() => setModalOpen(true)}
+            onClick={() => {
+              setModalOpen(true);
+              trackGoatCounter("framkompasset-open", "Framkompasset – åpnet");
+            }}
             className="ml-auto inline-flex cursor-pointer items-center gap-[7px] rounded-full border-0 bg-[var(--blue)] px-[18px] py-2.5 font-sans text-sm leading-[normal] font-semibold text-white shadow-[0_4px_14px_color-mix(in_srgb,var(--blue)_32%,transparent)] [transition:background_.2s_ease,box-shadow_.2s_ease,transform_.12s_ease] hover:bg-[color-mix(in_srgb,var(--blue)_90%,#000)] hover:shadow-[0_7px_20px_color-mix(in_srgb,var(--blue)_42%,transparent)] hover:[transform:translateY(-1px)] active:[transform:translateY(0)] max-[520px]:ml-0 max-[520px]:w-full max-[520px]:justify-center"
           >
             <span className="inline-block text-sm leading-none motion-safe:animate-[fm-twinkle_3.4s_ease-in-out_infinite]">

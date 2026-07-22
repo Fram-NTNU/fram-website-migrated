@@ -74,6 +74,87 @@ test("all local links and referenced media resolve", async ({ page, request, bas
   }
 });
 
+test("redirects, metadata and response headers are preserved", async ({ page, request, baseURL }) => {
+  const redirects = [
+    ["/FramNTNU", "/"],
+    ["/services-4", "/idegarasjen"],
+    ["/about-3-1", "/om"],
+    ["/about", "/booking"],
+    ["/blank-page", "/booking"],
+    ["/medlemmer-1", "/miljoer"],
+  ] as const;
+  for (const [source, destination] of redirects) {
+    const response = await request.get(source, { maxRedirects: 0 });
+    expect(response.status(), source).toBe(308);
+    expect(new URL(response.headers().location, baseURL).pathname, source).toBe(destination);
+  }
+
+  for (const route of expectedRoutes) {
+    const response = await page.goto(route, { waitUntil: "domcontentloaded" });
+    expect(response?.headers()["x-content-type-options"], route).toBe("nosniff");
+    expect(response?.headers()["x-frame-options"], route).toBe("SAMEORIGIN");
+    await expect(page.locator('meta[name="description"]'), route).toHaveAttribute("content", /.+/);
+    await expect(page.locator('link[rel="canonical"]'), route).toHaveAttribute(
+      "href",
+      route === "/" ? "https://www.framntnu.no" : `https://www.framntnu.no${route}`,
+    );
+  }
+
+  const asset = await request.get("/assets/favicon-32.png");
+  expect(asset.headers()["cache-control"]).toContain("max-age=31536000");
+  expect(asset.headers()["cache-control"]).toContain("immutable");
+});
+
+test("external embeds and analytics integrations are preserved", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator('script[src="/_vercel/speed-insights/script.js"]')).toBeAttached();
+  await expect(page.locator('script[src="//gc.zgo.at/count.js"]')).toBeAttached();
+  expect(
+    await page.evaluate(
+      () =>
+        (window as Window & { goatcounter?: { endpoint?: string } }).goatcounter
+          ?.endpoint,
+    ),
+  ).toBe("https://framntnu.goatcounter.com/count");
+  await expect(page.locator('a[href*="link.mazemap.com"]')).toHaveCount(6);
+
+  await page.goto("/idegarasjen");
+  await expect(page.locator('iframe[src*="use.mazemap.com"]')).toBeAttached();
+
+  await page.goto("/miljoer");
+  await expect(page.locator('iframe[src*="app.atlas.co"]')).toBeAttached();
+
+  await page.goto("/innovasjonsdagene");
+  await expect(page.locator('iframe[src*="youtube-nocookie.com"]')).toBeAttached();
+});
+
+test("Framkompasset preserves GoatCounter events", async ({ page }) => {
+  await page.route("**/gc.zgo.at/count.js", (route) =>
+    route.fulfill({ contentType: "application/javascript", body: "" }),
+  );
+  await page.addInitScript(() => {
+    const analyticsWindow = window as Window & {
+      goatcounter?: { count: (event: { path: string }) => void };
+      trackedPaths?: string[];
+    };
+    analyticsWindow.trackedPaths = [];
+    analyticsWindow.goatcounter = {
+      count: (event) => analyticsWindow.trackedPaths?.push(event.path),
+    };
+  });
+  await page.goto("/miljoer");
+  await page.getByRole("button", { name: "Finn din match" }).click();
+  await page.getByRole("dialog").getByRole("button", { name: "kunstig intelligens" }).click();
+  await expect
+    .poll(() =>
+      page.evaluate(
+        () =>
+          (window as Window & { trackedPaths?: string[] }).trackedPaths ?? [],
+      ),
+    )
+    .toEqual(["framkompasset-open", "framkompasset-run"]);
+});
+
 test("API preserves method, origin and validation errors", async ({ request, baseURL }) => {
   const methodResponse = await request.get("/api/forslag");
   expect(methodResponse.status()).toBe(405);
