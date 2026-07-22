@@ -10,7 +10,7 @@ type DropdownProps = {
   active?: boolean;
 };
 
-const topLink = "relative py-1.5 text-sm leading-[normal] font-medium text-[var(--ink-soft)] no-underline transition-colors duration-200 hover:text-[var(--ink)] after:absolute after:inset-x-0 after:-bottom-1 after:h-[3px] after:origin-left after:scale-x-0 after:rounded-sm after:bg-[var(--nav-accent)] after:transition-transform after:duration-200 hover:after:scale-x-100 max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:px-1 max-[900px]:py-[15px] max-[900px]:text-base max-[900px]:after:hidden";
+const topLink = "relative py-1.5 text-sm leading-[normal] font-medium text-[var(--ink-soft)] no-underline transition-colors duration-200 hover:text-[var(--ink)] after:absolute after:inset-x-0 after:-bottom-1 after:h-[3px] after:origin-left after:scale-x-0 after:rounded-sm after:bg-[#E85A5A] after:transition-transform after:duration-200 hover:after:scale-x-100 max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:px-1 max-[900px]:py-[15px] max-[900px]:text-base max-[900px]:after:hidden";
 
 function Dropdown({ label, items, caretFontFamily, active = false }: DropdownProps) {
   const [open, setOpen] = useState(false);
@@ -19,7 +19,7 @@ function Dropdown({ label, items, caretFontFamily, active = false }: DropdownPro
     <div className={`nav-dd group relative inline-flex items-center after:absolute after:top-full after:right-0 after:left-0 after:h-3.5 after:content-[''] max-[900px]:block max-[900px]:w-full max-[900px]:after:hidden ${open ? "open" : ""}`}>
       <button
         type="button"
-        className={`nav-dd-btn inline-flex cursor-pointer items-center gap-1.5 border-0 bg-transparent px-0 py-1.5 font-sans text-sm leading-[normal] font-medium transition-colors hover:text-[var(--ink)] max-[900px]:w-full max-[900px]:justify-between max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:px-1 max-[900px]:py-[15px] max-[900px]:text-base ${active ? "!text-[var(--ink)]" : "text-[var(--ink-soft)]"}`}
+        className={`nav-dd-btn relative inline-flex cursor-pointer items-center gap-1.5 border-0 bg-transparent px-0 py-1.5 font-sans text-sm leading-[normal] font-medium transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-[3px] after:origin-left after:scale-x-0 after:rounded-sm after:bg-[#E85A5A] after:transition-transform after:duration-200 group-hover:after:scale-x-100 hover:text-[var(--ink)] max-[900px]:w-full max-[900px]:justify-between max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:px-1 max-[900px]:py-[15px] max-[900px]:text-base max-[900px]:after:hidden ${active ? "!text-[var(--ink)] after:scale-x-100" : "text-[var(--ink-soft)]"}`}
         aria-expanded={open}
         aria-current={active ? "page" : undefined}
         onClick={() => setOpen((value) => !value)}
@@ -49,7 +49,7 @@ function Dropdown({ label, items, caretFontFamily, active = false }: DropdownPro
 }
 
 export function SiteHeader({
-  caretFontFamily = 'Poppins, "Poppins Fallback", system-ui, sans-serif',
+  caretFontFamily = 'Poppins, "Poppins Fallback", sans-serif',
   currentPath,
 }: { caretFontFamily?: string; currentPath?: string } = {}) {
   const [menuOpen, setMenuOpen] = useState(false);

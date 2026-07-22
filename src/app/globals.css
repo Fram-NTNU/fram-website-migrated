@@ -133,6 +133,12 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
+/* Poppins mangler selve ▾-glyfen. En eksplisitt, felles fallback hindrer
+   at system-ui tegner en smalere pil på enkelte ruter. */
+.dd-caret {
+  font-family: "Poppins", "Poppins Fallback", sans-serif;
+}
+
 @keyframes fram-floaty {
   from { transform: translateY(0) rotate(var(--rot, 0deg)) scale(var(--scale, 1)); }
   to { transform: translateY(-20px) rotate(calc(var(--rot, 0deg) + 3deg)) scale(var(--scale, 1)); }
@@ -153,6 +159,8 @@ body {
 @keyframes fk-float { 0%, 100% { transform: translateY(0) rotate(-1.5deg); } 50% { transform: translateY(-6px) rotate(1.5deg); } }
 @keyframes fk-spin { to { transform: rotate(360deg); } }
 @keyframes fk-rock { 0%, 100% { transform: rotate(-3.5deg); } 50% { transform: rotate(3.5deg); } }
+@keyframes home-blink { 50% { opacity: .3; } }
+@keyframes home-expfade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
 @media (max-width: 720px) {
   .origami-plane { --scale: .62; }
