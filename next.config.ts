@@ -1,4 +1,8 @@
 import type { NextConfig } from "next";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const immutableAssetHeaders = [
   { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
@@ -7,6 +11,10 @@ const immutableAssetHeaders = [
 const nextConfig: NextConfig = {
   trailingSlash: false,
   devIndicators: false,
+  outputFileTracingRoot: projectRoot,
+  turbopack: {
+    root: projectRoot,
+  },
   async redirects() {
     return [
       { source: "/FramNTNU", destination: "/", permanent: true },

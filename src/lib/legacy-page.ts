@@ -11,7 +11,6 @@ export const LEGACY_ROUTES = {
   innovasjonsdagene: "innovasjonsdagene.html",
   miljoer: "miljoer.html",
   om: "om.html",
-  stillinger: "stillinger.html",
 } as const;
 
 export type LegacyRoute = keyof typeof LEGACY_ROUTES;

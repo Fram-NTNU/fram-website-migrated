@@ -6,11 +6,12 @@ import Link from "next/link";
 type DropdownProps = {
   label: string;
   items: Array<{ href: string; label: string; external?: boolean }>;
+  caretFontFamily: string;
 };
 
 const topLink = "relative py-1.5 text-sm leading-[normal] font-medium text-[var(--ink-soft)] no-underline transition-colors duration-200 hover:text-[var(--ink)] after:absolute after:inset-x-0 after:-bottom-1 after:h-[3px] after:origin-left after:scale-x-0 after:rounded-sm after:bg-[var(--nav-accent)] after:transition-transform after:duration-200 hover:after:scale-x-100 max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:px-1 max-[900px]:py-[15px] max-[900px]:text-base max-[900px]:after:hidden";
 
-function Dropdown({ label, items }: DropdownProps) {
+function Dropdown({ label, items, caretFontFamily }: DropdownProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -22,7 +23,7 @@ function Dropdown({ label, items }: DropdownProps) {
         onClick={() => setOpen((value) => !value)}
       >
         {label}
-        <span aria-hidden="true" className={`dd-caret text-[10px] leading-[normal] transition-transform duration-200 group-hover:rotate-180 max-[900px]:group-hover:rotate-0 ${open ? "max-[900px]:rotate-180" : ""}`}>▾</span>
+        <span aria-hidden="true" style={{ fontFamily: caretFontFamily }} className={`dd-caret text-[10px] leading-[normal] transition-transform duration-200 group-hover:rotate-180 max-[900px]:group-hover:rotate-0 ${open ? "max-[900px]:rotate-180" : ""}`}>▾</span>
       </button>
       <div className={`nav-dd-menu invisible pointer-events-none absolute top-full left-1/2 z-[60] flex min-w-[190px] -translate-x-1/2 translate-y-2.5 flex-col gap-0.5 rounded-[14px] border border-[var(--line)] bg-[var(--card)] p-2 opacity-0 shadow-[0_18px_40px_-18px_rgba(0,0,0,.28)] transition-[opacity,transform] duration-200 group-hover:visible group-hover:pointer-events-auto group-hover:translate-y-2 group-hover:opacity-100 max-[900px]:static max-[900px]:min-w-0 max-[900px]:translate-x-0 max-[900px]:translate-y-0 max-[900px]:border-0 max-[900px]:bg-transparent max-[900px]:py-2 max-[900px]:pr-0 max-[900px]:pl-3 max-[900px]:shadow-none max-[900px]:group-hover:translate-y-0 ${open ? "max-[900px]:visible max-[900px]:pointer-events-auto max-[900px]:flex max-[900px]:opacity-100" : "max-[900px]:hidden"}`}>
         {items.map((item) => item.external ? (
@@ -45,7 +46,7 @@ function Dropdown({ label, items }: DropdownProps) {
   );
 }
 
-export function SiteHeader() {
+export function SiteHeader({ caretFontFamily = 'Poppins, "Poppins Fallback", system-ui, sans-serif' }: { caretFontFamily?: string } = {}) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -66,14 +67,14 @@ export function SiteHeader() {
           if ((event.target as HTMLElement).closest("a")) setMenuOpen(false);
         }}>
           <Link href="/" className={topLink}>Utforsk</Link>
-          <Dropdown label="Arrangementer" items={[
+          <Dropdown caretFontFamily={caretFontFamily} label="Arrangementer" items={[
             { href: "/innovasjonsdagene", label: "Innovasjonsdagene" },
             { href: "/arrangementer#koble", label: "Koble" },
             { href: "/arrangementer", label: "Alle arrangementer" },
           ]} />
           <Link href="/miljoer" className={topLink}>Miljøene</Link>
           <Link href="/booking" className={topLink}>Booking</Link>
-          <Dropdown label="Arealer & rom" items={[
+          <Dropdown caretFontFamily={caretFontFamily} label="Arealer & rom" items={[
             { href: "https://www.gruvantnu.no/", label: "Gruva", external: true },
             { href: "/idegarasjen", label: "Idégarasjen" },
           ]} />
