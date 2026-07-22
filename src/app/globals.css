@@ -169,10 +169,3 @@ body {
 @media (max-width: 480px) {
   .origami-plane { --scale: .5; }
 }
-
-/* The legacy pages remain the visual source of truth during the parity phase.
-   Tailwind preflight is deliberately omitted so native element defaults do not
-   change before each section has been migrated and screenshot-verified. */
-.legacy-contents {
-  display: contents;
-}

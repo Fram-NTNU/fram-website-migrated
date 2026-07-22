@@ -22,6 +22,6 @@ npm test
 
 `npm run test:baseline` oppdaterer visuelle referansebilder fra den levende produksjonssiden. Kjør den bare når produksjonsversjonen som skal være fasit er bekreftet. `npm test` sammenligner den migrerte appen mot disse bildene.
 
-## Migreringsstrategi
+## Migreringsstatus
 
-`legacy-pages/` er en frosset kopi av markupen på baseline-committen. Next server-renderer denne gjennom delte React-komponenter for header, innhold, footer og klientskript. Tailwind er satt opp uten preflight for å hindre utilsiktede designendringer. Legacy-seksjoner kan deretter erstattes med JSX og Tailwind én etter én, men gammel CSS skal først fjernes etter godkjent visuell regresjonstest.
+Alle offentlige sider rendres nå som React-komponenter med JSX og Tailwind. Originalrepoet på baseline-committen brukes som fasit ved visuell og funksjonell sammenligning.
