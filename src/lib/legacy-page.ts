@@ -8,7 +8,6 @@ export const LEGACY_ROUTES = {
   arrangementer: "arrangementer.html",
   innovasjonsdagene: "innovasjonsdagene.html",
   miljoer: "miljoer.html",
-  om: "om.html",
 } as const;
 
 export type LegacyRoute = keyof typeof LEGACY_ROUTES;

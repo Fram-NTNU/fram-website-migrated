@@ -1,0 +1,5 @@
+import type { CSSProperties } from "react";
+
+export function FramOrigami({ className, color, size, rotation, opacity }: { className: string; color: string; size: string; rotation: string; opacity: number }) {
+  return <span aria-hidden="true" className={`pointer-events-none absolute z-0 aspect-square drop-shadow-[0_14px_26px_rgba(0,0,0,.1)] max-[720px]:hidden ${className}`} style={{ width: size, color, opacity, transform: `rotate(${rotation})` } as CSSProperties}><svg viewBox="76 76 848 848" className="block h-full w-full"><polygon fill="currentColor" points="712.1,924.1 500.3,712.2 500.3,288.6 712.1,500.5"/><polygon fill="currentColor" points="76.5,288.6 288.4,500.5 712.1,500.5 500.2,288.6"/><polygon fill="currentColor" points="924,712.3 712.1,500.4 712.1,76.8 924,288.7"/><polygon fill="currentColor" points="288.4,76.8 500.3,288.7 924,288.7 712.1,76.8"/><polygon fill="currentColor" points="712.1,500.5 500.3,537.1 500.3,500.6"/><polygon fill="currentColor" points="924,288.6 712.1,325.2 712.1,288.7"/></svg></span>;
+}
