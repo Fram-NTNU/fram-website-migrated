@@ -52,7 +52,7 @@ export function SiteFooter({ mobileExtraBottomPadding = false }: { mobileExtraBo
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img width="400" height="142" decoding="async" src="/assets/fram-logo.webp" alt="FRAM NTNU" className="block h-[26px] w-auto saturate-[.4]" />
               </div>
-              <div className="leading-[1.9]">Sem Sælands vei 1, 7034 Trondheim<br /><a data-eml="" className="text-[var(--muted)] no-underline transition-colors hover:text-[var(--ink)]">framntnu (at) gmail (dot) com</a></div>
+              <div className="leading-[1.9]">Sem Sælands vei 1, 7034 Trondheim<br /><a href="mailto:framntnu@gmail.com" className="text-[var(--muted)] no-underline transition-colors hover:text-[var(--ink)]">framntnu@gmail.com</a></div>
               <div className="flex items-center gap-2.5">
                 {socials.map(({ name, href, color }) => (
                   <a key={name} href={href} target="_blank" rel="noopener" aria-label={name} className={`${socialButton} hover:border-current`} style={{ color }}>
