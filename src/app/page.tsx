@@ -14,7 +14,7 @@ import { SiteHeader } from "@/components/site-header";
 const description =
   "Oppdag innovasjonsmiljøet på NTNU. FRAM tilbyr lokaler, arrangementer og et fellesskap for studenter som vil skape noe.";
 export const metadata: Metadata = {
-  title: "FRAM NTNU — Senter for innovasjon og entreprenørskap ved NTNU",
+  title: "FRAM NTNU — Senter for innovasjon og entreprenørskap",
   description,
   authors: [{ name: "FRAM NTNU" }],
   alternates: { canonical: "https://www.framntnu.no/" },
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "FRAM NTNU",
     locale: "nb_NO",
-    title: "FRAM NTNU — Senter for innovasjon og entreprenørskap ved NTNU",
+    title: "FRAM NTNU — Senter for innovasjon og entreprenørskap",
     description,
     url: new URL("https://www.framntnu.no/"),
     images: [{ url: "/assets/og-fram.png", width: 1200, height: 630 }],
