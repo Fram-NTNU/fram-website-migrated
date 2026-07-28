@@ -523,10 +523,10 @@ export default function MiljoerPage() {
               Ta kontakt med oss, så hjelper vi deg videre.
             </p>
             <a
-              href="mailto:framntnu@gmail.com"
+              data-eml=""
               className="inline-flex items-center rounded-full border border-transparent bg-[var(--ink)] px-[22px] py-3.5 text-sm leading-[normal] font-semibold text-[var(--bg)] no-underline [transition:all_.2s] hover:bg-[var(--blue)] hover:text-white"
             >
-              framntnu@gmail.com
+              framntnu (at) gmail (dot) com
             </a>
           </div>
         </div>
