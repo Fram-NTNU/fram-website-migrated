@@ -149,6 +149,11 @@ body {
   to { transform: scale(1); }
 }
 
+@keyframes teknologihallen-bounce {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 6px); }
+}
+
 @keyframes innovasjon-ticker-scroll {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
