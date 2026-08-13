@@ -2,33 +2,60 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
-export function InnovationDaysCountdown() {
-  const [label, setLabel] = useState("Snart");
+export function HomeEventBar() {
+  const [state, setState] = useState<{ show: boolean; label: string } | null>(
+    null,
+  );
   useEffect(() => {
-    const frame = requestAnimationFrame(() => {
-      const start = new Date(2026, 7, 19);
-      const end = new Date(2026, 7, 20, 23, 59, 59);
-      const now = new Date();
-      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      if (now > end) setLabel("Vi sees neste år");
-      else if (now >= start) setLabel("Pågår nå");
-      else {
-        const days = Math.round(
-          (start.getTime() - today.getTime()) / 86400000,
-        );
-        setLabel(
-          days <= 0
-            ? "I dag!"
-            : days === 1
-              ? "I morgen"
-              : `Om ${days} dager`,
-        );
-      }
-    });
-    return () => cancelAnimationFrame(frame);
+    const start = new Date(2026, 7, 19);
+    const end = new Date(2026, 7, 20, 23, 59, 59);
+    const now = new Date();
+    if (now > end) {
+      setState({ show: false, label: "" });
+      return;
+    }
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const days = Math.round((start.getTime() - today.getTime()) / 86400000);
+    const label =
+      now >= start
+        ? "Pågår nå"
+        : days <= 0
+          ? "I dag!"
+          : days === 1
+            ? "I morgen"
+            : `Om ${days} dager`;
+    setState({ show: true, label });
   }, []);
-  return <>{label}</>;
+
+  if (!state?.show) return null;
+
+  return (
+    <Link
+      href="/innovasjonsdagene"
+      className="group relative z-[60] flex items-center justify-center gap-2.5 bg-[var(--yellow)] px-4 py-2.5 text-center font-sans text-[13px] font-semibold text-[var(--charcoal)] no-underline [transition:background_.2s] hover:bg-[color-mix(in_oklab,var(--yellow)_88%,#000)] max-[520px]:text-[12px]"
+    >
+      <span aria-hidden="true" className="relative flex h-2 w-2 flex-none">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--charcoal)] opacity-60" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--charcoal)]" />
+      </span>
+      <span className="font-bold tracking-[.06em] uppercase">{state.label}</span>
+      <span>
+        Innovasjonsdagene&nbsp;&apos;26
+        <span className="font-medium opacity-70 max-[520px]:hidden">
+          {" "}
+          · 19.–20. august
+        </span>
+      </span>
+      <span
+        aria-hidden="true"
+        className="[transition:transform_.2s] group-hover:[transform:translateX(3px)]"
+      >
+        →
+      </span>
+    </Link>
+  );
 }
 
 export function YouTubeFacade() {

@@ -3,7 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import {
-  InnovationDaysCountdown,
+  HomeEventBar,
   RoomExplorer,
   RotatingMemberLogo,
   YouTubeFacade,
@@ -168,6 +168,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteData) }}
       />
+      <HomeEventBar />
       <SiteHeader currentPath="/" />
       <main>
         <section
@@ -175,24 +176,6 @@ export default function HomePage() {
           className="relative pt-11 pb-[72px] max-[599px]:pt-6 max-[599px]:pb-10"
         >
           <div className={wrap}>
-            <Link
-              href="/innovasjonsdagene"
-              className="group mb-6 inline-flex items-center gap-2.5 rounded-full border border-[color-mix(in_oklab,var(--yellow)_55%,var(--line))] bg-[color-mix(in_oklab,var(--yellow)_10%,var(--card))] py-1.5 pr-3.5 pl-2 text-[13px] leading-none text-[var(--ink-soft)] no-underline [transition:border-color_.2s,background_.2s] hover:border-[color-mix(in_oklab,var(--yellow)_85%,var(--line))] hover:bg-[color-mix(in_oklab,var(--yellow)_16%,var(--card))]"
-            >
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--yellow)] px-[9px] py-[3px] text-[10px] font-bold tracking-[.08em] text-[var(--charcoal)] uppercase">
-                <span className="h-1.5 w-1.5 animate-[home-blink_1.6s_infinite] rounded-full bg-[var(--charcoal)]" />
-                <InnovationDaysCountdown />
-              </span>
-              <span>
-                <b className="font-semibold text-[var(--ink)]">
-                  Innovasjonsdagene&nbsp;&apos;26
-                </b>
-                <span className="max-[520px]:hidden"> · 19.–20. august</span>
-              </span>
-              <span className="[transition:transform_.2s] group-hover:[transform:translateX(3px)]">
-                →
-              </span>
-            </Link>
             <div className="mb-[60px] grid min-h-[calc(100vh-130px)] grid-cols-[.78fr_1.22fr] items-center gap-8 max-[900px]:min-h-0 max-[900px]:grid-cols-1 max-[900px]:gap-6 max-[599px]:mb-8">
               <div className="flex flex-col items-start">
                 <h1 className="mt-0 mb-3 text-[clamp(56px,6.6vw,108px)] leading-[.94] font-bold tracking-[-.04em] text-black">
