@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { LargeRoom, MeetingRoom, SmallRoom } from "@/components/booking-rooms";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
@@ -36,65 +36,6 @@ const organizationData = {
   description: "FRAM NTNU er NTNUs senter for studentinnovasjon — et fellesskap for studenter som vil skape noe.",
   sameAs: ["https://www.instagram.com/framntnu/", "https://www.facebook.com/framntnu", "https://www.linkedin.com/company/framntnu/"],
 };
-
-type Feature = { icon: string; label: string };
-
-function LargeRoom({ image, alt, capacity, title, description, features }: {
-  image: string; alt: string; capacity: string; title: React.ReactNode; description: string; features: Feature[];
-}) {
-  return (
-    <article className="flex flex-col overflow-hidden rounded-[28px] border border-[var(--line)] bg-[var(--card)] [transition:transform_.25s,box-shadow_.25s] hover:[transform:translateY(-4px)] hover:shadow-[0_20px_50px_-25px_rgba(0,0,0,.18)]">
-      <div className="relative aspect-[16/10] overflow-hidden bg-[var(--bg-soft)]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="block h-full w-full object-cover" width="1920" height="1280" loading="lazy" decoding="async" src={image} alt={alt} />
-      </div>
-      <div className="flex-1 px-8 pt-7 pb-8">
-        <div className="mb-1.5 flex items-baseline gap-2"><span className="text-[42px] leading-[.9] font-extrabold tracking-[-.03em]">{capacity}</span><span className="font-mono text-[11px] tracking-[.1em] text-[var(--muted)] uppercase">Plasser</span></div>
-        <h3 className="mt-2.5 mb-3.5 text-[30px] leading-[1.05] font-extrabold tracking-[-.02em]">{title}</h3>
-        <p className="mt-0 mb-[18px] text-[15px] leading-[1.6] text-[var(--ink-soft)]">{description}</p>
-        <div className="mb-[18px] flex flex-wrap gap-2">{features.map((feature) => <span key={feature.label} className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--bg-soft)] px-2.5 py-1.5 text-[12px] font-medium text-[var(--ink-soft)]"><i className={`${feature.icon} text-[14px]`} />{feature.label}</span>)}</div>
-      </div>
-    </article>
-  );
-}
-
-function MeetingRoom({ accent, image, alt, capacity, title, description }: {
-  accent: string; image: string; alt: string; capacity: string; title: React.ReactNode; description: string;
-}) {
-  return (
-    <article style={{ "--accent": accent } as React.CSSProperties} className="group flex flex-col overflow-hidden rounded-[22px] border border-[var(--line)] bg-[var(--card)] [transition:transform_.25s,border-color_.2s] hover:[transform:translateY(-3px)] hover:border-[var(--accent)]">
-      <div className="relative aspect-[16/10] shrink-0 overflow-hidden bg-[color-mix(in_oklab,var(--accent)_14%,var(--bg-soft))]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="absolute inset-0 block h-full w-full object-cover [transition:transform_.5s_ease] group-hover:[transform:scale(1.05)]" width="1920" height="1280" loading="lazy" decoding="async" src={image} alt={alt} />
-      </div>
-      <div className="flex flex-1 flex-col p-[22px]">
-        <div className="mb-1.5 flex items-baseline gap-2"><span className="text-[42px] leading-[.9] font-extrabold tracking-[-.03em] text-[var(--accent)]">{capacity}</span><span className="font-mono text-[11px] tracking-[.1em] text-[var(--muted)] uppercase">Plasser</span></div>
-        <h3 className="mt-2.5 mb-1.5 text-[19px] font-bold tracking-[-.01em]">{title}</h3>
-        <p className="mt-0 mb-3 flex-1 text-[13.5px] leading-[1.5] text-[var(--ink-soft)]">{description}</p>
-        <div className="flex flex-wrap gap-1.5">{["Flatskjerm", "Lydplanke", "Stoler & bord"].map((item) => <span key={item} className="rounded-md bg-[var(--bg-soft)] px-[9px] py-[5px] font-mono text-[10px] tracking-[.08em] text-[var(--ink-soft)] uppercase">{item}</span>)}</div>
-      </div>
-    </article>
-  );
-}
-
-function SmallRoom({ image, alt, title, children, features, href }: {
-  image: string; alt: string; title: string; children: React.ReactNode; features: Feature[]; href?: string;
-}) {
-  const content = <>
-    <div className="relative aspect-[16/11] overflow-hidden bg-[var(--bg-soft)]">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="block h-full w-full object-cover [transition:transform_.5s_ease] group-hover:[transform:scale(1.05)]" width="2200" height="1650" loading="lazy" decoding="async" src={image} alt={alt} />
-      {href && <span aria-hidden="true" className="absolute top-3.5 right-3.5 z-[2] rounded-full bg-[var(--ink)] px-[15px] py-[9px] text-[12.5px] leading-none font-semibold whitespace-nowrap text-white">Utforsk</span>}
-    </div>
-    <div className="flex flex-1 flex-col gap-3 px-[26px] pt-6 pb-[26px]">
-      <h3 className="m-0 text-[21px] font-bold tracking-[-.015em]">{title}</h3>
-      <p className="m-0 text-[14.5px] leading-[1.58] text-[var(--ink-soft)]">{children}</p>
-      <div className="mt-auto flex flex-wrap gap-[7px]">{features.map((feature) => <span key={feature.label} className="inline-flex items-center gap-1.5 rounded-[7px] border border-[var(--line)] bg-[var(--bg-soft)] px-2.5 py-[5px] text-[12px] text-[var(--ink-soft)]"><i className={`${feature.icon} text-[14px] text-[var(--muted)]`} />{feature.label}</span>)}</div>
-    </div>
-  </>;
-  const classes = "group flex flex-col overflow-hidden rounded-[22px] border border-[var(--line)] bg-[var(--card)] text-inherit no-underline [transition:transform_.25s,box-shadow_.25s,border-color_.2s] hover:[transform:translateY(-4px)] hover:border-[var(--ink)] hover:shadow-[0_20px_50px_-25px_rgba(0,0,0,.18)]";
-  return href ? <Link className={classes} href={href}>{content}</Link> : <article className={classes}>{content}</article>;
-}
 
 export default function BookingPage() {
   return (
@@ -151,19 +92,19 @@ export default function BookingPage() {
           </div>
 
           <div className="mb-6 grid grid-cols-2 items-stretch gap-6 max-[760px]:grid-cols-1">
-            <LargeRoom image="/assets/scenerommet.avif" alt="Scenerommet" capacity="120" title={<>Scene&shy;rommet.</>} description="En fleksibel arena for arrangementer, små konserter, foredrag og workshops. Utenom arrangementer fungerer det som et åpent arbeidslokale." features={[{icon:"ph ph-armchair",label:"70 sittende"},{icon:"ph ph-microphone-stage",label:"Talerstol"},{icon:"ph ph-speaker-hifi",label:"PA-anlegg"},{icon:"ph ph-sun",label:"Lyssetting"},{icon:"ph ph-projector-screen",label:"Projektor"}]} />
-            <LargeRoom image="/assets/fram-fellesrom.webp" alt="Fellesrommet" capacity="~40" title={<>Felles&shy;rommet.</>} description="Åpent for alle studenter og egner seg like godt til skolearbeid som til en kaffe eller lunsjpause. For større arrangementer: avtal med leder i Fram." features={[{icon:"ph ph-coffee",label:"Kaffemaskin"},{icon:"ph ph-ping-pong",label:"Bordtennis"},{icon:"ph ph-fork-knife",label:"Kjøkken & langbord"},{icon:"ph ph-couch",label:"Sofakrok"},{icon:"ph ph-clock",label:"Alltid åpent"}]} />
+            <LargeRoom id="scenerommet" image="/assets/scenerommet.avif" alt="Scenerommet" capacity="120" title={<>Scene&shy;rommet.</>} roomName="Scenerommet" maze="https://link.mazemap.com/2S7qcBrY" description="En fleksibel arena for arrangementer, små konserter, foredrag og workshops. Ellers åpent for alle." features={[{icon:"ph ph-armchair",label:"70 sittende"},{icon:"ph ph-microphone-stage",label:"Talerstol"},{icon:"ph ph-speaker-hifi",label:"PA-anlegg"},{icon:"ph ph-sun",label:"Lyssetting"},{icon:"ph ph-projector-screen",label:"Projektor"}]} />
+            <LargeRoom id="fellesrommet" image="/assets/fram-fellesrom.webp" alt="Fellesrommet" capacity="~40" title={<>Felles&shy;rommet.</>} roomName="Fellesrommet" maze="https://link.mazemap.com/Icfh3qjb" description="Åpent for alle studenter og egner seg like godt til skolearbeid som til en kaffe eller lunsjpause. For større arrangementer: avtal med leder i Fram." features={[{icon:"ph ph-coffee",label:"Kaffemaskin"},{icon:"ph ph-ping-pong",label:"Bordtennis"},{icon:"ph ph-fork-knife",label:"Kjøkken & langbord"},{icon:"ph ph-couch",label:"Sofakrok"},{icon:"ph ph-clock",label:"Alltid åpent"}]} />
           </div>
 
-          <div className="mb-6 grid grid-cols-3 gap-5 max-[760px]:grid-cols-1">
-            <MeetingRoom accent="#2E86C1" image="/assets/rooms/storemoterom.avif" alt="Store møterom" capacity="16" title="Store møterom." description="Det mest bookede rommet på FRAM. Egner seg godt til større møter, og fungerer også som undervisningsrom for små grupper." />
-            <MeetingRoom accent="#E85A5A" image="/assets/rooms/lillemoterom.avif" alt="Lillemøterom" capacity="7" title="Lillemøterom." description="Ligger i hjørnet på FRAM med vinduer ut og en god, intim stemning. Stor flatskjerm gjør det perfekt for tette møter og presentasjoner." />
-            <MeetingRoom accent="#FDC82F" image="/assets/Bananrommet.webp" alt="Bananrommet" capacity="12" title={<>Banan&shy;rommet.</>} description="Det gule møterommet — også kjent som bananrommet. Plass til tolv, og en uformell stemning som passer like godt til workshops som til lange teamsamtaler." />
+          <div id="moterom" className="mb-6 grid scroll-mt-[110px] grid-cols-3 gap-5 max-[760px]:grid-cols-1">
+            <MeetingRoom accent="#2E86C1" image="/assets/rooms/storemoterom.avif" alt="Store møterom" capacity="16" title="Store møterom." roomName="Store møterom" maze="https://link.mazemap.com/CI3cG2d5" description="Det mest bookede rommet på FRAM. Egner seg godt til større møter, og fungerer også som undervisningsrom for små grupper." />
+            <MeetingRoom accent="#E85A5A" image="/assets/rooms/lillemoterom.avif" alt="Lille møterom" capacity="7" title="Lille møterom." roomName="Lille møterom" maze="https://link.mazemap.com/GLtbZdTq" description="Ligger i hjørnet på FRAM med vinduer ut og en god og intim stemning. Perfekt for tette møter eller intervjuer." />
+            <MeetingRoom accent="#FDC82F" image="/assets/Bananrommet.webp" alt="Bananrommet" capacity="12" title={<>Banan&shy;rommet.</>} roomName="Bananrommet" maze="https://link.mazemap.com/XAD8uBqO" description="Bananrommet også kjent som det gule møterom. Ligger rett utenfor døren inn til Fram." />
           </div>
 
           <div className="grid grid-cols-2 gap-[22px] max-[760px]:grid-cols-1">
-            <SmallRoom image="/assets/Podcastrommet.webp" alt="Podcastrommet på FRAM" title="Podcastrommet" features={[{icon:"ph ph-microphone",label:"Mikrofoner"},{icon:"ph ph-faders",label:"Rodecaster"},{icon:"ph ph-lamp",label:"Belysning"},{icon:"ph ph-couch",label:"Sofa"},{icon:"ph ph-headphones",label:"Hodetelefoner"}]}>Fullt utstyrt for podkast, intervju og lydinnhold. Ta kontakt med oss på <a href="mailto:framntnu@gmail.com" className="font-semibold text-[var(--ink)]">framntnu@gmail.com</a> så finner vi et podkastrom som passer til ditt bruk.</SmallRoom>
-            <SmallRoom href="/idegarasjen" image="/assets/Idegarasjen.webp" alt="Idégarasjen — studentenes innovasjonsverksted" title="Idégarasjen" features={[{icon:"ph ph-cube",label:"3D-printere"},{icon:"ph ph-scissors",label:"Laserkutter"},{icon:"ph ph-wrench",label:"Loddestasjoner"},{icon:"ph ph-printer",label:"Storformatprinter"},{icon:"ph ph-hammer",label:"Håndverktøy"},{icon:"ph ph-plugs-connected",label:"Elverktøy"}]}>Studentenes åpne innovasjonsverksted — med 3D-printere, laserkutter, loddestasjoner og alt du trenger til prototyping.</SmallRoom>
+            <SmallRoom id="podcastrommet" image="/assets/Podcastrommet.webp" alt="Podcastrommet på FRAM" title="Podcastrommet." maze="https://link.mazemap.com/WbokT9PE" features={[{icon:"ph ph-microphone",label:"Mikrofoner"},{icon:"ph ph-faders",label:"Rodecaster"},{icon:"ph ph-lamp",label:"Belysning"},{icon:"ph ph-couch",label:"Sofa"},{icon:"ph ph-headphones",label:"Hodetelefoner"}]}>Fullt utstyrt for podkast, intervju og lydinnhold. Ta kontakt med oss på <a href="mailto:framntnu@gmail.com" className="font-semibold text-[var(--ink)]">framntnu@gmail.com</a> så finner vi et podkastrom som passer til ditt bruk.</SmallRoom>
+            <SmallRoom href="/idegarasjen" image="/assets/Idegarasjen2.webp" logo="/assets/idegarasjen-logo-hvit.webp" alt="Idégarasjen — studentenes innovasjonsverksted" title="Idégarasjen." features={[{icon:"ph ph-cube",label:"3D-printere"},{icon:"ph ph-scissors",label:"Laserkutter"},{icon:"ph ph-wrench",label:"Loddestasjoner"},{icon:"ph ph-printer",label:"Storformatprinter"},{icon:"ph ph-hammer",label:"Håndverktøy"},{icon:"ph ph-plugs-connected",label:"Elverktøy"}]}>Studentenes åpne innovasjonsverksted — med 3D-printere, laserkutter, loddestasjoner og alt du trenger til prototyping.</SmallRoom>
           </div>
         </div>
       </section>

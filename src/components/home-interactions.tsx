@@ -94,7 +94,6 @@ type Room = {
   description: React.ReactNode;
   primary: string;
   primaryHref?: string;
-  maze?: string;
   note?: string;
 };
 const rooms: Room[] = [
@@ -103,23 +102,20 @@ const rooms: Room[] = [
     name: "Fellesrommet",
     accent: "teal",
     image: "/assets/fram-fellesrom.webp",
-    pill: "~40 plasser",
     description: (
       <>
         Fellesrommet på FRAM er åpent for alle studenter, enten du vil jobbe med
         studier, ta en pause mellom forelesninger eller spise lunsj.
       </>
     ),
-    primary: "Book Fellesrommet →",
-    primaryHref: "/booking",
-    maze: "https://link.mazemap.com/Icfh3qjb",
+    primary: "Utforsk Fellesrommet →",
+    primaryHref: "/booking#fellesrommet",
   },
   {
     id: 0,
     name: "Gruva",
     accent: "blue",
     image: "/assets/gruva.webp",
-    pill: "200 stående · 100 sittende",
     description: (
       <>
         <span className="max-[600px]:hidden">
@@ -130,16 +126,14 @@ const rooms: Room[] = [
         konkurranser og sosiale samlinger.
       </>
     ),
-    primary: "Book Gruva →",
+    primary: "Utforsk Gruva →",
     primaryHref: "https://www.gruvantnu.no/",
-    maze: "https://link.mazemap.com/7MLNJ23W",
   },
   {
     id: 4,
     name: "Scenerommet",
     accent: "blue",
     image: "/assets/scenerommet.avif",
-    pill: "120 stående · 70 sittende",
     description: (
       <>
         I scenerommet arrangeres det workshops, foredrag, pitchekvelder,
@@ -147,9 +141,8 @@ const rooms: Room[] = [
         scenerommet et åpent arbeidslokale.
       </>
     ),
-    primary: "Book Scenerommet →",
-    primaryHref: "/booking",
-    maze: "https://link.mazemap.com/2S7qcBrY",
+    primary: "Utforsk Scenerommet →",
+    primaryHref: "/booking#scenerommet",
   },
   {
     id: 3,
@@ -162,20 +155,17 @@ const rooms: Room[] = [
         virkeligheten.
       </>
     ),
-    primary: "Gå til Idégarasjen →",
+    primary: "Utforsk Idégarasjen →",
     primaryHref: "/idegarasjen",
-    maze: "https://link.mazemap.com/mroIG1LI",
   },
   {
     id: 2,
     name: "Møterom",
     accent: "red",
     image: "/assets/collage.webp",
-    pill: "6–14 plasser",
     description: <>Tre rom for møter, veiledning og fokusert gruppearbeid.</>,
-    primary: "Book Møterom →",
-    primaryHref: "/booking",
-    maze: "https://link.mazemap.com/geJyaaW5",
+    primary: "Utforsk Møterom →",
+    primaryHref: "/booking#moterom",
   },
   {
     id: 6,
@@ -188,9 +178,8 @@ const rooms: Room[] = [
         egne podkaster, intervjuer og annet lydinnhold.
       </>
     ),
-    primary: "Book Podcastrommet →",
-    primaryHref: "/booking",
-    maze: "https://link.mazemap.com/WbokT9PE",
+    primary: "Utforsk Podcastrommet →",
+    primaryHref: "/booking#podcastrommet",
   },
   {
     id: 5,
@@ -319,29 +308,6 @@ export function RoomExplorer() {
                     <span className="inline-flex items-center rounded-[14px] border-2 border-transparent bg-[var(--ink)] px-6 py-[15px] text-[15px] font-semibold text-[var(--bg)] opacity-45">
                       {room.primary}
                     </span>
-                  )}
-                  {room.maze && (
-                    <a
-                      href={room.maze}
-                      target="_blank"
-                      rel="noopener"
-                      className="inline-flex items-center gap-2.5 rounded-[14px] border-2 px-6 py-[15px] text-[15px] font-semibold no-underline [transition:transform_.2s,background_.2s,border-color_.2s,color_.2s] hover:text-white hover:[transform:translateY(-2px)]"
-                      style={{
-                        borderColor: colors[room.accent],
-                        color: colors[room.accent],
-                      }}
-                      onMouseEnter={(event) => {
-                        event.currentTarget.style.background =
-                          colors[room.accent];
-                        event.currentTarget.style.color = "#fff";
-                      }}
-                      onMouseLeave={(event) => {
-                        event.currentTarget.style.background = "transparent";
-                        event.currentTarget.style.color = colors[room.accent];
-                      }}
-                    >
-                      MazeMap →
-                    </a>
                   )}
                   {room.note && (
                     <span className="font-mono text-[11px] tracking-[.06em] text-[var(--muted)]">
