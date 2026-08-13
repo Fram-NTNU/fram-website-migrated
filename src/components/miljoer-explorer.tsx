@@ -8,7 +8,7 @@ export type Organization = {
   media?: "dark" | "dark-navy" | "deeper";
   logo: string;
   logoAlt: string;
-  logoSize?: "tall" | "big" | "big-tall";
+  logoSize?: "tall" | "big" | "big-tall" | "xl";
   photo: string;
   photoAlt: string;
   photoPosition?: string;
@@ -237,7 +237,9 @@ function OrgCard({
         ? "max-h-[90px] max-w-[76%]"
         : organization.logoSize === "big-tall"
           ? "max-h-[120px] max-w-[60%]"
-          : "max-h-[74px] max-w-[74%]";
+          : organization.logoSize === "xl"
+            ? "max-h-[134px] max-w-[72%]"
+            : "max-h-[74px] max-w-[74%]";
   return (
     <a
       href={organization.href}
@@ -353,11 +355,17 @@ function CompassEmblem() {
         </g>
         <circle cx="50" cy="50" r="16.5" fill="url(#fkBadgeReact)" />
         <g className="motion-safe:animate-[fk-rock_6s_ease-in-out_infinite] [transform-box:view-box] [transform-origin:50px_50px]">
-          <path
+          <g
             fill="url(#fkOriReact)"
-            d="M50 39 58 47 58 31 66 39 50 39 42 31 42 47 34 39Z"
-          />
-          <path fill="#16415f" d="m58 39-8 1.4V39Z" />
+            transform="translate(48 50.5) scale(0.028) translate(-500 -500)"
+          >
+            <polygon points="712.1,924.1 500.3,712.2 500.3,288.6 712.1,500.5" />
+            <polygon points="76.5,288.6 288.4,500.5 712.1,500.5 500.2,288.6" />
+            <polygon points="924,712.3 712.1,500.4 712.1,76.8 924,288.7" />
+            <polygon points="288.4,76.8 500.3,288.7 924,288.7 712.1,76.8" />
+            <polygon points="712.1,500.5 500.3,537.1 500.3,500.6" />
+            <polygon points="924,288.6 712.1,325.2 712.1,288.7" />
+          </g>
         </g>
         <circle
           cx="50"
