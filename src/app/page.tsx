@@ -10,6 +10,7 @@ import {
 } from "@/components/home-interactions";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { organizations } from "@/lib/organizations";
 
 const description =
   "Oppdag innovasjonsmiljøet på NTNU. FRAM tilbyr lokaler, arrangementer og et fellesskap for studenter som vil skape noe.";
@@ -223,7 +224,7 @@ export default function HomePage() {
                 <div className="flex self-stretch border-t border-[var(--line)] pt-6">
                   <div className="mr-8 max-[900px]:mr-5">
                     <div className="text-[40px] leading-none font-bold tracking-[-.02em] text-[var(--yellow)]">
-                      30
+                      {organizations.length}
                     </div>
                     <div className="mt-2 text-xs leading-[normal] font-medium text-[var(--muted)]">
                       Organisasjoner
@@ -231,7 +232,7 @@ export default function HomePage() {
                   </div>
                   <div className="mr-8 max-[900px]:mr-5">
                     <div className="text-[40px] leading-none font-bold tracking-[-.02em] text-[var(--blue)]">
-                      1000+
+                      1300+
                     </div>
                     <div className="mt-2 text-xs leading-[normal] font-medium text-[var(--muted)]">
                       Aktive studenter
