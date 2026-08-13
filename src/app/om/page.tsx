@@ -29,6 +29,7 @@ const organizationData = { "@context": "https://schema.org", "@type": "Organizat
 export default function OmPage() {
   return <div className="min-h-screen bg-[#FBF7F0] font-sans text-[#1A1A1A] [--bg-soft:#F4EFE5] [--bg:#FBF7F0] [--blue:#2E86C1] [--card:#fff] [--ink-soft:#555] [--ink:#1A1A1A] [--line:#E9E2D3] [--muted:#8a8a8a] [--nav-accent:#E85A5A] [--red:#E85A5A] [--teal:#3FC4A3] [--yellow:#FDC82F]">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css" />
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }} />
     <SiteHeader currentPath="/om" caretFontFamily={'Poppins, "Poppins Fallback", sans-serif'} />
 
@@ -62,7 +63,7 @@ export default function OmPage() {
         <div className="grid grid-cols-2 grid-rows-2 gap-3.5 max-[760px]:hidden">{videos.map((video) => <a key={video.id} href={`https://youtu.be/${video.id}`} target="_blank" rel="noopener" className="group relative flex h-full items-end overflow-hidden rounded-[14px] border border-[var(--line)] bg-[var(--bg-soft)] p-3.5 no-underline before:pointer-events-none before:absolute before:inset-0 before:z-[1] before:bg-[linear-gradient(to_bottom,rgba(0,0,0,.05)_0%,rgba(0,0,0,.55)_100%)] after:pointer-events-none after:absolute after:top-1/2 after:left-1/2 after:z-[1] after:h-[52px] after:w-[52px] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:border after:border-white/40 after:bg-white/22 after:shadow-[0_6px_20px_-6px_rgba(0,0,0,.4)]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={`https://img.youtube.com/vi/${video.id}/mqdefault.jpg`} alt={video.label} loading="lazy" className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover [transition:transform_.35s_ease] group-hover:[transform:scale(1.04)]" />
-          <i className="ph ph-play-fill pointer-events-none absolute top-1/2 left-1/2 z-[2] -translate-x-[44%] -translate-y-1/2 text-xl text-white" /><span className="relative z-[1] rounded-full border border-[var(--line)] bg-[var(--card)] px-[9px] py-[5px] font-mono text-[10px] tracking-[.08em] text-[var(--ink-soft)] uppercase">{video.label}</span>
+          <i className="ph-fill ph-play pointer-events-none absolute top-1/2 left-1/2 z-[2] text-xl text-white [transform:translate(calc(-50%-1px),-50%)]" /><span className="relative z-[1] font-mono text-[10px] tracking-[.08em] text-white uppercase [text-shadow:0_1px_3px_rgba(0,0,0,.6)]">{video.label}</span>
         </a>)}</div>
       </div>
     </section>
