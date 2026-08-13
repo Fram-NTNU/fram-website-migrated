@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AddToCalendarButton, DjVideo } from "@/components/innovasjonsdagene-interactions";
+import { AddToCalendarButton, DjVideo, LiveCompetitionBanner } from "@/components/innovasjonsdagene-interactions";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
@@ -31,8 +31,8 @@ const logos = [
 ] as const;
 
 const days = [
-  { number: "01", date: "Onsdag · 19. august", title: "Dag 1", color: "var(--id-blue)", items: [["10:00–10:15 · Åpning", "Åpning av Innovasjonsdagene og gratis frokostpakke. Tale av TBA."], ["10:15–14:00 · Åpen expo", "Stands og konkurranser — møt hele innovasjonsmiljøet på NTNU."], ["12:00 · Gratis lunsj", "Bread'n Spread."], ["14:30 · Vi sees igjen i morgen!", ""]] },
-  { number: "02", date: "Torsdag · 20. august", title: "Dag 2", color: "var(--id-teal)", items: [["10:00–10:15 · Åpning", "Åpning av dag 2 og gratis frokostpakke. Tale av TBA."], ["10:15–14:00 · Åpen expo", "Stands og konkurranser — møt hele innovasjonsmiljøet på NTNU."], ["12:00 · Gratis lunsj", "Bread'n Spread."], ["14:00 · Foredrag", "Foredrag med TBA. Vinn kule premier!"], ["14:00 · Avslutning", "Trekning av Soundboks!"]] },
+  { number: "01", date: "Onsdag · 19. august", title: "Dag 1", color: "var(--id-blue)", items: [["10:00–10:15 · Åpning", "Åpning av Innovasjonsdagene 2026 og gratis frokostpakke. Tale av Geir Øien, prorektor for utdanning ved NTNU."], ["10:15–14:30 · Åpen expo", "Stands og konkurranser — møt hele innovasjonsmiljøet på NTNU."], ["12:00 · Gratis lunsj", "Bread'n Spread."], ["14:15 · Avslutning", "Trekning av premier!"]] },
+  { number: "02", date: "Torsdag · 20. august", title: "Dag 2", color: "var(--id-teal)", items: [["10:00–10:15 · Åpning", "Åpning av dag 2 og gratis frokostpakke. Tale av Torgeir Aadland, SFU Engage."], ["10:15–14:30 · Åpen expo", "Stands og konkurranser — møt hele innovasjonsmiljøet på NTNU."], ["12:00 · Gratis lunsj", "Bread'n Spread."], ["14:15 · Avslutning", "Trekning av premier!"]] },
 ] as const;
 
 const breadcrumbData = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Hjem", item: "https://www.framntnu.no/" }, { "@type": "ListItem", position: 2, name: "Innovasjonsdagene '26", item: "https://www.framntnu.no/innovasjonsdagene" }] };
@@ -43,9 +43,10 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 }
 
 export default function InnovasjonsdagenePage() {
-  return <div className="min-h-screen bg-[var(--id-cream)] font-sans text-[var(--ink)] [--bg-soft:#F2EDE3] [--bg:#FAF7F2] [--card:#fff] [--charcoal:#1E1E1E] [--id-blue:#4B9FD3] [--id-cream:#F5F9FC] [--id-peach:#FFB775] [--id-pink:#FF8FB8] [--id-teal:#3CBFAB] [--ink-soft:#555] [--ink:#1E1E1E] [--line:#E6E0D5] [--muted:#8A8A8A] [--nav-accent:#E85A5A] [--nav-bg:#F5F9FC] [--nav-border:rgba(30,30,30,.08)] [--red:#E85A5A] [--teal:#3CBFAB] [--yellow:#E85A5A]">
+  return <div className="min-h-screen bg-[var(--id-cream)] font-sans text-[var(--ink)] [scroll-behavior:smooth] [--bg-soft:#F2EDE3] [--bg:#FAF7F2] [--card:#fff] [--charcoal:#1E1E1E] [--id-blue:#4B9FD3] [--id-cream:#F5F9FC] [--id-peach:#FFB775] [--id-pink:#FF8FB8] [--id-teal:#3CBFAB] [--ink-soft:#555] [--ink:#1E1E1E] [--line:#E6E0D5] [--muted:#8A8A8A] [--nav-accent:#E85A5A] [--nav-bg:#F5F9FC] [--nav-border:rgba(30,30,30,.08)] [--red:#E85A5A] [--teal:#3CBFAB] [--yellow:#E85A5A]">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }} />
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(festivalData) }} />
+    <LiveCompetitionBanner />
     <SiteHeader currentPath="/innovasjonsdagene" caretFontFamily={'Poppins, "Poppins Fallback", sans-serif'} />
 
     <header className="relative flex h-[calc(100vh-82px)] flex-col overflow-hidden max-[640px]:h-[100svh]">
@@ -63,7 +64,10 @@ export default function InnovasjonsdagenePage() {
           <div className="mr-8 flex flex-col gap-[3px] border-r border-white/15 pr-8 max-[640px]:m-0 max-[640px]:border-r max-[640px]:border-white/20 max-[640px]:pr-5"><span className="font-mono text-[11px] tracking-[.14em] text-white/50 uppercase max-[640px]:text-[10px] max-[640px]:tracking-[.12em]">Når</span><span className="text-lg leading-[1.3] font-bold text-white max-[640px]:text-[15px] max-[640px]:font-semibold">19.–20. august <span className="text-[var(--yellow)]">2026</span></span></div>
           <div className="flex flex-col gap-[3px] max-[640px]:pl-5"><span className="font-mono text-[11px] tracking-[.14em] text-white/50 uppercase max-[640px]:text-[10px] max-[640px]:tracking-[.12em]">Hvor</span><span className="text-lg leading-[1.3] font-bold text-white max-[640px]:text-[15px] max-[640px]:font-semibold">Gruva <span className="font-medium opacity-55">· Drop-in</span></span></div>
         </div>
-        <div className="max-[640px]:w-full"><AddToCalendarButton /></div>
+        <div className="flex items-center gap-3 max-[640px]:w-full max-[640px]:flex-col-reverse">
+          <a href="#program" className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 px-7 py-3.5 text-sm font-bold text-white no-underline [transition:border-color_.2s,background_.2s] hover:border-white/70 hover:bg-white/10 max-[640px]:w-full max-[640px]:px-5">Se program →</a>
+          <AddToCalendarButton />
+        </div>
       </div></div>
     </header>
 
@@ -88,7 +92,7 @@ export default function InnovasjonsdagenePage() {
       <div className="relative aspect-video overflow-hidden rounded-[28px] bg-black shadow-[0_24px_48px_rgba(0,0,0,.4)]"><iframe className="absolute inset-0 h-full w-full border-0" src="https://www.youtube-nocookie.com/embed/C31svE3VMlI?rel=0&modestbranding=1&playsinline=1" title="Innovasjonsdagene 2025 — Aftermovie" loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen /></div>
     </div></section>
 
-    <section id="program" className="relative py-28 max-[640px]:py-12"><div className="mx-auto max-w-[1360px] px-12 max-[900px]:px-5 max-[520px]:px-4">
+    <section id="program" className="relative scroll-mt-[82px] py-28 max-[640px]:py-12"><div className="mx-auto max-w-[1360px] px-12 max-[900px]:px-5 max-[520px]:px-4">
       <SectionHeading>Program.</SectionHeading>
       <div className="grid grid-cols-2 gap-5 max-[960px]:grid-cols-1">{days.map((day) => <article key={day.number} className="flex flex-col overflow-hidden rounded-[28px] border border-black/8 bg-[var(--card)] max-[640px]:rounded-2xl">
         <div style={{ background: day.color }} className="px-7 pt-7 pb-6 text-white"><div className="text-[80px] leading-[.9] font-extrabold tracking-[-.04em]">{day.number}</div><div className="mt-2.5 font-mono text-xs tracking-[.14em] uppercase opacity-75">{day.date}</div></div>
