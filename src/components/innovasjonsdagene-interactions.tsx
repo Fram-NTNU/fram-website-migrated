@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function pad(value: number) {
   return value < 10 ? `0${value}` : String(value);
@@ -8,6 +8,28 @@ function pad(value: number) {
 
 function formatUtc(date: Date) {
   return `${date.getUTCFullYear()}${pad(date.getUTCMonth() + 1)}${pad(date.getUTCDate())}T${pad(date.getUTCHours())}${pad(date.getUTCMinutes())}00Z`;
+}
+
+const EVENT_END = "2026-08-20T15:00:00+02:00";
+
+export function LiveCompetitionBanner() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const end = new Date(EVENT_END).getTime();
+    if (Date.now() < end) setVisible(true);
+  }, []);
+
+  if (!visible) return null;
+
+  return <a href="https://www.instagram.com/p/Db84A0ktoow/" target="_blank" rel="noopener" className="relative z-[60] flex items-center justify-center gap-2.5 bg-[var(--red)] px-4 py-2.5 text-center font-sans text-sm font-semibold text-white no-underline [transition:background_.2s] hover:bg-[#d94a4a] max-[520px]:text-[13px]">
+    <span aria-hidden="true" className="relative flex h-2.5 w-2.5 flex-none">
+      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-white" />
+    </span>
+    <span>Live konkurranse på Instagram — bli med nå</span>
+    <span aria-hidden="true">→</span>
+  </a>;
 }
 
 export function AddToCalendarButton() {
