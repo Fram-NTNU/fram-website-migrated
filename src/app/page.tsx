@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import {
+  BannerPulse,
   InnovationDaysCountdown,
   RoomExplorer,
   RotatingMemberLogo,
@@ -88,8 +89,9 @@ const websiteData = {
 };
 
 const wrap = "mx-auto max-w-[1360px] px-12 max-[900px]:px-5 max-[520px]:px-4";
+const sectionHeader = "mb-12 border-b border-[var(--line)] pb-7";
 const button =
-  "inline-flex cursor-pointer items-center gap-2.5 rounded-[14px] border-2 px-6 py-[15px] text-[15px] font-semibold no-underline [transition:transform_.2s,background_.2s,border-color_.2s,color_.2s]";
+  "inline-flex cursor-pointer items-center gap-2.5 rounded-[3px] border-2 px-6 py-[15px] text-[15px] font-semibold no-underline [transition:transform_.2s,background_.2s,border-color_.2s,color_.2s,box-shadow_.2s]";
 
 function Option({
   href,
@@ -102,7 +104,7 @@ function Option({
   wide?: boolean;
   accent: string;
 }) {
-  const classes = `flex flex-col gap-3 rounded-[14px] border border-[var(--line)] bg-[var(--card)] px-4 pt-4 pb-[15px] text-inherit no-underline [transition:transform_.2s_ease,border-color_.2s_ease,box-shadow_.2s_ease] hover:border-[color-mix(in_oklab,var(--persona-accent)_40%,var(--line))] hover:[box-shadow:0_16px_30px_-22px_rgba(0,0,0,.32)] hover:[transform:translateY(-3px)] ${wide ? "col-span-full" : ""}`;
+  const classes = `group/option relative flex flex-col gap-3 border-t-2 border-[var(--line)] bg-[var(--card)] px-4 pt-4 pb-[15px] text-inherit no-underline [transition:border-color_.2s_ease,background_.2s_ease] before:absolute before:top-0 before:left-0 before:h-2 before:w-2 before:bg-[var(--persona-accent)] before:[clip-path:polygon(0_0,100%_0,0_100%)] hover:border-[var(--persona-accent)] hover:bg-[color-mix(in_oklab,var(--persona-accent)_7%,var(--card))] ${wide ? "col-span-full" : ""}`;
   const style = { "--persona-accent": accent } as CSSProperties;
   return href ? (
     <a
@@ -168,36 +170,31 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteData) }}
       />
+      <Link
+        href="/innovasjonsdagene"
+        className="group block border-b border-black/15 bg-[var(--yellow)] text-[var(--charcoal)] no-underline [transition:background_.2s] hover:bg-[color-mix(in_oklab,var(--yellow)_82%,white)]"
+      >
+        <span className={`${wrap} flex min-h-10 items-center justify-center gap-2.5 py-2 font-sans text-xs leading-none font-semibold tracking-[.02em] whitespace-nowrap uppercase max-[520px]:gap-1.5 max-[520px]:text-[10px]`}>
+          <BannerPulse />
+          <strong className="font-bold"><InnovationDaysCountdown /></strong>
+          <span className="font-sans font-semibold normal-case">Innovasjonsdagene ’26</span>
+          <span aria-hidden="true">•</span>
+          <span className="font-sans font-medium normal-case">19.–20. august</span>
+          <span className="ml-1 font-sans text-[15px] leading-none font-semibold transition-transform duration-200 ease-out group-hover:translate-x-1.5" aria-hidden="true">→</span>
+        </span>
+      </Link>
       <SiteHeader currentPath="/" />
       <main>
         <section
           id="opplev"
-          className="relative pt-11 pb-[72px] max-[599px]:pt-6 max-[599px]:pb-10"
+          className="home-hero relative isolate overflow-hidden pt-11 pb-[88px] max-[599px]:pt-6 max-[599px]:pb-12"
         >
           <div className={wrap}>
-            <Link
-              href="/innovasjonsdagene"
-              className="group mb-6 inline-flex items-center gap-2.5 rounded-full border border-[color-mix(in_oklab,var(--yellow)_55%,var(--line))] bg-[color-mix(in_oklab,var(--yellow)_10%,var(--card))] py-1.5 pr-3.5 pl-2 text-[13px] leading-none text-[var(--ink-soft)] no-underline [transition:border-color_.2s,background_.2s] hover:border-[color-mix(in_oklab,var(--yellow)_85%,var(--line))] hover:bg-[color-mix(in_oklab,var(--yellow)_16%,var(--card))]"
-            >
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--yellow)] px-[9px] py-[3px] text-[10px] font-bold tracking-[.08em] text-[var(--charcoal)] uppercase">
-                <span className="h-1.5 w-1.5 animate-[home-blink_1.6s_infinite] rounded-full bg-[var(--charcoal)]" />
-                <InnovationDaysCountdown />
-              </span>
-              <span>
-                <b className="font-semibold text-[var(--ink)]">
-                  Innovasjonsdagene&nbsp;&apos;26
-                </b>
-                <span className="max-[520px]:hidden"> · 19.–20. august</span>
-              </span>
-              <span className="[transition:transform_.2s] group-hover:[transform:translateX(3px)]">
-                →
-              </span>
-            </Link>
             <div className="mb-[60px] grid min-h-[calc(100vh-130px)] grid-cols-[.78fr_1.22fr] items-center gap-8 max-[900px]:min-h-0 max-[900px]:grid-cols-1 max-[900px]:gap-6 max-[599px]:mb-8">
-              <div className="flex flex-col items-start">
-                <h1 className="mt-0 mb-3 text-[clamp(56px,6.6vw,108px)] leading-[.94] font-bold tracking-[-.04em] text-black">
-                  Velkommen til <span>Fram</span>
-                  <span>.</span>
+              <div className="relative z-[2] flex flex-col items-start">
+                <h1 className="mt-0 mb-3 text-[clamp(56px,6.6vw,108px)] leading-[.94] font-light tracking-[-.04em] text-black">
+                  Velkommen til <span className="font-bold">Fram</span>
+                  <span className="inline-block text-[1.2em] leading-none text-[var(--red)]">.</span>
                 </h1>
                 <p className="hidden" />
                 <p className="mt-0 mb-[26px] hidden text-[clamp(17px,1.5vw,21px)] leading-[26px] font-medium tracking-[-.01em] text-[var(--ink-soft)] max-[900px]:block">
@@ -223,10 +220,10 @@ export default function HomePage() {
                   arrangementer, workshops og et inkluderende fellesskap for
                   nyskaping.
                 </p>
-                <div className="mb-[34px] flex flex-wrap gap-2.5">
+                <div className="mb-[38px] flex flex-wrap gap-2.5">
                   <a
                     href="#lokalene"
-                    className={`${button} border-transparent bg-[var(--ink)] text-[var(--bg)] hover:[transform:translateY(-2px)]`}
+                    className={`${button} border-transparent bg-[var(--ink)] text-[var(--bg)] hover:[box-shadow:0_6px_0_var(--yellow)] hover:[transform:translateY(-3px)]`}
                   >
                     Utforsk Fram →
                   </a>
@@ -239,28 +236,16 @@ export default function HomePage() {
                 </div>
                 <div className="flex self-stretch border-t border-[var(--line)] pt-6">
                   <div className="mr-8 max-[900px]:mr-5">
-                    <div className="text-[40px] leading-none font-bold tracking-[-.02em] text-[var(--yellow)]">
-                      30
-                    </div>
-                    <div className="mt-2 text-xs leading-[normal] font-medium text-[var(--muted)]">
-                      Organisasjoner
-                    </div>
+                    <div className="text-[40px] leading-none font-bold tracking-[-.02em] text-[var(--yellow)]">30</div>
+                    <div className="mt-2 text-xs leading-[normal] font-medium text-[var(--muted)]">Organisasjoner</div>
                   </div>
                   <div className="mr-8 max-[900px]:mr-5">
-                    <div className="text-[40px] leading-none font-bold tracking-[-.02em] text-[var(--blue)]">
-                      1000+
-                    </div>
-                    <div className="mt-2 text-xs leading-[normal] font-medium text-[var(--muted)]">
-                      Aktive studenter
-                    </div>
+                    <div className="text-[40px] leading-none font-bold tracking-[-.02em] text-[var(--blue)]">1000+</div>
+                    <div className="mt-2 text-xs leading-[normal] font-medium text-[var(--muted)]">Aktive studenter</div>
                   </div>
                   <div>
-                    <div className="text-[40px] leading-none font-bold tracking-[-.02em] text-[var(--red)]">
-                      &apos;16
-                    </div>
-                    <div className="mt-2 text-xs leading-[normal] font-medium text-[var(--muted)]">
-                      Etablert
-                    </div>
+                    <div className="text-[40px] leading-none font-bold tracking-[-.02em] text-[var(--red)]">&apos;16</div>
+                    <div className="mt-2 text-xs leading-[normal] font-medium text-[var(--muted)]">Etablert</div>
                   </div>
                 </div>
               </div>
@@ -275,7 +260,7 @@ export default function HomePage() {
                 />
               </div>
             </div>
-            <div className="relative overflow-hidden rounded-[28px] bg-transparent shadow-[0_2px_4px_rgba(0,0,0,.04),0_8px_24px_rgba(0,0,0,.08),0_32px_64px_-24px_rgba(0,0,0,.18)]">
+            <div className="home-video relative overflow-hidden bg-transparent shadow-[0_18px_42px_-22px_rgba(0,0,0,.34)] [clip-path:polygon(0_0,calc(100%-42px)_0,100%_42px,100%_100%,42px_100%,0_calc(100%-42px))] before:absolute before:top-0 before:right-0 before:z-[2] before:h-[42px] before:w-[42px] before:bg-[var(--yellow)] before:[clip-path:polygon(0_0,100%_100%,0_100%)] before:content-[''] after:absolute after:bottom-0 after:left-0 after:z-[2] after:h-[42px] after:w-[42px] after:bg-[var(--teal)] after:[clip-path:polygon(0_0,100%_100%,100%_0)] after:content-['']">
               <div className="relative aspect-video overflow-hidden bg-black">
                 <YouTubeFacade />
               </div>
@@ -288,9 +273,9 @@ export default function HomePage() {
           className="pt-[110px] pb-[120px] max-[599px]:pt-14"
         >
           <div className={wrap}>
-            <div className="mb-[42px] flex flex-wrap items-end justify-between gap-8">
+            <div className={`${sectionHeader} flex flex-wrap items-end justify-between gap-8`}>
               <div className="max-w-[740px]">
-                <h2 className="mt-[18px] mb-0 text-[clamp(44px,4.8vw,76px)] leading-[1.02] font-bold tracking-[-.03em] text-[var(--ink)]">
+                <h2 className="m-0 text-[clamp(44px,4.8vw,76px)] leading-[1.02] font-bold tracking-[-.03em] text-[var(--ink)]">
                   Våre lokaler.
                 </h2>
               </div>
@@ -301,10 +286,10 @@ export default function HomePage() {
 
         <section
           id="events"
-          className="rounded-t-3xl bg-[var(--ink)] py-[72px] text-[var(--bg)]"
+          className="bg-[var(--ink)] py-[72px] text-[var(--bg)]"
         >
           <div className={wrap}>
-            <div className="grid grid-cols-[1.1fr_1fr] overflow-hidden rounded-[28px] border border-white/12 max-[760px]:grid-cols-1">
+            <div className="grid grid-cols-[1.1fr_1fr] overflow-hidden border-y-2 border-white/35 max-[760px]:grid-cols-1">
               <div className="group relative flex min-h-[440px] flex-col justify-between overflow-hidden bg-[#2B7FD4] bg-[url('/assets/innovasjonsdagene-hovedscenen.avif')] bg-cover bg-center px-10 py-9 text-white [transition:box-shadow_.4s_ease,transform_.35s_cubic-bezier(.22,1,.36,1)] after:pointer-events-none after:absolute after:inset-0 after:bg-[linear-gradient(180deg,rgba(20,20,24,.55)_0%,rgba(20,20,24,.15)_38%,rgba(20,20,24,.65)_100%)] hover:[box-shadow:0_24px_60px_rgba(43,127,212,.35)] hover:[transform:scale(1.012)] max-[760px]:min-h-[280px] max-[760px]:px-6 max-[760px]:py-7">
                 <div className="relative z-[1]" />
                 <div className="relative z-[1] text-[clamp(72px,8vw,112px)] leading-[.9] font-extrabold tracking-[-.04em] [transition:transform_.4s_cubic-bezier(.22,1,.36,1)] group-hover:[transform:translateY(-6px)]">
@@ -368,17 +353,17 @@ export default function HomePage() {
 
         <section id="reisen" className="relative pt-[100px] pb-[120px]">
           <div className={wrap}>
-            <div className="mx-auto mb-16 max-w-[1060px] text-center">
+            <div className={sectionHeader}>
               <h2 className="m-0 text-[clamp(44px,4.8vw,76px)] leading-[1.02] font-bold tracking-[-.03em] text-[var(--ink)]">
                 Hvor starter du?
               </h2>
-              <p className="mx-auto mt-[18px] mb-0 max-w-[540px] text-[17px] leading-[1.6] text-[var(--ink-soft)]">
+              <p className="mt-[18px] mb-0 max-w-[540px] text-[17px] leading-[1.6] text-[var(--ink-soft)]">
                 Finn studentorganisasjoner og innovasjonsmiljøer ved NTNU.
               </p>
             </div>
-            <div className="mx-auto mt-12 grid max-w-[1060px] grid-cols-2 grid-rows-[auto_1fr] items-stretch gap-[26px] max-[760px]:grid-cols-1 max-[760px]:grid-rows-none">
-              <div className="group relative row-span-2 grid grid-rows-subgrid gap-y-0 overflow-hidden rounded-3xl border border-[var(--line)] bg-[var(--card)] [box-shadow:0_30px_60px_-40px_rgba(0,0,0,.36)] [--pc:var(--yellow)] [transition:transform_.3s_ease,box-shadow_.3s_ease,border-color_.3s_ease] hover:border-[color-mix(in_oklab,var(--pc)_32%,var(--line))] hover:[box-shadow:0_42px_76px_-40px_rgba(0,0,0,.38)] hover:[transform:translateY(-6px)] max-[760px]:row-auto max-[760px]:grid-rows-[auto_auto]">
-                <div className="bg-[radial-gradient(120%_140%_at_100%_0%,color-mix(in_oklab,var(--pc)_26%,var(--card)),transparent_60%),color-mix(in_oklab,var(--pc)_11%,var(--card))] px-[30px] pt-[30px] pb-[26px]">
+            <div className="mt-12 grid w-full grid-cols-2 grid-rows-[auto_1fr] items-stretch gap-[26px] max-[760px]:grid-cols-1 max-[760px]:grid-rows-none">
+              <div className="group relative row-span-2 grid grid-rows-subgrid gap-y-0 overflow-hidden border-t-[10px] border-[var(--yellow)] bg-[var(--card)] [--pc:var(--yellow)] max-[760px]:row-auto max-[760px]:grid-rows-[auto_auto]">
+                <div className="bg-[color-mix(in_oklab,var(--pc)_13%,var(--card))] px-[30px] pt-[30px] pb-[26px]">
                   <h3 className="mt-0 mb-2.5 max-w-[80%] text-[25px] leading-[1.12] font-extrabold tracking-[-.02em]">
                     Bli kjent med miljøet
                   </h3>
@@ -431,7 +416,7 @@ export default function HomePage() {
                       kvinner i innovasjon
                     </Desc>
                   </Option>
-                  <div className="col-span-full flex items-center gap-[18px] rounded-[14px] border border-[var(--line)] bg-[var(--card)] px-4 pt-4 pb-[15px] max-[760px]:gap-3">
+                  <div className="col-span-full flex items-center gap-[18px] border-t-2 border-[var(--line)] bg-[var(--card)] px-4 pt-4 pb-[15px] max-[760px]:gap-3">
                     <RotatingMemberLogo />
                     <span className="flex min-w-0 flex-1 flex-col gap-[3px]">
                       <span className="text-[15px] leading-[1.2] font-semibold text-[var(--ink)] max-[760px]:[overflow-wrap:anywhere]">
@@ -457,8 +442,8 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-              <div className="group relative row-span-2 grid grid-rows-subgrid gap-y-0 overflow-hidden rounded-3xl border border-[var(--line)] bg-[var(--card)] [box-shadow:0_30px_60px_-40px_rgba(0,0,0,.36)] [--pc:var(--blue)] [transition:transform_.3s_ease,box-shadow_.3s_ease,border-color_.3s_ease] hover:border-[color-mix(in_oklab,var(--pc)_32%,var(--line))] hover:[box-shadow:0_42px_76px_-40px_rgba(0,0,0,.38)] hover:[transform:translateY(-6px)] max-[760px]:row-auto max-[760px]:grid-rows-[auto_auto]">
-                <div className="bg-[radial-gradient(120%_140%_at_100%_0%,color-mix(in_oklab,var(--pc)_26%,var(--card)),transparent_60%),color-mix(in_oklab,var(--pc)_11%,var(--card))] px-[30px] pt-[30px] pb-[26px]">
+              <div className="group relative row-span-2 grid grid-rows-subgrid gap-y-0 overflow-hidden border-t-[10px] border-[var(--blue)] bg-[var(--card)] [--pc:var(--blue)] max-[760px]:row-auto max-[760px]:grid-rows-[auto_auto]">
+                <div className="bg-[color-mix(in_oklab,var(--pc)_13%,var(--card))] px-[30px] pt-[30px] pb-[26px]">
                   <h3 className="mt-0 mb-2.5 max-w-[80%] text-[25px] leading-[1.12] font-extrabold tracking-[-.02em]">
                     Ta idéen videre &amp; bygg selskap
                   </h3>

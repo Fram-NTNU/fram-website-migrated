@@ -1,7 +1,31 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+export function BannerPulse() {
+  const markerRef = useRef<HTMLSpanElement>(null);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const marker = markerRef.current;
+    if (!marker) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.1 },
+    );
+    observer.observe(marker);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <span
+      ref={markerRef}
+      aria-hidden="true"
+      className={`banner-pulse shrink-0 ${isVisible ? "is-active" : ""}`}
+    />
+  );
+}
 
 export function InnovationDaysCountdown() {
   const [label, setLabel] = useState("Snart");
@@ -191,25 +215,18 @@ export function RoomExplorer() {
   const [selected, setSelected] = useState(1);
   return (
     <div className="grid grid-cols-[330px_1fr] items-stretch gap-[18px] max-[900px]:grid-cols-1">
-      <div className="flex flex-col gap-2 max-[900px]:static max-[900px]:flex-row max-[900px]:flex-wrap">
+      <div className="flex flex-col gap-0 max-[900px]:static max-[900px]:flex-row max-[900px]:flex-wrap">
         {rooms.map((item) => (
           <button
             key={item.id}
             type="button"
             onClick={() => setSelected(item.id)}
-            className={`flex w-full cursor-pointer items-center gap-3.5 rounded-[14px] border px-[18px] py-4 text-left font-sans text-[var(--ink)] [transition:background_.25s,border-color_.25s,transform_.25s] hover:[transform:translateX(3px)] max-[900px]:min-w-[140px] max-[900px]:flex-[1_1_calc(50%-4px)] ${selected === item.id ? "border-[var(--ink)] bg-[var(--ink)]" : "border-[var(--line)] bg-[var(--card)]"}`}
+            className={`room-tab flex w-full cursor-pointer items-center gap-3.5 border-0 border-b border-[var(--line)] px-[18px] py-4 text-left font-sans text-[var(--ink)] [transition:background_.25s,color_.25s,transform_.25s] hover:[transform:translateX(3px)] max-[900px]:min-w-[140px] max-[900px]:flex-[1_1_50%] ${selected === item.id ? "bg-[var(--ink)]" : "bg-transparent"}`}
             style={
               { "--room-color": colors[item.accent] } as React.CSSProperties
             }
-            onMouseEnter={(event) => {
-              if (selected !== item.id)
-                event.currentTarget.style.borderColor = colors[item.accent];
-            }}
-            onMouseLeave={(event) => {
-              if (selected !== item.id)
-                event.currentTarget.style.borderColor = "var(--line)";
-            }}
           >
+            <span aria-hidden="true" className="room-marker h-2 w-2 shrink-0 rotate-45 bg-[var(--room-color)]" />
             <span className="min-w-0 flex-1">
               <span
                 className={`mt-0.5 block text-lg leading-[normal] font-bold tracking-[-.015em] ${selected === item.id ? "text-[var(--bg)]" : "text-[var(--ink)]"}`}
@@ -234,7 +251,11 @@ export function RoomExplorer() {
             key={room.id}
             className={`${selected === room.id ? "flex animate-[home-expfade_.42s_cubic-bezier(.4,0,.2,1)] flex-col" : "hidden"} h-full`}
           >
-            <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[28px] border border-[var(--line)] bg-[var(--card)] shadow-[0_30px_70px_-44px_rgba(0,0,0,.4)]">
+            <div
+              className="relative flex min-h-0 flex-1 flex-col overflow-hidden bg-[var(--card)] shadow-[0_26px_60px_-42px_rgba(0,0,0,.48)] [clip-path:polygon(0_0,calc(100%-34px)_0,100%_34px,100%_100%,0_100%)]"
+              style={{ "--room-color": colors[room.accent] } as React.CSSProperties}
+            >
+              <span aria-hidden="true" className="absolute top-0 right-0 z-[4] h-[34px] w-[34px] bg-[var(--room-color)] [clip-path:polygon(0_0,100%_100%,0_100%)]" />
               <div
                 className={`relative min-h-[300px] flex-[1_1_auto] overflow-hidden bg-[var(--room-color)] max-[600px]:h-[280px]`}
                 style={
@@ -254,8 +275,8 @@ export function RoomExplorer() {
                   className={`absolute inset-0 ${room.image ? "bg-[linear-gradient(180deg,rgba(10,14,22,.05)_0%,rgba(10,14,22,.30)_45%,rgba(10,14,22,.78)_100%)]" : "bg-[linear-gradient(180deg,transparent_28%,rgba(0,0,0,.5)_100%)]"}`}
                 />
                 {room.pill && (
-                  <div className="absolute top-[22px] right-6 left-6 z-[2] flex justify-end">
-                    <span className="inline-flex items-center rounded-full border border-white/30 bg-white/18 px-3.5 py-2 font-mono text-[11px] font-bold tracking-[.08em] text-white uppercase backdrop-blur-lg">
+                  <div className="absolute top-[22px] right-12 left-6 z-[5] flex justify-end">
+                    <span className="inline-flex items-center border border-white/50 bg-black/50 px-3.5 py-2 font-mono text-[11px] font-bold tracking-[.08em] text-white uppercase">
                       {room.pill}
                     </span>
                   </div>
@@ -284,12 +305,12 @@ export function RoomExplorer() {
                           ? "noopener"
                           : undefined
                       }
-                      className="inline-flex cursor-pointer items-center gap-2.5 rounded-[14px] border-2 border-transparent bg-[var(--ink)] px-6 py-[15px] text-[15px] font-semibold text-[var(--bg)] no-underline [transition:transform_.2s,background_.2s,border-color_.2s,color_.2s] hover:[transform:translateY(-2px)]"
+                      className="inline-flex cursor-pointer items-center gap-2.5 rounded-[3px] border-2 border-transparent bg-[var(--ink)] px-6 py-[15px] text-[15px] font-semibold text-[var(--bg)] no-underline [transition:transform_.2s,background_.2s,border-color_.2s,color_.2s] hover:[transform:translateY(-2px)]"
                     >
                       {room.primary}
                     </a>
                   ) : (
-                    <span className="inline-flex items-center rounded-[14px] border-2 border-transparent bg-[var(--ink)] px-6 py-[15px] text-[15px] font-semibold text-[var(--bg)] opacity-45">
+                    <span className="inline-flex items-center rounded-[3px] border-2 border-transparent bg-[var(--ink)] px-6 py-[15px] text-[15px] font-semibold text-[var(--bg)] opacity-45">
                       {room.primary}
                     </span>
                   )}
@@ -298,7 +319,7 @@ export function RoomExplorer() {
                       href={room.maze}
                       target="_blank"
                       rel="noopener"
-                      className="inline-flex items-center gap-2.5 rounded-[14px] border-2 px-6 py-[15px] text-[15px] font-semibold no-underline [transition:transform_.2s,background_.2s,border-color_.2s,color_.2s] hover:text-white hover:[transform:translateY(-2px)]"
+                      className="inline-flex items-center gap-2.5 rounded-[3px] border-2 px-6 py-[15px] text-[15px] font-semibold no-underline [transition:transform_.2s,background_.2s,border-color_.2s,color_.2s] hover:text-white hover:[transform:translateY(-2px)]"
                       style={{
                         borderColor: colors[room.accent],
                         color: colors[room.accent],

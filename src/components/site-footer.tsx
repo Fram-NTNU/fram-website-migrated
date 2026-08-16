@@ -40,11 +40,11 @@ export function SiteFooter({ mobileExtraBottomPadding = false }: { mobileExtraBo
     return () => window.removeEventListener("keydown", close);
   }, [slackOpen]);
 
-  const socialButton = "foot-social flex h-9 w-9 items-center justify-center rounded-[10px] border border-[var(--line)] bg-[var(--card)] no-underline [transition:all_.2s] hover:[transform:translateY(-2px)]";
+  const socialButton = "foot-social flex h-9 w-9 items-center justify-center rounded-[3px] border border-[var(--line)] bg-[var(--card)] no-underline [transition:transform_.2s,border-color_.2s] hover:[transform:translateY(-2px)]";
 
   return (
     <>
-      <footer className={`border-t border-[var(--line)] bg-[var(--bg)] pt-10 pb-8 font-mono text-xs leading-[normal] tracking-[.04em] text-[var(--muted)] ${mobileExtraBottomPadding ? "max-[520px]:pb-9" : ""}`}>
+      <footer className={`relative border-t border-[var(--line)] bg-[var(--bg)] pt-12 pb-8 font-mono text-xs leading-[normal] tracking-[.04em] text-[var(--muted)] before:absolute before:top-0 before:right-0 before:left-0 before:h-2 before:bg-[linear-gradient(90deg,var(--yellow)_0_25%,var(--blue)_25%_50%,var(--red)_50%_75%,var(--teal)_75%)] before:content-[''] ${mobileExtraBottomPadding ? "max-[520px]:pb-9" : ""}`}>
         <div className="mx-auto max-w-[1360px] px-12 max-[900px]:px-5 max-[520px]:px-4">
           <div className="mb-7 flex flex-wrap items-start justify-between gap-10 border-b border-[var(--line)] pb-7">
             <div className="flex flex-col gap-2.5">
@@ -63,16 +63,16 @@ export function SiteFooter({ mobileExtraBottomPadding = false }: { mobileExtraBo
               </div>
             </div>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 max-[620px]:w-full">
               <div className="mb-1 text-[10px] font-semibold tracking-[.14em] uppercase">Samarbeidspartnere</div>
-              <div className="flex flex-col items-start gap-[18px]">
+              <div className="flex flex-col items-start gap-[18px] max-[620px]:flex-row max-[620px]:items-center max-[620px]:gap-5">
                 {/* Plain images retained for path and layout parity. */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img width="550" height="157" loading="lazy" decoding="async" src="/assets/sparebank1SMNhvit.png" alt="SpareBank 1 SMN" className="-ml-2 h-9 w-auto" />
+                <img width="550" height="157" loading="lazy" decoding="async" src="/assets/sparebank1SMNhvit.png" alt="SpareBank 1 SMN" className="-ml-2 h-9 w-auto max-[620px]:h-5" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img width="500" height="198" loading="lazy" decoding="async" src="/assets/partners/equinor.webp" alt="Equinor" className="h-[34px] w-auto" />
+                <img width="500" height="198" loading="lazy" decoding="async" src="/assets/partners/equinor.webp" alt="Equinor" className="h-[34px] w-auto max-[620px]:h-5" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img width="500" height="344" loading="lazy" decoding="async" src="/assets/DNB_Logo.png" alt="DNB" className="mt-4 h-[30px] w-auto" />
+                <img width="500" height="344" loading="lazy" decoding="async" src="/assets/DNB_Logo.png" alt="DNB" className="mt-4 h-[30px] w-auto max-[620px]:mt-0 max-[620px]:h-5" />
               </div>
             </div>
 

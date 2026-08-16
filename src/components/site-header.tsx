@@ -27,19 +27,19 @@ function Dropdown({ label, items, caretFontFamily, active = false }: DropdownPro
         {label}
         <span aria-hidden="true" style={{ fontFamily: caretFontFamily }} className={`dd-caret text-[10px] leading-[normal] [transition:transform_.2s] group-hover:[transform:rotate(180deg)] max-[900px]:group-hover:[transform:rotate(0deg)] ${open ? "max-[900px]:[transform:rotate(180deg)]" : ""}`}>▾</span>
       </button>
-      <div className={`nav-dd-menu invisible pointer-events-none absolute top-full left-1/2 z-[60] flex min-w-[190px] -translate-x-1/2 translate-y-2.5 flex-col gap-0.5 rounded-[14px] border border-[var(--line)] bg-[var(--card)] p-2 opacity-0 shadow-[0_18px_40px_-18px_rgba(0,0,0,.28)] transition-[opacity,transform] duration-200 group-hover:visible group-hover:pointer-events-auto group-hover:translate-y-2 group-hover:opacity-100 max-[900px]:static max-[900px]:min-w-0 max-[900px]:translate-x-0 max-[900px]:translate-y-0 max-[900px]:border-0 max-[900px]:bg-transparent max-[900px]:py-2 max-[900px]:pr-0 max-[900px]:pl-3 max-[900px]:shadow-none max-[900px]:group-hover:translate-y-0 ${open ? "!visible !pointer-events-auto !translate-y-2 !opacity-100 max-[900px]:flex" : "max-[900px]:hidden"}`}>
+      <div className={`nav-dd-menu invisible pointer-events-none absolute top-full left-1/2 z-[60] flex min-w-[190px] -translate-x-1/2 translate-y-2.5 flex-col gap-0.5 rounded-[4px] border border-[var(--line)] bg-[var(--card)] p-2 opacity-0 shadow-[0_18px_40px_-18px_rgba(0,0,0,.28)] transition-[opacity,transform] duration-200 group-hover:visible group-hover:pointer-events-auto group-hover:translate-y-2 group-hover:opacity-100 max-[900px]:static max-[900px]:min-w-0 max-[900px]:translate-x-0 max-[900px]:translate-y-0 max-[900px]:border-0 max-[900px]:bg-transparent max-[900px]:py-2 max-[900px]:pr-0 max-[900px]:pl-3 max-[900px]:shadow-none max-[900px]:group-hover:translate-y-0 ${open ? "!visible !pointer-events-auto !translate-y-2 !opacity-100 max-[900px]:flex" : "max-[900px]:hidden"}`}>
         {items.map((item) => item.external ? (
           <a
             key={item.href}
             href={item.href}
             target="_blank"
             rel="noopener"
-            className="block whitespace-nowrap rounded-[9px] px-3.5 py-2.5 text-sm font-medium text-[var(--ink-soft)] no-underline transition-colors hover:bg-[var(--bg-soft)] hover:text-[var(--ink)] max-[900px]:px-1.5 max-[900px]:py-[11px] max-[900px]:text-[15px]"
+            className="block whitespace-nowrap rounded-[2px] px-3.5 py-2.5 text-sm font-medium text-[var(--ink-soft)] no-underline transition-colors hover:bg-[var(--ink)] hover:text-[var(--bg)] max-[900px]:px-1.5 max-[900px]:py-[11px] max-[900px]:text-[15px]"
           >
             {item.label}
           </a>
         ) : (
-          <Link key={item.href} href={item.href} className="block whitespace-nowrap rounded-[9px] px-3.5 py-2.5 text-sm font-medium text-[var(--ink-soft)] no-underline transition-colors hover:bg-[var(--bg-soft)] hover:text-[var(--ink)] max-[900px]:px-1.5 max-[900px]:py-[11px] max-[900px]:text-[15px]">
+          <Link key={item.href} href={item.href} className="block whitespace-nowrap rounded-[2px] px-3.5 py-2.5 text-sm font-medium text-[var(--ink-soft)] no-underline transition-colors hover:bg-[var(--ink)] hover:text-[var(--bg)] max-[900px]:px-1.5 max-[900px]:py-[11px] max-[900px]:text-[15px]">
             {item.label}
           </Link>
         ))}
@@ -87,7 +87,7 @@ export function SiteHeader({
         </div>
         <button
           type="button"
-          className={`nav-burger hidden h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-[var(--line)] bg-[var(--card)] p-0 text-[var(--ink)] max-[900px]:inline-flex ${menuOpen ? "is-open" : ""}`}
+          className={`nav-burger hidden h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-[3px] border border-[var(--ink)] bg-[var(--card)] p-0 text-[var(--ink)] max-[900px]:inline-flex ${menuOpen ? "is-open" : ""}`}
           aria-label={menuOpen ? "Lukk meny" : "Åpne meny"}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((value) => !value)}
