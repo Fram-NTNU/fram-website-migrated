@@ -171,6 +171,21 @@ export const organizations: Organization[] = [
       "Linjeforeningen for masterprogrammet i Innovasjon og bærekraftig samfunnsutvikling ved NTNU i Trondheim.",
   },
   {
+    accent: "red",
+    href: "https://www.jetntnu.no/",
+    media: "dark",
+    logo: "/assets/logos/jet-white.svg",
+    logoAlt: "Jet NTNU",
+    logoSize: "big",
+    photo: "/assets/heroes/jet.webp",
+    photoAlt: "Jet NTNU turbojetmotor",
+    spin: true,
+    category: "Luft · Jetmotor",
+    name: "Jet NTNU",
+    description:
+      "Norges første studentdrevne jetmotororganisasjon. Designer, produserer og tester sin egen turbojetmotor.",
+  },
+  {
     accent: "teal",
     href: "https://makentnu.no/",
     logo: "/assets/logos/make.webp",
@@ -182,6 +197,20 @@ export const organizations: Organization[] = [
     name: "Make NTNU",
     description:
       "Gir studenter tilgang til verktøy, utstyr og kompetanse for å bygge egne prosjekter.",
+  },
+  {
+    accent: "blue",
+    href: "https://marinorntnu.no/",
+    logo: "/assets/logos/marinor.png",
+    logoAlt: "Marinor NTNU",
+    logoSize: "xl",
+    photo: "/assets/heroes/marinor.webp",
+    photoAlt: "Marinor NTNU-laget med sitt autonome fartøy",
+    photoPosition: "center 62%",
+    category: "Hav · Autonomi",
+    name: "Marinor NTNU",
+    description:
+      "Bygger og tester autonome maritime systemer, og bruker forskning til å løse reelle utfordringer til havs.",
   },
   {
     accent: "blue",

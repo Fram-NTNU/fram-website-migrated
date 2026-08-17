@@ -13,6 +13,8 @@ export type Organization = {
   photoAlt: string;
   photoPosition?: string;
   photoContain?: boolean;
+  /** Roterer bildet med en avtagende spinn når kortet scrolles inn i view. */
+  spin?: boolean;
   category: string;
   name: string;
   description: string;
@@ -217,7 +219,7 @@ function localMatch(text: string, organizations: Organization[]) {
     }));
 }
 
-function OrgCard({
+export function OrgCard({
   organization,
   logoMode,
 }: {
@@ -230,6 +232,27 @@ function OrgCard({
       : organization.media === "dark-navy"
         ? "#022641"
         : panelColors[organization.accent];
+  const photoRef = useRef<HTMLImageElement | null>(null);
+  const [spun, setSpun] = useState(false);
+  useEffect(() => {
+    if (!organization.spin) return;
+    const el = photoRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setSpun(true);
+            observer.disconnect();
+          }
+        }
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [organization.spin]);
   const logoSize =
     organization.logoSize === "tall"
       ? "max-h-[106px] max-w-[54%]"
@@ -264,12 +287,23 @@ function OrgCard({
           style={{ background: dark }}
         />
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={organization.photo}
-          alt={organization.photoAlt}
-          className={`absolute inset-0 z-0 h-full w-full ${organization.photoContain ? "object-contain" : "object-cover"} [transition:transform_.7s_ease,opacity_.4s_ease] ${logoMode ? "opacity-0 [transform:scale(1.001)] group-hover:opacity-100 group-hover:[transform:scale(1.05)]" : "opacity-100 [transform:scale(1.001)] group-hover:[transform:scale(1.05)]"}`}
-          style={{ objectPosition: organization.photoPosition }}
-        />
+        {organization.spin ? (
+          // Transparent turbofan plassert med navet i bunn-senter, slik at kun
+          // øvre halvdel vises. Spinner rundt navet når kortet scrolles inn.
+          <img
+            ref={photoRef}
+            src={organization.photo}
+            alt={organization.photoAlt}
+            className={`pointer-events-none absolute top-0 left-1/2 z-0 w-[min(300px,112%)] [transform-origin:50%_50%] [transition:opacity_.4s_ease] ${logoMode ? "opacity-0 group-hover:opacity-100" : "opacity-100"} ${spun ? "[animation:jet-spin_1.6s_cubic-bezier(.16,.84,.28,1)_both]" : "[transform:translate(-50%,0)]"}`}
+          />
+        ) : (
+          <img
+            src={organization.photo}
+            alt={organization.photoAlt}
+            className={`absolute inset-0 z-0 h-full w-full [transition:transform_.7s_ease,opacity_.4s_ease] ${organization.photoContain ? "object-contain" : "object-cover"} ${logoMode ? "opacity-0 [transform:scale(1.001)] group-hover:opacity-100 group-hover:[transform:scale(1.05)]" : "opacity-100 [transform:scale(1.001)] group-hover:[transform:scale(1.05)]"}`}
+            style={{ objectPosition: organization.photoPosition }}
+          />
+        )}
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-[7px] px-5 pt-[18px] pb-[22px]">
         <div className="flex items-center gap-[7px] font-mono text-[10px] tracking-[.12em] text-[var(--muted)] uppercase">
