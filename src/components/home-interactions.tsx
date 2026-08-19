@@ -45,7 +45,7 @@ export function HomeEventBar() {
         Innovasjonsdagene&nbsp;&apos;26
         <span className="font-medium opacity-70 max-[520px]:hidden">
           {" "}
-          · 19.–20. august
+          · 19.–20. august · 10–14:30 · Gruva
         </span>
       </span>
       <span

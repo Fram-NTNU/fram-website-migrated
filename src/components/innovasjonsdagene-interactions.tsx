@@ -14,15 +14,31 @@ const EVENT_END = "2026-08-20T15:00:00+02:00";
 
 export function LiveCompetitionBanner() {
   const [visible, setVisible] = useState(false);
+  const barRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const end = new Date(EVENT_END).getTime();
     if (Date.now() < end) setVisible(true);
   }, []);
 
+  // Expose the banner height so the hero below can subtract it and avoid clipping its bottom row.
+  useEffect(() => {
+    const root = document.documentElement;
+    const bar = barRef.current;
+    if (!bar) return;
+    const sync = () => root.style.setProperty("--id-banner-h", `${bar.offsetHeight}px`);
+    sync();
+    const observer = new ResizeObserver(sync);
+    observer.observe(bar);
+    return () => {
+      observer.disconnect();
+      root.style.setProperty("--id-banner-h", "0px");
+    };
+  }, [visible]);
+
   if (!visible) return null;
 
-  return <a href="https://www.instagram.com/p/Db84A0ktoow/" target="_blank" rel="noopener" className="relative z-[60] flex items-center justify-center gap-2.5 bg-[var(--red)] px-4 py-2.5 text-center font-sans text-sm font-semibold text-white no-underline [transition:background_.2s] hover:bg-[#d94a4a] max-[520px]:text-[13px]">
+  return <a ref={barRef} href="https://www.instagram.com/p/Db84A0ktoow/" target="_blank" rel="noopener" className="relative z-[60] flex items-center justify-center gap-2.5 bg-[var(--red)] px-4 py-2.5 text-center font-sans text-sm font-semibold text-white no-underline [transition:background_.2s] hover:bg-[#d94a4a] max-[520px]:text-[13px]">
     <span aria-hidden="true" className="relative flex h-2.5 w-2.5 flex-none">
       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
       <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-white" />
@@ -57,6 +73,113 @@ export function AddToCalendarButton() {
     <span aria-hidden="true" className="relative h-[17px] w-[17px] flex-none rounded-[4px] border-2 border-current before:absolute before:-top-1 before:right-0.5 before:left-0.5 before:h-1 before:border-x-2 before:border-current after:absolute after:top-1 after:right-px after:left-px after:h-0.5 after:bg-current" />
     Legg i kalender
   </button>;
+}
+
+export function Confetti() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let width = 0;
+    let height = 0;
+    const resize = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const colors = ["#4B9FD3", "#3CBFAB", "#FFB775", "#FF8FB8", "#E85A5A", "#FDC82F"];
+    const gravity = 0.16;
+    const drag = 0.004;
+
+    type Piece = { x: number; y: number; vx: number; vy: number; rot: number; vr: number; size: number; color: string; shape: number; };
+
+    const pieces: Piece[] = [];
+    // Fire from just off each bottom corner, diagonally inward and up.
+    const seed = (ox: number, oy: number, centerAngle: number, count: number, spread: number) => {
+      for (let i = 0; i < count; i++) {
+        const angle = centerAngle + (Math.random() - 0.5) * spread;
+        const speed = 17 + Math.random() * 15;
+        pieces.push({
+          x: ox,
+          y: oy,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          rot: Math.random() * Math.PI * 2,
+          vr: (Math.random() - 0.5) * 0.3,
+          size: 6 + Math.random() * 6,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          shape: Math.floor(Math.random() * 3),
+        });
+      }
+    };
+    const tilt = 0.5; // ~29° off vertical, angled toward the centre
+    seed(-40, height - 20, -Math.PI / 2 + tilt, 150, 0.5);      // bottom-left → up and to the right
+    seed(width + 40, height - 20, -Math.PI / 2 - tilt, 150, 0.5); // bottom-right → up and to the left
+
+    let raf = 0;
+    let frame = 0;
+    const maxFrames = 360;
+
+    const tick = () => {
+      ctx.clearRect(0, 0, width, height);
+      frame++;
+      for (const p of pieces) {
+        p.vy += gravity;
+        p.vx *= 1 - drag;
+        p.vy *= 1 - drag;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.vr;
+
+        const fade = frame > maxFrames - 80 ? Math.max(0, (maxFrames - frame) / 80) : 1;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.globalAlpha = fade;
+        ctx.fillStyle = p.color;
+        if (p.shape === 0) {
+          ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+        } else if (p.shape === 1) {
+          ctx.beginPath();
+          ctx.arc(0, 0, p.size / 2.4, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.beginPath();
+          ctx.moveTo(0, -p.size / 2);
+          ctx.lineTo(p.size / 2, p.size / 2);
+          ctx.lineTo(-p.size / 2, p.size / 2);
+          ctx.closePath();
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+      if (frame < maxFrames) {
+        raf = window.requestAnimationFrame(tick);
+      } else {
+        ctx.clearRect(0, 0, width, height);
+      }
+    };
+    raf = window.requestAnimationFrame(tick);
+
+    return () => {
+      window.cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[9999] h-full w-full" />;
 }
 
 export function DjVideo() {

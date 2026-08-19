@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AddToCalendarButton, DjVideo, LiveCompetitionBanner } from "@/components/innovasjonsdagene-interactions";
+import { AddToCalendarButton, Confetti, DjVideo, LiveCompetitionBanner } from "@/components/innovasjonsdagene-interactions";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
@@ -46,10 +46,11 @@ export default function InnovasjonsdagenePage() {
   return <div className="min-h-screen bg-[var(--id-cream)] font-sans text-[var(--ink)] [scroll-behavior:smooth] [--bg-soft:#F2EDE3] [--bg:#FAF7F2] [--card:#fff] [--charcoal:#1E1E1E] [--id-blue:#4B9FD3] [--id-cream:#F5F9FC] [--id-peach:#FFB775] [--id-pink:#FF8FB8] [--id-teal:#3CBFAB] [--ink-soft:#555] [--ink:#1E1E1E] [--line:#E6E0D5] [--muted:#8A8A8A] [--nav-accent:#E85A5A] [--nav-bg:#F5F9FC] [--nav-border:rgba(30,30,30,.08)] [--red:#E85A5A] [--teal:#3CBFAB] [--yellow:#E85A5A]">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }} />
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(festivalData) }} />
+    <Confetti />
     <LiveCompetitionBanner />
     <SiteHeader currentPath="/innovasjonsdagene" caretFontFamily={'Poppins, "Poppins Fallback", sans-serif'} />
 
-    <header className="relative flex h-[calc(100vh-82px)] flex-col overflow-hidden max-[640px]:h-[100svh]">
+    <header className="relative flex h-[calc(100vh-82px-var(--id-banner-h,0px))] flex-col overflow-hidden max-[640px]:h-[calc(100svh-var(--id-banner-h,0px))]">
       <div className="absolute inset-0 after:absolute after:inset-0 after:bg-[linear-gradient(to_bottom,rgba(15,30,50,.40)_0%,rgba(15,30,50,.12)_40%,rgba(10,40,60,.65)_80%,rgba(10,40,60,.82)_100%)]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img width="2200" height="1467" decoding="async" src="/assets/innovasjonsdagene-hovedscenen.avif" alt="Hovedscenen på Innovasjonsdagene 2025" className="block h-full w-full object-cover object-[center_30%]" />
