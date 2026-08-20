@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AddToCalendarButton, Confetti, DjVideo, LiveCompetitionBanner } from "@/components/innovasjonsdagene-interactions";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { StandMap } from "@/components/stand-map";
 
 const description = "Innovasjonsdagene '26 — FRAM NTNUs festival for innovasjon, entreprenørskap og nyskaping ved NTNU.";
 
@@ -25,7 +26,6 @@ const gallery = [
 ] as const;
 
 const perks = ["Gratis lunsj", "Møt 25+ organisasjoner", "Finn ditt nye verv", "Bli kjent med nye folk", "Opplev FRAM fra innsiden", "Konkurranser og premier"];
-const organizations = ["Spark* NTNU", "Start NTNU", "Revolve NTNU", "Ascend NTNU", "Cogito", "Gridville", "NORSTEC", "Hackerspace NTNU", "Studio Beta"];
 const logos = [
   ["ascend.webp", "Ascend NTNU", "", 469, 590], ["brain-ntnu.png", "BRAIN NTNU", "", 2500, 807], ["boosthenne.webp", "Boost Henne", "", 200, 87], ["cogito-white.webp", "Cogito", "", 1234, 1069], ["driv.webp", "DRIV NTNU", "", 1000, 528], ["designhjelpen.webp", "Designhjelpen", "lg", 147, 174], ["engage.webp", "Engage", "lg", 1454, 1454], ["entreprenorskolen.webp", "Entreprenørskolen", "", 622, 158], ["fuel-fighter.png", "Fuel Fighter", "", 421, 134], ["gridville-white2.webp", "Gridville", "lg", 1500, 545], ["grunderbrakka.webp", "Gründerbrakka", "", 500, 113], ["hackerspace.webp", "Hackerspace NTNU", "", 1971, 420], ["iug.webp", "Ingeniører uten grenser", "", 1920, 496], ["make.webp", "Make NTNU", "sm", 1920, 215], ["norstec.webp", "NORSTEC", "lg", 1920, 577], ["njord.png", "Njord", "lg", 369, 191], ["nordlys.webp", "Nordlys", "", 1920, 626], ["orbit.webp", "Orbit NTNU", "", 977, 458], ["propulse.webp", "Propulse NTNU", "", 1099, 640], ["relu.webp", "Relu", "", 1500, 445], ["revolve.webp", "Revolve NTNU", "lg", 383, 470], ["solan-new.webp", "Solan", "lg", 2000, 2000], ["spark-ntnu.png", "Spark* NTNU", "", 600, 250], ["start-ntnu.png", "Start NTNU", "", 240, 80], ["stottehjulet.webp", "Støttehjulet", "lg", 192, 192], ["vortex-ntnu.png", "Vortex NTNU", "", 528, 175], ["wic.webp", "WIC", "lg", 664, 288],
 ] as const;
@@ -101,10 +101,19 @@ export default function InnovasjonsdagenePage() {
       </article>)}</div>
     </div></section>
 
-    <section id="miljoer" className="relative bg-[var(--charcoal)] pt-16 pb-px text-white max-[520px]:pb-0.5"><div className="mx-auto max-w-[900px] px-12 max-[900px]:px-5 max-[520px]:px-4">
-      <h2 className="mt-0 mb-8 text-[clamp(28px,3.5vw,48px)] leading-[1.05] font-extrabold tracking-[-.025em] text-white max-[640px]:text-[clamp(26px,7vw,40px)]">Du finner våre medlemmer <em className="text-[var(--yellow)]">på stand.</em></h2>
-      <div className="grid grid-cols-3 border-t border-white/8 max-[900px]:grid-cols-2">{organizations.map((organization) => <div key={organization} className="border-b border-white/8 py-3.5 text-[15px] font-semibold text-white/75">{organization}</div>)}</div>
-      <div className="mt-5 text-[13px] text-white/40">+ 19 andre organisasjoner</div>
+    <section id="miljoer" className="relative bg-[var(--charcoal)] pt-16 pb-px text-white max-[520px]:pb-0.5"><div className="mx-auto max-w-[1200px] px-12 max-[900px]:px-5 max-[520px]:px-4">
+      <div className="mb-8 grid grid-cols-[1fr_auto] items-end gap-6 max-[640px]:grid-cols-1 max-[640px]:gap-2">
+        <h2 className="m-0 text-[clamp(28px,3.5vw,48px)] leading-[1.05] font-extrabold tracking-[-.025em] text-white max-[640px]:text-[clamp(26px,7vw,40px)]">Finn frem i <em className="text-[var(--yellow)]">Gruva.</em></h2>
+        <p className="m-0 max-w-[34ch] text-[15px] leading-[1.5] text-white/55 max-[640px]:text-[14px]">Her står de 26 organisasjonene under Innovasjonsdagene. Stikk innom den du er nysgjerrig på.</p>
+      </div>
+      <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-5 max-[520px]:p-3">
+        <StandMap />
+      </div>
+      <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2.5 text-[13px] font-medium text-white/55">
+        <span className="flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-[var(--id-teal)]" />Organisasjon</span>
+        <span className="flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-[var(--id-peach)]" />Samarbeidspartner</span>
+        <span className="ml-auto hidden font-mono text-[12px] tracking-[.08em] text-white/35 uppercase max-[900px]:inline">Sveip for hele kartet →</span>
+      </div>
       <div className="mt-8 flex flex-wrap items-center gap-3 pb-16"><Link href="/miljoer" className="inline-flex items-center gap-2.5 rounded-full bg-[var(--yellow)] px-7 py-3.5 text-sm font-semibold text-white no-underline [transition:transform_.2s,box-shadow_.2s] hover:[transform:translateY(-2px)] hover:shadow-[0_10px_24px_rgba(232,90,90,.4)]">Se alle organisasjonene →</Link><a href="https://www.instagram.com/framntnu/" target="_blank" rel="noopener" className="inline-flex items-center rounded-full border border-white/25 px-7 py-3.5 text-sm font-semibold text-white/75 no-underline [transition:border-color_.2s,color_.2s] hover:border-white/60 hover:text-white">Følg @framntnu →</a></div>
     </div>
       <div className="relative left-1/2 mt-12 w-screen -translate-x-1/2 overflow-hidden border-t border-white/8 py-6 [mask-image:linear-gradient(to_right,transparent_0%,black_8%,black_92%,transparent_100%)]"><div className="flex w-max items-center gap-12 [animation:innovasjon-ticker-scroll_40s_linear_infinite] hover:[animation-play-state:paused]">{[...logos, ...logos].map(([file, alt, size, width, height], index) => <div key={`${file}-${index}`} className="flex h-[58px] shrink-0 items-center">
