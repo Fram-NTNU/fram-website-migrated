@@ -71,6 +71,22 @@ export default function InnovasjonsdagenePage() {
       </div></div>
     </header>
 
+    <section aria-label="Støttespillere" className="border-b border-white/8 bg-[var(--charcoal)] py-7 max-[640px]:py-6">
+      <div className="mx-auto flex max-w-[1360px] flex-col items-center gap-5 px-12 max-[900px]:px-5 max-[520px]:px-4 max-[640px]:gap-4">
+        <span className="font-mono text-[11px] tracking-[.18em] text-white/40 uppercase">Støttespillere</span>
+        <div className="flex flex-wrap items-center justify-center gap-x-14 gap-y-6 max-[640px]:gap-x-9 max-[640px]:gap-y-5">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img width="500" height="344" src="/assets/DNB_Logo.png" alt="DNB" className="h-[30px] w-auto opacity-80 brightness-0 invert" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img width="550" height="157" src="/assets/sparebank1SMNhvit.png" alt="SpareBank 1 SMN" className="h-[26px] w-auto opacity-80 brightness-0 invert" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img width="218" height="188" src="/assets/startup-trd.webp" alt="StartupTRD" className="h-[46px] w-auto opacity-80 brightness-0 invert" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img width="500" height="198" src="/assets/partners/equinor.webp" alt="Equinor" className="h-[26px] w-auto opacity-80 brightness-0 invert" />
+        </div>
+      </div>
+    </section>
+
     <section id="om" className="relative py-28 max-[640px]:py-12"><div className="mx-auto max-w-[1360px] px-12 max-[900px]:px-5 max-[520px]:px-4">
       <div className="grid grid-cols-[1.15fr_.85fr] items-start gap-[72px] max-[960px]:grid-cols-1 max-[640px]:gap-6">
         <div><h2 className="mt-0 mb-7 max-w-[15ch] text-[clamp(34px,3.6vw,50px)] leading-[1.06] font-extrabold tracking-[-.025em]">Hele innovasjons&shy;miljøet samlet på ett sted.</h2><p className="mt-0 mb-5 max-w-[54ch] text-lg leading-[1.65] text-[var(--ink-soft)] max-[640px]:text-[15px]">Ny student i Trondheim? Innovasjonsdagene er en enkel måte å bli kjent med noen av NTNUs mest aktive studentmiljøer på.</p><p className="mt-0 mb-5 max-w-[54ch] text-lg leading-[1.65] text-[var(--ink-soft)] max-[640px]:text-[15px]">Over to dager kan du møte organisasjonene i FRAM, høre om prosjektene deres og finne ut hvordan du kan engasjere deg. Gratis inngang og åpent for alle.</p><p className="mt-0 mb-5 max-w-[54ch] text-lg leading-[1.65] text-[var(--ink-soft)] max-[640px]:text-[15px]">Stikk innom, slå av en prat og finn et miljø eller et verv som passer deg. Gratis inngang, drop-in hele dagen — og helt lov å bare være nysgjerrig.</p></div>
