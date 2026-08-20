@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AddToCalendarButton, Confetti, DjVideo, LiveCompetitionBanner } from "@/components/innovasjonsdagene-interactions";
+import { AddToCalendarButton, DjVideo, LiveCompetitionBanner } from "@/components/innovasjonsdagene-interactions";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { StandMap } from "@/components/stand-map";
@@ -46,7 +46,6 @@ export default function InnovasjonsdagenePage() {
   return <div className="min-h-screen bg-[var(--id-cream)] font-sans text-[var(--ink)] [scroll-behavior:smooth] [--bg-soft:#F2EDE3] [--bg:#FAF7F2] [--card:#fff] [--charcoal:#1E1E1E] [--id-blue:#4B9FD3] [--id-cream:#F5F9FC] [--id-peach:#FFB775] [--id-pink:#FF8FB8] [--id-teal:#3CBFAB] [--ink-soft:#555] [--ink:#1E1E1E] [--line:#E6E0D5] [--muted:#8A8A8A] [--nav-accent:#E85A5A] [--nav-bg:#F5F9FC] [--nav-border:rgba(30,30,30,.08)] [--red:#E85A5A] [--teal:#3CBFAB] [--yellow:#E85A5A]">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }} />
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(festivalData) }} />
-    <Confetti />
     <LiveCompetitionBanner />
     <SiteHeader currentPath="/innovasjonsdagene" caretFontFamily={'Poppins, "Poppins Fallback", sans-serif'} />
 

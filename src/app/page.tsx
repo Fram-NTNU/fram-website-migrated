@@ -3,7 +3,6 @@ import type { CSSProperties, ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import {
-  HomeEventBar,
   RoomExplorer,
   RotatingMemberLogo,
   YouTubeFacade,
@@ -169,7 +168,6 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteData) }}
       />
-      <HomeEventBar />
       <SiteHeader currentPath="/" />
       <main>
         <section
