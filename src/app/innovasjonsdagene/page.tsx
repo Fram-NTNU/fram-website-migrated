@@ -71,18 +71,18 @@ export default function InnovasjonsdagenePage() {
       </div></div>
     </header>
 
-    <section aria-label="Støttespillere" className="border-b border-white/8 bg-[var(--charcoal)] py-7 max-[640px]:py-6">
+    <section aria-label="Støttespillere" className="border-b border-white/8 bg-[var(--charcoal)] py-6 max-[640px]:py-5">
       <div className="mx-auto flex max-w-[1360px] flex-col items-center gap-5 px-12 max-[900px]:px-5 max-[520px]:px-4 max-[640px]:gap-4">
         <span className="font-mono text-[11px] tracking-[.18em] text-white/40 uppercase">Støttespillere</span>
         <div className="flex flex-wrap items-center justify-center gap-x-14 gap-y-6 max-[640px]:gap-x-9 max-[640px]:gap-y-5">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img width="500" height="344" src="/assets/DNB_Logo.png" alt="DNB" className="h-[30px] w-auto opacity-80 brightness-0 invert" />
+          <img width="500" height="344" src="/assets/DNB_Logo.png" alt="DNB" className="h-[40px] w-auto opacity-80 brightness-0 invert" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img width="550" height="157" src="/assets/sparebank1SMNhvit.png" alt="SpareBank 1 SMN" className="h-[26px] w-auto opacity-80 brightness-0 invert" />
+          <img width="3485" height="1000" src="/assets/sparebank1-smn-neg.webp" alt="SpareBank 1 SMN" className="h-[42px] w-auto opacity-90" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img width="218" height="188" src="/assets/startup-trd.webp" alt="StartupTRD" className="h-[46px] w-auto opacity-80 brightness-0 invert" />
+          <img width="218" height="188" src="/assets/startup-trd.webp" alt="StartupTRD" className="h-[54px] w-auto opacity-80 brightness-0 invert" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img width="500" height="198" src="/assets/partners/equinor.webp" alt="Equinor" className="h-[26px] w-auto opacity-80 brightness-0 invert" />
+          <img width="500" height="198" src="/assets/partners/equinor.webp" alt="Equinor" className="h-[38px] w-auto opacity-80 brightness-0 invert" />
         </div>
       </div>
     </section>
