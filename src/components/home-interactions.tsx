@@ -3,8 +3,30 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import type { Lang } from "@/i18n/config";
+import { localizeHref } from "@/i18n/config";
 
-export function HomeEventBar() {
+const eventBarCopy = {
+  nb: {
+    now: "Pågår nå",
+    today: "I dag!",
+    tomorrow: "I morgen",
+    inDays: (n: number) => `Om ${n} dager`,
+    eventName: "Innovasjonsdagene",
+    detail: " · 19.–20. august · 10–14:30 · Gruva",
+  },
+  en: {
+    now: "Happening now",
+    today: "Today!",
+    tomorrow: "Tomorrow",
+    inDays: (n: number) => `In ${n} days`,
+    eventName: "Innovasjonsdagene",
+    detail: " · 19–20 August · 10:00–14:30 · Gruva",
+  },
+} as const satisfies Record<Lang, unknown>;
+
+export function HomeEventBar({ lang = "nb" }: { lang?: Lang } = {}) {
+  const c = eventBarCopy[lang];
   const [state, setState] = useState<{ show: boolean; label: string } | null>(
     null,
   );
@@ -20,20 +42,20 @@ export function HomeEventBar() {
     const days = Math.round((start.getTime() - today.getTime()) / 86400000);
     const label =
       now >= start
-        ? "Pågår nå"
+        ? c.now
         : days <= 0
-          ? "I dag!"
+          ? c.today
           : days === 1
-            ? "I morgen"
-            : `Om ${days} dager`;
+            ? c.tomorrow
+            : c.inDays(days);
     setState({ show: true, label });
-  }, []);
+  }, [c]);
 
   if (!state?.show) return null;
 
   return (
     <Link
-      href="/innovasjonsdagene"
+      href={localizeHref("/innovasjonsdagene", lang)}
       className="group relative z-[60] flex items-center justify-center gap-2.5 bg-[var(--yellow)] px-4 py-2.5 text-center font-sans text-[13px] font-semibold text-[var(--charcoal)] no-underline [transition:background_.2s] hover:bg-[color-mix(in_oklab,var(--yellow)_88%,#000)] max-[520px]:text-[12px]"
     >
       <span aria-hidden="true" className="relative flex h-2 w-2 flex-none">
@@ -42,10 +64,9 @@ export function HomeEventBar() {
       </span>
       <span className="font-bold tracking-[.06em] uppercase">{state.label}</span>
       <span>
-        Innovasjonsdagene&nbsp;&apos;26
+        {c.eventName}&nbsp;&apos;26
         <span className="font-medium opacity-70 max-[520px]:hidden">
-          {" "}
-          · 19.–20. august · 10–14:30 · Gruva
+          {c.detail}
         </span>
       </span>
       <span
@@ -58,14 +79,20 @@ export function HomeEventBar() {
   );
 }
 
-export function YouTubeFacade() {
+const youTubeCopy = {
+  nb: { title: "Fram NTNU — Åpent for alle", play: "Spill av video: Fram NTNU — Åpent for alle" },
+  en: { title: "Fram NTNU — Open to everyone", play: "Play video: Fram NTNU — Open to everyone" },
+} as const satisfies Record<Lang, unknown>;
+
+export function YouTubeFacade({ lang = "nb" }: { lang?: Lang } = {}) {
+  const c = youTubeCopy[lang];
   const [playing, setPlaying] = useState(false);
   if (playing)
     return (
       <iframe
         className="absolute -inset-px block h-[calc(100%+2px)] w-[calc(100%+2px)] border-0"
         src="https://www.youtube-nocookie.com/embed/GqTyq88uULs?autoplay=1&rel=0"
-        title="Fram NTNU — Åpent for alle"
+        title={c.title}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
       />
@@ -74,7 +101,7 @@ export function YouTubeFacade() {
     <button
       type="button"
       onClick={() => setPlaying(true)}
-      aria-label="Spill av video: Fram NTNU — Åpent for alle"
+      aria-label={c.play}
       className="group absolute inset-0 block h-full w-full cursor-pointer border-0 bg-black bg-[url('https://i.ytimg.com/vi/GqTyq88uULs/maxresdefault.jpg')] bg-cover bg-center p-0 after:absolute after:inset-0 after:bg-[linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.25))] after:[transition:background_.2s] hover:after:bg-black/15"
     >
       <span
@@ -96,106 +123,151 @@ type Room = {
   primaryHref?: string;
   note?: string;
 };
-const rooms: Room[] = [
-  {
-    id: 1,
-    name: "Fellesrommet",
-    accent: "teal",
-    image: "/assets/fram-fellesrom.webp",
-    description: (
-      <>
-        Fellesrommet på FRAM er åpent for alle studenter, enten du vil jobbe med
-        studier, ta en pause mellom forelesninger eller spise lunsj.
-      </>
-    ),
-    primary: "Utforsk Fellesrommet →",
-    primaryHref: "/booking#fellesrommet",
-  },
-  {
-    id: 0,
-    name: "Gruva",
-    accent: "blue",
-    image: "/assets/gruva.webp",
-    description: (
-      <>
-        <span className="max-[600px]:hidden">
-          Hjertet av FRAM og den største møteplassen for innovasjonsmiljøet ved
-          NTNU.{" "}
-        </span>
-        Her arrangeres alt fra workshops og foredrag til pitchekvelder,
-        konkurranser og sosiale samlinger.
-      </>
-    ),
-    primary: "Utforsk Gruva →",
-    primaryHref: "https://www.gruvantnu.no/",
-  },
-  {
-    id: 4,
-    name: "Scenerommet",
-    accent: "blue",
-    image: "/assets/scenerommet.avif",
-    description: (
-      <>
-        I scenerommet arrangeres det workshops, foredrag, pitchekvelder,
-        releasefester, og mye mer, men til dagligdags er både fellesrommet og
-        scenerommet et åpent arbeidslokale.
-      </>
-    ),
-    primary: "Utforsk Scenerommet →",
-    primaryHref: "/booking#scenerommet",
-  },
-  {
-    id: 3,
-    name: "Idégarasjen",
-    accent: "yellow",
-    image: "/assets/Idegarasjen1.webp",
-    description: (
-      <>
-        Fullt utstyrt makerspace for å bygge prototyper og få ideer ut i
-        virkeligheten.
-      </>
-    ),
-    primary: "Utforsk Idégarasjen →",
-    primaryHref: "/idegarasjen",
-  },
-  {
-    id: 2,
-    name: "Møterom",
-    accent: "red",
-    image: "/assets/collage.webp",
-    description: <>Tre rom for møter, veiledning og fokusert gruppearbeid.</>,
-    primary: "Utforsk Møterom →",
-    primaryHref: "/booking#moterom",
-  },
-  {
-    id: 6,
-    name: "Podcastrommet",
-    accent: "red",
-    image: "/assets/Podcastrommet.webp",
-    description: (
-      <>
-        Podcastrommet på FRAM gir studenter muligheten til å spille inn sine
-        egne podkaster, intervjuer og annet lydinnhold.
-      </>
-    ),
-    primary: "Utforsk Podcastrommet →",
-    primaryHref: "/booking#podcastrommet",
-  },
-  {
-    id: 5,
-    name: "Mediarom",
-    accent: "teal",
-    pill: "Kommer snart",
-    description: (
-      <>
-        Et eget rom for podcast-, video- og innholdsproduksjon — kommer i det
-        nye Økonomi- og innovasjonsbygget i Hesthagen.
-      </>
-    ),
-    primary: "Kommer snart",
-    note: "Åpner med det nye bygget i Hesthagen, 2027/28.",
-  },
-];
+function roomsFor(lang: Lang): Room[] {
+  const L = (href: string) => localizeHref(href, lang);
+  const nb = lang === "nb";
+  return [
+    {
+      id: 1,
+      name: nb ? "Fellesrommet" : "Fellesrommet",
+      accent: "teal",
+      image: "/assets/fram-fellesrom.webp",
+      description: nb ? (
+        <>
+          Fellesrommet på FRAM er åpent for alle studenter, enten du vil jobbe
+          med studier, ta en pause mellom forelesninger eller spise lunsj.
+        </>
+      ) : (
+        <>
+          Fellesrommet at FRAM is open to all students, whether you want to
+          study, take a break between lectures, or have lunch.
+        </>
+      ),
+      primary: nb ? "Utforsk Fellesrommet →" : "Explore Fellesrommet →",
+      primaryHref: L("/booking#fellesrommet"),
+    },
+    {
+      id: 0,
+      name: "Gruva",
+      accent: "blue",
+      image: "/assets/gruva.webp",
+      description: nb ? (
+        <>
+          <span className="max-[600px]:hidden">
+            Hjertet av FRAM og den største møteplassen for innovasjonsmiljøet ved
+            NTNU.{" "}
+          </span>
+          Her arrangeres alt fra workshops og foredrag til pitchekvelder,
+          konkurranser og sosiale samlinger.
+        </>
+      ) : (
+        <>
+          <span className="max-[600px]:hidden">
+            The heart of FRAM and the largest meeting place for the innovation
+            community at NTNU.{" "}
+          </span>
+          Everything from workshops and talks to pitch nights, competitions, and
+          social gatherings happens here.
+        </>
+      ),
+      primary: nb ? "Utforsk Gruva →" : "Explore Gruva →",
+      primaryHref: "https://www.gruvantnu.no/",
+    },
+    {
+      id: 4,
+      name: nb ? "Scenerommet" : "Scenerommet",
+      accent: "blue",
+      image: "/assets/scenerommet.avif",
+      description: nb ? (
+        <>
+          I scenerommet arrangeres det workshops, foredrag, pitchekvelder,
+          releasefester, og mye mer, men til dagligdags er både fellesrommet og
+          scenerommet et åpent arbeidslokale.
+        </>
+      ) : (
+        <>
+          Scenerommet hosts workshops, talks, pitch nights, release parties,
+          and much more, but day to day both Fellesrommet and Scenerommet
+          are open workspaces.
+        </>
+      ),
+      primary: nb ? "Utforsk Scenerommet →" : "Explore Scenerommet →",
+      primaryHref: L("/booking#scenerommet"),
+    },
+    {
+      id: 3,
+      name: nb ? "Idégarasjen" : "Idégarasjen",
+      accent: "yellow",
+      image: "/assets/Idegarasjen1.webp",
+      description: nb ? (
+        <>
+          Fullt utstyrt makerspace for å bygge prototyper og få ideer ut i
+          virkeligheten.
+        </>
+      ) : (
+        <>
+          A fully equipped makerspace for building prototypes and turning ideas
+          into reality.
+        </>
+      ),
+      primary: nb ? "Utforsk Idégarasjen →" : "Explore Idégarasjen →",
+      primaryHref: L("/idegarasjen"),
+    },
+    {
+      id: 2,
+      name: nb ? "Møterom" : "Møterom",
+      accent: "red",
+      image: "/assets/collage.webp",
+      description: nb ? (
+        <>Tre rom for møter, veiledning og fokusert gruppearbeid.</>
+      ) : (
+        <>Three rooms for meetings, mentoring, and focused group work.</>
+      ),
+      primary: nb ? "Utforsk Møterom →" : "Explore Møterom →",
+      primaryHref: L("/booking#moterom"),
+    },
+    {
+      id: 6,
+      name: nb ? "Podcastrommet" : "Podcastrommet",
+      accent: "red",
+      image: "/assets/Podcastrommet.webp",
+      description: nb ? (
+        <>
+          Podcastrommet på FRAM gir studenter muligheten til å spille inn sine
+          egne podkaster, intervjuer og annet lydinnhold.
+        </>
+      ) : (
+        <>
+          Podcastrommet at FRAM gives students the chance to record their own
+          podcasts, interviews, and other audio content.
+        </>
+      ),
+      primary: nb ? "Utforsk Podcastrommet →" : "Explore Podcastrommet →",
+      primaryHref: L("/booking#podcastrommet"),
+    },
+    {
+      id: 5,
+      name: nb ? "Mediarom" : "Mediarom",
+      accent: "teal",
+      pill: nb ? "Kommer snart" : "Coming soon",
+      description: nb ? (
+        <>
+          Et eget rom for podcast-, video- og innholdsproduksjon — kommer i det
+          nye Økonomi- og innovasjonsbygget i Hesthagen.
+        </>
+      ) : (
+        <>
+          A dedicated room for podcast, video, and content production — coming to
+          the new Economics and Innovation building in Hesthagen.
+        </>
+      ),
+      primary: nb ? "Kommer snart" : "Coming soon",
+      note: nb
+        ? "Åpner med det nye bygget i Hesthagen, 2027/28."
+        : "Opens with the new building in Hesthagen, 2027/28.",
+    },
+  ];
+}
 const colors = {
   blue: "var(--blue)",
   teal: "var(--teal)",
@@ -203,7 +275,8 @@ const colors = {
   yellow: "var(--yellow)",
 };
 
-export function RoomExplorer() {
+export function RoomExplorer({ lang = "nb" }: { lang?: Lang } = {}) {
+  const rooms = roomsFor(lang);
   const [selected, setSelected] = useState(1);
   return (
     <div className="grid grid-cols-[330px_1fr] items-stretch gap-[18px] max-[900px]:grid-cols-1">
@@ -348,7 +421,7 @@ const members = [
   ["studio-beta.png", "https://www.instagram.com/studiobeta/", false],
 ] as const;
 
-export function RotatingMemberLogo() {
+export function RotatingMemberLogo({ lang = "nb" }: { lang?: Lang } = {}) {
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
   useEffect(() => {
@@ -375,7 +448,7 @@ export function RotatingMemberLogo() {
     >
       <img
         src={`/assets/logoer/${file}`}
-        alt="Medlemsorganisasjon"
+        alt={lang === "en" ? "Member organisation" : "Medlemsorganisasjon"}
         width="469"
         height="590"
         className={`h-auto w-auto object-contain object-center [transition:opacity_.35s_ease] ${visible ? "opacity-100" : "opacity-0"} ${big ? "max-h-[54px] max-w-[126px]" : "max-h-10 max-w-[104px]"} max-[760px]:max-w-20`}

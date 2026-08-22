@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
+import type { Lang } from "@/i18n/config";
 
 export type Organization = {
   accent: "yellow" | "blue" | "red" | "teal";
@@ -16,8 +17,10 @@ export type Organization = {
   /** Roterer bildet med en avtagende spinn når kortet scrolles inn i view. */
   spin?: boolean;
   category: string;
+  categoryEn: string;
   name: string;
   description: string;
+  descriptionEn: string;
 };
 
 type Suggestion = { navn: string; grunn?: string };
@@ -35,89 +38,223 @@ function trackGoatCounter(path: string, title: string) {
   });
 }
 
-const cachedSuggestions: Record<string, Suggestion[]> = {
-  "romfart og raketter": [
-    {
-      navn: "Orbit NTNU",
-      grunn:
-        "Bygger CubeSat-satellitter – første student-satellitt i bane fra NTNU.",
-    },
-    {
-      navn: "Propulse NTNU",
-      grunn: "Designer, bygger og skyter opp væskedrevne forskningsraketter.",
-    },
-    {
-      navn: "Ascend NTNU",
-      grunn:
-        "Konkurrerer i internasjonale drone-konkurranser med autonome systemer.",
-    },
-  ],
-  "bærekraft og energi": [
-    {
-      navn: "Gridville",
-      grunn:
-        "Studentprosjekter på fornybar energi, mikronett og smart strømforsyning.",
-    },
-    {
-      navn: "Fuel Fighter",
-      grunn: "Bygger ultra-energieffektive kjøretøy til Shell Eco-marathon.",
-    },
-    {
-      navn: "Ingeniører uten grenser",
-      grunn:
-        "Teknisk bistand i utviklingsland – rent vann, skoler og energiprosjekter.",
-    },
-  ],
-  "kunstig intelligens": [
-    {
-      navn: "Cogito",
-      grunn:
-        "Utvikler AI-løsninger og bygger erfaring gjennom semesterprosjekter.",
-    },
-    {
-      navn: "Relu",
-      grunn: "Utvikler AI-løsninger i samarbeid med næringslivet.",
-    },
-    {
-      navn: "BRAIN NTNU",
-      grunn:
-        "Arrangerer hackathons, foredrag og møteplasser innen kunstig intelligens.",
-    },
-  ],
-  "design og arkitektur": [
-    {
-      navn: "Designhjelpen",
-      grunn:
-        "Designstudenter hjelper andre orgs og oppstarter med visuell identitet, web og UX.",
-    },
-    {
-      navn: "Studio Beta",
-      grunn:
-        "Studentdrevet arkitektur- og designstudio. Byggeprosjekter i full skala og prototyper.",
-    },
-    {
-      navn: "Make NTNU",
-      grunn:
-        "Gir studenter tilgang til verktøy, utstyr og kompetanse for å bygge egne prosjekter.",
-    },
-  ],
-  entreprenørskap: [
-    {
-      navn: "Start NTNU",
-      grunn:
-        "Norges største studentorganisasjon for entreprenørskap – Startup Weekend og pitch-kvelder.",
-    },
-    {
-      navn: "Entreprenørskolen",
-      grunn:
-        "NTNUs master i entreprenørskap der du bygger et reelt selskap som eksamen.",
-    },
-    {
-      navn: "DRIV NTNU",
-      grunn:
-        "Studentorganisasjon for de som vil starte og drive egne prosjekter og selskaper.",
-    },
-  ],
+// Co-lokaliserte grensesnittstrenger for Framkompasset og kort-visningen.
+const copy = {
+  nb: {
+    showFirst: "Vis først",
+    photos: "Bilder",
+    logos: "Logoer",
+    findMatch: "Finn din match",
+    modalKicker: "FINN DITT MILJØ",
+    close: "Lukk",
+    compassAria: "Framkompasset – kompassrose med nål",
+    introPre: "Skriv hva du interesserer deg for, så peiler ",
+    introSuf: " deg mot miljøene som passer best.",
+    placeholder:
+      "F.eks. «Jeg liker å bygge ting med hendene og er fascinert av romfart og elektronikk»",
+    thinking: "Tenker…",
+    suggest: "Foreslå miljøer",
+    examplesAria: "Eksempler på interesser",
+    noResults:
+      "Fant ingen tydelige treff – prøv å beskrive interessene dine med litt andre ord.",
+    resultsHeading: "Forslag til deg",
+    visitSite: "Besøk nettsiden →",
+    disclaimer:
+      "Forslagene er veiledende. Bla gjennom alle miljøene under for å se hele bildet.",
+  },
+  en: {
+    showFirst: "Show first",
+    photos: "Photos",
+    logos: "Logos",
+    findMatch: "Find your match",
+    modalKicker: "FIND YOUR COMMUNITY",
+    close: "Close",
+    compassAria: "Framkompasset — compass rose with needle",
+    introPre: "Tell us what you're interested in, and ",
+    introSuf: " will point you to the communities that fit you best.",
+    placeholder:
+      "E.g. “I like building things with my hands and I'm fascinated by space and electronics”",
+    thinking: "Thinking…",
+    suggest: "Suggest communities",
+    examplesAria: "Example interests",
+    noResults:
+      "No clear matches — try describing your interests in slightly different words.",
+    resultsHeading: "Suggestions for you",
+    visitSite: "Visit the website →",
+    disclaimer:
+      "These suggestions are just a guide. Browse all the communities below to see the full picture.",
+  },
+} as const satisfies Record<Lang, unknown>;
+
+const cachedSuggestions: Record<Lang, Record<string, Suggestion[]>> = {
+  nb: {
+    "romfart og raketter": [
+      {
+        navn: "Orbit NTNU",
+        grunn:
+          "Bygger CubeSat-satellitter – første student-satellitt i bane fra NTNU.",
+      },
+      {
+        navn: "Propulse NTNU",
+        grunn: "Designer, bygger og skyter opp væskedrevne forskningsraketter.",
+      },
+      {
+        navn: "Ascend NTNU",
+        grunn:
+          "Konkurrerer i internasjonale drone-konkurranser med autonome systemer.",
+      },
+    ],
+    "bærekraft og energi": [
+      {
+        navn: "Gridville",
+        grunn:
+          "Studentprosjekter på fornybar energi, mikronett og smart strømforsyning.",
+      },
+      {
+        navn: "Fuel Fighter",
+        grunn: "Bygger ultra-energieffektive kjøretøy til Shell Eco-marathon.",
+      },
+      {
+        navn: "Ingeniører uten grenser",
+        grunn:
+          "Teknisk bistand i utviklingsland – rent vann, skoler og energiprosjekter.",
+      },
+    ],
+    "kunstig intelligens": [
+      {
+        navn: "Cogito",
+        grunn:
+          "Utvikler AI-løsninger og bygger erfaring gjennom semesterprosjekter.",
+      },
+      {
+        navn: "Relu",
+        grunn: "Utvikler AI-løsninger i samarbeid med næringslivet.",
+      },
+      {
+        navn: "BRAIN NTNU",
+        grunn:
+          "Arrangerer hackathons, foredrag og møteplasser innen kunstig intelligens.",
+      },
+    ],
+    "design og arkitektur": [
+      {
+        navn: "Designhjelpen",
+        grunn:
+          "Designstudenter hjelper andre orgs og oppstarter med visuell identitet, web og UX.",
+      },
+      {
+        navn: "Studio Beta",
+        grunn:
+          "Studentdrevet arkitektur- og designstudio. Byggeprosjekter i full skala og prototyper.",
+      },
+      {
+        navn: "Make NTNU",
+        grunn:
+          "Gir studenter tilgang til verktøy, utstyr og kompetanse for å bygge egne prosjekter.",
+      },
+    ],
+    entreprenørskap: [
+      {
+        navn: "Start NTNU",
+        grunn:
+          "Norges største studentorganisasjon for entreprenørskap – Startup Weekend og pitch-kvelder.",
+      },
+      {
+        navn: "Entreprenørskolen",
+        grunn:
+          "NTNUs master i entreprenørskap der du bygger et reelt selskap som eksamen.",
+      },
+      {
+        navn: "DRIV NTNU",
+        grunn:
+          "Studentorganisasjon for de som vil starte og drive egne prosjekter og selskaper.",
+      },
+    ],
+  },
+  en: {
+    "space and rockets": [
+      {
+        navn: "Orbit NTNU",
+        grunn:
+          "Builds CubeSat satellites — the first student satellite in orbit from NTNU.",
+      },
+      {
+        navn: "Propulse NTNU",
+        grunn: "Designs, builds and launches liquid-fuelled research rockets.",
+      },
+      {
+        navn: "Ascend NTNU",
+        grunn:
+          "Competes in international drone competitions with autonomous systems.",
+      },
+    ],
+    "sustainability and energy": [
+      {
+        navn: "Gridville",
+        grunn:
+          "Student projects in renewable energy, microgrids and smart power supply.",
+      },
+      {
+        navn: "Fuel Fighter",
+        grunn: "Builds ultra energy-efficient vehicles for the Shell Eco-marathon.",
+      },
+      {
+        navn: "Ingeniører uten grenser",
+        grunn:
+          "Technical aid in developing countries — clean water, schools and energy projects.",
+      },
+    ],
+    "artificial intelligence": [
+      {
+        navn: "Cogito",
+        grunn:
+          "Builds AI solutions and hands-on experience through semester projects.",
+      },
+      {
+        navn: "Relu",
+        grunn: "Builds AI solutions in collaboration with industry.",
+      },
+      {
+        navn: "BRAIN NTNU",
+        grunn:
+          "Hosts hackathons, talks and meetups around artificial intelligence.",
+      },
+    ],
+    "design and architecture": [
+      {
+        navn: "Designhjelpen",
+        grunn:
+          "Design students help other orgs and startups with visual identity, web and UX.",
+      },
+      {
+        navn: "Studio Beta",
+        grunn:
+          "A student-run architecture and design studio. Full-scale builds and prototypes.",
+      },
+      {
+        navn: "Make NTNU",
+        grunn:
+          "Gives students the tools, equipment and know-how to build their own projects.",
+      },
+    ],
+    entrepreneurship: [
+      {
+        navn: "Start NTNU",
+        grunn:
+          "Norway's largest student organisation for entrepreneurship — Startup Weekend and pitch nights.",
+      },
+      {
+        navn: "Entreprenørskolen",
+        grunn:
+          "NTNU's master's in entrepreneurship where you build a real company as your exam.",
+      },
+      {
+        navn: "DRIV NTNU",
+        grunn:
+          "A student organisation for those who want to start and run their own projects and companies.",
+      },
+    ],
+  },
 };
 
 const stopWords = new Set(
@@ -189,7 +326,9 @@ const panelColors = {
   teal: "color-mix(in srgb,var(--teal) 16%,#fff)",
 };
 
-function localMatch(text: string, organizations: Organization[]) {
+// Lokalt fallback-søk hvis API-kallet feiler. Bruker synonymene over (norske),
+// men returnerer beskrivelser på riktig språk.
+function localMatch(text: string, organizations: Organization[], lang: Lang) {
   const terms = new Set(
     text
       .toLowerCase()
@@ -200,7 +339,7 @@ function localMatch(text: string, organizations: Organization[]) {
   return organizations
     .map((organization) => {
       const haystack =
-        `${organization.name} ${organization.category} ${organization.description}`.toLowerCase();
+        `${organization.name} ${organization.category} ${organization.categoryEn} ${organization.description} ${organization.descriptionEn}`.toLowerCase();
       return {
         organization,
         score: [...terms].filter((term) =>
@@ -215,17 +354,22 @@ function localMatch(text: string, organizations: Organization[]) {
     .slice(0, 4)
     .map(({ organization }) => ({
       navn: organization.name,
-      grunn: organization.description,
+      grunn: lang === "en" ? organization.descriptionEn : organization.description,
     }));
 }
 
 export function OrgCard({
   organization,
   logoMode,
+  lang = "nb",
 }: {
   organization: Organization;
   logoMode: boolean;
+  lang?: Lang;
 }) {
+  const category = lang === "en" ? organization.categoryEn : organization.category;
+  const description =
+    lang === "en" ? organization.descriptionEn : organization.description;
   const dark =
     organization.media === "dark"
       ? "#16181D"
@@ -311,27 +455,27 @@ export function OrgCard({
             className="h-1.5 w-1.5 flex-none rounded-full"
             style={{ background: accentColors[organization.accent] }}
           />
-          {organization.category}
+          {category}
         </div>
         <h3 className="mt-px mb-0 text-[19px] leading-[1.12] font-bold tracking-[-.015em] [overflow-wrap:break-word]">
           {organization.name}
         </h3>
         <p className="m-0 text-[13.5px] leading-[1.5] text-[var(--ink-soft)]">
-          {organization.description}
+          {description}
         </p>
       </div>
     </a>
   );
 }
 
-function CompassEmblem() {
+function CompassEmblem({ ariaLabel }: { ariaLabel: string }) {
   return (
     <div className="relative z-[1] h-[86px] w-[86px] flex-none drop-shadow-[0_10px_14px_rgba(16,36,58,.3)] motion-safe:animate-[fk-float_6s_ease-in-out_infinite]">
       <svg
         className="block h-full w-full"
         viewBox="0 0 100 100"
         role="img"
-        aria-label="Framkompasset – kompassrose med nål"
+        aria-label={ariaLabel}
       >
         <defs>
           <radialGradient id="fkBadgeReact" cx="50%" cy="34%" r="74%">
@@ -418,10 +562,13 @@ function CompassEmblem() {
 function FramCompass({
   organizations,
   onClose,
+  lang,
 }: {
   organizations: Organization[];
   onClose: () => void;
+  lang: Lang;
 }) {
+  const t = copy[lang];
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -458,19 +605,20 @@ function FramCompass({
     const clean = text.trim();
     if (!clean || loading) return inputRef.current?.focus();
     trackGoatCounter("framkompasset-run", "Framkompasset – kjørt søk");
-    if (cachedSuggestions[clean]) return setResults(cachedSuggestions[clean]);
-    const key = `fram_forslag_v2:${clean.toLowerCase().replace(/\s+/g, " ")}`;
+    const cached = cachedSuggestions[lang][clean];
+    if (cached) return setResults(cached);
+    const key = `fram_forslag_v2:${lang}:${clean.toLowerCase().replace(/\s+/g, " ")}`;
     try {
-      const cached = JSON.parse(localStorage.getItem(key) || "null");
-      if (cached && Date.now() - cached.t <= 14 * 86400000)
-        return setResults(cached.f);
+      const stored = JSON.parse(localStorage.getItem(key) || "null");
+      if (stored && Date.now() - stored.t <= 14 * 86400000)
+        return setResults(stored.f);
     } catch {}
     setLoading(true);
     try {
       const response = await fetch("/api/forslag", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ interesser: clean }),
+        body: JSON.stringify({ interesser: clean, lang }),
       });
       if (!response.ok) throw new Error("api");
       const data = await response.json();
@@ -483,7 +631,7 @@ function FramCompass({
       } catch {}
       setResults(suggestions);
     } catch {
-      setResults(localMatch(clean, organizations));
+      setResults(localMatch(clean, organizations, lang));
     } finally {
       setLoading(false);
     }
@@ -502,15 +650,15 @@ function FramCompass({
           type="button"
           onClick={onClose}
           className="absolute top-3 right-4 cursor-pointer border-0 bg-transparent p-1 text-[1.7rem] leading-none text-[var(--ink-soft)] hover:text-[var(--ink)]"
-          aria-label="Lukk"
+          aria-label={t.close}
         >
           ×
         </button>
         <div className="relative mb-5 flex items-center gap-5 overflow-hidden rounded-[18px] border border-[var(--line)] bg-[radial-gradient(110%_130%_at_8%_0%,color-mix(in_srgb,var(--blue)_9%,#fff)_0%,transparent_60%),linear-gradient(135deg,#fbfdfe_0%,#f2f7fb_100%)] px-[26px] py-[22px] shadow-[inset_0_1px_0_rgba(255,255,255,.9),0_16px_32px_-24px_rgba(16,36,58,.5)] max-[560px]:flex-col max-[560px]:gap-3 max-[560px]:p-[18px] max-[560px]:text-center">
-          <CompassEmblem />
+          <CompassEmblem ariaLabel={t.compassAria} />
           <div className="relative z-[1] flex min-w-0 flex-col">
             <span className="mb-1.5 text-[11px] tracking-[.16em] text-[var(--ink-soft)]">
-              FINN DITT MILJØ
+              {t.modalKicker}
             </span>
             <h2
               id="fm-title"
@@ -521,8 +669,9 @@ function FramCompass({
           </div>
         </div>
         <p className="mt-0 mb-[22px] max-w-[58ch] text-[15px] leading-[1.5] text-[var(--ink-soft)]">
-          Skriv hva du interesserer deg for, så peiler{" "}
-          <strong>Framkompasset</strong> deg mot miljøene som passer best.
+          {t.introPre}
+          <strong>Framkompasset</strong>
+          {t.introSuf}
         </p>
         <form
           className="flex items-stretch gap-3 max-[640px]:flex-col"
@@ -538,7 +687,7 @@ function FramCompass({
             onChange={(event) => setInput(event.target.value)}
             rows={3}
             maxLength={300}
-            placeholder="F.eks. «Jeg liker å bygge ting med hendene og er fascinert av romfart og elektronikk»"
+            placeholder={t.placeholder}
             className="flex-1 resize-none rounded-[18px] border-[1.5px] border-[var(--line)] bg-[var(--bg)] px-4 py-3.5 font-sans text-base leading-[1.45] text-[var(--ink)] outline-none [transition:border-color_.2s,box-shadow_.2s] placeholder:text-[var(--muted)] focus:border-[var(--blue)] focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--blue)_18%,transparent)]"
           />
           <button
@@ -549,14 +698,14 @@ function FramCompass({
             {loading && (
               <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/35 border-t-white" />
             )}
-            {loading ? "Tenker…" : "Foreslå miljøer"}
+            {loading ? t.thinking : t.suggest}
           </button>
         </form>
         <div
           className="mt-3.5 flex flex-wrap gap-2"
-          aria-label="Eksempler på interesser"
+          aria-label={t.examplesAria}
         >
-          {Object.keys(cachedSuggestions).map((chip) => (
+          {Object.keys(cachedSuggestions[lang]).map((chip) => (
             <button
               type="button"
               key={chip}
@@ -573,14 +722,11 @@ function FramCompass({
         {results && (
           <div className="mt-[26px] grid gap-3.5" aria-live="polite">
             {results.length === 0 ? (
-              <p className="text-sm text-[var(--ink-soft)]">
-                Fant ingen tydelige treff – prøv å beskrive interessene dine med
-                litt andre ord.
-              </p>
+              <p className="text-sm text-[var(--ink-soft)]">{t.noResults}</p>
             ) : (
               <>
                 <div className="text-xs font-semibold tracking-[.06em] text-[var(--muted)] uppercase">
-                  Forslag til deg
+                  {t.resultsHeading}
                 </div>
                 {results.map((result) => {
                   const org =
@@ -605,23 +751,23 @@ function FramCompass({
                       style={{ borderLeftColor: accentColors[org.accent] }}
                     >
                       <div className="mb-[5px] font-mono text-[11px] tracking-[.04em] text-[var(--muted)]">
-                        {org.category}
+                        {lang === "en" ? org.categoryEn : org.category}
                       </div>
                       <h3 className="mt-0 mb-1.5 text-lg font-bold">
                         {org.name}
                       </h3>
                       <p className="mt-0 mb-2.5 text-sm leading-[1.5] text-[var(--ink-soft)]">
-                        {result.grunn || org.description}
+                        {result.grunn ||
+                          (lang === "en" ? org.descriptionEn : org.description)}
                       </p>
                       <span className="text-[13px] font-semibold text-[var(--blue)]">
-                        Besøk nettsiden →
+                        {t.visitSite}
                       </span>
                     </a>
                   ) : null;
                 })}
                 <p className="mt-1 text-xs text-[var(--muted)]">
-                  Forslagene er veiledende. Bla gjennom alle miljøene under for
-                  å se hele bildet.
+                  {t.disclaimer}
                 </p>
               </>
             )}
@@ -634,9 +780,12 @@ function FramCompass({
 
 export function MiljoerExplorer({
   organizations,
+  lang = "nb",
 }: {
   organizations: Organization[];
+  lang?: Lang;
 }) {
+  const t = copy[lang];
   const [logoMode, setLogoMode] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   useEffect(() => {
@@ -663,26 +812,26 @@ export function MiljoerExplorer({
       <div className="mx-auto max-w-[1360px] px-12 max-[900px]:px-5 max-[520px]:px-4">
         <div className="mb-7 flex flex-wrap items-center gap-x-3.5 gap-y-3">
           <span className="font-mono text-[11px] tracking-[.12em] text-[var(--muted)] uppercase">
-            Vis først
+            {t.showFirst}
           </span>
           <div
             className="inline-flex gap-1 rounded-full border border-[var(--line)] bg-[var(--bg-soft)] p-1"
             role="group"
-            aria-label="Vis først"
+            aria-label={t.showFirst}
           >
             <button
               type="button"
               onClick={() => setMode(false)}
               className={`cursor-pointer rounded-full border-0 px-[18px] py-2 font-sans text-[13px] font-semibold [transition:background_.2s_ease,color_.2s_ease] hover:text-[var(--ink)] ${logoMode ? "bg-transparent text-[var(--ink-soft)]" : "bg-[var(--ink)] text-[var(--bg)] hover:text-[var(--bg)]"}`}
             >
-              Bilder
+              {t.photos}
             </button>
             <button
               type="button"
               onClick={() => setMode(true)}
               className={`cursor-pointer rounded-full border-0 px-[18px] py-2 font-sans text-[13px] font-semibold [transition:background_.2s_ease,color_.2s_ease] hover:text-[var(--ink)] ${logoMode ? "bg-[var(--ink)] text-[var(--bg)] hover:text-[var(--bg)]" : "bg-transparent text-[var(--ink-soft)]"}`}
             >
-              Logoer
+              {t.logos}
             </button>
           </div>
           <button
@@ -696,7 +845,7 @@ export function MiljoerExplorer({
             <span className="inline-block text-sm leading-none motion-safe:animate-[fm-twinkle_3.4s_ease-in-out_infinite]">
               ✨
             </span>
-            Finn din match
+            {t.findMatch}
           </button>
         </div>
         <div className="grid grid-cols-4 gap-[18px] max-[1180px]:grid-cols-3 max-[760px]:grid-cols-2 max-[760px]:gap-2.5">
@@ -705,6 +854,7 @@ export function MiljoerExplorer({
               key={organization.name}
               organization={organization}
               logoMode={logoMode}
+              lang={lang}
             />
           ))}
         </div>
@@ -712,6 +862,7 @@ export function MiljoerExplorer({
           <FramCompass
             organizations={organizations}
             onClose={() => setModalOpen(false)}
+            lang={lang}
           />
         )}
       </div>

@@ -4,12 +4,12 @@ import { pageMetadata } from "@/i18n/metadata";
 
 export const metadata: Metadata = pageMetadata({
   key: "booking",
-  lang: "nb",
-  title: "Book lokaler — FRAM NTNU",
+  lang: "en",
+  title: "Book a room — FRAM NTNU",
   description:
-    "Book lokaler på FRAM NTNU i Trondheim — Gruva, Scenerommet, Fellesrommet og møterom for student-arrangementer, workshops og møter.",
+    "Book spaces at FRAM NTNU in Trondheim — Gruva, Scenerommet, Fellesrommet and the meeting rooms for student events, workshops and meetings.",
 });
 
 export default function BookingPage() {
-  return <BookingContent lang="nb" />;
+  return <BookingContent lang="en" />;
 }

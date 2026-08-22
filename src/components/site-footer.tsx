@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import type { Lang } from "@/i18n/config";
+import { localizeHref } from "@/i18n/config";
+import { ui } from "@/i18n/ui";
 
 const socialPath = {
   Instagram: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z",
@@ -28,9 +31,11 @@ function SlackIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-export function SiteFooter({ mobileExtraBottomPadding = false }: { mobileExtraBottomPadding?: boolean } = {}) {
+export function SiteFooter({ mobileExtraBottomPadding = false, lang = "nb" }: { mobileExtraBottomPadding?: boolean; lang?: Lang } = {}) {
   const [slackOpen, setSlackOpen] = useState(false);
   const closeButton = useRef<HTMLButtonElement>(null);
+  const t = ui[lang].footer;
+  const L = (href: string) => localizeHref(href, lang);
 
   useEffect(() => {
     if (!slackOpen) return;
@@ -64,7 +69,7 @@ export function SiteFooter({ mobileExtraBottomPadding = false }: { mobileExtraBo
             </div>
 
             <div className="flex flex-col gap-3">
-              <div className="mb-1 text-[10px] font-semibold tracking-[.14em] uppercase">Samarbeidspartnere</div>
+              <div className="mb-1 text-[10px] font-semibold tracking-[.14em] uppercase">{t.partners}</div>
               <div className="flex flex-col items-start gap-[18px]">
                 {/* Plain images retained for path and layout parity. */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -78,17 +83,17 @@ export function SiteFooter({ mobileExtraBottomPadding = false }: { mobileExtraBo
 
             <div className="flex items-start gap-8 max-[620px]:hidden">
               <div className="flex flex-col gap-2">
-                <div className="mb-1 text-[10px] font-semibold tracking-[.14em] uppercase">Sider</div>
+                <div className="mb-1 text-[10px] font-semibold tracking-[.14em] uppercase">{t.pages}</div>
                 {[
-                  ["/miljoer", "Miljøene"], ["/arrangementer", "Arrangementer"], ["/booking", "Book lokalene"], ["/om", "Om Fram"], ["/innovasjonsdagene", "Innovasjonsdagene"],
-                ].map(([href, label]) => <Link key={href} href={href} className="text-xs leading-[1.8] text-[var(--ink-soft)] no-underline transition-colors hover:text-[var(--ink)]">{label}</Link>)}
+                  ["/miljoer", t.pageLinks.communities], ["/arrangementer", t.pageLinks.events], ["/booking", t.pageLinks.booking], ["/om", t.pageLinks.about], ["/innovasjonsdagene", t.pageLinks.innovationDays],
+                ].map(([href, label]) => <Link key={href} href={L(href)} className="text-xs leading-[1.8] text-[var(--ink-soft)] no-underline transition-colors hover:text-[var(--ink)]">{label}</Link>)}
               </div>
             </div>
           </div>
           <div className="flex flex-wrap items-center justify-between gap-6">
-            <div>© 2015–2026 Fram NTNU</div>
+            <div>{t.rights}</div>
             <div className="flex items-center gap-3.5">
-              <span className="text-[10px] tracking-[.16em] uppercase">Tilknyttet</span>
+              <span className="text-[10px] tracking-[.16em] uppercase">{t.affiliatedWith}</span>
               <span role="img" aria-label="NTNU" className="inline-block h-[22px] w-[116px] bg-[#00509E] [mask:url('/assets/ntnu-logo-dark.webp')_left_center/contain_no-repeat]" />
             </div>
           </div>
@@ -98,10 +103,10 @@ export function SiteFooter({ mobileExtraBottomPadding = false }: { mobileExtraBo
       {slackOpen && (
         <div id="slack-modal" className="open fixed inset-0 z-[9999] flex items-center justify-center bg-black/55" role="dialog" aria-modal="true" aria-labelledby="slack-modal-title" onMouseDown={(event) => event.target === event.currentTarget && setSlackOpen(false)}>
           <div className="relative w-[90%] max-w-[380px] rounded-[14px] bg-[var(--card)] px-8 pt-9 pb-7 text-center shadow-[0_8px_40px_rgba(0,0,0,.2)]">
-            <button ref={closeButton} type="button" className="absolute top-2.5 right-3.5 cursor-pointer border-0 bg-transparent p-1 text-2xl leading-none text-[var(--ink-soft)] hover:text-[var(--ink)]" aria-label="Lukk" onClick={() => setSlackOpen(false)}>&times;</button>
+            <button ref={closeButton} type="button" className="absolute top-2.5 right-3.5 cursor-pointer border-0 bg-transparent p-1 text-2xl leading-none text-[var(--ink-soft)] hover:text-[var(--ink)]" aria-label={t.close} onClick={() => setSlackOpen(false)}>&times;</button>
             <SlackIcon className="mx-auto mb-4 block h-11 w-11" />
-            <h3 id="slack-modal-title" className="m-0 mb-2.5 text-[1.1rem] font-bold text-[var(--ink)]">Kun for ledere</h3>
-            <p className="m-0 text-[.95rem] leading-[1.6] text-[var(--ink-soft)]">Slacken er for tiden bare for lederne av våre medlemsorganisasjoner. Ønsker du tilgang, ta kontakt med oss.</p>
+            <h3 id="slack-modal-title" className="m-0 mb-2.5 text-[1.1rem] font-bold text-[var(--ink)]">{t.slackTitle}</h3>
+            <p className="m-0 text-[.95rem] leading-[1.6] text-[var(--ink-soft)]">{t.slackBody}</p>
           </div>
         </div>
       )}

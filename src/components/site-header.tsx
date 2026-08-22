@@ -2,6 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import type { Lang } from "@/i18n/config";
+import { localizeHref, path } from "@/i18n/config";
+import { ui } from "@/i18n/ui";
+import { LanguageSwitcher } from "@/components/language-switcher";
 
 type DropdownProps = {
   label: string;
@@ -51,8 +55,14 @@ function Dropdown({ label, items, caretFontFamily, active = false }: DropdownPro
 export function SiteHeader({
   caretFontFamily = 'Poppins, "Poppins Fallback", sans-serif',
   currentPath,
-}: { caretFontFamily?: string; currentPath?: string } = {}) {
+  lang = "nb",
+}: { caretFontFamily?: string; currentPath?: string; lang?: Lang } = {}) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const t = ui[lang].nav;
+  const L = (href: string) => localizeHref(href, lang);
+  // currentPath sendes inn som den kanoniske nb-stien; oversett for sammenligning.
+  const activePath = currentPath ? localizeHref(currentPath, lang) : undefined;
+  const homeHref = path("home", lang);
 
   useEffect(() => {
     const close = (event: KeyboardEvent) => event.key === "Escape" && setMenuOpen(false);
@@ -63,7 +73,7 @@ export function SiteHeader({
   return (
     <nav className="top sticky top-0 z-50 border-b border-[var(--nav-border,var(--line))] bg-[color-mix(in_oklab,var(--nav-bg,var(--bg))_88%,transparent)] backdrop-blur-[14px]">
       <div className="nav-inner mx-auto flex h-[82px] max-w-[1360px] items-center justify-between px-12 max-[900px]:h-16 max-[900px]:px-5 max-[520px]:px-4">
-        <Link href="/" className="logo flex items-center no-underline" aria-label="FRAM NTNU">
+        <Link href={homeHref} className="logo flex items-center no-underline" aria-label="FRAM NTNU">
           {/* Plain img is retained deliberately during visual-parity migration. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img width="400" height="142" decoding="async" src="/assets/fram-logo.webp" alt="FRAM NTNU" className="logo-img block h-[38px] w-auto max-[900px]:h-8" />
@@ -71,24 +81,25 @@ export function SiteHeader({
         <div className={`nav-links flex items-center gap-8 text-sm font-medium max-[900px]:fixed max-[900px]:inset-x-0 max-[900px]:top-16 max-[900px]:z-40 max-[900px]:max-h-[calc(100vh-64px)] max-[900px]:flex-col max-[900px]:items-stretch max-[900px]:gap-0 max-[900px]:overflow-y-auto max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:bg-[var(--bg)] max-[900px]:px-5 max-[900px]:pt-2 max-[900px]:pb-5 max-[900px]:shadow-[0_24px_40px_-24px_rgba(0,0,0,.35)] max-[520px]:px-4 ${menuOpen ? "max-[900px]:translate-y-0 max-[900px]:opacity-100 max-[900px]:pointer-events-auto" : "max-[900px]:-translate-y-3 max-[900px]:opacity-0 max-[900px]:pointer-events-none"} max-[900px]:transition-[opacity,transform] max-[900px]:duration-200`} onClick={(event) => {
           if ((event.target as HTMLElement).closest("a")) setMenuOpen(false);
         }}>
-          <Link href="/" aria-current={currentPath === "/" ? "page" : undefined} className={`${topLink} ${currentPath === "/" ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>Hjem</Link>
-          <Dropdown active={currentPath === "/innovasjonsdagene" || currentPath === "/arrangementer"} caretFontFamily={caretFontFamily} label="Arrangementer" items={[
-            { href: "/innovasjonsdagene", label: "Innovasjonsdagene" },
-            { href: "/arrangementer#koble", label: "Koble" },
-            { href: "/arrangementer", label: "Alle arrangementer" },
+          <Link href={homeHref} aria-current={activePath === homeHref ? "page" : undefined} className={`${topLink} ${activePath === homeHref ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>{t.home}</Link>
+          <Dropdown active={activePath === L("/innovasjonsdagene") || activePath === L("/arrangementer")} caretFontFamily={caretFontFamily} label={t.events} items={[
+            { href: L("/innovasjonsdagene"), label: t.innovationDays },
+            { href: L("/arrangementer") + "#koble", label: t.koble },
+            { href: L("/arrangementer"), label: t.allEvents },
           ]} />
-          <Link href="/miljoer" aria-current={currentPath === "/miljoer" ? "page" : undefined} className={`${topLink} ${currentPath === "/miljoer" ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>Miljøene</Link>
-          <Link href="/booking" aria-current={currentPath === "/booking" ? "page" : undefined} className={`${topLink} ${currentPath === "/booking" ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>Booking</Link>
-          <Dropdown active={currentPath === "/idegarasjen"} caretFontFamily={caretFontFamily} label="Arealer & rom" items={[
-            { href: "https://www.gruvantnu.no/", label: "Gruva", external: true },
-            { href: "/idegarasjen", label: "Idégarasjen" },
+          <Link href={L("/miljoer")} aria-current={activePath === L("/miljoer") ? "page" : undefined} className={`${topLink} ${activePath === L("/miljoer") ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>{t.communities}</Link>
+          <Link href={L("/booking")} aria-current={activePath === L("/booking") ? "page" : undefined} className={`${topLink} ${activePath === L("/booking") ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>{t.booking}</Link>
+          <Dropdown active={activePath === L("/idegarasjen")} caretFontFamily={caretFontFamily} label={t.spacesAndRooms} items={[
+            { href: "https://www.gruvantnu.no/", label: t.gruva, external: true },
+            { href: L("/idegarasjen"), label: t.ideaGarage },
           ]} />
-          <Link href="/om" aria-current={currentPath === "/om" ? "page" : undefined} className={`${topLink} ${currentPath === "/om" ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>Om Fram</Link>
+          <Link href={L("/om")} aria-current={activePath === L("/om") ? "page" : undefined} className={`${topLink} ${activePath === L("/om") ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>{t.about}</Link>
+          <span className="max-[900px]:mt-3"><LanguageSwitcher lang={lang} /></span>
         </div>
         <button
           type="button"
           className={`nav-burger hidden h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-[var(--line)] bg-[var(--card)] p-0 text-[var(--ink)] max-[900px]:inline-flex ${menuOpen ? "is-open" : ""}`}
-          aria-label={menuOpen ? "Lukk meny" : "Åpne meny"}
+          aria-label={menuOpen ? t.closeMenu : t.openMenu}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((value) => !value)}
         >

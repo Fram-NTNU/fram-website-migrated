@@ -4,12 +4,12 @@ import { pageMetadata } from "@/i18n/metadata";
 
 export const metadata: Metadata = pageMetadata({
   key: "ideaGarage",
-  lang: "nb",
+  lang: "en",
   title: "Idégarasjen — FRAM NTNU",
   description:
-    "Idégarasjen — studentenes åpne innovasjonsverksted på FRAM NTNU med 3D-printere, laserkutter og prototypingsutstyr.",
+    "Idégarasjen — the students' open innovation workshop at FRAM NTNU with 3D printers, a laser cutter and prototyping equipment.",
 });
 
-export default function IdegarasjenPage() {
-  return <IdegarasjenContent lang="nb" />;
+export default function IdeaGaragePage() {
+  return <IdegarasjenContent lang="en" />;
 }

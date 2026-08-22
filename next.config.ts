@@ -17,6 +17,9 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Engelske slugs endret til norske egennavn (behold gamle lenker levende).
+      { source: "/en/innovation-days", destination: "/en/innovasjonsdagene", permanent: true },
+      { source: "/en/idea-garage", destination: "/en/idegarasjen", permanent: true },
       { source: "/FramNTNU", destination: "/", permanent: true },
       { source: "/services-4", destination: "/idegarasjen", permanent: true },
       { source: "/about-3-1", destination: "/om", permanent: true },

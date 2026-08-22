@@ -3,6 +3,9 @@ import type { Organization } from "@/components/miljoer-explorer";
 // Kilde til sannhet for alle innovasjonsmiljøer/studentorganisasjoner som vises
 // som kort på /miljoer. Antall (organizations.length) brukes også til den live
 // tellingen på forsiden, slik at statistikken alltid matcher antall kort.
+//
+// `category`/`description` er den norske teksten som vises på kortene.
+// `categoryEn`/`descriptionEn` er den engelske motparten (vises på /en/communities).
 export const organizations: Organization[] = [
   {
     accent: "yellow",
@@ -13,9 +16,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/ascend.webp",
     photoAlt: "Ascend NTNU-teamet med dronen på konkurranse",
     category: "Luft · Droner",
+    categoryEn: "Air · Drones",
     name: "Ascend NTNU",
     description:
       "Konkurrerer i internasjonale drone-konkurranser med autonome systemer.",
+    descriptionEn:
+      "Competes in international drone competitions with autonomous systems.",
   },
   {
     accent: "red",
@@ -26,9 +32,12 @@ export const organizations: Organization[] = [
     photoAlt: "Boost Henne-arrangement",
     photoPosition: "center top",
     category: "Kvinnenettverk",
+    categoryEn: "Women's network",
     name: "Boost Henne",
     description:
       "Kvinnenettverk for studenter som vil inn i entreprenørskap. Rollemodeller, mentorer og events.",
+    descriptionEn:
+      "A women's network for students who want to get into entrepreneurship. Role models, mentors and events.",
   },
   {
     accent: "teal",
@@ -38,9 +47,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/brain.webp",
     photoAlt: "BRAIN NTNU-teamet",
     category: "AI · Teknologi",
+    categoryEn: "AI · Technology",
     name: "BRAIN NTNU",
     description:
       "Arrangerer hackathons, foredrag og møteplasser innen kunstig intelligens.",
+    descriptionEn:
+      "Hosts hackathons, talks and meetups around artificial intelligence.",
   },
   {
     accent: "yellow",
@@ -51,9 +63,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/cogito.webp",
     photoAlt: "Cogito-teamet",
     category: "AI · Prosjekter",
+    categoryEn: "AI · Projects",
     name: "Cogito",
     description:
       "Utvikler AI-løsninger og bygger erfaring gjennom semesterprosjekter.",
+    descriptionEn:
+      "Builds AI solutions and hands-on experience through semester projects.",
   },
   {
     accent: "teal",
@@ -64,9 +79,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/designhjelpen.avif",
     photoAlt: "Designhjelpen-teamet",
     category: "Konsulent · Design",
+    categoryEn: "Consulting · Design",
     name: "Designhjelpen",
     description:
       "Designstudenter hjelper andre orgs og oppstarter med visuell identitet, web og UX.",
+    descriptionEn:
+      "Design students help other orgs and startups with visual identity, web and UX.",
   },
   {
     accent: "red",
@@ -76,9 +94,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/driv.webp",
     photoAlt: "DRIV NTNU-aktivitet",
     category: "Helse · Innovasjon",
+    categoryEn: "Health · Innovation",
     name: "DRIV NTNU",
     description:
       "Kobler studenter med reelle helseutfordringer og et tverrfaglig innovasjonsmiljø.",
+    descriptionEn:
+      "Connects students with real health challenges and an interdisciplinary innovation community.",
   },
   {
     accent: "red",
@@ -88,9 +109,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/entreprenorskolen.webp",
     photoAlt: "Stand for NTNU School of Entrepreneurship på Fram",
     category: "Master",
+    categoryEn: "Master's",
     name: "Entreprenørskolen",
     description:
       "NTNUs master i entreprenørskap (NSE). To år der du bygger et reelt selskap som eksamen.",
+    descriptionEn:
+      "NTNU's master's in entrepreneurship (NSE). Two years spent building a real company as your exam.",
   },
   {
     accent: "teal",
@@ -100,9 +124,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/fuelfighter.webp",
     photoAlt: "Fuel Fighter-teamet med kjøretøy",
     category: "Energi · Bil",
+    categoryEn: "Energy · Cars",
     name: "Fuel Fighter",
     description:
       "Bygger ultra-energieffektive kjøretøy til Shell Eco-marathon.",
+    descriptionEn:
+      "Builds ultra energy-efficient vehicles for the Shell Eco-marathon.",
   },
   {
     accent: "yellow",
@@ -113,9 +140,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/gridville.webp",
     photoAlt: "Gridville-teamet",
     category: "Energi · Nett",
+    categoryEn: "Energy · Grid",
     name: "Gridville",
     description:
       "Studentprosjekter på fornybar energi, mikro­nett og smart strømforsyning.",
+    descriptionEn:
+      "Student projects in renewable energy, microgrids and smart power supply.",
   },
   {
     accent: "blue",
@@ -125,9 +155,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/grunderbrakka.webp",
     photoAlt: "Gründerbrakka lokalene",
     category: "Coworking",
+    categoryEn: "Coworking",
     name: "Gründerbrakka",
     description:
       "Coworking-plass for ambisiøse oppstarter. Faste kontorplasser og investor­nettverk.",
+    descriptionEn:
+      "A coworking space for ambitious startups. Dedicated desks and an investor network.",
   },
   {
     accent: "teal",
@@ -139,9 +172,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/hackerspace.webp",
     photoAlt: "Hackerspace NTNU-lokalet",
     category: "Makerspace",
+    categoryEn: "Makerspace",
     name: "Hackerspace NTNU",
     description:
       "Studentdrevet makerspace — lodding, 3D-print, software-prosjekter og workshops.",
+    descriptionEn:
+      "A student-run makerspace — soldering, 3D printing, software projects and workshops.",
   },
   {
     accent: "yellow",
@@ -151,9 +187,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/iug.webp",
     photoAlt: "Ingeniører uten grenser-prosjekt",
     category: "Humanitær",
+    categoryEn: "Humanitarian",
     name: "Ingeniører uten grenser",
     description:
       "Teknisk bistand og prosjekter i utviklingsland — rent vann, skoler, energi.",
+    descriptionEn:
+      "Technical aid and projects in developing countries — clean water, schools, energy.",
   },
   {
     accent: "red",
@@ -166,9 +205,12 @@ export const organizations: Organization[] = [
     photoAlt: "Innovatio-teamet",
     photoPosition: "center 22%",
     category: "Linjeforening",
+    categoryEn: "Student society",
     name: "Innovatio",
     description:
       "Linjeforeningen for masterprogrammet i Innovasjon og bærekraftig samfunnsutvikling ved NTNU i Trondheim.",
+    descriptionEn:
+      "The student society for the master's programme in Innovation and Sustainable Development at NTNU in Trondheim.",
   },
   {
     accent: "red",
@@ -181,9 +223,12 @@ export const organizations: Organization[] = [
     photoAlt: "Jet NTNU turbojetmotor",
     spin: true,
     category: "Luft · Jetmotor",
+    categoryEn: "Air · Jet engine",
     name: "Jet NTNU",
     description:
       "Norges første studentdrevne jetmotororganisasjon. Designer, produserer og tester sin egen turbojetmotor.",
+    descriptionEn:
+      "Norway's first student-run jet engine organisation. Designs, builds and tests its own turbojet engine.",
   },
   {
     accent: "teal",
@@ -194,9 +239,12 @@ export const organizations: Organization[] = [
     photoAlt: "Make NTNU 3D-printere",
     photoPosition: "center 35%",
     category: "Makerspace",
+    categoryEn: "Makerspace",
     name: "Make NTNU",
     description:
       "Gir studenter tilgang til verktøy, utstyr og kompetanse for å bygge egne prosjekter.",
+    descriptionEn:
+      "Gives students access to the tools, equipment and know-how to build their own projects.",
   },
   {
     accent: "blue",
@@ -208,9 +256,12 @@ export const organizations: Organization[] = [
     photoAlt: "Marinor NTNU-laget med sitt autonome fartøy",
     photoPosition: "center 62%",
     category: "Hav · Autonomi",
+    categoryEn: "Ocean · Autonomy",
     name: "Marinor NTNU",
     description:
       "Bygger og tester autonome maritime systemer, og bruker forskning til å løse reelle utfordringer til havs.",
+    descriptionEn:
+      "Builds and tests autonomous maritime systems, using research to solve real challenges at sea.",
   },
   {
     accent: "blue",
@@ -221,9 +272,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/njord.webp",
     photoAlt: "Njord autonome fartøy på vannet",
     category: "Hav · Autonomi",
+    categoryEn: "Ocean · Autonomy",
     name: "Njord",
     description:
       "Arrangerer en internasjonal konkurranse for selvstyrte skip, og bygger sine egne autonome fartøy.",
+    descriptionEn:
+      "Runs an international competition for autonomous ships, and builds its own self-navigating vessels.",
   },
   {
     accent: "red",
@@ -234,9 +288,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/nordlys.webp",
     photoAlt: "Nordlys-teamet med solbil",
     category: "Energi · Bil",
+    categoryEn: "Energy · Cars",
     name: "Nordlys",
     description:
       "Bygger og konkurrerer med soldrevne racerbiler i internasjonale solbilløp.",
+    descriptionEn:
+      "Builds and races solar-powered cars in international solar car challenges.",
   },
   {
     accent: "blue",
@@ -247,9 +304,12 @@ export const organizations: Organization[] = [
     photoAlt: "NORSTEC-lederne foran anlegget",
     photoPosition: "center 72%",
     category: "Rom · Nettverk",
+    categoryEn: "Space · Network",
     name: "NORSTEC",
     description:
       "Forener studentorganisasjoner innen romteknologi og skaper nye muligheter gjennom samarbeid.",
+    descriptionEn:
+      "Unites student organisations in space technology and creates new opportunities through collaboration.",
   },
   {
     accent: "blue",
@@ -260,9 +320,29 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/norstec.webp",
     photoAlt: "NORSTEC romkonferanse",
     category: "Rom · Konferanse",
+    categoryEn: "Space · Conference",
     name: "NORSTEC Summit",
     description:
       "Samler studenter, industri og myndigheter til Norges største studentdrevne romkonferanse.",
+    descriptionEn:
+      "Brings students, industry and government together at Norway's largest student-run space conference.",
+  },
+  {
+    accent: "blue",
+    href: "https://ntnuseismic.no/",
+    media: "dark",
+    logo: "/assets/logos/seismic.webp",
+    logoAlt: "NTNU Seismic",
+    logoSize: "big",
+    photo: "/assets/heroes/seismic.webp",
+    photoAlt: "NTNU Seismic-medlem som bygger en jordskjelvsikker tårnmodell i balsatre",
+    category: "Byggteknikk · Konstruksjon",
+    categoryEn: "Structural · Engineering",
+    name: "NTNU Seismic",
+    description:
+      "Konkurrerer i den internasjonale Seismic Design Competition — designer og bygger jordskjelvsikre tårnmodeller.",
+    descriptionEn:
+      "Competes in the international Seismic Design Competition — designing and building earthquake-proof tower models.",
   },
   {
     accent: "blue",
@@ -273,9 +353,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/orbit.webp",
     photoAlt: "Orbit-satellitt i bane",
     category: "Rom · Satellitter",
+    categoryEn: "Space · Satellites",
     name: "Orbit NTNU",
     description:
       "Bygger CubeSat-satellitter. Første student-satellitt i bane fra NTNU.",
+    descriptionEn:
+      "Builds CubeSat satellites. The first student satellite in orbit from NTNU.",
   },
   {
     accent: "blue",
@@ -286,9 +369,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/propulse.webp",
     photoAlt: "Propulse-rakett avduking",
     category: "Rom · Raketter",
+    categoryEn: "Space · Rockets",
     name: "Propulse NTNU",
     description:
       "Designer, bygger og skyter opp væskedrevne forskningsraketter.",
+    descriptionEn:
+      "Designs, builds and launches liquid-fuelled research rockets.",
   },
   {
     accent: "red",
@@ -299,8 +385,10 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/relu.webp",
     photoAlt: "Relu-presentasjon",
     category: "AI · Industri",
+    categoryEn: "AI · Industry",
     name: "Relu",
     description: "Utvikler AI-løsninger i samarbeid med næringslivet.",
+    descriptionEn: "Builds AI solutions in collaboration with industry.",
   },
   {
     accent: "teal",
@@ -311,9 +399,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/revolve.webp",
     photoAlt: "Revolve-bil på banen",
     category: "Motorsport · Bil",
+    categoryEn: "Motorsport · Cars",
     name: "Revolve NTNU",
     description:
       "Formula Student — designer og bygger en ny elektrisk racerbil hvert år.",
+    descriptionEn:
+      "Formula Student — designs and builds a new electric race car every year.",
   },
   {
     accent: "teal",
@@ -324,8 +415,11 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/solan.webp",
     photoAlt: "Solan Linjeforening-teamet",
     category: "Linjeforening",
+    categoryEn: "Student society",
     name: "Solan",
     description: "Linjeforeningen for Entreprenørskolen ved NTNU i Trondheim.",
+    descriptionEn:
+      "The student society for NTNU's School of Entrepreneurship in Trondheim.",
   },
   {
     accent: "blue",
@@ -336,9 +430,12 @@ export const organizations: Organization[] = [
     photoAlt: "Spark NTNU-arrangement",
     photoPosition: "center top",
     category: "Veiledning",
+    categoryEn: "Guidance",
     name: "Spark* NTNU",
     description:
       "Gratis veiledningstjeneste for studenter med en forretningsidé — mentorer, workshops og et program fra post-it til pilot.",
+    descriptionEn:
+      "A free guidance service for students with a business idea — mentors, workshops and a programme from post-it to pilot.",
   },
   {
     accent: "yellow",
@@ -348,9 +445,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/start.webp",
     photoAlt: "Start IT-arrangement",
     category: "Arrangør",
+    categoryEn: "Events",
     name: "Start NTNU",
     description:
       "Norges største studentorganisasjon for entreprenørskap. Startup Weekend, pitch-kvelder og karriere­events.",
+    descriptionEn:
+      "Norway's largest student organisation for entrepreneurship. Startup Weekend, pitch nights and career events.",
   },
   {
     accent: "blue",
@@ -360,9 +460,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/studiobeta.webp",
     photoAlt: "Studio Beta-byggeprosjekt",
     category: "Arkitektur",
+    categoryEn: "Architecture",
     name: "Studio Beta",
     description:
       "Studentdrevet arkitektur- og designstudio. Byggeprosjekter i full skala og prototyper.",
+    descriptionEn:
+      "A student-run architecture and design studio. Full-scale building projects and prototypes.",
   },
   {
     accent: "yellow",
@@ -373,9 +476,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/stottehjulet.avif",
     photoAlt: "Støttehjulet-teamet",
     category: "Konsulent · Organisasjon",
+    categoryEn: "Consulting · Organisation",
     name: "Støttehjulet",
     description:
       "Hjelper organisasjoner med ledelse, samarbeid og organisasjonsutvikling.",
+    descriptionEn:
+      "Helps organisations with leadership, collaboration and organisational development.",
   },
   {
     accent: "red",
@@ -387,9 +493,12 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/vortex.webp",
     photoAlt: "Vortex ORCA undervannsfarkost",
     category: "Hav · Undervann",
+    categoryEn: "Ocean · Underwater",
     name: "Vortex NTNU",
     description:
       "Bygger autonome undervannsfarkoster (ROV/AUV) til internasjonale konkurranser.",
+    descriptionEn:
+      "Builds autonomous underwater vehicles (ROV/AUV) for international competitions.",
   },
   {
     accent: "yellow",
@@ -401,8 +510,11 @@ export const organizations: Organization[] = [
     photoAlt: "WIC-arrangement",
     photoPosition: "center 35%",
     category: "Kvinnenettverk",
+    categoryEn: "Women's network",
     name: "WIC",
     description:
       "Women’s Investment Club skaper møteplasser for kvinner med interesse for finans, investering og kapitalmarkeder.",
+    descriptionEn:
+      "The Women's Investment Club creates meetups for women interested in finance, investing and capital markets.",
   },
 ];

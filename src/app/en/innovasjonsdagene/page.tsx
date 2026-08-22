@@ -4,12 +4,12 @@ import { pageMetadata } from "@/i18n/metadata";
 
 export const metadata: Metadata = pageMetadata({
   key: "innovationDays",
-  lang: "nb",
+  lang: "en",
   title: "Innovasjonsdagene '26 — FRAM NTNU",
   description:
-    "Innovasjonsdagene '26 — FRAM NTNUs festival for innovasjon, entreprenørskap og nyskaping ved NTNU.",
+    "Innovasjonsdagene '26 — FRAM NTNU's festival for innovation, entrepreneurship and new ventures at NTNU.",
 });
 
-export default function InnovasjonsdagenePage() {
-  return <InnovasjonsdageneContent lang="nb" />;
+export default function InnovationDaysPage() {
+  return <InnovasjonsdageneContent lang="en" />;
 }

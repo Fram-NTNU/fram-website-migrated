@@ -4,10 +4,10 @@ import { pageMetadata } from "@/i18n/metadata";
 
 export const metadata: Metadata = pageMetadata({
   key: "home",
-  lang: "nb",
-  title: "FRAM NTNU — Senter for innovasjon og entreprenørskap",
+  lang: "en",
+  title: "FRAM NTNU — Centre for innovation and entrepreneurship",
   description:
-    "Oppdag innovasjonsmiljøet på NTNU. FRAM tilbyr lokaler, arrangementer og et fellesskap for studenter som vil skape noe.",
+    "Discover the innovation community at NTNU. FRAM offers spaces, events, and a community for students who want to build something.",
 });
 
 export const viewport: Viewport = {
@@ -16,6 +16,6 @@ export const viewport: Viewport = {
   themeColor: "#FAF7F2",
 };
 
-export default function HomePage() {
-  return <HomeContent lang="nb" />;
+export default function HomePageEn() {
+  return <HomeContent lang="en" />;
 }

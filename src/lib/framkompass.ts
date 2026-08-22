@@ -161,7 +161,25 @@ const MILJOER = [
 
 // Finn det kanoniske miljønavnet fra modellens forslag – tåler at modellen
 // skriver navnet litt annerledes (ulik casing, «NTNU»-suffiks o.l.).
+type Lang = "nb" | "en";
 type Forslag = { navn: string };
+
+// Feilmeldinger på begge språk. Merk: frontenden faller tilbake til lokal
+// matching ved feil, så disse er primært for utviklere/nettverksdebugging.
+const MSG: Record<string, Record<Lang, string>> = {
+  method: { nb: "Bruk POST.", en: "Use POST." },
+  origin: { nb: "Ugyldig opprinnelse.", en: "Invalid origin." },
+  rate: { nb: "For mange forespørsler. Vent litt.", en: "Too many requests. Please wait a moment." },
+  missing: { nb: "Mangler «interesser».", en: "Missing “interesser”." },
+  tooLong: { nb: "Teksten er for lang.", en: "The text is too long." },
+  tooShort: { nb: "Skriv litt mer om interessene dine.", en: "Tell us a little more about your interests." },
+  noKey: { nb: "Mangler API-nøkkel på serveren.", en: "Missing API key on the server." },
+  failed: { nb: "Klarte ikke hente forslag akkurat nå.", en: "Couldn't fetch suggestions right now." },
+};
+
+function langFrom(body: unknown): Lang {
+  return typeof body === "object" && body !== null && (body as { lang?: unknown }).lang === "en" ? "en" : "nb";
+}
 
 function finnKanonisk(navn: unknown): string | null {
   const n = String(navn || "")
@@ -291,23 +309,21 @@ export async function handleFramkompass(request: Request): Promise<Response> {
   } catch {
     body = undefined;
   }
+  const lang = langFrom(body);
   const rawInteresser =
     typeof body === "object" && body !== null && "interesser" in body
       ? (body as { interesser?: unknown }).interesser
       : undefined;
   if (typeof rawInteresser !== "string") {
-    return Response.json({ error: "Mangler «interesser»." }, { status: 400 });
+    return Response.json({ error: MSG.missing[lang] }, { status: 400 });
   }
   // Avvis åpenbart store payloads tidlig – før vi behandler noe videre.
   if (rawInteresser.length > 2000) {
-    return Response.json({ error: "Teksten er for lang." }, { status: 413 });
+    return Response.json({ error: MSG.tooLong[lang] }, { status: 413 });
   }
   const interesser = rawInteresser.trim().slice(0, 300);
   if (interesser.length < 2) {
-    return Response.json(
-      { error: "Skriv litt mer om interessene dine." },
-      { status: 400 },
-    );
+    return Response.json({ error: MSG.tooShort[lang] }, { status: 400 });
   }
 
   // Servér tidligere svar på samme søk uten nytt modell-kall.
@@ -318,10 +334,7 @@ export async function handleFramkompass(request: Request): Promise<Response> {
   }
 
   if (!process.env.ANTHROPIC_API_KEY) {
-    return Response.json(
-      { error: "Mangler API-nøkkel på serveren." },
-      { status: 500 },
-    );
+    return Response.json({ error: MSG.noKey[lang] }, { status: 500 });
   }
 
   try {
@@ -362,9 +375,6 @@ export async function handleFramkompass(request: Request): Promise<Response> {
     return Response.json({ forslag });
   } catch (err) {
     console.error("forslag-feil:", err);
-    return Response.json(
-      { error: "Klarte ikke hente forslag akkurat nå." },
-      { status: 502 },
-    );
+    return Response.json({ error: MSG.failed[langFrom(body)] }, { status: 502 });
   }
 }

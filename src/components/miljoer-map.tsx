@@ -1,8 +1,31 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { Lang } from "@/i18n/config";
 
-export function MiljoerMap() {
+const copy = {
+  nb: {
+    facilitator: "Fasilitator",
+    engageLead:
+      "Senter for fremragende utdanning og fasilitator for innovasjonsmiljøet ved NTNU. Kartet under viser økosystemet av studentorganisasjoner, miljøer og muligheter.",
+    readMore: "Les mer →",
+    mapTitle: "Kart over organisasjonene",
+    activateMap: "Aktiver kartet",
+    exploreCta: "Trykk for å utforske økosystemet",
+  },
+  en: {
+    facilitator: "Facilitator",
+    engageLead:
+      "Centre for Excellence in Education and facilitator for the innovation community at NTNU. The map below shows the ecosystem of student organisations, communities and opportunities.",
+    readMore: "Read more →",
+    mapTitle: "Map of the organisations",
+    activateMap: "Activate the map",
+    exploreCta: "Tap to explore the ecosystem",
+  },
+} as const satisfies Record<Lang, unknown>;
+
+export function MiljoerMap({ lang = "nb" }: { lang?: Lang } = {}) {
+  const t = copy[lang];
   const shellRef = useRef<HTMLDivElement>(null);
   const [revealed, setRevealed] = useState(false);
   const [overlayGone, setOverlayGone] = useState(false);
@@ -85,15 +108,13 @@ export function MiljoerMap() {
             />
             <div className="min-w-0 flex-1">
               <div className="mb-[5px] flex items-center gap-[7px] font-mono text-[10px] tracking-[.12em] text-[var(--muted)] uppercase before:h-1.5 before:w-1.5 before:flex-none before:rounded-full before:bg-[var(--blue)]">
-                Fasilitator
+                {t.facilitator}
               </div>
               <div className="text-base leading-[normal] font-bold tracking-[.01em] text-[var(--ink)]">
                 SFU Engage
               </div>
               <p className="mt-[3px] mb-0 text-[13.5px] leading-[1.45] text-[var(--ink-soft)]">
-                Senter for fremragende utdanning og fasilitator for
-                innovasjonsmiljøet ved NTNU. Kartet under viser økosystemet av
-                studentorganisasjoner, miljøer og muligheter.
+                {t.engageLead}
               </p>
             </div>
             <a
@@ -102,14 +123,14 @@ export function MiljoerMap() {
               rel="noopener"
               className="flex-none text-sm leading-[normal] font-semibold whitespace-nowrap text-[var(--ink)] no-underline hover:underline max-[640px]:w-full"
             >
-              Les mer →
+              {t.readMore}
             </a>
           </div>
           <div className="relative overflow-hidden bg-[var(--bg-soft)]">
             <div ref={shellRef} className="relative [perspective:1700px]">
               <iframe
                 src="https://app.atlas.co/shared/0s38wVERSNnDjC86AZRL?index=0"
-                title="Kart over organisasjonene"
+                title={t.mapTitle}
                 loading="eager"
                 allowFullScreen
                 referrerPolicy="no-referrer-when-downgrade"
@@ -130,12 +151,12 @@ export function MiljoerMap() {
             </div>
             <button
               type="button"
-              aria-label="Aktiver kartet"
+              aria-label={t.activateMap}
               onClick={() => setActive(true)}
               className={`group absolute inset-0 z-[4] flex h-full w-full cursor-pointer items-center justify-center border-0 bg-transparent p-0 font-sans [transition:opacity_.3s_ease] ${active ? "pointer-events-none opacity-0" : "opacity-100"}`}
             >
               <span className="inline-flex items-center gap-2.5 rounded-full bg-[var(--ink)] px-6 py-3.5 text-[15px] font-semibold tracking-[.01em] text-white shadow-[0_10px_30px_-10px_rgba(0,0,0,.5)] [transition:transform_.2s_ease] before:h-2 before:w-2 before:flex-none before:rounded-full before:bg-[var(--teal)] group-hover:[transform:translateY(-2px)]">
-                Trykk for å utforske økosystemet
+                {t.exploreCta}
               </span>
             </button>
           </div>
