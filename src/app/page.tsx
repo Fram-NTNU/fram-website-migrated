@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import {
+  HomeLaunchBar,
   RoomExplorer,
   RotatingMemberLogo,
   YouTubeFacade,
@@ -168,6 +169,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteData) }}
       />
+      <HomeLaunchBar />
       <SiteHeader currentPath="/" />
       <main>
         <section

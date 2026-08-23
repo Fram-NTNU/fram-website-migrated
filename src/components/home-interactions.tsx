@@ -58,6 +58,45 @@ export function HomeEventBar() {
   );
 }
 
+export function HomeLaunchBar() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    // Vises i én uke etter lansering, deretter skjules baren automatisk.
+    const end = new Date(2026, 7, 30, 23, 59, 59);
+    setShow(new Date() <= end);
+  }, []);
+
+  if (!show) return null;
+
+  return (
+    <Link
+      href="/teknologihallen"
+      className="group relative z-[60] flex items-center justify-center gap-2.5 bg-[#0D151B] px-4 py-2.5 text-center font-sans text-[13px] font-semibold text-[#ECF1F5] no-underline [transition:background_.2s] hover:bg-[#12202a] max-[520px]:text-[12px]"
+    >
+      <span aria-hidden="true" className="relative flex h-2 w-2 flex-none">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#5CC8DE] opacity-70" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-[#5CC8DE]" />
+      </span>
+      <span className="font-bold tracking-[.06em] text-[#5CC8DE] uppercase">
+        Nyhet
+      </span>
+      <span>
+        Les mer om Teknologihallen
+        <span className="font-medium opacity-70 max-[520px]:hidden">
+          {" "}
+          · hjemmet til NTNUs tekniske studentorganisasjoner
+        </span>
+      </span>
+      <span
+        aria-hidden="true"
+        className="[transition:transform_.2s] group-hover:[transform:translateX(3px)]"
+      >
+        →
+      </span>
+    </Link>
+  );
+}
+
 export function YouTubeFacade() {
   const [playing, setPlaying] = useState(false);
   if (playing)
