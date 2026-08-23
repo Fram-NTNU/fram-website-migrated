@@ -7,7 +7,7 @@ type Member = { name: string; role: string; image: string; accent: string };
 const teams: Record<string, Member[]> = {
   "2026": [
     { name: "Malin", role: "Leder", image: "/assets/team/malin.avif", accent: "#FDC82F" },
-    { name: "Jonas", role: "Nestleder", image: "/assets/team/jonas.avif", accent: "#2E86C1" },
+    { name: "Jonas", role: "Nestleder & Web", image: "/assets/team/jonas.avif", accent: "#2E86C1" },
     { name: "Britt", role: "Arrangement", image: "/assets/team/britt.avif", accent: "#E85A5A" },
     { name: "Mie", role: "Arrangement", image: "/assets/team/mie.avif", accent: "#3FC4A3" },
     { name: "Sutha", role: "Arrangement", image: "/assets/team/sutha.avif", accent: "#FDC82F" },
