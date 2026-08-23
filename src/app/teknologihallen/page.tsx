@@ -154,15 +154,18 @@ export default function TeknologihallenPage() {
       {/* ===== TEKNOLOGIHALLEN (foto) ===== */}
       <section id="lokasjoner" className="py-[clamp(64px,7vw,92px)]">
         <div className="mx-auto max-w-[1360px] px-12 max-[860px]:px-[22px]">
-          <article className="group relative isolate block aspect-[16/9] overflow-hidden rounded-[22px] border border-[var(--line)] bg-[var(--steel)] [transition:transform_.35s_ease,box-shadow_.35s_ease] hover:[transform:translateY(-4px)] hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,.4)] max-[860px]:aspect-[4/3]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/teknologihallen/valgrinda.jpg" alt="Teknologihallen" loading="lazy" decoding="async" className="absolute inset-0 z-0 h-full w-full object-cover [transition:transform_.6s_cubic-bezier(.22,.61,.36,1)] group-hover:[transform:scale(1.06)]" />
-            {/* Illustrasjon som standard, fader til foto på hover. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/teknologihallen/valgrinda-aerial.webp" alt="Flyfoto av Teknologihallen" loading="lazy" decoding="async" className="absolute inset-0 z-0 h-full w-full object-cover opacity-100 [transition:opacity_.5s_ease,transform_.6s_cubic-bezier(.22,.61,.36,1)] group-hover:opacity-0 group-hover:[transform:scale(1.06)]" />
-            <div className="pointer-events-none absolute inset-0 z-[1] opacity-50 [background-image:linear-gradient(rgba(255,255,255,.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.06)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:linear-gradient(to_bottom,rgba(0,0,0,.6)_0%,transparent_55%)]" aria-hidden="true" />
-            <div className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_top,rgba(18,25,30,.92)_0%,rgba(18,25,30,.55)_32%,rgba(18,25,30,.08)_62%,transparent_82%)]" aria-hidden="true" />
-            <div className="absolute inset-x-0 bottom-0 z-[2] px-8 pt-[30px] pb-8 text-white max-[860px]:px-6 max-[860px]:pt-6 max-[860px]:pb-[26px]">
+          <article className="group relative isolate block aspect-[16/9] overflow-hidden rounded-[22px] border border-[var(--line)] bg-[var(--steel)] [transition:transform_.35s_ease,box-shadow_.35s_ease] hover:[transform:translateY(-4px)] hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,.4)] max-[860px]:aspect-[4/3] max-[560px]:aspect-auto">
+            {/* På mobil blir bildet et banner (fast høyde) med teksten under, i stedet for tekst oppå bildet. */}
+            <div className="contents max-[560px]:relative max-[560px]:block max-[560px]:h-[190px] max-[560px]:overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/assets/teknologihallen/valgrinda.jpg" alt="Teknologihallen" loading="lazy" decoding="async" className="absolute inset-0 z-0 h-full w-full object-cover [transition:transform_.6s_cubic-bezier(.22,.61,.36,1)] group-hover:[transform:scale(1.06)]" />
+              {/* Illustrasjon som standard, fader til foto på hover. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/assets/teknologihallen/valgrinda-aerial.webp" alt="Flyfoto av Teknologihallen" loading="lazy" decoding="async" className="absolute inset-0 z-0 h-full w-full object-cover opacity-100 [transition:opacity_.5s_ease,transform_.6s_cubic-bezier(.22,.61,.36,1)] group-hover:opacity-0 group-hover:[transform:scale(1.06)]" />
+              <div className="pointer-events-none absolute inset-0 z-[1] opacity-50 [background-image:linear-gradient(rgba(255,255,255,.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.06)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:linear-gradient(to_bottom,rgba(0,0,0,.6)_0%,transparent_55%)]" aria-hidden="true" />
+              <div className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_top,rgba(18,25,30,.92)_0%,rgba(18,25,30,.55)_32%,rgba(18,25,30,.08)_62%,transparent_82%)] max-[560px]:bg-[linear-gradient(to_top,rgba(18,25,30,.55)_0%,transparent_60%)]" aria-hidden="true" />
+            </div>
+            <div className="absolute inset-x-0 bottom-0 z-[2] px-8 pt-[30px] pb-8 text-white max-[860px]:px-6 max-[860px]:pt-6 max-[860px]:pb-[26px] max-[560px]:static max-[560px]:bg-[var(--steel)] max-[560px]:pt-5">
               <h3 className="m-0 mb-2.5 text-[clamp(26px,2.6vw,36px)] leading-[1.02] font-extrabold tracking-[-.025em] text-white">Teknologihallen</h3>
               <p className="m-0 max-w-[46ch] text-[14.5px] leading-[1.55] text-white/80">Under samme tak deler organisasjonene verksteder, kontorer og sosiale soner — et miljø der kompetanse og utstyr flyter fritt mellom prosjektene.</p>
               <a href="https://link.mazemap.com/UAGcgjzn" target="_blank" rel="noopener" className="relative z-[3] mt-[18px] inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/12 px-[22px] py-3 text-[14px] font-bold text-white no-underline backdrop-blur-sm [transition:transform_.2s,border-color_.2s,background_.2s] hover:[transform:translateY(-2px)] hover:border-white hover:bg-white/20"><i className="ph ph-map-pin text-[16px]" aria-hidden="true" /> Finn frem i MazeMap</a>
@@ -190,7 +193,7 @@ export default function TeknologihallenPage() {
       <section id="sitat" className="relative overflow-hidden bg-[var(--steel)] py-[clamp(52px,5.5vw,72px)] text-white before:pointer-events-none before:absolute before:inset-0 before:opacity-40 before:[background-image:linear-gradient(rgba(255,255,255,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.045)_1px,transparent_1px)] before:[background-size:46px_46px] before:[mask-image:radial-gradient(circle_at_78%_30%,rgba(0,0,0,.9),transparent_72%)] before:content-['']">
         <div className="relative z-[1] mx-auto max-w-[1360px] px-12 max-[720px]:px-[22px]">
           <div className="grid grid-cols-[0.58fr_1.42fr] items-center gap-12 max-[1100px]:grid-cols-1 max-[1100px]:gap-[34px]">
-            <div className="relative aspect-[4/5] max-w-[290px] overflow-hidden rounded-[22px] border border-white/12 bg-[var(--steel-soft)] max-[1100px]:max-w-[320px] max-[560px]:aspect-[1/1] max-[560px]:max-w-[180px]">
+            <div className="relative aspect-[4/5] max-w-[290px] overflow-hidden rounded-[22px] border border-white/12 bg-[var(--steel-soft)] max-[1100px]:max-w-[320px] max-[560px]:hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/assets/teknologihallen/sivert.webp" alt="Sivert Sande Kverme" loading="lazy" decoding="async" className="absolute inset-0 block h-full w-full object-cover" />
             </div>
@@ -218,9 +221,9 @@ export default function TeknologihallenPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-[18px] max-[900px]:grid-cols-1">
+          <div className="grid grid-cols-3 gap-[18px] max-[900px]:flex max-[900px]:snap-x max-[900px]:snap-mandatory max-[900px]:overflow-x-auto max-[900px]:pb-2 max-[900px]:[scrollbar-width:none] max-[900px]:[-webkit-overflow-scrolling:touch]">
             {pressArticles.map((article) => (
-              <a key={article.href} href={article.href} target="_blank" rel="noopener" className="group flex flex-col justify-between gap-8 rounded-[20px] border border-[var(--line)] bg-[var(--card)] px-8 pt-7 pb-6 text-[var(--ink)] no-underline [transition:transform_.25s_ease,border-color_.25s_ease,box-shadow_.25s_ease] hover:border-[var(--ink)] hover:shadow-[0_24px_46px_-26px_rgba(0,0,0,.4)] hover:[transform:translateY(-4px)] max-[720px]:px-6 max-[720px]:pt-6">
+              <a key={article.href} href={article.href} target="_blank" rel="noopener" className="group flex flex-col justify-between gap-8 rounded-[20px] border border-[var(--line)] bg-[var(--card)] px-8 pt-7 pb-6 text-[var(--ink)] no-underline [transition:transform_.25s_ease,border-color_.25s_ease,box-shadow_.25s_ease] hover:border-[var(--ink)] hover:shadow-[0_24px_46px_-26px_rgba(0,0,0,.4)] hover:[transform:translateY(-4px)] max-[900px]:min-w-[80%] max-[900px]:snap-start max-[720px]:min-w-[85%] max-[720px]:gap-6 max-[720px]:px-6 max-[720px]:pt-6">
                 <div>
                   <div className="mb-4 flex items-center gap-[9px] font-mono text-[10.5px] tracking-[.12em] text-[var(--muted)] uppercase">
                     <span className="h-1.5 w-1.5 flex-none rounded-full bg-[var(--accent)]" />

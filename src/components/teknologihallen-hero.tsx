@@ -47,7 +47,7 @@ export function TeknologihallenHero() {
           <p className="m-0 mb-7 max-w-[540px] text-[15.5px] leading-[1.6] text-white/72">Under samme tak utvikler studentene alt fra satellitter og raketter til autonome fartøy og racerbiler — flere av dem konkurrerer internasjonalt.</p>
           <div className="flex flex-wrap items-center gap-3">
             <a href="#organisasjoner" className="inline-flex items-center gap-2.5 rounded-full bg-white px-[26px] py-3.5 text-[15px] font-bold text-[var(--steel)] no-underline [transition:transform_.2s,box-shadow_.2s] hover:[transform:translateY(-2px)] hover:shadow-[0_12px_26px_-10px_rgba(0,0,0,.5)]">Utforsk organisasjonene →</a>
-            <a href="#bak-teknologihallen" className="inline-flex items-center gap-2.5 rounded-full border border-white/45 bg-white/5 px-[26px] py-3.5 text-[15px] font-bold text-white no-underline [transition:transform_.2s,border-color_.2s,background_.2s] hover:[transform:translateY(-2px)] hover:border-white hover:bg-white/12">Søk om plass</a>
+            <a href="#bak-teknologihallen" className="inline-flex items-center gap-2.5 rounded-full border border-white/45 bg-white/5 px-[26px] py-3.5 text-[15px] font-bold text-white no-underline [transition:transform_.2s,border-color_.2s,background_.2s] hover:[transform:translateY(-2px)] hover:border-white hover:bg-white/12 max-[560px]:hidden">Søk om plass</a>
           </div>
         </div>
       </div>
