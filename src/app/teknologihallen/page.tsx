@@ -148,7 +148,7 @@ export default function TeknologihallenPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }} />
 
-      <SiteHeader currentPath="/teknologihallen" dark logoSrc="/assets/fram-logo-hvit.webp" />
+      <SiteHeader currentPath="/teknologihallen" dark logoSrc="/assets/fram-logo-hvit.webp" logoClassName="max-[900px]:!h-[42px]" />
       <TeknologihallenHero />
 
       {/* ===== TEKNOLOGIHALLEN (foto) ===== */}

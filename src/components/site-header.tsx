@@ -53,7 +53,8 @@ export function SiteHeader({
   currentPath,
   dark = false,
   logoSrc,
-}: { caretFontFamily?: string; currentPath?: string; dark?: boolean; logoSrc?: string } = {}) {
+  logoClassName,
+}: { caretFontFamily?: string; currentPath?: string; dark?: boolean; logoSrc?: string; logoClassName?: string } = {}) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -68,7 +69,7 @@ export function SiteHeader({
         <Link href="/" className="logo flex items-center no-underline" aria-label="FRAM NTNU">
           {/* Plain img is retained deliberately during visual-parity migration. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img width="400" height="142" decoding="async" src={logoSrc ?? "/assets/fram-logo.webp"} alt="FRAM NTNU" className={`logo-img block h-[38px] w-auto max-[900px]:h-[34px] ${!logoSrc && dark ? "[filter:brightness(0)_invert(1)]" : ""}`} />
+          <img width="400" height="142" decoding="async" src={logoSrc ?? "/assets/fram-logo.webp"} alt="FRAM NTNU" className={`logo-img block h-[38px] w-auto max-[900px]:h-8 ${logoClassName ?? ""} ${!logoSrc && dark ? "[filter:brightness(0)_invert(1)]" : ""}`} />
         </Link>
         <div className={`nav-links flex items-center gap-8 text-sm font-medium max-[900px]:fixed max-[900px]:inset-x-0 max-[900px]:top-16 max-[900px]:z-40 max-[900px]:max-h-[calc(100vh-64px)] max-[900px]:flex-col max-[900px]:items-stretch max-[900px]:gap-0 max-[900px]:overflow-y-auto max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:bg-[var(--bg)] max-[900px]:px-5 max-[900px]:pt-2 max-[900px]:pb-5 max-[900px]:shadow-[0_24px_40px_-24px_rgba(0,0,0,.35)] max-[520px]:px-4 ${menuOpen ? "max-[900px]:translate-y-0 max-[900px]:opacity-100 max-[900px]:pointer-events-auto" : "max-[900px]:-translate-y-3 max-[900px]:opacity-0 max-[900px]:pointer-events-none"} max-[900px]:transition-[opacity,transform] max-[900px]:duration-200`} onClick={(event) => {
           if ((event.target as HTMLElement).closest("a")) setMenuOpen(false);

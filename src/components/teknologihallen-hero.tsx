@@ -43,8 +43,7 @@ export function TeknologihallenHero() {
           <div className="mb-4 flex items-center">
             <span className="font-sans text-[clamp(46px,6.2vw,88px)] leading-[.96] font-extrabold tracking-[-.03em] text-white max-[560px]:text-[clamp(30px,8.4vw,46px)]">Teknologihallen</span>
           </div>
-          <p className="m-0 mb-3.5 text-[clamp(18px,1.9vw,25px)] font-medium tracking-[-.01em] text-white">Hjemmet til NTNUs tekniske organisasjoner.</p>
-          <p className="m-0 mb-7 max-w-[540px] text-[15.5px] leading-[1.6] text-white/72">Under samme tak utvikler studentene alt fra satellitter og raketter til autonome fartøy og racerbiler — flere av dem konkurrerer internasjonalt.</p>
+          <p className="m-0 mb-7 text-[clamp(18px,1.9vw,25px)] font-medium tracking-[-.01em] text-white">Hjemmet til NTNUs tekniske organisasjoner.</p>
           <div className="flex flex-wrap items-center gap-3">
             <a href="#organisasjoner" className="inline-flex items-center gap-2.5 rounded-full bg-white px-[26px] py-3.5 text-[15px] font-bold text-[var(--steel)] no-underline [transition:transform_.2s,box-shadow_.2s] hover:[transform:translateY(-2px)] hover:shadow-[0_12px_26px_-10px_rgba(0,0,0,.5)]">Utforsk organisasjonene →</a>
             <a href="#bak-teknologihallen" className="inline-flex items-center gap-2.5 rounded-full border border-white/45 bg-white/5 px-[26px] py-3.5 text-[15px] font-bold text-white no-underline [transition:transform_.2s,border-color_.2s,background_.2s] hover:[transform:translateY(-2px)] hover:border-white hover:bg-white/12 max-[560px]:hidden">Søk om plass</a>
