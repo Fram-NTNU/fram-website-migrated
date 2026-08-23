@@ -41,7 +41,7 @@ export function TeknologihallenHero() {
       <div className="absolute inset-0 z-[2] flex items-end bg-[linear-gradient(to_top,rgba(18,25,30,.92)_0%,rgba(18,25,30,.5)_46%,rgba(18,25,30,.1)_80%)] pb-[54px]">
         <div className="mx-auto w-full max-w-[1360px] px-12 max-[720px]:px-[22px]">
           <div className="mb-4 flex items-center">
-            <span className="font-sans text-[clamp(46px,6.2vw,88px)] leading-[.96] font-extrabold tracking-[-.03em] text-white max-[560px]:text-[clamp(30px,8.4vw,46px)]">Teknologihallen</span>
+            <span className="font-sans text-[clamp(46px,6.2vw,88px)] leading-[.96] font-extrabold tracking-[-.03em] text-white max-[560px]:text-[clamp(34px,9.6vw,44px)]">Teknologihallen</span>
           </div>
           <p className="m-0 mb-7 text-[clamp(18px,1.9vw,25px)] font-medium tracking-[-.01em] text-white">Hjemmet til NTNUs tekniske organisasjoner.</p>
           <div className="flex flex-wrap items-center gap-3">
