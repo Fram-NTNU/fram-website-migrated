@@ -28,7 +28,7 @@ function SlackIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-export function SiteFooter({ mobileExtraBottomPadding = false, dark = false, logoSrc }: { mobileExtraBottomPadding?: boolean; dark?: boolean; logoSrc?: string } = {}) {
+export function SiteFooter({ mobileExtraBottomPadding = false, dark = false, logoSrc, ntnuWhite = false, sparebankWhite = false }: { mobileExtraBottomPadding?: boolean; dark?: boolean; logoSrc?: string; ntnuWhite?: boolean; sparebankWhite?: boolean } = {}) {
   const logoFilter = dark ? "[filter:brightness(0)_invert(1)]" : "";
   const [slackOpen, setSlackOpen] = useState(false);
   const closeButton = useRef<HTMLButtonElement>(null);
@@ -69,7 +69,7 @@ export function SiteFooter({ mobileExtraBottomPadding = false, dark = false, log
               <div className="flex flex-col items-start gap-[18px]">
                 {/* Plain images retained for path and layout parity. */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img width="550" height="157" loading="lazy" decoding="async" src="/assets/sparebank1SMNhvit.png" alt="SpareBank 1 SMN" className={`-ml-2 h-9 w-auto ${logoFilter}`} />
+                <img width="550" height="157" loading="lazy" decoding="async" src={sparebankWhite ? "/assets/sparebank1-smn-neg.webp" : "/assets/sparebank1SMNhvit.png"} alt="SpareBank 1 SMN" className={`-ml-2 h-9 w-auto ${sparebankWhite ? "" : logoFilter}`} />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img width="500" height="198" loading="lazy" decoding="async" src="/assets/partners/equinor.webp" alt="Equinor" className={`h-[34px] w-auto ${logoFilter}`} />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -90,7 +90,12 @@ export function SiteFooter({ mobileExtraBottomPadding = false, dark = false, log
             <div>© 2015–2026 Fram NTNU</div>
             <div className="flex items-center gap-3.5">
               <span className="text-[10px] tracking-[.16em] uppercase">Tilknyttet</span>
-              <span role="img" aria-label="NTNU" className="inline-block h-[22px] w-[116px] bg-[#00509E] [mask:url('/assets/ntnu-logo-dark.webp')_left_center/contain_no-repeat]" />
+              {ntnuWhite ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src="/assets/ntnu-hovedlogo-hvit.svg" alt="NTNU" decoding="async" className="inline-block h-[22px] w-auto" />
+              ) : (
+                <span role="img" aria-label="NTNU" className="inline-block h-[22px] w-[116px] bg-[#00509E] [mask:url('/assets/ntnu-logo-dark.webp')_left_center/contain_no-repeat]" />
+              )}
             </div>
           </div>
         </div>

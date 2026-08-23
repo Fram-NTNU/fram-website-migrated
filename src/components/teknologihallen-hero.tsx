@@ -3,11 +3,16 @@
 import { useCallback, useEffect, useState } from "react";
 
 const slides = [
+  { src: "/assets/teknologihallen/hero.jpg", name: "", alt: "Medlemmene i Teknologihallen" },
+  { src: "/assets/heroes/njord.webp", name: "Njord NTNU", alt: "Njord NTNU sitt autonome fartøy" },
+  { src: "/assets/heroes/fuelfighter.webp", name: "Fuel Fighter", alt: "Fuel Fighter sitt kjøretøy" },
   { src: "/assets/heroes/revolve.webp", name: "Revolve NTNU", alt: "Revolve NTNU sin racerbil" },
   { src: "/assets/heroes/orbit.webp", name: "Orbit NTNU", alt: "Orbit NTNU sin satellitt" },
   { src: "/assets/heroes/propulse.webp", name: "Propulse NTNU", alt: "Propulse NTNU med rakett" },
   { src: "/assets/heroes/ascend.webp", name: "Ascend NTNU", alt: "Ascend NTNU sin drone" },
   { src: "/assets/heroes/vortex.webp", name: "Vortex NTNU", alt: "Vortex NTNU sin undervannsfarkost" },
+  { src: "/assets/heroes/nordlys.webp", name: "Nordlys NTNU", alt: "Nordlys NTNU sin solbil" },
+  { src: "/assets/heroes/gridville.webp", name: "Gridville NTNU", alt: "Gridville NTNU-teamet" },
 ];
 
 const step = 100 / slides.length;
@@ -22,12 +27,12 @@ export function TeknologihallenHero() {
   }, [current]);
 
   return (
-    <header className="relative h-[min(58vh,580px)] w-full overflow-hidden bg-[var(--steel)]">
-      <div className="absolute inset-0 z-0 flex h-full w-[500%] [transition:transform_.9s_cubic-bezier(.77,0,.18,1)]" style={{ transform: `translateX(-${current * step}%)` }}>
+    <header className="relative h-[min(74vh,760px)] w-full overflow-hidden bg-[var(--steel)]">
+      <div className="absolute inset-0 z-0 flex h-full [transition:transform_.9s_cubic-bezier(.77,0,.18,1)]" style={{ width: `${slides.length * 100}%`, transform: `translateX(-${current * step}%)` }}>
         {slides.map((slide, index) => (
           // Plain images are retained for exact carousel parity with the original page.
           // eslint-disable-next-line @next/next/no-img-element
-          <img key={slide.src} src={slide.src} alt={slide.alt} fetchPriority={index === 0 ? "high" : undefined} loading={index === 0 ? "eager" : "lazy"} decoding="async" className={`h-full w-1/5 flex-none object-cover brightness-[.72] saturate-[.96] ${current === index ? "animate-[idegarasjen-kb_8s_ease-out_forwards]" : ""}`} />
+          <img key={slide.src} src={slide.src} alt={slide.alt} fetchPriority={index === 0 ? "high" : undefined} loading={index === 0 ? "eager" : "lazy"} decoding="async" style={{ width: `${100 / slides.length}%` }} className={`h-full flex-none object-cover brightness-[.72] saturate-[.96] ${current === index ? "animate-[idegarasjen-kb_8s_ease-out_forwards]" : ""}`} />
         ))}
       </div>
 
@@ -35,7 +40,6 @@ export function TeknologihallenHero() {
 
       <div className="absolute inset-0 z-[2] flex items-end bg-[linear-gradient(to_top,rgba(18,25,30,.92)_0%,rgba(18,25,30,.5)_46%,rgba(18,25,30,.1)_80%)] pb-[54px]">
         <div className="mx-auto w-full max-w-[1360px] px-12 max-[720px]:px-[22px]">
-          <p className="m-0 mb-4 font-mono text-[11px] tracking-[.18em] text-white/70 uppercase">NTNU · Trondheim</p>
           <div className="mb-4 flex items-center">
             <span className="font-sans text-[clamp(40px,5.4vw,76px)] leading-[.98] font-extrabold tracking-[-.03em] text-white">Teknologihallen</span>
           </div>
@@ -49,15 +53,11 @@ export function TeknologihallenHero() {
       </div>
 
       <div className="absolute right-9 bottom-[22px] z-[3] flex items-center gap-4">
-        <span className="font-mono text-[11px] tracking-[.1em] whitespace-nowrap text-white/85 uppercase [transition:opacity_.35s_ease]">{slides[current].name}</span>
+        {slides[current].name && <span className="font-mono text-[11px] tracking-[.1em] whitespace-nowrap text-white/85 uppercase [transition:opacity_.35s_ease]">{slides[current].name}</span>}
         <div className="flex items-center gap-2">
           {slides.map((slide, index) => <button key={slide.src} type="button" aria-label={`Bilde ${index + 1}`} onClick={() => select(index)} className={`h-2 w-2 cursor-pointer rounded-full border-0 p-0 [transition:background_.3s,transform_.3s] ${current === index ? "bg-white [transform:scale(1.3)]" : "bg-white/35"}`} />)}
         </div>
       </div>
-
-      <a href="#lokasjoner" aria-label="Bla ned" className="absolute bottom-[18px] left-1/2 z-[3] grid h-10 w-10 -translate-x-1/2 place-items-center text-[22px] text-white/72 [animation:teknologihallen-bounce_1.9s_ease-in-out_infinite] transition-colors hover:text-white motion-reduce:animate-none">
-        <i className="ph ph-caret-down" aria-hidden="true" />
-      </a>
     </header>
   );
 }

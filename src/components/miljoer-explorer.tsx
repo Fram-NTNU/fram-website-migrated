@@ -5,7 +5,7 @@ import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 export type Organization = {
   accent: "yellow" | "blue" | "red" | "teal";
   href: string;
-  media?: "dark" | "dark-navy" | "deeper";
+  media?: "dark" | "dark-navy" | "deeper" | "black";
   logo: string;
   logoAlt: string;
   logoSize?: "tall" | "big" | "big-tall";
@@ -225,11 +225,13 @@ function OrgCard({
   logoMode: boolean;
 }) {
   const dark =
-    organization.media === "dark"
-      ? "#16181D"
-      : organization.media === "dark-navy"
-        ? "#022641"
-        : panelColors[organization.accent];
+    organization.media === "black"
+      ? "#000"
+      : organization.media === "dark"
+        ? "#16181D"
+        : organization.media === "dark-navy"
+          ? "#022641"
+          : panelColors[organization.accent];
   const logoSize =
     organization.logoSize === "tall"
       ? "max-h-[106px] max-w-[54%]"

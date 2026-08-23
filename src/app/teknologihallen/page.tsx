@@ -4,9 +4,9 @@ import { SiteHeader } from "@/components/site-header";
 import { TeknologihallenHero } from "@/components/teknologihallen-hero";
 
 const description =
-  "Teknologihallen er hjemmet til NTNUs tekniske studentorganisasjoner — felles verksteder og prosjektarealer på Valgrinda og Naustet på Nyhavna.";
+  "Teknologihallen er hjemmet til NTNUs tekniske studentorganisasjoner — felles verksteder og prosjektarealer under ett tak.";
 const ogDescription =
-  "Hjemmet til NTNUs tekniske studentorganisasjoner — felles verksteder og prosjektarealer på Valgrinda og Naustet på Nyhavna.";
+  "Hjemmet til NTNUs tekniske studentorganisasjoner — felles verksteder og prosjektarealer under ett tak.";
 
 export const metadata: Metadata = {
   title: "Teknologihallen — FRAM NTNU",
@@ -17,6 +17,19 @@ export const metadata: Metadata = {
   openGraph: { type: "website", siteName: "FRAM NTNU", locale: "nb_NO", title: "Teknologihallen — FRAM NTNU", description: ogDescription, url: "https://www.framntnu.no/teknologihallen", images: [{ url: "/assets/og-fram.png", width: 1200, height: 630 }] },
   twitter: { card: "summary_large_image", title: "Teknologihallen — FRAM NTNU", description: ogDescription, images: ["/assets/og-fram.png"] },
 };
+
+// Re-evaluer datoen jevnlig (én gang i døgnet) slik at studieåret nedenfor
+// flipper automatisk om sommeren — også uten ny deploy.
+export const revalidate = 86400;
+
+// Studieåret vises som "2026/2027". Det flipper til nytt år i løpet av sommeren:
+// fra og med august (måned-indeks 7) regnes inneværende år som starten på et nytt studieår.
+const ACADEMIC_YEAR_FLIP_MONTH = 7; // 0 = januar, 7 = august (semesterstart)
+function getAcademicYear(now: Date = new Date()): string {
+  const year = now.getFullYear();
+  const startYear = now.getMonth() >= ACADEMIC_YEAR_FLIP_MONTH ? year : year - 1;
+  return `${startYear}/${startYear + 1}`;
+}
 
 type Org = {
   name: string;
@@ -37,13 +50,34 @@ const orgs: Org[] = [
   { name: "Nordlys", href: "https://www.nordlysntnu.no", accent: "red", category: "Energi · Bil", description: "Bygger og konkurrerer med soldrevne racerbiler i internasjonale solbilløp.", logo: { src: "/assets/logos/nordlys.webp", alt: "Nordlys Solar Racing", width: 1920, height: 626, className: "org-logo big" }, photo: { src: "/assets/heroes/nordlys.webp", alt: "Nordlys-teamet med solbil", width: 751, height: 500 } },
   { name: "Orbit NTNU", href: "https://www.orbitntnu.com", accent: "blue", category: "Rom · Satellitter", description: "Bygger CubeSat-satellitter. Første student-satellitt i bane fra NTNU.", logo: { src: "/assets/logos/orbit.webp", alt: "Orbit NTNU", width: 977, height: 458 }, photo: { src: "/assets/heroes/orbit.webp", alt: "Orbit-satellitt i bane", width: 1536, height: 1154 }, mediaClass: "dark" },
   { name: "Propulse NTNU", href: "https://www.propulse.no", accent: "blue", category: "Rom · Raketter", description: "Designer, bygger og skyter opp væskedrevne forskningsraketter.", logo: { src: "/assets/logos/propulse.webp", alt: "Propulse NTNU", width: 1099, height: 640, className: "org-logo big" }, photo: { src: "/assets/heroes/propulse.webp", alt: "Propulse-rakett avduking", width: 960, height: 548 } },
-  { name: "Revolve NTNU", href: "https://www.revolve.no", accent: "teal", category: "Motorsport · Bil", description: "Formula Student — designer og bygger en ny elektrisk racerbil hvert år.", logo: { src: "/assets/logos/revolve.webp", alt: "Revolve NTNU", width: 383, height: 470, className: "org-logo tall" }, photo: { src: "/assets/heroes/revolve.webp", alt: "Revolve-bil på banen", width: 1920, height: 1134 } },
+  { name: "Revolve NTNU", href: "https://www.revolve.no", accent: "teal", category: "Motorsport · Bil", description: "Formula Student — designer og bygger en ny elektrisk racerbil hvert år.", logo: { src: "/assets/logos/revolve-white.webp", alt: "Revolve NTNU", width: 352, height: 120, className: "org-logo big" }, photo: { src: "/assets/heroes/revolve.webp", alt: "Revolve-bil på banen", width: 1920, height: 1134 }, mediaClass: "black" },
   { name: "Vortex NTNU", href: "https://www.vortexntnu.no", accent: "red", category: "Hav · Undervann", description: "Bygger autonome undervannsfarkoster (ROV/AUV) til internasjonale konkurranser.", logo: { src: "/assets/to/ascend.webp", alt: "Vortex NTNU", width: 528, height: 175, className: "org-logo big" }, photo: { src: "/assets/heroes/vortex.webp", alt: "Vortex ORCA undervannsfarkost", width: 1536, height: 1024 }, mediaClass: "deeper" },
 ];
 
 const coordinators = [
   { name: "Sivert Sande Kverme", avatar: "/assets/teknologihallen/sivert.webp", email: "sivert@teknologihallen.no" },
   { name: "Gina Fasseland", avatar: "/assets/teknologihallen/gina.jpg", email: "gina@teknologihallen.no" },
+];
+
+const pressArticles = [
+  {
+    source: "NTNU Nyheter",
+    title: "Åpning av NTNU Teknologihallen",
+    date: "15. mai 2026",
+    href: "https://nyheter.ntnu.no/apning-av-ntnu-teknologihallen/",
+  },
+  {
+    source: "Universitetsavisa",
+    title: "Ni studentorganisasjoner får eget verksted",
+    date: "18. mai 2026",
+    href: "https://www.universitetsavisa.no/nordlys-ntnu-ntnu-orbit/ni-studentorganisasjoner-far-eget-verksted/458133",
+  },
+  {
+    source: "Universitetsavisa",
+    title: "Trondheim får nytt studenthus",
+    date: "3. september 2025",
+    href: "https://www.universitetsavisa.no/njord-ntnui-nyhavna/trondheim-far-nytt-studenthus/437229",
+  },
 ];
 
 const contactReasons = [
@@ -70,11 +104,13 @@ const panelColors: Record<Org["accent"], string> = {
 
 function OrgCard({ org }: { org: Org }) {
   const mediaBg =
-    org.mediaClass === "dark"
-      ? "#16181D"
-      : org.mediaClass === "deeper"
-        ? "color-mix(in srgb,var(--red) 22%,#fff)"
-        : panelColors[org.accent];
+    org.mediaClass === "black"
+      ? "#000"
+      : org.mediaClass === "dark"
+        ? "#16181D"
+        : org.mediaClass === "deeper"
+          ? "color-mix(in srgb,var(--red) 22%,#fff)"
+          : panelColors[org.accent];
 
   const logoSize = org.logo.className?.includes("tall")
     ? "max-h-[106px] max-w-[54%]"
@@ -114,33 +150,41 @@ export default function TeknologihallenPage() {
       <SiteHeader currentPath="/teknologihallen" dark logoSrc="/assets/fram-logo-hvit.webp" />
       <TeknologihallenHero />
 
-      {/* ===== LOKALER (foto-drevet duo) ===== */}
+      {/* ===== TEKNOLOGIHALLEN (foto) ===== */}
       <section id="lokasjoner" className="py-[clamp(64px,7vw,92px)]">
         <div className="mx-auto max-w-[1360px] px-12 max-[860px]:px-[22px]">
           <div className="mb-10 max-w-[760px] max-[860px]:mb-7">
-            <p className="m-0 text-[clamp(22px,2.5vw,32px)] leading-[1.28] font-bold tracking-[-.02em] text-[var(--ink)]">Lokalene våre ligger <b className="font-bold text-[var(--accent-deep)]">både på land og ved sjøen</b>.</p>
+            <p className="m-0 text-[clamp(22px,2.5vw,32px)] leading-[1.28] font-bold tracking-[-.02em] text-[var(--ink)]">Hjemmet til NTNUs <b className="font-bold text-[var(--accent-deep)]">tekniske organisasjoner</b>.</p>
           </div>
 
-          <div className="grid grid-cols-2 gap-[22px] max-[860px]:grid-cols-1 max-[860px]:gap-4">
-            {[
-              { photo: "/assets/teknologihallen/valgrinda.jpg", photoAlt: "Teknologihallen på Valgrinda", illu: "/assets/teknologihallen/valgrinda-aerial.webp", illuAlt: "Flyfoto av Teknologihallen på Valgrinda", place: "på Valgrinda", icon: "ph-map-pin", name: "Teknologihallen", line: "Hovedanlegget med verksteder, kontorer og sosiale soner under samme tak." },
-              { photo: "/assets/teknologihallen/naustet.jpg", photoAlt: "Naustet på Nyhavna", illu: "/assets/teknologihallen/naustet-aerial.webp", illuAlt: "Flyfoto av Naustet på Nyhavna", place: "på Nyhavna", icon: "ph-anchor-simple", name: "Naustet", line: "Den maritime basen ved sjøen med verksted, brygge og testfasiliteter." },
-            ].map((hub) => (
-              <article key={hub.name} className="group relative isolate block aspect-[4/5] overflow-hidden rounded-[22px] border border-[var(--line)] bg-[var(--steel)] [transition:transform_.35s_ease,box-shadow_.35s_ease] hover:[transform:translateY(-4px)] hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,.4)] max-[860px]:aspect-[16/11]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={hub.photo} alt={hub.photoAlt} loading="lazy" decoding="async" className="absolute inset-0 z-0 h-full w-full object-cover [transition:transform_.6s_cubic-bezier(.22,.61,.36,1)] group-hover:[transform:scale(1.06)]" />
-                {/* Illustrasjon som standard, fader til foto på hover. eslint-disable-next-line @next/next/no-img-element */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={hub.illu} alt={hub.illuAlt} loading="lazy" decoding="async" className="absolute inset-0 z-0 h-full w-full object-cover opacity-100 [transition:opacity_.5s_ease,transform_.6s_cubic-bezier(.22,.61,.36,1)] group-hover:opacity-0 group-hover:[transform:scale(1.06)]" />
-                <div className="pointer-events-none absolute inset-0 z-[1] opacity-50 [background-image:linear-gradient(rgba(255,255,255,.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.06)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:linear-gradient(to_bottom,rgba(0,0,0,.6)_0%,transparent_55%)]" aria-hidden="true" />
-                <div className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_top,rgba(18,25,30,.92)_0%,rgba(18,25,30,.55)_32%,rgba(18,25,30,.08)_62%,transparent_82%)]" aria-hidden="true" />
-                <div className="absolute inset-x-0 bottom-0 z-[2] px-8 pt-[30px] pb-8 text-white max-[860px]:px-6 max-[860px]:pt-6 max-[860px]:pb-[26px]">
-                  <p className="m-0 mb-2.5 inline-flex items-center gap-[7px] font-mono text-[11px] tracking-[.1em] text-white/82 uppercase"><i className={`ph ${hub.icon} text-[13px] text-[var(--blue)]`} aria-hidden="true" /> {hub.place}</p>
-                  <h3 className="m-0 mb-2.5 text-[clamp(26px,2.6vw,36px)] leading-[1.02] font-extrabold tracking-[-.025em] text-white">{hub.name}</h3>
-                  <p className="m-0 max-w-[34ch] text-[14.5px] leading-[1.55] text-white/80">{hub.line}</p>
-                </div>
-              </article>
-            ))}
+          <article className="group relative isolate block aspect-[16/9] overflow-hidden rounded-[22px] border border-[var(--line)] bg-[var(--steel)] [transition:transform_.35s_ease,box-shadow_.35s_ease] hover:[transform:translateY(-4px)] hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,.4)] max-[860px]:aspect-[4/3]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/assets/teknologihallen/valgrinda.jpg" alt="Teknologihallen" loading="lazy" decoding="async" className="absolute inset-0 z-0 h-full w-full object-cover [transition:transform_.6s_cubic-bezier(.22,.61,.36,1)] group-hover:[transform:scale(1.06)]" />
+            {/* Illustrasjon som standard, fader til foto på hover. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/assets/teknologihallen/valgrinda-aerial.webp" alt="Flyfoto av Teknologihallen" loading="lazy" decoding="async" className="absolute inset-0 z-0 h-full w-full object-cover opacity-100 [transition:opacity_.5s_ease,transform_.6s_cubic-bezier(.22,.61,.36,1)] group-hover:opacity-0 group-hover:[transform:scale(1.06)]" />
+            <div className="pointer-events-none absolute inset-0 z-[1] opacity-50 [background-image:linear-gradient(rgba(255,255,255,.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.06)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:linear-gradient(to_bottom,rgba(0,0,0,.6)_0%,transparent_55%)]" aria-hidden="true" />
+            <div className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_top,rgba(18,25,30,.92)_0%,rgba(18,25,30,.55)_32%,rgba(18,25,30,.08)_62%,transparent_82%)]" aria-hidden="true" />
+            <div className="absolute inset-x-0 bottom-0 z-[2] px-8 pt-[30px] pb-8 text-white max-[860px]:px-6 max-[860px]:pt-6 max-[860px]:pb-[26px]">
+              <h3 className="m-0 mb-2.5 text-[clamp(26px,2.6vw,36px)] leading-[1.02] font-extrabold tracking-[-.025em] text-white">Teknologihallen</h3>
+              <p className="m-0 max-w-[46ch] text-[14.5px] leading-[1.55] text-white/80">Hovedanlegget med verksteder, kontorer og sosiale soner under samme tak.</p>
+              <a href="https://link.mazemap.com/UAGcgjzn" target="_blank" rel="noopener" className="relative z-[3] mt-[18px] inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/12 px-[22px] py-3 text-[14px] font-bold text-white no-underline backdrop-blur-sm [transition:transform_.2s,border-color_.2s,background_.2s] hover:[transform:translateY(-2px)] hover:border-white hover:bg-white/20"><i className="ph ph-map-pin text-[16px]" aria-hidden="true" /> Finn frem i MazeMap</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      {/* ===== ORGANISASJONENE ===== */}
+      <section id="organisasjoner" className="py-[104px]">
+        <div className="mx-auto max-w-[1360px] px-12 max-[720px]:px-[22px]">
+          <div className="mb-11 flex flex-wrap items-end justify-between gap-8">
+            <div className="max-w-[640px]">
+              <h2 className="m-0 text-[clamp(28px,3vw,44px)] leading-[1.05] font-extrabold tracking-[-.028em]">Organisasjonene {getAcademicYear()}</h2>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-4 gap-[18px] max-[1180px]:grid-cols-3 max-[760px]:grid-cols-2 max-[760px]:gap-2.5">
+            {orgs.map((org) => <OrgCard key={org.name} org={org} />)}
           </div>
         </div>
       </section>
@@ -168,34 +212,30 @@ export default function TeknologihallenPage() {
         </div>
       </section>
 
-      {/* ===== ORGANISASJONENE ===== */}
-      <section id="organisasjoner" className="py-[104px]">
+      {/* ===== I MEDIA ===== */}
+      <section id="i-media" className="pb-[104px]">
         <div className="mx-auto max-w-[1360px] px-12 max-[720px]:px-[22px]">
-          <div className="mb-11 flex flex-wrap items-end justify-between gap-8">
+          <div className="mb-9 flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-[640px]">
-              <h2 className="m-0 mb-4 text-[clamp(28px,3vw,44px)] leading-[1.05] font-extrabold tracking-[-.028em]">Organisasjonene 2026/2027</h2>
-              <p className="m-0 text-[17px] leading-[1.62] text-[var(--ink-soft)]">De tekniske studentorganisasjonene som hører hjemme her. Trykk deg videre for å lese mer eller bli med.</p>
+              <h2 className="m-0 text-[clamp(26px,2.7vw,40px)] leading-[1.06] font-extrabold tracking-[-.026em]">Omtalt i pressen</h2>
             </div>
           </div>
 
-          <div className="grid grid-cols-4 gap-[18px] max-[1180px]:grid-cols-3 max-[760px]:grid-cols-2 max-[760px]:gap-2.5">
-            {orgs.map((org) => <OrgCard key={org.name} org={org} />)}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== GRUPPEBILDE / FELLESSKAPET ===== */}
-      <section id="fellesskapet" className="pb-[104px]">
-        <div className="mx-auto max-w-[1360px] px-12 max-[720px]:px-[22px]">
-          <div className="relative isolate overflow-hidden rounded-[28px] bg-[var(--steel)] text-white">
-            <div className="relative block aspect-[21/9] min-h-[340px] w-full bg-[var(--steel-soft)] max-[720px]:aspect-[4/3]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/teknologihallen/hero.jpg" alt="Medlemmene i Teknologihallen" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
-            </div>
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] bg-[linear-gradient(to_top,rgba(18,25,30,.92)_0%,rgba(18,25,30,.35)_60%,transparent_100%)] px-11 py-10 max-[720px]:px-6 max-[720px]:py-[26px]">
-              <h2 className="m-0 max-w-[720px] text-[clamp(24px,2.6vw,38px)] leading-[1.08] font-extrabold tracking-[-.025em]">Hundrevis av studenter, ett teknologimiljø.</h2>
-              <p className="mt-3 mb-0 max-w-[560px] text-[15px] leading-[1.6] text-white/78">Studentene deler verksteder, kompetanse og lange prosjektkvelder på tvers av organisasjonene. Det er menneskene som gjør Teknologihallen til mer enn lokaler.</p>
-            </div>
+          <div className="grid grid-cols-3 gap-[18px] max-[900px]:grid-cols-1">
+            {pressArticles.map((article) => (
+              <a key={article.href} href={article.href} target="_blank" rel="noopener" className="group flex flex-col justify-between gap-8 rounded-[20px] border border-[var(--line)] bg-[var(--card)] px-8 pt-7 pb-6 text-[var(--ink)] no-underline [transition:transform_.25s_ease,border-color_.25s_ease,box-shadow_.25s_ease] hover:border-[var(--ink)] hover:shadow-[0_24px_46px_-26px_rgba(0,0,0,.4)] hover:[transform:translateY(-4px)] max-[720px]:px-6 max-[720px]:pt-6">
+                <div>
+                  <div className="mb-4 flex items-center gap-[9px] font-mono text-[10.5px] tracking-[.12em] text-[var(--muted)] uppercase">
+                    <span className="h-1.5 w-1.5 flex-none rounded-full bg-[var(--accent)]" />
+                    {article.source}
+                    <span className="text-[var(--line)]">·</span>
+                    {article.date}
+                  </div>
+                  <h3 className="m-0 text-[clamp(19px,1.7vw,24px)] leading-[1.2] font-bold tracking-[-.018em] text-[var(--ink)] [overflow-wrap:break-word]">{article.title}</h3>
+                </div>
+                <span className="inline-flex items-center gap-2 text-[13.5px] font-semibold text-[var(--accent-deep)] [transition:gap_.2s_ease] group-hover:gap-3">Les saken <i className="ph ph-arrow-up-right text-[15px]" aria-hidden="true" /></span>
+              </a>
+            ))}
           </div>
         </div>
       </section>
@@ -203,18 +243,8 @@ export default function TeknologihallenPage() {
       {/* ===== BAK TEKNOLOGIHALLEN ===== */}
       <section id="bak-teknologihallen" className="border-t border-[var(--line)] bg-[var(--bg-soft)] pt-24 pb-[104px]">
         <div className="mx-auto max-w-[1360px] px-12 max-[720px]:px-[22px]">
-          <div className="grid grid-cols-[0.82fr_1.18fr] items-start gap-16 max-[1100px]:grid-cols-1 max-[1100px]:gap-6">
-            <div>
-              <h2 className="m-0 text-[clamp(30px,3.2vw,48px)] leading-[1.05] font-extrabold tracking-[-.028em]">Organisasjonenes stemme.</h2>
-            </div>
-            <div>
-              <p className="m-0 mb-[18px] text-[18.5px] leading-[1.55] font-semibold tracking-[-.012em] text-[var(--ink)]">Teknologihallen er resultatet av mange års arbeid fra studentorganisasjonene og NTNU.</p>
-              <p className="m-0 text-[16px] leading-[1.72] text-[var(--ink-soft)]">Gjennom flere generasjoner har <strong className="font-semibold text-[var(--ink)]">TO-koordinatorene</strong> representert organisasjonenes interesser og jobbet for bedre fasiliteter og sterkere samarbeid. I dag er de bindeleddet mellom miljøene og NTNU — de følger opp saker som berører fellesskapet og videreutvikler Teknologihallen som møteplass og arbeidsarena.</p>
-            </div>
-          </div>
-
           {/* Kontakt: TO-koordinatorene */}
-          <div className="mt-16 rounded-[28px] border border-[var(--line)] bg-[var(--card)] px-12 pt-12 pb-11 max-[860px]:px-[26px] max-[860px]:pt-9 max-[860px]:pb-8">
+          <div className="rounded-[28px] border border-[var(--line)] bg-[var(--card)] px-12 pt-12 pb-11 max-[860px]:px-[26px] max-[860px]:pt-9 max-[860px]:pb-8">
             <div className="mb-1.5 flex flex-wrap items-baseline justify-between gap-6">
               <span className="font-mono text-[11px] font-semibold tracking-[.14em] text-[var(--accent-deep)] uppercase">Kontakt</span>
             </div>
@@ -254,7 +284,7 @@ export default function TeknologihallenPage() {
         </div>
       </section>
 
-      <SiteFooter logoSrc="/assets/fram-logo-hvit.webp" />
+      <SiteFooter logoSrc="/assets/fram-logo-hvit.webp" ntnuWhite sparebankWhite />
     </div>
   );
 }

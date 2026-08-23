@@ -302,9 +302,10 @@ const organizations: Organization[] = [
   {
     accent: "teal",
     href: "https://www.revolve.no/",
-    logo: "/assets/logos/revolve.webp",
+    logo: "/assets/logos/revolve-white.webp",
     logoAlt: "Revolve NTNU",
-    logoSize: "tall",
+    logoSize: "big",
+    media: "black",
     photo: "/assets/heroes/revolve.webp",
     photoAlt: "Revolve-bil på banen",
     category: "Motorsport · Bil",
