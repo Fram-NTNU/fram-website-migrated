@@ -172,7 +172,7 @@ export default function TeknologihallenPage() {
       </section>
 
       {/* ===== ORGANISASJONENE ===== */}
-      <section id="organisasjoner" className="py-[104px]">
+      <section id="organisasjoner" className="py-[104px] max-[720px]:py-16">
         <div className="mx-auto max-w-[1360px] px-12 max-[720px]:px-[22px]">
           <div className="mb-11 flex flex-wrap items-end justify-between gap-8">
             <div className="max-w-[640px]">
@@ -190,7 +190,7 @@ export default function TeknologihallenPage() {
       <section id="sitat" className="relative overflow-hidden bg-[var(--steel)] py-[clamp(52px,5.5vw,72px)] text-white before:pointer-events-none before:absolute before:inset-0 before:opacity-40 before:[background-image:linear-gradient(rgba(255,255,255,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.045)_1px,transparent_1px)] before:[background-size:46px_46px] before:[mask-image:radial-gradient(circle_at_78%_30%,rgba(0,0,0,.9),transparent_72%)] before:content-['']">
         <div className="relative z-[1] mx-auto max-w-[1360px] px-12 max-[720px]:px-[22px]">
           <div className="grid grid-cols-[0.58fr_1.42fr] items-center gap-12 max-[1100px]:grid-cols-1 max-[1100px]:gap-[34px]">
-            <div className="relative aspect-[4/5] max-w-[290px] overflow-hidden rounded-[22px] border border-white/12 bg-[var(--steel-soft)] max-[1100px]:max-w-[320px]">
+            <div className="relative aspect-[4/5] max-w-[290px] overflow-hidden rounded-[22px] border border-white/12 bg-[var(--steel-soft)] max-[1100px]:max-w-[320px] max-[560px]:aspect-[1/1] max-[560px]:max-w-[180px]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/assets/teknologihallen/sivert.webp" alt="Sivert Sande Kverme" loading="lazy" decoding="async" className="absolute inset-0 block h-full w-full object-cover" />
             </div>
@@ -210,7 +210,7 @@ export default function TeknologihallenPage() {
       </section>
 
       {/* ===== I MEDIA ===== */}
-      <section id="i-media" className="pb-[104px]">
+      <section id="i-media" className="pb-[104px] max-[720px]:pb-16">
         <div className="mx-auto max-w-[1360px] px-12 max-[720px]:px-[22px]">
           <div className="mb-9 flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-[640px]">
@@ -238,7 +238,7 @@ export default function TeknologihallenPage() {
       </section>
 
       {/* ===== BAK TEKNOLOGIHALLEN ===== */}
-      <section id="bak-teknologihallen" className="border-t border-[var(--line)] bg-[var(--bg-soft)] pt-24 pb-[104px]">
+      <section id="bak-teknologihallen" className="border-t border-[var(--line)] bg-[var(--bg-soft)] pt-24 pb-[104px] max-[720px]:pt-14 max-[720px]:pb-16">
         <div className="mx-auto max-w-[1360px] px-12 max-[720px]:px-[22px]">
           {/* Kontakt: TO-koordinatorene */}
           <div className="rounded-[28px] border border-[var(--line)] bg-[var(--card)] px-12 pt-12 pb-11 max-[860px]:px-[26px] max-[860px]:pt-9 max-[860px]:pb-8">

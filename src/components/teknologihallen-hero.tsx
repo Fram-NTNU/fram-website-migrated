@@ -41,7 +41,7 @@ export function TeknologihallenHero() {
       <div className="absolute inset-0 z-[2] flex items-end bg-[linear-gradient(to_top,rgba(18,25,30,.92)_0%,rgba(18,25,30,.5)_46%,rgba(18,25,30,.1)_80%)] pb-[54px]">
         <div className="mx-auto w-full max-w-[1360px] px-12 max-[720px]:px-[22px]">
           <div className="mb-4 flex items-center">
-            <span className="font-sans text-[clamp(46px,6.2vw,88px)] leading-[.96] font-extrabold tracking-[-.03em] text-white">Teknologihallen</span>
+            <span className="font-sans text-[clamp(46px,6.2vw,88px)] leading-[.96] font-extrabold tracking-[-.03em] text-white max-[560px]:text-[clamp(30px,8.4vw,46px)]">Teknologihallen</span>
           </div>
           <p className="m-0 mb-3.5 text-[clamp(18px,1.9vw,25px)] font-medium tracking-[-.01em] text-white">Hjemmet til NTNUs tekniske organisasjoner.</p>
           <p className="m-0 mb-7 max-w-[540px] text-[15.5px] leading-[1.6] text-white/72">Under samme tak utvikler studentene alt fra satellitter og raketter til autonome fartøy og racerbiler — flere av dem konkurrerer internasjonalt.</p>
