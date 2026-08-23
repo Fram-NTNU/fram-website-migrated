@@ -179,7 +179,7 @@ export default function TeknologihallenPage() {
         <div className="mx-auto max-w-[1360px] px-12 max-[720px]:px-[22px]">
           <div className="mb-11 flex flex-wrap items-end justify-between gap-8">
             <div className="max-w-[640px]">
-              <h2 className="m-0 text-[clamp(28px,3vw,44px)] leading-[1.05] font-extrabold tracking-[-.028em]">Organisasjonene {getAcademicYear()}</h2>
+              <h2 className="m-0 text-[clamp(28px,3vw,44px)] leading-[1.05] font-extrabold tracking-[-.028em] max-[560px]:text-[clamp(32px,9vw,40px)]">Organisasjonene {getAcademicYear()}</h2>
             </div>
           </div>
 
