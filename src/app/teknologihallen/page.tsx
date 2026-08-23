@@ -245,8 +245,8 @@ export default function TeknologihallenPage() {
             <div className="mb-1.5 flex flex-wrap items-baseline justify-between gap-6">
               <span className="font-mono text-[11px] font-semibold tracking-[.14em] text-[var(--accent-deep)] uppercase">Kontakt</span>
             </div>
-            <h3 className="mt-3.5 mb-0 text-[clamp(23px,2.3vw,32px)] font-extrabold tracking-[-.022em]">TO-koordinatorene er ditt første kontaktpunkt.</h3>
-            <p className="mt-3 mb-0 max-w-[560px] text-[15.5px] leading-[1.66] text-[var(--ink-soft)]">Vi representerer fellesskapet av tekniske organisasjoner. Lurer du på noe om Teknologihallen eller organisasjonene som befinner seg her så ta kontakt.</p>
+            <h3 className="mt-3.5 mb-0 text-[clamp(23px,2.3vw,32px)] font-extrabold tracking-[-.022em]">Har du spørsmål? Ta kontakt.</h3>
+            <p className="mt-3 mb-0 max-w-[560px] text-[15.5px] leading-[1.66] text-[var(--ink-soft)]">TO-koordinatorene representerer fellesskapet av tekniske organisasjoner. Lurer du på noe om Teknologihallen eller organisasjonene som befinner seg her så ta kontakt med dem.</p>
 
             <div className="mt-[38px] grid grid-cols-2 gap-14 max-[860px]:grid-cols-1 max-[860px]:gap-10">
               <div className="flex flex-col gap-2">
