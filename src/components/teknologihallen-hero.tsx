@@ -41,10 +41,10 @@ export function TeknologihallenHero() {
       <div className="absolute inset-0 z-[2] flex items-end bg-[linear-gradient(to_top,rgba(18,25,30,.92)_0%,rgba(18,25,30,.5)_46%,rgba(18,25,30,.1)_80%)] pb-[54px]">
         <div className="mx-auto w-full max-w-[1360px] px-12 max-[720px]:px-[22px]">
           <div className="mb-4 flex items-center">
-            <span className="font-sans text-[clamp(40px,5.4vw,76px)] leading-[.98] font-extrabold tracking-[-.03em] text-white">Teknologihallen</span>
+            <span className="font-sans text-[clamp(46px,6.2vw,88px)] leading-[.96] font-extrabold tracking-[-.03em] text-white">Teknologihallen</span>
           </div>
-          <p className="m-0 mb-3.5 text-[clamp(17px,1.7vw,22px)] font-medium tracking-[-.01em] text-white">Der studentene gjør idéer til virkelighet.</p>
-          <p className="m-0 mb-7 max-w-[540px] text-[15.5px] leading-[1.6] text-white/72">Under samme tak utvikler NTNUs tekniske studentorganisasjoner alt fra satellitter og raketter til autonome fartøy og racerbiler — flere av dem konkurrerer internasjonalt.</p>
+          <p className="m-0 mb-3.5 text-[clamp(18px,1.9vw,25px)] font-medium tracking-[-.01em] text-white">Hjemmet til NTNUs tekniske organisasjoner.</p>
+          <p className="m-0 mb-7 max-w-[540px] text-[15.5px] leading-[1.6] text-white/72">Under samme tak utvikler studentene alt fra satellitter og raketter til autonome fartøy og racerbiler — flere av dem konkurrerer internasjonalt.</p>
           <div className="flex flex-wrap items-center gap-3">
             <a href="#organisasjoner" className="inline-flex items-center gap-2.5 rounded-full bg-white px-[26px] py-3.5 text-[15px] font-bold text-[var(--steel)] no-underline [transition:transform_.2s,box-shadow_.2s] hover:[transform:translateY(-2px)] hover:shadow-[0_12px_26px_-10px_rgba(0,0,0,.5)]">Utforsk organisasjonene →</a>
             <a href="#bak-teknologihallen" className="inline-flex items-center gap-2.5 rounded-full border border-white/45 bg-white/5 px-[26px] py-3.5 text-[15px] font-bold text-white no-underline [transition:transform_.2s,border-color_.2s,background_.2s] hover:[transform:translateY(-2px)] hover:border-white hover:bg-white/12">Søk om plass</a>

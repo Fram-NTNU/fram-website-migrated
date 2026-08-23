@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { RevealEmail } from "@/components/reveal-email";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { TeknologihallenHero } from "@/components/teknologihallen-hero";
@@ -55,8 +56,8 @@ const orgs: Org[] = [
 ];
 
 const coordinators = [
-  { name: "Sivert Sande Kverme", avatar: "/assets/teknologihallen/sivert.webp", email: "sivert@teknologihallen.no" },
-  { name: "Gina Fasseland", avatar: "/assets/teknologihallen/gina.jpg", email: "gina@teknologihallen.no" },
+  { name: "Eir Ilić Holen", initials: "EH", email: "eir.ilic.h@gmail.com" },
+  { name: "James Henriksen", initials: "JH", email: "James.henriksen@revolve.no" },
 ];
 
 const pressArticles = [
@@ -153,10 +154,6 @@ export default function TeknologihallenPage() {
       {/* ===== TEKNOLOGIHALLEN (foto) ===== */}
       <section id="lokasjoner" className="py-[clamp(64px,7vw,92px)]">
         <div className="mx-auto max-w-[1360px] px-12 max-[860px]:px-[22px]">
-          <div className="mb-10 max-w-[760px] max-[860px]:mb-7">
-            <p className="m-0 text-[clamp(22px,2.5vw,32px)] leading-[1.28] font-bold tracking-[-.02em] text-[var(--ink)]">Hjemmet til NTNUs <b className="font-bold text-[var(--accent-deep)]">tekniske organisasjoner</b>.</p>
-          </div>
-
           <article className="group relative isolate block aspect-[16/9] overflow-hidden rounded-[22px] border border-[var(--line)] bg-[var(--steel)] [transition:transform_.35s_ease,box-shadow_.35s_ease] hover:[transform:translateY(-4px)] hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,.4)] max-[860px]:aspect-[4/3]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/assets/teknologihallen/valgrinda.jpg" alt="Teknologihallen" loading="lazy" decoding="async" className="absolute inset-0 z-0 h-full w-full object-cover [transition:transform_.6s_cubic-bezier(.22,.61,.36,1)] group-hover:[transform:scale(1.06)]" />
@@ -167,7 +164,7 @@ export default function TeknologihallenPage() {
             <div className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_top,rgba(18,25,30,.92)_0%,rgba(18,25,30,.55)_32%,rgba(18,25,30,.08)_62%,transparent_82%)]" aria-hidden="true" />
             <div className="absolute inset-x-0 bottom-0 z-[2] px-8 pt-[30px] pb-8 text-white max-[860px]:px-6 max-[860px]:pt-6 max-[860px]:pb-[26px]">
               <h3 className="m-0 mb-2.5 text-[clamp(26px,2.6vw,36px)] leading-[1.02] font-extrabold tracking-[-.025em] text-white">Teknologihallen</h3>
-              <p className="m-0 max-w-[46ch] text-[14.5px] leading-[1.55] text-white/80">Hovedanlegget med verksteder, kontorer og sosiale soner under samme tak.</p>
+              <p className="m-0 max-w-[46ch] text-[14.5px] leading-[1.55] text-white/80">Under samme tak deler organisasjonene verksteder, kontorer og sosiale soner — et miljø der kompetanse og utstyr flyter fritt mellom prosjektene.</p>
               <a href="https://link.mazemap.com/UAGcgjzn" target="_blank" rel="noopener" className="relative z-[3] mt-[18px] inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/12 px-[22px] py-3 text-[14px] font-bold text-white no-underline backdrop-blur-sm [transition:transform_.2s,border-color_.2s,background_.2s] hover:[transform:translateY(-2px)] hover:border-white hover:bg-white/20"><i className="ph ph-map-pin text-[16px]" aria-hidden="true" /> Finn frem i MazeMap</a>
             </div>
           </article>
@@ -204,7 +201,7 @@ export default function TeknologihallenPage() {
                 <span className="h-[42px] w-[3px] rounded-sm bg-[var(--blue)]" />
                 <div>
                   <div className="text-[17px] font-bold tracking-[-.01em] text-white">Sivert Sande Kverme</div>
-                  <div className="mt-0.5 text-[13px] text-white/60">TO-koordinator</div>
+                  <div className="mt-0.5 text-[13px] text-white/60">Tidligere TO-koordinator</div>
                 </div>
               </div>
             </div>
@@ -217,7 +214,7 @@ export default function TeknologihallenPage() {
         <div className="mx-auto max-w-[1360px] px-12 max-[720px]:px-[22px]">
           <div className="mb-9 flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-[640px]">
-              <h2 className="m-0 text-[clamp(26px,2.7vw,40px)] leading-[1.06] font-extrabold tracking-[-.026em]">Omtalt i pressen</h2>
+              <h2 className="m-0 text-[clamp(26px,2.7vw,40px)] leading-[1.06] font-extrabold tracking-[-.026em]">Nyheter</h2>
             </div>
           </div>
 
@@ -256,12 +253,11 @@ export default function TeknologihallenPage() {
                 <p className="m-0 mb-3.5 font-mono text-[11px] tracking-[.12em] text-[var(--muted)] uppercase">Dagens koordinatorer</p>
                 {coordinators.map((person) => (
                   <div key={person.name} className="flex items-center gap-4 rounded-[16px] p-3.5 transition-colors hover:bg-[var(--bg-soft)]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={person.avatar} alt={person.name} loading="lazy" decoding="async" className="h-[72px] w-[72px] flex-none rounded-full border border-[var(--line)] bg-[var(--steel)] object-cover shadow-[0_0_0_3px_var(--bg-soft)]" />
+                    <span aria-hidden="true" className="grid h-[72px] w-[72px] flex-none place-items-center rounded-full border border-[var(--line)] bg-[var(--steel)] text-[22px] font-bold tracking-[-.01em] text-[var(--accent-deep)] shadow-[0_0_0_3px_var(--bg-soft)]">{person.initials}</span>
                     <div className="flex min-w-0 flex-col gap-[3px]">
                       <span className="text-[17px] font-bold tracking-[-.01em]">{person.name}</span>
                       <span className="flex items-center gap-[7px] font-mono text-[10px] tracking-[.1em] text-[var(--accent-deep)] uppercase before:h-1.5 before:w-1.5 before:flex-none before:rounded-full before:bg-[var(--accent)] before:content-['']">TO-koordinator</span>
-                      <a href={`mailto:${person.email}`} className="mt-[3px] inline-flex items-center gap-[7px] text-[13.5px] text-[var(--ink-soft)] no-underline transition-colors hover:text-[var(--ink)]"><i className="ph ph-envelope-simple text-[14px] text-[var(--accent)]" aria-hidden="true" /> {person.email}</a>
+                      <RevealEmail encoded={Buffer.from(person.email).toString("base64")} />
                     </div>
                   </div>
                 ))}
@@ -277,14 +273,13 @@ export default function TeknologihallenPage() {
                     </li>
                   ))}
                 </ul>
-                <a href="mailto:kontakt@teknologihallen.no" className="inline-flex items-center gap-[9px] rounded-full bg-[var(--steel)] px-6 py-[13px] text-[14.5px] font-bold text-white no-underline [transition:transform_.2s,box-shadow_.2s] hover:[transform:translateY(-2px)] hover:shadow-[0_12px_26px_-10px_rgba(0,0,0,.4)]"><i className="ph ph-envelope-simple text-[16px]" aria-hidden="true" /> Send oss en e-post</a>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <SiteFooter logoSrc="/assets/fram-logo-hvit.webp" ntnuWhite sparebankWhite />
+      <SiteFooter logoSrc="/assets/fram-logo-hvit.webp" dark ntnuWhite sparebankWhite />
     </div>
   );
 }
