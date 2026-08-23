@@ -28,7 +28,8 @@ function SlackIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-export function SiteFooter({ mobileExtraBottomPadding = false }: { mobileExtraBottomPadding?: boolean } = {}) {
+export function SiteFooter({ mobileExtraBottomPadding = false, dark = false, logoSrc, ntnuWhite = false, sparebankWhite = false }: { mobileExtraBottomPadding?: boolean; dark?: boolean; logoSrc?: string; ntnuWhite?: boolean; sparebankWhite?: boolean } = {}) {
+  const logoFilter = dark ? "[filter:brightness(0)_invert(1)]" : "";
   const [slackOpen, setSlackOpen] = useState(false);
   const closeButton = useRef<HTMLButtonElement>(null);
 
@@ -50,7 +51,7 @@ export function SiteFooter({ mobileExtraBottomPadding = false }: { mobileExtraBo
             <div className="flex flex-col gap-2.5">
               <div className="mb-1 flex items-center gap-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img width="400" height="142" decoding="async" src="/assets/fram-logo.webp" alt="FRAM NTNU" className="block h-[26px] w-auto saturate-[.4]" />
+                <img width="400" height="142" decoding="async" src={logoSrc ?? "/assets/fram-logo.webp"} alt="FRAM NTNU" className={`block h-[26px] w-auto ${logoSrc ? "" : dark ? logoFilter : "saturate-[.4]"}`} />
               </div>
               <div className="leading-[1.9]">Sem Sælands vei 1, 7034 Trondheim<br /><a href="mailto:framntnu@gmail.com" className="text-[var(--muted)] no-underline transition-colors hover:text-[var(--ink)]">framntnu@gmail.com</a></div>
               <div className="flex items-center gap-2.5">
@@ -68,11 +69,11 @@ export function SiteFooter({ mobileExtraBottomPadding = false }: { mobileExtraBo
               <div className="flex flex-col items-start gap-[18px]">
                 {/* Plain images retained for path and layout parity. */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img width="550" height="157" loading="lazy" decoding="async" src="/assets/sparebank1SMNhvit.png" alt="SpareBank 1 SMN" className="-ml-2 h-9 w-auto" />
+                <img width="550" height="157" loading="lazy" decoding="async" src={sparebankWhite ? "/assets/sparebank1-smn-neg.webp" : "/assets/sparebank1SMNhvit.png"} alt="SpareBank 1 SMN" className={`-ml-2 h-9 w-auto ${sparebankWhite ? "" : logoFilter}`} />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img width="500" height="198" loading="lazy" decoding="async" src="/assets/partners/equinor.webp" alt="Equinor" className="h-[34px] w-auto" />
+                <img width="500" height="198" loading="lazy" decoding="async" src="/assets/partners/equinor.webp" alt="Equinor" className={`h-[34px] w-auto ${logoFilter}`} />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img width="500" height="344" loading="lazy" decoding="async" src="/assets/DNB_Logo.png" alt="DNB" className="mt-4 h-[30px] w-auto" />
+                <img width="500" height="344" loading="lazy" decoding="async" src="/assets/DNB_Logo.png" alt="DNB" className={`mt-4 h-[30px] w-auto ${logoFilter}`} />
               </div>
             </div>
 
@@ -89,7 +90,12 @@ export function SiteFooter({ mobileExtraBottomPadding = false }: { mobileExtraBo
             <div>© 2015–2026 Fram NTNU</div>
             <div className="flex items-center gap-3.5">
               <span className="text-[10px] tracking-[.16em] uppercase">Tilknyttet</span>
-              <span role="img" aria-label="NTNU" className="inline-block h-[22px] w-[116px] bg-[#00509E] [mask:url('/assets/ntnu-logo-dark.webp')_left_center/contain_no-repeat]" />
+              {ntnuWhite ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src="/assets/ntnu-hovedlogo-hvit.svg" alt="NTNU" decoding="async" className="inline-block h-[22px] w-auto" />
+              ) : (
+                <span role="img" aria-label="NTNU" className="inline-block h-[22px] w-[116px] bg-[#00509E] [mask:url('/assets/ntnu-logo-dark.webp')_left_center/contain_no-repeat]" />
+              )}
             </div>
           </div>
         </div>

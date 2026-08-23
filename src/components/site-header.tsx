@@ -51,7 +51,9 @@ function Dropdown({ label, items, caretFontFamily, active = false }: DropdownPro
 export function SiteHeader({
   caretFontFamily = 'Poppins, "Poppins Fallback", sans-serif',
   currentPath,
-}: { caretFontFamily?: string; currentPath?: string } = {}) {
+  dark = false,
+  logoSrc,
+}: { caretFontFamily?: string; currentPath?: string; dark?: boolean; logoSrc?: string } = {}) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -66,7 +68,7 @@ export function SiteHeader({
         <Link href="/" className="logo flex items-center no-underline" aria-label="FRAM NTNU">
           {/* Plain img is retained deliberately during visual-parity migration. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img width="400" height="142" decoding="async" src="/assets/fram-logo.webp" alt="FRAM NTNU" className="logo-img block h-[38px] w-auto max-[900px]:h-8" />
+          <img width="400" height="142" decoding="async" src={logoSrc ?? "/assets/fram-logo.webp"} alt="FRAM NTNU" className={`logo-img block h-[38px] w-auto max-[900px]:h-8 ${!logoSrc && dark ? "[filter:brightness(0)_invert(1)]" : ""}`} />
         </Link>
         <div className={`nav-links flex items-center gap-8 text-sm font-medium max-[900px]:fixed max-[900px]:inset-x-0 max-[900px]:top-16 max-[900px]:z-40 max-[900px]:max-h-[calc(100vh-64px)] max-[900px]:flex-col max-[900px]:items-stretch max-[900px]:gap-0 max-[900px]:overflow-y-auto max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:bg-[var(--bg)] max-[900px]:px-5 max-[900px]:pt-2 max-[900px]:pb-5 max-[900px]:shadow-[0_24px_40px_-24px_rgba(0,0,0,.35)] max-[520px]:px-4 ${menuOpen ? "max-[900px]:translate-y-0 max-[900px]:opacity-100 max-[900px]:pointer-events-auto" : "max-[900px]:-translate-y-3 max-[900px]:opacity-0 max-[900px]:pointer-events-none"} max-[900px]:transition-[opacity,transform] max-[900px]:duration-200`} onClick={(event) => {
           if ((event.target as HTMLElement).closest("a")) setMenuOpen(false);
@@ -79,9 +81,10 @@ export function SiteHeader({
           ]} />
           <Link href="/miljoer" aria-current={currentPath === "/miljoer" ? "page" : undefined} className={`${topLink} ${currentPath === "/miljoer" ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>Miljøene</Link>
           <Link href="/booking" aria-current={currentPath === "/booking" ? "page" : undefined} className={`${topLink} ${currentPath === "/booking" ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>Booking</Link>
-          <Dropdown active={currentPath === "/idegarasjen"} caretFontFamily={caretFontFamily} label="Arealer & rom" items={[
+          <Dropdown active={currentPath === "/idegarasjen" || currentPath === "/teknologihallen"} caretFontFamily={caretFontFamily} label="Arealer & rom" items={[
             { href: "https://www.gruvantnu.no/", label: "Gruva", external: true },
             { href: "/idegarasjen", label: "Idégarasjen" },
+            { href: "/teknologihallen", label: "Teknologihallen" },
           ]} />
           <Link href="/om" aria-current={currentPath === "/om" ? "page" : undefined} className={`${topLink} ${currentPath === "/om" ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>Om Fram</Link>
         </div>

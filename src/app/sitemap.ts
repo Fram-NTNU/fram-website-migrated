@@ -20,6 +20,7 @@ const PAGES: Entry[] = [
   { path: "/booking", changeFrequency: "monthly", priority: 0.8 },
   { path: "/innovasjonsdagene", changeFrequency: "monthly", priority: 0.7 },
   { path: "/idegarasjen", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/teknologihallen", changeFrequency: "monthly", priority: 0.7 },
   { path: "/stillinger", changeFrequency: "weekly", priority: 0.6 },
 ];
 
