@@ -51,7 +51,7 @@ export function TeknologihallenHero() {
         </div>
       </div>
 
-      <div className="absolute right-9 bottom-[22px] z-[3] flex items-center gap-4">
+      <div className="absolute right-9 bottom-[22px] z-[3] flex items-center gap-4 max-[560px]:hidden">
         {slides[current].name && <span className="font-mono text-[11px] tracking-[.1em] whitespace-nowrap text-white/85 uppercase [transition:opacity_.35s_ease]">{slides[current].name}</span>}
         <div className="flex items-center gap-2">
           {slides.map((slide, index) => <button key={slide.src} type="button" aria-label={`Bilde ${index + 1}`} onClick={() => select(index)} className={`h-2 w-2 cursor-pointer rounded-full border-0 p-0 [transition:background_.3s,transform_.3s] ${current === index ? "bg-white [transform:scale(1.3)]" : "bg-white/35"}`} />)}
