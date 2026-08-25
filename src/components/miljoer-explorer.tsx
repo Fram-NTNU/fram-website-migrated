@@ -274,7 +274,7 @@ export function OrgCard({
       className="group flex flex-col overflow-hidden rounded-[18px] border border-[var(--line)] bg-[var(--card)] text-[var(--ink)] no-underline [transition:transform_.25s_ease,border-color_.25s_ease,box-shadow_.25s_ease] hover:border-[var(--ink)] hover:shadow-[0_24px_46px_-26px_rgba(0,0,0,.28)] hover:[transform:translateY(-5px)]"
     >
       <div
-        className="relative grid h-[140px] place-items-center overflow-hidden border-b border-[var(--line)]"
+        className="relative grid h-[160px] place-items-center overflow-hidden border-b border-[var(--line)]"
         style={{ background: dark }}
       >
         {/* Plain img is retained deliberately during visual-parity migration. */}
@@ -308,13 +308,6 @@ export function OrgCard({
         )}
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-[7px] px-5 pt-[18px] pb-[22px]">
-        <div className="flex items-center gap-[7px] font-mono text-[10px] tracking-[.12em] text-[var(--muted)] uppercase">
-          <span
-            className="h-1.5 w-1.5 flex-none rounded-full"
-            style={{ background: accentColors[organization.accent] }}
-          />
-          {organization.category}
-        </div>
         <h3 className="mt-px mb-0 text-[19px] leading-[1.12] font-bold tracking-[-.015em] [overflow-wrap:break-word]">
           {organization.name}
         </h3>
