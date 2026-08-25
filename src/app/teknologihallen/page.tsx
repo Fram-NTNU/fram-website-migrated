@@ -110,7 +110,7 @@ function OrgCard({ org }: { org: Org }) {
       : org.mediaClass === "dark"
         ? "#16181D"
         : org.mediaClass === "deeper"
-          ? "color-mix(in srgb,var(--red) 22%,#fff)"
+          ? "#20232A"
           : panelColors[org.accent];
 
   const logoSize = org.logo.className?.includes("tall")

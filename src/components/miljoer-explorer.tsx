@@ -231,7 +231,9 @@ export function OrgCard({
       ? "#16181D"
       : organization.media === "dark-navy"
         ? "#022641"
-        : panelColors[organization.accent];
+        : organization.media === "deeper"
+          ? "#20232A"
+          : panelColors[organization.accent];
   const photoRef = useRef<HTMLImageElement | null>(null);
   const [spun, setSpun] = useState(false);
   useEffect(() => {
