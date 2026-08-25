@@ -12,7 +12,7 @@ export const organizations: Organization[] = [
     logoSize: "tall",
     photo: "/assets/heroes/ascend.webp",
     photoAlt: "Ascend NTNU-teamet med dronen på konkurranse",
-    category: "Luft · Droner",
+    category: "TO · Droner",
     name: "Ascend NTNU",
     description:
       "Konkurrerer i internasjonale drone-konkurranser med autonome systemer.",
@@ -25,7 +25,7 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/boosthenne.webp",
     photoAlt: "Boost Henne-arrangement",
     photoPosition: "center top",
-    category: "Kvinnenettverk",
+    category: "Arrangør · Kvinnenettverk",
     name: "Boost Henne",
     description:
       "Kvinnenettverk for studenter som vil inn i entreprenørskap. Rollemodeller, mentorer og events.",
@@ -99,7 +99,7 @@ export const organizations: Organization[] = [
     logoAlt: "Fuel Fighter",
     photo: "/assets/heroes/fuelfighter.webp",
     photoAlt: "Fuel Fighter-teamet med kjøretøy",
-    category: "Energi · Bil",
+    category: "TO · Bil",
     name: "Fuel Fighter",
     description:
       "Bygger ultra-energieffektive kjøretøy til Shell Eco-marathon.",
@@ -112,7 +112,7 @@ export const organizations: Organization[] = [
     logoAlt: "Gridville",
     photo: "/assets/heroes/gridville.webp",
     photoAlt: "Gridville-teamet",
-    category: "Energi · Nett",
+    category: "TO · Energi",
     name: "Gridville",
     description:
       "Studentprosjekter på fornybar energi, mikro­nett og smart strømforsyning.",
@@ -180,7 +180,7 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/jet.webp",
     photoAlt: "Jet NTNU turbojetmotor",
     spin: true,
-    category: "Luft · Jetmotor",
+    category: "TO · Jetmotor",
     name: "Jet NTNU",
     description:
       "Norges første studentdrevne jetmotororganisasjon. Designer, produserer og tester sin egen turbojetmotor.",
@@ -207,7 +207,7 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/marinor.webp",
     photoAlt: "Marinor NTNU-laget med sitt autonome fartøy",
     photoPosition: "center 62%",
-    category: "Hav · Autonomi",
+    category: "TO · Autonomi",
     name: "Marinor NTNU",
     description:
       "Bygger og tester autonome maritime systemer, og bruker forskning til å løse reelle utfordringer til havs.",
@@ -220,7 +220,7 @@ export const organizations: Organization[] = [
     logoSize: "big",
     photo: "/assets/heroes/njord.webp",
     photoAlt: "Njord autonome fartøy på vannet",
-    category: "Hav · Autonomi",
+    category: "TO · Hav",
     name: "Njord",
     description:
       "Arrangerer en internasjonal konkurranse for selvstyrte skip, og bygger sine egne autonome fartøy.",
@@ -233,7 +233,7 @@ export const organizations: Organization[] = [
     logoSize: "big",
     photo: "/assets/heroes/nordlys.webp",
     photoAlt: "Nordlys-teamet med solbil",
-    category: "Energi · Bil",
+    category: "TO · Solbil",
     name: "Nordlys",
     description:
       "Bygger og konkurrerer med soldrevne racerbiler i internasjonale solbilløp.",
@@ -272,7 +272,7 @@ export const organizations: Organization[] = [
     logoAlt: "Orbit NTNU",
     photo: "/assets/heroes/orbit.webp",
     photoAlt: "Orbit-satellitt i bane",
-    category: "Rom · Satellitter",
+    category: "TO · Satellitter",
     name: "Orbit NTNU",
     description:
       "Bygger CubeSat-satellitter. Første student-satellitt i bane fra NTNU.",
@@ -285,7 +285,7 @@ export const organizations: Organization[] = [
     logoSize: "big",
     photo: "/assets/heroes/propulse.webp",
     photoAlt: "Propulse-rakett avduking",
-    category: "Rom · Raketter",
+    category: "TO · Raketter",
     name: "Propulse NTNU",
     description:
       "Designer, bygger og skyter opp væskedrevne forskningsraketter.",
@@ -310,7 +310,7 @@ export const organizations: Organization[] = [
     logoSize: "tall",
     photo: "/assets/heroes/revolve.webp",
     photoAlt: "Revolve-bil på banen",
-    category: "Motorsport · Bil",
+    category: "TO · Motorsport",
     name: "Revolve NTNU",
     description:
       "Formula Student — designer og bygger en ny elektrisk racerbil hvert år.",
@@ -347,7 +347,7 @@ export const organizations: Organization[] = [
     logoAlt: "Start NTNU",
     photo: "/assets/heroes/start.webp",
     photoAlt: "Start IT-arrangement",
-    category: "Arrangør",
+    category: "Arrangør · Entreprenørskap",
     name: "Start NTNU",
     description:
       "Norges største studentorganisasjon for entreprenørskap. Startup Weekend, pitch-kvelder og karriere­events.",
@@ -386,7 +386,7 @@ export const organizations: Organization[] = [
     logoSize: "big",
     photo: "/assets/heroes/vortex.webp",
     photoAlt: "Vortex ORCA undervannsfarkost",
-    category: "Hav · Undervann",
+    category: "TO · Undervann",
     name: "Vortex NTNU",
     description:
       "Bygger autonome undervannsfarkoster (ROV/AUV) til internasjonale konkurranser.",
@@ -400,9 +400,23 @@ export const organizations: Organization[] = [
     photo: "/assets/heroes/wic.webp",
     photoAlt: "WIC-arrangement",
     photoPosition: "center 35%",
-    category: "Kvinnenettverk",
+    category: "Finans · Kvinnenettverk",
     name: "WIC",
     description:
       "Women’s Investment Club skaper møteplasser for kvinner med interesse for finans, investering og kapitalmarkeder.",
+  },
+  {
+    accent: "red",
+    href: "https://womeninaintnu.no/",
+    logo: "/assets/logos/womeninai.webp",
+    logoAlt: "Women in AI NTNU",
+    logoSize: "big",
+    photo: "/assets/heroes/womeninai.webp",
+    photoAlt: "Women in AI NTNU-teamet på trappa",
+    photoPosition: "center 20%",
+    category: "AI · Kvinnenettverk",
+    name: "Women in AI",
+    description:
+      "NTNUs første kvinnelige studentorganisasjon innen AI. Bygger ekte AI-kompetanse gjennom prosjekter for reelle bedrifter.",
   },
 ];
