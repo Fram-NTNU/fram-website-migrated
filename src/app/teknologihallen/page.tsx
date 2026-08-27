@@ -90,12 +90,6 @@ const contactReasons = [
 const breadcrumbData = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Hjem", item: "https://www.framntnu.no/" }, { "@type": "ListItem", position: 2, name: "Teknologihallen", item: "https://www.framntnu.no/teknologihallen" }] };
 const organizationData = { "@context": "https://schema.org", "@type": "Organization", name: "FRAM NTNU", url: "https://www.framntnu.no", logo: "https://www.framntnu.no/assets/og-fram.png", description: "FRAM NTNU er NTNUs senter for studentinnovasjon — et fellesskap for studenter som vil skape noe.", sameAs: ["https://www.instagram.com/framntnu/", "https://www.facebook.com/framntnu", "https://www.linkedin.com/company/framntnu/"] };
 
-const accentColors: Record<Org["accent"], string> = {
-  yellow: "var(--yellow)",
-  blue: "var(--blue)",
-  red: "var(--red)",
-  teal: "var(--teal)",
-};
 const panelColors: Record<Org["accent"], string> = {
   yellow: "color-mix(in srgb,var(--yellow) 17%,#fff)",
   blue: "color-mix(in srgb,var(--blue) 14%,#fff)",
@@ -121,7 +115,7 @@ function OrgCard({ org }: { org: Org }) {
 
   return (
     <a href={org.href} target="_blank" rel="noopener" className="group flex flex-col overflow-hidden rounded-[16px] border border-[var(--line)] bg-[var(--card)] text-[var(--ink)] no-underline [transition:transform_.25s_ease,border-color_.25s_ease,box-shadow_.25s_ease] hover:border-[var(--ink)] hover:shadow-[0_24px_46px_-26px_rgba(0,0,0,.28)] hover:[transform:translateY(-5px)]">
-      <div className="relative grid h-[140px] place-items-center overflow-hidden border-b border-[var(--line)] max-[760px]:h-[110px]" style={{ background: mediaBg }}>
+      <div className="relative grid h-[160px] place-items-center overflow-hidden border-b border-[var(--line)] max-[760px]:h-[130px]" style={{ background: mediaBg }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img width={org.logo.width} height={org.logo.height} loading="lazy" decoding="async" src={org.logo.src} alt={org.logo.alt} className={`relative z-[2] h-auto w-auto object-contain opacity-0 [transform:scale(.88)] [transition:opacity_.35s_ease,transform_.45s_ease] group-hover:opacity-100 group-hover:[transform:scale(1)] ${logoSize}`} />
         <span className="pointer-events-none absolute inset-0 z-[1] opacity-0 [transition:opacity_.35s_ease] group-hover:opacity-[.97]" style={{ background: mediaBg }} />
@@ -129,10 +123,6 @@ function OrgCard({ org }: { org: Org }) {
         <img width={org.photo.width} height={org.photo.height} loading="lazy" decoding="async" src={org.photo.src} alt={org.photo.alt} className="absolute inset-0 z-0 h-full w-full object-cover opacity-100 [transform:scale(1.001)] [transition:transform_.7s_ease,opacity_.4s_ease] group-hover:[transform:scale(1.05)]" />
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-[7px] px-5 pt-[18px] pb-[22px] max-[760px]:px-3.5 max-[760px]:pt-3 max-[760px]:pb-4">
-        <div className="flex items-center gap-[7px] font-mono text-[10px] tracking-[.12em] text-[var(--muted)] uppercase">
-          <span className="h-1.5 w-1.5 flex-none rounded-full" style={{ background: accentColors[org.accent] }} />
-          {org.category}
-        </div>
         <h3 className="mt-px mb-0 text-[19px] leading-[1.12] font-bold tracking-[-.015em] [overflow-wrap:break-word] max-[760px]:text-base">{org.name}</h3>
         <p className="m-0 text-[13.5px] leading-[1.5] text-[var(--ink-soft)] max-[760px]:text-xs">{org.description}</p>
       </div>
