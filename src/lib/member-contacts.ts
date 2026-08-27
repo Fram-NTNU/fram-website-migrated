@@ -21,7 +21,9 @@ export const roleSuggestions = [
   "Arrangementsansvarlig",
 ];
 
+// Standard: Leder og Nestleder ligger klare med rollen utfylt — orgen fyller
+// bare inn navn og kontaktinfo.
 export const placeholderContacts: MemberContact[] = [
-  { id: "1", name: "Ola Nordmann", role: "Leder", email: "leder@organisasjon.no", phone: "400 00 000" },
-  { id: "2", name: "Kari Nordmann", role: "Nestleder", email: "nestleder@organisasjon.no", phone: "" },
+  { id: "1", name: "", role: "Leder", email: "", phone: "" },
+  { id: "2", name: "", role: "Nestleder", email: "", phone: "" },
 ];
