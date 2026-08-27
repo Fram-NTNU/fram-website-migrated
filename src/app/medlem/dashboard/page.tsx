@@ -96,7 +96,7 @@ export default function MemberDashboardPage() {
           {/* Lag 2: hero-bilde */}
           {org.hero && (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={org.hero} alt="" className="absolute inset-0 h-full w-full object-cover" />
+            <img src={org.hero} alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
           )}
           {/* Lag 3: mørk gradient for lesbarhet — sterkere i nedre halvdel der teksten sitter */}
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,8,4,.30)_0%,rgba(10,8,4,.08)_30%,rgba(10,8,4,.58)_68%,rgba(10,8,4,.93)_100%)]" />
