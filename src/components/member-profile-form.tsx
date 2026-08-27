@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { OrgCard, type Organization } from "@/components/miljoer-explorer";
 import { accentHex, type MemberAccent, type MemberProfile } from "@/lib/member-profile";
 
 const accents: MemberAccent[] = ["yellow", "blue", "red", "teal"];
@@ -45,13 +46,20 @@ export function MemberProfileForm({ initial }: { initial: MemberProfile }) {
     setStatus("saved");
   }
 
-  const initials = profile.name
-    .split(" ")
-    .map((w) => w[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-  const accent = accentHex[profile.accent];
+  // Bygger et Organization-objekt fra skjemaverdiene, så forhåndsvisningen kan
+  // gjenbruke det EKTE OrgCard fra /miljoer — da blir den 100 % identisk.
+  const orgForPreview: Organization = {
+    accent: profile.accent,
+    href: profile.website || "#",
+    logo: profile.logo,
+    logoAlt: profile.name,
+    photo: profile.hero,
+    photoAlt: profile.name,
+    photoPosition: "center top",
+    category: "",
+    name: profile.name || "Organisasjonsnavn",
+    description: profile.description || "Kort beskrivelse av organisasjonen …",
+  };
 
   const fieldClass =
     "w-full rounded-xl border border-[var(--line)] bg-white px-[15px] py-3 text-[15px] text-[var(--ink)] outline-none [transition:border-color_.2s,box-shadow_.2s] placeholder:text-[var(--muted)] focus:border-[var(--blue)] focus:shadow-[0_0_0_3px_rgba(46,134,193,.15)]";
@@ -159,47 +167,15 @@ export function MemberProfileForm({ initial }: { initial: MemberProfile }) {
         </div>
       </form>
 
-      {/* Live forhåndsvisning */}
+      {/* Live forhåndsvisning — det EKTE kortet fra /miljoer */}
       <div className="max-[880px]:order-first">
         <div className="sticky top-24">
           <p className="mb-3 font-mono text-[10px] tracking-[.12em] text-[var(--muted)] uppercase">Forhåndsvisning</p>
-          <article
-            className="overflow-hidden rounded-[22px] border border-[var(--line)] bg-[var(--card)] shadow-[0_1px_2px_rgba(0,0,0,.04)]"
-            style={{ borderTop: `4px solid ${accent}` }}
-          >
-            <div className="relative flex h-[150px] items-center justify-center" style={{ backgroundColor: `color-mix(in srgb, ${accent} 14%, #fff)` }}>
-              {profile.hero ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={profile.hero} alt="" className="absolute inset-0 h-full w-full object-cover" />
-              ) : (
-                <span className="font-mono text-[10px] tracking-[.12em] text-[var(--muted)] uppercase">Hero-bilde</span>
-              )}
-              <div className="absolute bottom-3 left-3 flex h-12 w-12 items-center justify-center rounded-[12px] border border-[var(--line)] bg-white shadow-sm">
-                {profile.logo ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={profile.logo} alt="" className="max-h-8 max-w-9 object-contain" />
-                ) : (
-                  <span className="text-[15px] font-extrabold text-[var(--ink)]">{initials}</span>
-                )}
-              </div>
-            </div>
-            <div className="p-5">
-              <h3 className="mt-0 mb-1.5 flex items-center gap-2 text-[18px] font-extrabold tracking-[-.01em]">
-                <span className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: accent }} />
-                {profile.name || "Organisasjonsnavn"}
-              </h3>
-              <p className="m-0 text-[13.5px] leading-[1.55] text-[var(--ink-soft)]">
-                {profile.description || "Kort beskrivelse av organisasjonen …"}
-              </p>
-              {profile.website && (
-                <span className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[var(--blue)]">
-                  Besøk nettside <i className="ph ph-arrow-up-right" aria-hidden="true" />
-                </span>
-              )}
-            </div>
-          </article>
+          <div className="mx-auto max-w-[320px]">
+            <OrgCard organization={orgForPreview} logoMode={false} />
+          </div>
 
-          <div className="mt-4 rounded-[18px] border border-[var(--line)] bg-[var(--bg-soft)] p-5">
+          <div className="mt-5 rounded-[18px] border border-[var(--line)] bg-[var(--bg-soft)] p-5">
             <p className="mb-2 font-mono text-[10px] tracking-[.12em] text-[var(--muted)] uppercase">Utvidet visning</p>
             <h4 className="mt-0 mb-2 text-[15px] font-extrabold tracking-[-.01em]">{profile.name || "Organisasjonsnavn"}</h4>
             <p className="m-0 whitespace-pre-line text-[13px] leading-[1.6] text-[var(--ink-soft)]">
@@ -208,7 +184,7 @@ export function MemberProfileForm({ initial }: { initial: MemberProfile }) {
           </div>
 
           <p className="mt-3 text-[12px] leading-[1.5] text-[var(--muted)]">
-            Slik ser kortet og den utvidede visningen omtrent ut på framntnu.no. Endringer publiseres ikke automatisk ennå.
+            Nøyaktig slik kortet vises på framntnu.no (hold musepekeren over for logo). Endringer publiseres ikke automatisk ennå.
           </p>
         </div>
       </div>

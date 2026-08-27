@@ -27,15 +27,16 @@ export const accentHex: Record<MemberAccent, string> = {
   teal: "#3CBFAB",
 };
 
+// Placeholder = Spark* NTNU (vi later som vi er innlogget på deres profil).
+// Speiler Spark sin oppføring i organizations.ts.
 export const placeholderProfile: MemberProfile = {
-  name: "Testorganisasjon",
+  name: "Spark* NTNU",
   description:
-    "Kort beskrivelse av organisasjonen slik den vises på Miljøene-siden. Dette redigerer dere herfra.",
+    "Gratis veiledningstjeneste for studenter med en forretningsidé — mentorer, workshops og et program fra post-it til pilot.",
   longDescription:
-    "Her kan dere skrive mer utfyllende om organisasjonen — hva dere driver med, hvem dere er for, hvordan man blir med, og hva slags aktiviteter og prosjekter dere har. Denne teksten vises i den utvidede visningen når noen klikker på kortet deres på framntnu.no.",
-  website: "https://www.example.no",
+    "Spark* NTNU er en gratis veiledningstjeneste for studenter som vil realisere en idé. Vi kobler deg med erfarne mentorer, holder workshops, og tar deg gjennom et program fra første post-it til ferdig pilot. Uansett om du har en løs idé eller en oppstart på beina — vi hjelper deg videre.",
+  website: "https://sparkntnu.no/",
   accent: "blue",
-  logo: "",
-  // Demo/fallback: FRAMs eget fellesrom-bilde. Orgen bytter til sitt eget.
-  hero: "/assets/fram-fellesrom.webp",
+  logo: "/assets/spark-logo.webp",
+  hero: "/assets/heroes/spark-org.webp",
 };
