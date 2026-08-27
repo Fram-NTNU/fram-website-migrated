@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MemberRecruitingToggle } from "@/components/member-recruiting-toggle";
 import { MemberTopbar } from "@/components/member-topbar";
-import { placeholderProfile } from "@/lib/member-profile";
+import { accentHex, placeholderProfile } from "@/lib/member-profile";
 
 // Under arbeid — skal ikke indekseres før medlemsområdet er klart.
 export const metadata: Metadata = {
@@ -23,41 +23,49 @@ const orgInitials = orgName
   .join("")
   .slice(0, 2)
   .toUpperCase();
+const accent = accentHex[org.accent];
 
 // Seksjonene i medlemsplattformen. Hver er foreløpig et skjelett — bygges ut én
 // og én. `href` gjør kortet klikkbart der målet finnes; ellers «Kommer snart».
+// `tint` gir hvert kort sin egen ikonfarge for litt liv.
 const cards = [
   {
     icon: "ph-address-book",
     title: "Kontaktpersoner",
     body: "Hold oversikt over leder, nestleder, IT-ansvarlig og andre roller.",
     href: "/medlem/dashboard/kontaktpersoner",
+    tint: "#2E86C1",
   },
   {
     icon: "ph-users-three",
     title: "Medlemstall",
     body: "Rapporter hvor mange medlemmer organisasjonen har.",
+    tint: "#3CBFAB",
   },
   {
     icon: "ph-calendar-plus",
     title: "Arrangementer",
     body: "Publiser arrangementene deres på FRAMs arrangementsside.",
+    tint: "#E58A3A",
   },
   {
     icon: "ph-door-open",
     title: "Book lokaler",
     body: "Book Gruva, Scenerommet og møterom for aktivitetene deres.",
     href: "/booking",
+    tint: "#E85A5A",
   },
   {
     icon: "ph-books",
     title: "Malbibliotek",
     body: "Delte maler og oppskrifter: sponsoravtale, årsmøte, HMS, budsjett og mer.",
+    tint: "#C79A2E",
   },
   {
     icon: "ph-handshake",
     title: "Sponsorregister",
     body: "Delt oversikt over hvem som har avtale med hvem — unngå dobbeltkontakt.",
+    tint: "#3CBFAB",
   },
 ] as const;
 
@@ -68,70 +76,88 @@ export default function MemberDashboardPage() {
 
       <MemberTopbar orgName={orgName} />
 
-      <main className="mx-auto w-full max-w-[1200px] flex-1 px-6 py-12 max-[520px]:px-4">
-        <div className="mb-10">
-          <h1 className="mt-0 mb-2 text-[clamp(28px,4vw,40px)] leading-[1.05] font-extrabold tracking-[-.02em]">
-            Hei, {orgName} 👋
-          </h1>
-          <p className="mt-0 mb-0 max-w-[560px] text-[16px] leading-[1.6] text-[var(--ink-soft)]">
-            Velkommen til medlemsområdet. Herfra administrerer dere organisasjonens tilstedeværelse på FRAM.
-          </p>
-        </div>
+      <main className="mx-auto w-full max-w-[1200px] flex-1 px-6 py-10 max-[520px]:px-4">
+        {/* HERO-BANNER — organisasjonens eget bilde som blikkfang. */}
+        <section className="relative mb-6 flex min-h-[300px] flex-col justify-end overflow-hidden rounded-[28px] shadow-[0_10px_40px_-16px_rgba(0,0,0,.35)] max-[560px]:min-h-[260px]">
+          {/* Lag 1: accent-gradient som fallback/bunn */}
+          <div
+            className="absolute inset-0"
+            style={{ background: `linear-gradient(135deg, ${accent}, color-mix(in srgb, ${accent} 55%, #1A1A1A))` }}
+          />
+          {/* Lag 2: hero-bilde */}
+          {org.hero && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={org.hero} alt="" className="absolute inset-0 h-full w-full object-cover" />
+          )}
+          {/* Lag 3: mørk gradient for lesbarhet */}
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,8,4,.28)_0%,rgba(10,8,4,.06)_38%,rgba(10,8,4,.82)_100%)]" />
 
-        {/* Profil-forhåndsvisning — speiler hvordan organisasjonen ser ut på
-            /miljoer, grunnet i samme datamodell (organizations.ts). */}
-        <section className="mb-10 overflow-hidden rounded-[22px] border border-[var(--line)] bg-[var(--card)] shadow-[0_1px_2px_rgba(0,0,0,.04)]">
-          <div className="grid grid-cols-[1.1fr_.9fr] max-[720px]:grid-cols-1">
-            <div className="flex items-center gap-5 border-r border-[var(--line)] p-8 max-[720px]:border-r-0 max-[720px]:border-b max-[560px]:p-6">
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[18px] bg-[var(--bg-soft)] text-[22px] font-extrabold tracking-tight text-[var(--ink)]">
-                {orgInitials}
+          {/* Innhold */}
+          <div className="relative z-[1] flex flex-wrap items-end justify-between gap-6 p-9 max-[560px]:p-6">
+            <div className="min-w-0">
+              <p className="m-0 mb-3 font-mono text-[10px] tracking-[.14em] text-white/70 uppercase">
+                Velkommen tilbake
+              </p>
+              <div className="flex items-center gap-4">
+                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[16px] border border-white/30 bg-white/95 text-[20px] font-extrabold tracking-tight text-[var(--ink)] shadow-lg max-[560px]:h-12 max-[560px]:w-12">
+                  {org.logo ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={org.logo} alt="" className="max-h-9 max-w-10 object-contain" />
+                  ) : (
+                    orgInitials
+                  )}
+                </span>
+                <h1 className="m-0 text-[clamp(28px,4vw,44px)] leading-[1.02] font-extrabold tracking-[-.02em] text-white [text-shadow:0_2px_16px_rgba(0,0,0,.35)]">
+                  {org.name}
+                </h1>
               </div>
-              <div className="min-w-0">
-                <h2 className="mt-0 mb-1.5 text-[20px] font-extrabold tracking-[-.01em]">{org.name}</h2>
-                <p className="m-0 text-[14px] leading-[1.55] text-[var(--ink-soft)]">{org.description}</p>
-              </div>
+              <p className="mt-3 mb-0 max-w-[520px] text-[14.5px] leading-[1.55] text-white/85 [text-shadow:0_1px_10px_rgba(0,0,0,.4)] max-[560px]:hidden">
+                {org.description}
+              </p>
             </div>
-            <div className="flex flex-col justify-center gap-4 p-8 max-[560px]:p-6">
-              <div>
-                <h3 className="mt-0 mb-1.5 text-[15px] font-bold">Din offentlige profil</h3>
-                <p className="m-0 text-[14px] leading-[1.55] text-[var(--ink-soft)]">
-                  Slik vises organisasjonen deres på framntnu.no.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-3">
-                <Link
-                  href="/medlem/dashboard/profil"
-                  className="inline-flex items-center gap-2 rounded-full bg-[var(--ink)] px-5 py-2.5 text-[14px] font-semibold text-white no-underline [transition:transform_.2s,background_.2s] hover:-translate-y-px hover:bg-[var(--blue)]"
-                >
-                  <i className="ph ph-pencil-simple" aria-hidden="true" />
-                  Rediger profil
-                </Link>
-                <Link
-                  href="/miljoer"
-                  className="inline-flex items-center gap-2 rounded-full border border-[var(--line)] px-5 py-2.5 text-[14px] font-semibold text-[var(--ink)] no-underline [transition:border-color_.2s,transform_.2s] hover:-translate-y-px hover:border-[var(--ink)]"
-                >
-                  Se på framntnu.no
-                  <i className="ph ph-arrow-up-right" aria-hidden="true" />
-                </Link>
-              </div>
+
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/medlem/dashboard/profil"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[14px] font-semibold text-[var(--ink)] no-underline shadow-lg [transition:transform_.2s] hover:-translate-y-px"
+              >
+                <i className="ph ph-pencil-simple" aria-hidden="true" />
+                Rediger profil
+              </Link>
+              <Link
+                href="/miljoer"
+                className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/10 px-5 py-2.5 text-[14px] font-semibold text-white no-underline backdrop-blur-sm [transition:background_.2s,transform_.2s] hover:-translate-y-px hover:bg-white/20"
+              >
+                Se på framntnu.no
+                <i className="ph ph-arrow-up-right" aria-hidden="true" />
+              </Link>
             </div>
-          </div>
-          <div className="border-t border-[var(--line)] p-6 max-[560px]:p-5">
-            <MemberRecruitingToggle />
           </div>
         </section>
 
+        {/* «Vi søker medlemmer»-bryter */}
+        <div className="mb-8 rounded-[22px] border border-[var(--line)] bg-[var(--card)] p-5 shadow-[0_1px_2px_rgba(0,0,0,.04)] max-[560px]:p-4">
+          <MemberRecruitingToggle />
+        </div>
+
+        <h2 className="mb-4 font-mono text-[11px] tracking-[.14em] text-[var(--muted)] uppercase">Administrer</h2>
         <div className="grid grid-cols-3 gap-5 max-[820px]:grid-cols-2 max-[560px]:grid-cols-1">
           {cards.map((card) => {
             const inner = (
               <>
-                <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-[14px] bg-[var(--bg-soft)] text-[22px] text-[var(--ink)]">
+                <div
+                  className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-[14px] text-[24px]"
+                  style={{ backgroundColor: `${card.tint}1f`, color: card.tint }}
+                >
                   <i className={`ph ${card.icon}`} aria-hidden="true" />
                 </div>
-                <h2 className="mt-0 mb-2 text-[19px] font-extrabold tracking-[-.01em]">{card.title}</h2>
+                <h3 className="mt-0 mb-2 text-[19px] font-extrabold tracking-[-.01em]">{card.title}</h3>
                 <p className="mt-0 mb-5 text-[14.5px] leading-[1.6] text-[var(--ink-soft)]">{card.body}</p>
                 {"href" in card ? (
-                  <span className="mt-auto inline-flex self-start items-center gap-1.5 text-[13px] font-semibold text-[var(--blue)]">
+                  <span
+                    className="mt-auto inline-flex self-start items-center gap-1.5 text-[13px] font-semibold"
+                    style={{ color: card.tint }}
+                  >
                     Åpne <i className="ph ph-arrow-right" aria-hidden="true" />
                   </span>
                 ) : (
@@ -143,12 +169,12 @@ export default function MemberDashboardPage() {
               </>
             );
             const cardClass =
-              "flex flex-col rounded-[22px] border border-[var(--line)] bg-[var(--card)] p-7 shadow-[0_1px_2px_rgba(0,0,0,.04)] max-[560px]:p-6";
+              "group flex flex-col rounded-[22px] border border-[var(--line)] bg-[var(--card)] p-7 shadow-[0_1px_2px_rgba(0,0,0,.04)] max-[560px]:p-6";
             return "href" in card ? (
               <Link
                 key={card.title}
                 href={card.href}
-                className={`${cardClass} no-underline text-[var(--ink)] [transition:transform_.2s,border-color_.2s] hover:-translate-y-0.5 hover:border-[var(--ink)]`}
+                className={`${cardClass} no-underline text-[var(--ink)] [transition:transform_.2s,box-shadow_.2s,border-color_.2s] hover:-translate-y-1 hover:border-transparent hover:shadow-[0_16px_36px_-18px_rgba(0,0,0,.4)]`}
               >
                 {inner}
               </Link>

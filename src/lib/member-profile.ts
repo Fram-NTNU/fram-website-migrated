@@ -36,5 +36,6 @@ export const placeholderProfile: MemberProfile = {
   website: "https://www.example.no",
   accent: "blue",
   logo: "",
-  hero: "",
+  // Demo/fallback: FRAMs eget fellesrom-bilde. Orgen bytter til sitt eget.
+  hero: "/assets/fram-fellesrom.webp",
 };
