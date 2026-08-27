@@ -50,18 +50,25 @@ export function MemberRecruitingToggle() {
               : "Skru på for å vise at dere rekrutterer på framntnu.no."}
           </p>
         </div>
-        <button
-          type="button"
-          role="switch"
-          aria-checked={on}
-          aria-label="Vi søker medlemmer"
-          onClick={toggle}
-          className={`relative h-7 w-12 shrink-0 rounded-full [transition:background_.2s] ${on ? "bg-[var(--blue)]" : "bg-[var(--line)]"}`}
-        >
-          <span
-            className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow-[0_1px_2px_rgba(0,0,0,.25)] [transition:left_.2s] ${on ? "left-6" : "left-1"}`}
-          />
-        </button>
+        <div className="flex shrink-0 items-center gap-3">
+          <span className={`text-[12px] font-bold uppercase tracking-[.06em] [transition:color_.2s] ${on ? "text-[#2AA891]" : "text-[var(--muted)]"}`}>
+            {on ? "Aktiv" : "Av"}
+          </span>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={on}
+            aria-label="Vi søker medlemmer"
+            onClick={toggle}
+            className={`relative h-[30px] w-[54px] rounded-full [transition:background_.25s] ${on ? "bg-[#3CBFAB]" : "bg-[var(--line)]"}`}
+          >
+            <span
+              className={`absolute top-[3px] flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-[0_1px_3px_rgba(0,0,0,.3)] [transition:left_.25s] ${on ? "left-[27px]" : "left-[3px]"}`}
+            >
+              {on && <i className="ph ph-check text-[13px] font-bold text-[#2AA891]" aria-hidden="true" />}
+            </span>
+          </button>
+        </div>
       </div>
 
       {on && (
