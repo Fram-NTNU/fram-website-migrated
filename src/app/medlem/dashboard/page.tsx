@@ -75,13 +75,6 @@ const cards = [
     href: "/medlem/dashboard/guide",
     tint: "#2E86C1",
   },
-  {
-    icon: "ph-link",
-    title: "Lenk til FRAM",
-    body: "Legg en «Medlem av FRAM»-badge eller lenke på deres egen nettside.",
-    href: "/medlem/dashboard/lenk-til-fram",
-    tint: "#E58A3A",
-  },
 ] as const;
 
 export default function MemberDashboardPage() {

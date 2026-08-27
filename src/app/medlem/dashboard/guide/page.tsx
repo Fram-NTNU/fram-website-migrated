@@ -143,6 +143,23 @@ export default function MemberGuidePage() {
           </ol>
         </section>
 
+        {/* Lenk til FRAM */}
+        <section className="mb-14">
+          <Eyebrow>Synlighet</Eyebrow>
+          <SectionTitle>Lenk tilbake til FRAM</SectionTitle>
+          <p className="mt-0 mb-5 text-[15px] leading-[1.6] text-[var(--ink-soft)]">
+            En liten lenke fra deres egen nettside tilbake til framntnu.no styrker synligheten for hele
+            innovasjonsmiljøet på søk. Vi har laget ferdige badge- og tekstlenke-varianter dere kan kopiere rett inn.
+          </p>
+          <Link
+            href="/medlem/dashboard/lenk-til-fram"
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--ink)] px-6 py-3 text-[14px] font-semibold text-white no-underline [transition:transform_.2s,background_.2s] hover:-translate-y-px hover:bg-[var(--blue)]"
+          >
+            <i className="ph ph-link" aria-hidden="true" />
+            Åpne «Lenk til FRAM»
+          </Link>
+        </section>
+
         {/* Møteplasser */}
         <section className="mb-14">
           <Eyebrow>Møteplasser</Eyebrow>
