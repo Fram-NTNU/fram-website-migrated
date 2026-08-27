@@ -2,11 +2,17 @@
 
 import { useRef, useState } from "react";
 import { OrgCard, type Organization } from "@/components/miljoer-explorer";
-import { accentHex, type MemberAccent, type MemberProfile } from "@/lib/member-profile";
+import { type MemberProfile } from "@/lib/member-profile";
 
-const accents: MemberAccent[] = ["yellow", "blue", "red", "teal"];
 const DESC_MAX = 160;
 const LONG_MAX = 800;
+
+function iso(d: Date) {
+  return d.toISOString().slice(0, 10);
+}
+function formatNo(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("nb-NO", { day: "numeric", month: "long", year: "numeric" });
+}
 
 /**
  * Rediger organisasjonens offentlige profil, med live forhåndsvisning av
@@ -20,11 +26,24 @@ const LONG_MAX = 800;
 export function MemberProfileForm({ initial }: { initial: MemberProfile }) {
   const [profile, setProfile] = useState<MemberProfile>(initial);
   const [status, setStatus] = useState<"idle" | "saving" | "saved">("idle");
+  // Rekruttering med sluttdato. "" = av; en dato = på til og med den datoen.
   // Driver «søker medlemmer»-merket i forhåndsvisningen.
-  // TODO(persist): del kilde med «Vi søker medlemmer»-bryteren på dashbordet.
-  const [recruiting, setRecruiting] = useState(false);
+  const [until, setUntil] = useState("");
+  const [today] = useState(() => iso(new Date()));
+  const recruiting = until !== "";
   const logoInput = useRef<HTMLInputElement>(null);
   const heroInput = useRef<HTMLInputElement>(null);
+
+  function toggleRecruiting() {
+    if (recruiting) {
+      setUntil("");
+    } else {
+      const d = new Date();
+      d.setDate(d.getDate() + 30);
+      setUntil(iso(d));
+    }
+    setStatus("idle");
+  }
 
   function set<K extends keyof MemberProfile>(key: K, value: MemberProfile[K]) {
     setProfile((p) => ({ ...p, [key]: value }));
@@ -118,47 +137,46 @@ export function MemberProfileForm({ initial }: { initial: MemberProfile }) {
           />
         </label>
 
-        <div className="flex flex-col gap-2">
-          <span className={labelText}>Aksentfarge</span>
-          <div className="flex gap-2.5">
-            {accents.map((a) => (
-              <button
-                key={a}
-                type="button"
-                aria-label={a}
-                aria-pressed={profile.accent === a}
-                onClick={() => set("accent", a)}
-                className={`h-9 w-9 rounded-full [transition:transform_.15s] hover:scale-105 ${profile.accent === a ? "ring-2 ring-[var(--ink)] ring-offset-2 ring-offset-[var(--bg)]" : ""}`}
-                style={{ backgroundColor: accentHex[a] }}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between gap-4 rounded-xl border border-[var(--line)] bg-[var(--bg-soft)] px-4 py-3.5">
-          <div className="min-w-0">
-            <p className="m-0 text-[13px] font-semibold text-[var(--ink)]">Søker medlemmer</p>
-            <p className="m-0 mt-0.5 text-[12px] leading-[1.45] text-[var(--muted)]">
-              Viser et «søker medlemmer»-merke på kortet deres.
-            </p>
-          </div>
-          <button
-            type="button"
-            role="switch"
-            aria-checked={recruiting}
-            aria-label="Søker medlemmer"
-            onClick={() => {
-              setRecruiting((v) => !v);
-              setStatus("idle");
-            }}
-            className={`flex h-[30px] w-[54px] shrink-0 items-center rounded-full border-0 p-[3px] [transition:background_.25s] ${recruiting ? "bg-[#3CBFAB]" : "bg-[var(--line)]"}`}
-          >
-            <span
-              className={`flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-[0_1px_3px_rgba(0,0,0,.3)] [transition:transform_.25s] ${recruiting ? "translate-x-[24px]" : "translate-x-0"}`}
+        <div className="rounded-xl border border-[var(--line)] bg-[var(--bg-soft)] px-4 py-3.5">
+          <div className="flex items-center justify-between gap-4">
+            <div className="min-w-0">
+              <p className="m-0 text-[13px] font-semibold text-[var(--ink)]">Søker medlemmer</p>
+              <p className="m-0 mt-0.5 text-[12px] leading-[1.45] text-[var(--muted)]">
+                {recruiting
+                  ? `Merket vises til og med ${until ? formatNo(until) : "…"}, så skrus det av automatisk.`
+                  : "Viser et «søker medlemmer»-merke på kortet deres."}
+              </p>
+            </div>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={recruiting}
+              aria-label="Søker medlemmer"
+              onClick={toggleRecruiting}
+              className={`flex h-[30px] w-[54px] shrink-0 items-center rounded-full border-0 p-[3px] [transition:background_.25s] ${recruiting ? "bg-[#3CBFAB]" : "bg-[var(--line)]"}`}
             >
-              {recruiting && <i className="ph ph-check text-[13px] font-bold text-[#2AA891]" aria-hidden="true" />}
-            </span>
-          </button>
+              <span
+                className={`flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-[0_1px_3px_rgba(0,0,0,.3)] [transition:transform_.25s] ${recruiting ? "translate-x-[24px]" : "translate-x-0"}`}
+              >
+                {recruiting && <i className="ph ph-check text-[13px] font-bold text-[#2AA891]" aria-hidden="true" />}
+              </span>
+            </button>
+          </div>
+          {recruiting && (
+            <label className="mt-3 flex flex-wrap items-center gap-3 border-t border-[var(--line)] pt-3">
+              <span className="text-[13px] font-semibold text-[var(--ink-soft)]">Vises til og med</span>
+              <input
+                type="date"
+                value={until}
+                min={today || undefined}
+                onChange={(e) => {
+                  setUntil(e.target.value);
+                  setStatus("idle");
+                }}
+                className="rounded-lg border border-[var(--line)] bg-white px-3 py-2 text-[14px] text-[var(--ink)] outline-none [transition:border-color_.2s,box-shadow_.2s] focus:border-[var(--blue)] focus:shadow-[0_0_0_3px_rgba(46,134,193,.15)]"
+              />
+            </label>
+          )}
         </div>
 
         <div className="grid grid-cols-2 gap-4 max-[520px]:grid-cols-1">

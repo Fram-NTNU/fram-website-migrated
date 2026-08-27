@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { KobleMark } from "@/components/koble-mark";
-import { MemberRecruitingToggle } from "@/components/member-recruiting-toggle";
 import { MemberTopbar } from "@/components/member-topbar";
 import { accentHex, placeholderProfile } from "@/lib/member-profile";
 
@@ -146,12 +145,7 @@ export default function MemberDashboardPage() {
           </div>
         </section>
 
-        {/* «Vi søker medlemmer»-bryter */}
-        <div className="mb-8 rounded-[22px] border border-[var(--line)] bg-[var(--card)] p-5 shadow-[0_1px_2px_rgba(0,0,0,.04)] max-[560px]:p-4">
-          <MemberRecruitingToggle />
-        </div>
-
-        <h2 className="mb-4 font-mono text-[11px] tracking-[.14em] text-[var(--muted)] uppercase">Administrer</h2>
+        <h2 className="mt-8 mb-4 font-mono text-[11px] tracking-[.14em] text-[var(--muted)] uppercase">Administrer</h2>
         <div className="grid grid-cols-3 gap-5 max-[820px]:grid-cols-2 max-[560px]:grid-cols-1">
           {cards.map((card) => {
             const inner = (
