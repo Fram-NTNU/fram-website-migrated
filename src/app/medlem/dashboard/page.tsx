@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { MemberRecruitingToggle } from "@/components/member-recruiting-toggle";
 
 // Under arbeid — skal ikke indekseres før medlemsområdet er klart.
 export const metadata: Metadata = {
@@ -27,23 +28,39 @@ const orgInitials = orgName
   .slice(0, 2)
   .toUpperCase();
 
-// Placeholder-kort. Innholdet her avhenger av hva medlemsorganisasjoner faktisk
-// skal kunne gjøre — avklares som produktbeslutning. Foreløpig bare skjelett.
+// Seksjonene i medlemsplattformen. Hver er foreløpig et skjelett — bygges ut én
+// og én. `href` gjør kortet klikkbart der målet finnes; ellers «Kommer snart».
 const cards = [
   {
-    icon: "ph-buildings",
-    title: "Organisasjonsprofil",
-    body: "Rediger informasjonen som vises om organisasjonen deres på framntnu.no.",
+    icon: "ph-address-book",
+    title: "Kontaktpersoner & verv",
+    body: "Hold oversikt over leder, nestleder, IT-ansvarlig og andre verv.",
   },
   {
     icon: "ph-users-three",
-    title: "Kontaktpersoner",
-    body: "Hold oversikt over hvem som representerer organisasjonen.",
+    title: "Medlemstall",
+    body: "Rapporter hvor mange medlemmer organisasjonen har.",
   },
   {
-    icon: "ph-calendar-dots",
+    icon: "ph-calendar-plus",
     title: "Arrangementer",
-    body: "Se og meld på arrangementer og aktiviteter på FRAM.",
+    body: "Publiser arrangementene deres på FRAMs arrangementsside.",
+  },
+  {
+    icon: "ph-door-open",
+    title: "Book lokaler",
+    body: "Book Gruva, Scenerommet og møterom for aktivitetene deres.",
+    href: "/booking",
+  },
+  {
+    icon: "ph-books",
+    title: "Malbibliotek",
+    body: "Delte maler og oppskrifter: sponsoravtale, årsmøte, HMS, budsjett og mer.",
+  },
+  {
+    icon: "ph-handshake",
+    title: "Sponsorregister",
+    body: "Delt oversikt over hvem som har avtale med hvem — unngå dobbeltkontakt.",
   },
 ] as const;
 
@@ -131,25 +148,48 @@ export default function MemberDashboardPage() {
               </div>
             </div>
           </div>
+          <div className="border-t border-[var(--line)] p-6 max-[560px]:p-5">
+            <MemberRecruitingToggle />
+          </div>
         </section>
 
         <div className="grid grid-cols-3 gap-5 max-[820px]:grid-cols-2 max-[560px]:grid-cols-1">
-          {cards.map((card) => (
-            <article
-              key={card.title}
-              className="flex flex-col rounded-[22px] border border-[var(--line)] bg-[var(--card)] p-7 shadow-[0_1px_2px_rgba(0,0,0,.04)] max-[560px]:p-6"
-            >
-              <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-[14px] bg-[var(--bg-soft)] text-[22px] text-[var(--ink)]">
-                <i className={`ph ${card.icon}`} aria-hidden="true" />
-              </div>
-              <h2 className="mt-0 mb-2 text-[19px] font-extrabold tracking-[-.01em]">{card.title}</h2>
-              <p className="mt-0 mb-5 text-[14.5px] leading-[1.6] text-[var(--ink-soft)]">{card.body}</p>
-              <span className="mt-auto inline-flex self-start items-center gap-2 rounded-full bg-[var(--bg-soft)] px-[13px] py-1.5 font-mono text-[10px] tracking-[.12em] text-[var(--muted)] uppercase">
-                <span className="h-1.5 w-1.5 rounded-full bg-[var(--orange)]" />
-                Kommer snart
-              </span>
-            </article>
-          ))}
+          {cards.map((card) => {
+            const inner = (
+              <>
+                <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-[14px] bg-[var(--bg-soft)] text-[22px] text-[var(--ink)]">
+                  <i className={`ph ${card.icon}`} aria-hidden="true" />
+                </div>
+                <h2 className="mt-0 mb-2 text-[19px] font-extrabold tracking-[-.01em]">{card.title}</h2>
+                <p className="mt-0 mb-5 text-[14.5px] leading-[1.6] text-[var(--ink-soft)]">{card.body}</p>
+                {"href" in card ? (
+                  <span className="mt-auto inline-flex self-start items-center gap-1.5 text-[13px] font-semibold text-[var(--blue)]">
+                    Åpne <i className="ph ph-arrow-right" aria-hidden="true" />
+                  </span>
+                ) : (
+                  <span className="mt-auto inline-flex self-start items-center gap-2 rounded-full bg-[var(--bg-soft)] px-[13px] py-1.5 font-mono text-[10px] tracking-[.12em] text-[var(--muted)] uppercase">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[var(--orange)]" />
+                    Kommer snart
+                  </span>
+                )}
+              </>
+            );
+            const cardClass =
+              "flex flex-col rounded-[22px] border border-[var(--line)] bg-[var(--card)] p-7 shadow-[0_1px_2px_rgba(0,0,0,.04)] max-[560px]:p-6";
+            return "href" in card ? (
+              <Link
+                key={card.title}
+                href={card.href}
+                className={`${cardClass} no-underline text-[var(--ink)] [transition:transform_.2s,border-color_.2s] hover:-translate-y-0.5 hover:border-[var(--ink)]`}
+              >
+                {inner}
+              </Link>
+            ) : (
+              <article key={card.title} className={cardClass}>
+                {inner}
+              </article>
+            );
+          })}
         </div>
       </main>
     </div>
