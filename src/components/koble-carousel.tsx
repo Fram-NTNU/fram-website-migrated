@@ -8,7 +8,7 @@ const slides = [
   { src: "/assets/koble-2025.webp", alt: "Koble 2025 på Frimurerlogen", year: "2025" },
 ] as const;
 
-export function KobleCarousel() {
+export function KobleCarousel({ aspectClassName }: { aspectClassName?: string } = {}) {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export function KobleCarousel() {
     return () => window.clearInterval(timer);
   }, [active]);
 
-  return <div id="kobCar" className="relative aspect-[4/3] overflow-hidden rounded-[28px] shadow-[0_32px_64px_rgba(0,0,0,.45)] max-[760px]:aspect-video max-[760px]:max-h-[260px]">
+  return <div id="kobCar" className={`relative overflow-hidden rounded-[28px] shadow-[0_32px_64px_rgba(0,0,0,.45)] ${aspectClassName ?? "aspect-[4/3] max-[760px]:aspect-video max-[760px]:max-h-[260px]"}`}>
     <div id="kobYear" className="absolute top-5 right-5 z-[3] rounded-full bg-black/55 px-3 py-2 font-mono text-[11px] tracking-[.14em] text-white backdrop-blur-[10px]">KOBLE · {slides[active].year}</div>
     {slides.map((slide, index) => <div key={slide.src} className={`absolute inset-0 [transition:opacity_1.2s_ease] ${index === active ? "opacity-100" : "opacity-0"}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
