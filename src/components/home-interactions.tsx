@@ -134,6 +134,7 @@ type Room = {
   primary: string;
   primaryHref?: string;
   note?: string;
+  ribbon?: string;
 };
 const rooms: Room[] = [
   {
@@ -141,6 +142,7 @@ const rooms: Room[] = [
     name: "Fellesrommet",
     accent: "teal",
     image: "/assets/fram-fellesrom.webp",
+    ribbon: "Gratis kaffe",
     description: (
       <>
         Fellesrommet på FRAM er åpent for alle studenter, enten du vil jobbe med
@@ -312,6 +314,13 @@ export function RoomExplorer() {
                   <div className="absolute top-[22px] right-6 left-6 z-[2] flex justify-end">
                     <span className="inline-flex items-center rounded-full border border-white/30 bg-white/18 px-3.5 py-2 font-mono text-[11px] font-bold tracking-[.08em] text-white uppercase backdrop-blur-lg">
                       {room.pill}
+                    </span>
+                  </div>
+                )}
+                {room.ribbon && (
+                  <div className="pointer-events-none absolute top-0 right-0 z-[3] h-[150px] w-[150px] overflow-hidden">
+                    <span className="absolute top-[30px] right-[-46px] w-[220px] rotate-45 bg-[var(--teal)] py-2 text-center font-mono text-[12px] font-bold tracking-[.14em] text-[#08312a] uppercase shadow-[0_6px_16px_rgba(0,0,0,.25)]">
+                      {room.ribbon}
                     </span>
                   </div>
                 )}
