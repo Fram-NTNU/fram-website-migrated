@@ -221,15 +221,20 @@ export default function MemberDashboardPage() {
         </Link>
 
         <div className="mt-5 grid grid-cols-2 gap-5 max-[560px]:grid-cols-1">
-          {/* Mini-Koble — varm FRAM-gradient, uformell «lillebror» til Koble */}
-          <div className="flex min-h-[190px] flex-col overflow-hidden rounded-[22px] bg-[linear-gradient(135deg,#FDC82F_0%,#E58A3A_48%,#E85A5A_100%)] p-6 text-white shadow-[0_10px_30px_-16px_rgba(229,90,58,.5)]">
-            <span className="inline-flex h-11 w-11 items-center justify-center rounded-[13px] bg-white/25 text-[22px] text-white backdrop-blur-sm">
+          {/* Mini-Koble — stemningsbilde fra Innovasjonsdagene */}
+          <div className="relative flex min-h-[190px] flex-col justify-end overflow-hidden rounded-[22px] p-6 text-white shadow-[0_10px_30px_-16px_rgba(0,0,0,.4)]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/assets/innovasjonsdagene-mat.avif" alt="Stemning fra Innovasjonsdagene" className="absolute inset-0 h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(22,14,10,.92)_0%,rgba(22,14,10,.3)_55%,rgba(22,14,10,.05)_100%)]" />
+            <span className="absolute top-5 left-5 z-10 inline-flex h-10 w-10 items-center justify-center rounded-[12px] bg-white/25 text-[20px] text-white backdrop-blur-sm">
               <i className="ph ph-coffee" aria-hidden="true" />
             </span>
-            <h3 className="mt-auto mb-1.5 pt-4 text-[20px] font-extrabold tracking-[-.01em] text-white [text-shadow:0_1px_12px_rgba(0,0,0,.25)]">Mini-Koble</h3>
-            <p className="m-0 text-[13.5px] leading-[1.5] text-white/90 [text-shadow:0_1px_10px_rgba(0,0,0,.2)]">
-              En mindre og mer uformell møteplass der organisasjonene blir bedre kjent.
-            </p>
+            <div className="relative z-10">
+              <h3 className="mt-0 mb-1.5 text-[20px] font-extrabold tracking-[-.01em] text-white">Mini-Koble</h3>
+              <p className="m-0 text-[13.5px] leading-[1.5] text-white/85">
+                En mindre og mer uformell møteplass der organisasjonene blir bedre kjent.
+              </p>
+            </div>
           </div>
 
           {/* Innovasjonsdagene */}
