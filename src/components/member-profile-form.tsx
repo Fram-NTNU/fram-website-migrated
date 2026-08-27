@@ -20,6 +20,9 @@ const LONG_MAX = 800;
 export function MemberProfileForm({ initial }: { initial: MemberProfile }) {
   const [profile, setProfile] = useState<MemberProfile>(initial);
   const [status, setStatus] = useState<"idle" | "saving" | "saved">("idle");
+  // Driver «søker medlemmer»-merket i forhåndsvisningen.
+  // TODO(persist): del kilde med «Vi søker medlemmer»-bryteren på dashbordet.
+  const [recruiting, setRecruiting] = useState(false);
   const logoInput = useRef<HTMLInputElement>(null);
   const heroInput = useRef<HTMLInputElement>(null);
 
@@ -132,6 +135,32 @@ export function MemberProfileForm({ initial }: { initial: MemberProfile }) {
           </div>
         </div>
 
+        <div className="flex items-center justify-between gap-4 rounded-xl border border-[var(--line)] bg-[var(--bg-soft)] px-4 py-3.5">
+          <div className="min-w-0">
+            <p className="m-0 text-[13px] font-semibold text-[var(--ink)]">Søker medlemmer</p>
+            <p className="m-0 mt-0.5 text-[12px] leading-[1.45] text-[var(--muted)]">
+              Viser et «søker medlemmer»-merke på kortet deres.
+            </p>
+          </div>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={recruiting}
+            aria-label="Søker medlemmer"
+            onClick={() => {
+              setRecruiting((v) => !v);
+              setStatus("idle");
+            }}
+            className={`flex h-[30px] w-[54px] shrink-0 items-center rounded-full border-0 p-[3px] [transition:background_.25s] ${recruiting ? "bg-[#3CBFAB]" : "bg-[var(--line)]"}`}
+          >
+            <span
+              className={`flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-[0_1px_3px_rgba(0,0,0,.3)] [transition:transform_.25s] ${recruiting ? "translate-x-[24px]" : "translate-x-0"}`}
+            >
+              {recruiting && <i className="ph ph-check text-[13px] font-bold text-[#2AA891]" aria-hidden="true" />}
+            </span>
+          </button>
+        </div>
+
         <div className="grid grid-cols-2 gap-4 max-[520px]:grid-cols-1">
           <ImageField
             label="Logo"
@@ -172,7 +201,7 @@ export function MemberProfileForm({ initial }: { initial: MemberProfile }) {
         <div className="sticky top-24">
           <p className="mb-3 font-mono text-[10px] tracking-[.12em] text-[var(--muted)] uppercase">Forhåndsvisning</p>
           <div className="mx-auto max-w-[320px]">
-            <OrgCard organization={orgForPreview} logoMode={false} />
+            <OrgCard organization={orgForPreview} logoMode={false} recruiting={recruiting} />
           </div>
 
           <div className="mt-5 rounded-[18px] border border-[var(--line)] bg-[var(--bg-soft)] p-5">

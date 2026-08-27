@@ -222,9 +222,12 @@ function localMatch(text: string, organizations: Organization[]) {
 export function OrgCard({
   organization,
   logoMode,
+  recruiting = false,
 }: {
   organization: Organization;
   logoMode: boolean;
+  /** Viser et «søker medlemmer»-merke på kortet når organisasjonen rekrutterer. */
+  recruiting?: boolean;
 }) {
   const dark =
     organization.media === "dark"
@@ -277,6 +280,12 @@ export function OrgCard({
         className="relative grid h-[160px] place-items-center overflow-hidden border-b border-[var(--line)]"
         style={{ background: dark }}
       >
+        {recruiting && (
+          <span className="absolute top-3 left-3 z-[4] inline-flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-[5px] text-[11px] font-semibold text-[var(--ink)] shadow-[0_2px_8px_rgba(0,0,0,.22)] backdrop-blur-sm">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#2AA891]" />
+            Søker medlemmer
+          </span>
+        )}
         {/* Plain img is retained deliberately during visual-parity migration. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
