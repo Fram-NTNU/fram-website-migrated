@@ -35,9 +35,10 @@ export default function KoblePage() {
 
         {/* Hero — gala-lilla, som Koble-seksjonen på framntnu.no */}
         <section className="relative overflow-hidden rounded-[28px] bg-[linear-gradient(135deg,#1A0B26_0%,#3A0F5E_55%,#6B1A8A_100%)] p-11 text-[#F7EEFF] shadow-[0_28px_70px_-28px_rgba(26,11,38,.85)] max-[560px]:p-6">
-          <div className="grid grid-cols-[1.12fr_.88fr] items-center gap-12 max-[820px]:grid-cols-1 max-[820px]:gap-8">
+          {/* Stor watermark — bleeder ut av bunn-venstre hjørnet, bak innholdet */}
+          <KobleMark className="pointer-events-none absolute -bottom-24 -left-16 z-0 h-[460px] w-auto text-white/[0.06] max-[820px]:-bottom-16 max-[820px]:-left-10 max-[820px]:h-[280px]" />
+          <div className="relative z-10 grid grid-cols-[1.12fr_.88fr] items-center gap-12 max-[820px]:grid-cols-1 max-[820px]:gap-8">
             <div className="min-w-0">
-              <KobleMark className="mb-6 h-12 w-auto text-white" />
               <h1 className="m-0 text-[clamp(48px,6.5vw,84px)] leading-[.92] font-extrabold tracking-[-.035em]">
                 <span className="text-[#FFD1F7]">Koble.</span>
               </h1>
