@@ -68,6 +68,13 @@ const cards = [
     body: "Delt oversikt over hvem som har avtale med hvem — unngå dobbeltkontakt.",
     tint: "#3CBFAB",
   },
+  {
+    icon: "ph-book-open-text",
+    title: "Guide for medlemmer",
+    body: "Alt om medlemskapet: fordeler, forventninger, møteplasser og første steg.",
+    href: "/medlem/dashboard/guide",
+    tint: "#2E86C1",
+  },
 ] as const;
 
 export default function MemberDashboardPage() {
