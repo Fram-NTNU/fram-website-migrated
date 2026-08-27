@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 /**
@@ -16,14 +17,18 @@ import { useState } from "react";
  * gjør siden tospråklig når den lander.
  */
 export function MemberLoginForm() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [notice, setNotice] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // TODO(auth): erstatt med ekte innlogging (server action / API-route).
-    setNotice("Innlogging er ikke koblet på ennå — dette er en forhåndsvisning av skjemaet.");
+    // TODO(auth): erstatt med ekte innlogging (server action / API-route som
+    // verifiserer og oppretter en sesjon). Foreløpig hopper vi rett til
+    // medlemsområdet så flyten er klikkbar ende-til-ende — ingen verifisering.
+    setPending(true);
+    router.push("/medlem/dashboard");
   }
 
   const fieldClass =
@@ -72,19 +77,11 @@ export function MemberLoginForm() {
 
       <button
         type="submit"
-        className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-[var(--ink)] px-6 py-3.5 text-[15px] font-semibold text-white [transition:transform_.2s,background_.2s] hover:[transform:translateY(-2px)] hover:bg-[var(--blue)]"
+        disabled={pending}
+        className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-[var(--ink)] px-6 py-3.5 text-[15px] font-semibold text-white [transition:transform_.2s,background_.2s] hover:[transform:translateY(-2px)] hover:bg-[var(--blue)] disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:[transform:none]"
       >
-        Logg inn
+        {pending ? "Logger inn …" : "Logg inn"}
       </button>
-
-      {notice && (
-        <p
-          role="status"
-          className="m-0 rounded-xl border border-[var(--line)] bg-[var(--bg-soft)] px-4 py-3 text-[13.5px] leading-[1.5] text-[var(--ink-soft)]"
-        >
-          {notice}
-        </p>
-      )}
     </form>
   );
 }

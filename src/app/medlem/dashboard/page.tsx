@@ -10,9 +10,22 @@ export const metadata: Metadata = {
 
 // TODO(auth): dette er den innloggede siden. Når auth er på plass må ruten
 // beskyttes — er brukeren ikke innlogget skal den redirecte til /medlem/login
-// (server-side guard i en layout eller middleware). Organisasjonsnavnet under
-// er hardkodet placeholder; skal komme fra den innloggede sesjonen.
-const orgName = "Testorganisasjon";
+// (server-side guard i en layout eller middleware). Profilen under er hardkodet
+// placeholder; skal komme fra den innloggede organisasjonens egen oppføring i
+// organizations.ts (samme data som vises på /miljoer).
+const org = {
+  name: "Testorganisasjon",
+  category: "AI · Teknologi",
+  description:
+    "Kort beskrivelse av organisasjonen slik den vises på Miljøene-siden. Dette redigerer dere herfra.",
+};
+const orgName = org.name;
+const orgInitials = orgName
+  .split(" ")
+  .map((word) => word[0])
+  .join("")
+  .slice(0, 2)
+  .toUpperCase();
 
 // Placeholder-kort. Innholdet her avhenger av hva medlemsorganisasjoner faktisk
 // skal kunne gjøre — avklares som produktbeslutning. Foreløpig bare skjelett.
@@ -75,6 +88,50 @@ export default function MemberDashboardPage() {
             Velkommen til medlemsområdet. Herfra administrerer dere organisasjonens tilstedeværelse på FRAM.
           </p>
         </div>
+
+        {/* Profil-forhåndsvisning — speiler hvordan organisasjonen ser ut på
+            /miljoer, grunnet i samme datamodell (organizations.ts). */}
+        <section className="mb-10 overflow-hidden rounded-[22px] border border-[var(--line)] bg-[var(--card)] shadow-[0_1px_2px_rgba(0,0,0,.04)]">
+          <div className="grid grid-cols-[1.1fr_.9fr] max-[720px]:grid-cols-1">
+            <div className="flex items-center gap-5 border-r border-[var(--line)] p-8 max-[720px]:border-r-0 max-[720px]:border-b max-[560px]:p-6">
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[18px] bg-[var(--bg-soft)] text-[22px] font-extrabold tracking-tight text-[var(--ink)]">
+                {orgInitials}
+              </div>
+              <div className="min-w-0">
+                <span className="mb-1.5 inline-block font-mono text-[10px] tracking-[.12em] text-[var(--muted)] uppercase">
+                  {org.category}
+                </span>
+                <h2 className="mt-0 mb-1.5 text-[20px] font-extrabold tracking-[-.01em]">{org.name}</h2>
+                <p className="m-0 text-[14px] leading-[1.55] text-[var(--ink-soft)]">{org.description}</p>
+              </div>
+            </div>
+            <div className="flex flex-col justify-center gap-4 p-8 max-[560px]:p-6">
+              <div>
+                <h3 className="mt-0 mb-1.5 text-[15px] font-bold">Din offentlige profil</h3>
+                <p className="m-0 text-[14px] leading-[1.55] text-[var(--ink-soft)]">
+                  Slik vises organisasjonen deres på framntnu.no.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                {/* TODO: rediger-side for profilen (skriver til organizations.ts / CMS). */}
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-2 rounded-full bg-[var(--ink)] px-5 py-2.5 text-[14px] font-semibold text-white [transition:transform_.2s,background_.2s] hover:-translate-y-px hover:bg-[var(--blue)]"
+                >
+                  <i className="ph ph-pencil-simple" aria-hidden="true" />
+                  Rediger profil
+                </button>
+                <Link
+                  href="/miljoer"
+                  className="inline-flex items-center gap-2 rounded-full border border-[var(--line)] px-5 py-2.5 text-[14px] font-semibold text-[var(--ink)] no-underline [transition:border-color_.2s,transform_.2s] hover:-translate-y-px hover:border-[var(--ink)]"
+                >
+                  Se på framntnu.no
+                  <i className="ph ph-arrow-up-right" aria-hidden="true" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <div className="grid grid-cols-3 gap-5 max-[820px]:grid-cols-2 max-[560px]:grid-cols-1">
           {cards.map((card) => (
