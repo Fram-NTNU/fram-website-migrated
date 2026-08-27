@@ -38,41 +38,47 @@ export default function KoblePage() {
           Tilbake til guiden
         </Link>
 
-        {/* Hero — gala-lilla, tekst-fokusert */}
-        <section className="relative overflow-hidden rounded-[28px] bg-[linear-gradient(135deg,#1A0B26_0%,#3A0F5E_55%,#6B1A8A_100%)] px-11 py-14 text-[#F7EEFF] shadow-[0_28px_70px_-28px_rgba(26,11,38,.85)] max-[560px]:px-6 max-[560px]:py-10">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_120%_at_85%_-10%,rgba(255,209,247,.16),transparent_55%)]" />
-          <div className="relative max-w-[640px]">
-            <h1 className="m-0 text-[clamp(56px,9vw,104px)] leading-[.88] font-extrabold tracking-[-.04em]">
+        {/* Bilde-hero — Koble-bildene i bakgrunnen med lilla scrim og tittel oppå */}
+        <section className="relative overflow-hidden rounded-[28px] shadow-[0_28px_70px_-28px_rgba(26,11,38,.85)]">
+          <div className="absolute inset-0">
+            <KobleCarousel aspectClassName="h-full" />
+          </div>
+          <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(26,11,38,.95)_0%,rgba(26,11,38,.55)_44%,rgba(26,11,38,.12)_100%)]" />
+          <div className="relative z-10 flex min-h-[540px] flex-col justify-end p-11 text-[#F7EEFF] max-[560px]:min-h-[420px] max-[560px]:p-6">
+            <h1 className="m-0 text-[clamp(56px,9vw,104px)] leading-[.88] font-extrabold tracking-[-.04em] [text-shadow:0_4px_40px_rgba(0,0,0,.5)]">
               <span className="text-[#FFD1F7]">Koble.</span>
             </h1>
-            <p className="mt-4 mb-6 text-[clamp(20px,2.2vw,28px)] leading-[1.25] font-medium tracking-[-.01em] text-[#E8B0F5] italic">
+            <p className="mt-4 mb-6 text-[clamp(20px,2.2vw,28px)] leading-[1.25] font-medium tracking-[-.01em] text-[#F1CDF8] italic [text-shadow:0_2px_20px_rgba(0,0,0,.6)]">
               Innovasjonskollektivets årlige galla.
             </p>
-            <p className="m-0 max-w-[560px] text-[17px] leading-[1.65] text-[#E5C8F0]">
-              En kveld i året kler medlemmene av Fram seg opp, samles på Frimurerlogen, og feirer året som har
-              gått. Show, middag, taler og dans. Kun for medlemsorganisasjoner — påmelding publiseres i Slack i
-              månedene før arrangementet.
-            </p>
-            <dl className="m-0 mt-9 grid max-w-[520px] grid-cols-3 gap-6 border-t border-white/18 pt-6 max-[560px]:gap-3">
-              {meta.map((m) => (
-                <div key={m.label}>
-                  <dt className="mb-2 font-mono text-[10px] tracking-[.14em] text-[#B68BCC] uppercase">{m.label}</dt>
-                  <dd className="m-0 text-[16px] font-semibold text-white max-[560px]:text-[13px]">{m.value}</dd>
-                </div>
-              ))}
-            </dl>
             {/* TODO(innhold): fyll inn dato når den er satt */}
-            <span className="mt-8 inline-flex items-center gap-2 rounded-full border border-[#FFD1F7]/35 bg-[#FFD1F7]/10 px-5 py-2.5 text-[13px] font-semibold text-[#FFD1F7]">
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-[#FFD1F7]/40 bg-[#1A0B26]/40 px-5 py-2.5 text-[13px] font-semibold text-[#FFD1F7] backdrop-blur-sm">
               <i className="ph ph-calendar-dots" aria-hidden="true" />
               Dato for neste Koble annonseres
             </span>
           </div>
         </section>
 
-        {/* Store bilder — full bredde */}
-        <div className="mt-6">
-          <KobleCarousel aspectClassName="aspect-[16/9] max-[560px]:aspect-[4/3]" />
-        </div>
+        {/* Om + praktisk */}
+        <section className="mt-12 grid grid-cols-[1.5fr_1fr] items-start gap-10 max-[720px]:grid-cols-1 max-[720px]:gap-8">
+          <div>
+            <p className="m-0 mb-3 font-mono text-[11px] font-semibold tracking-[.2em] text-[#6B1A8A] uppercase">Om Koble</p>
+            <p className="m-0 text-[17px] leading-[1.65] text-[var(--ink-soft)]">
+              En kveld i året kler medlemmene av Fram seg opp, samles på Frimurerlogen, og feirer året som har
+              gått. Koble er årets største interne samling for medlemsorganisasjonene — en arena for å bygge
+              relasjoner, dele erfaringer og skape samarbeid på tvers av miljøene. Kun for medlemsorganisasjoner;
+              påmelding legges ut i leder-Slack i månedene før arrangementet.
+            </p>
+          </div>
+          <dl className="m-0 grid grid-cols-1 gap-3">
+            {meta.map((m) => (
+              <div key={m.label} className="flex items-center justify-between rounded-[16px] border border-[var(--line)] bg-[var(--card)] px-5 py-4 shadow-[0_1px_2px_rgba(0,0,0,.04)]">
+                <dt className="m-0 font-mono text-[10px] tracking-[.14em] text-[var(--muted)] uppercase">{m.label}</dt>
+                <dd className="m-0 text-[16px] font-extrabold text-[var(--ink)]">{m.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
 
         {/* Kvelden */}
         <section className="mt-14">
@@ -88,19 +94,6 @@ export default function KoblePage() {
               </div>
             ))}
           </div>
-        </section>
-
-        {/* Om Koble */}
-        <section className="mt-12 overflow-hidden rounded-[22px] border border-[var(--line)] bg-[var(--card)] p-8 shadow-[0_1px_2px_rgba(0,0,0,.04)] max-[560px]:p-6">
-          <p className="m-0 mb-3 font-mono text-[11px] font-semibold tracking-[.2em] text-[#6B1A8A] uppercase">Om Koble</p>
-          <h2 className="mt-0 mb-4 text-[clamp(20px,3vw,26px)] font-extrabold tracking-[-.02em]">
-            Én kveld, hele miljøet samlet
-          </h2>
-          <p className="m-0 max-w-[640px] text-[16px] leading-[1.65] text-[var(--ink-soft)]">
-            Koble er årets største interne samling for medlemsorganisasjonene i FRAM. Målet er å bygge relasjoner,
-            dele erfaringer og feire året som har gått — på tvers av alt fra rakett- og satellittlag til AI, design
-            og entreprenørskap. Påmelding legges ut i leder-Slack i månedene før arrangementet.
-          </p>
         </section>
       </main>
     </div>
