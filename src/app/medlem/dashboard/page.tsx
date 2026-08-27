@@ -89,13 +89,15 @@ export default function MemberDashboardPage() {
             // eslint-disable-next-line @next/next/no-img-element
             <img src={org.hero} alt="" className="absolute inset-0 h-full w-full object-cover" />
           )}
-          {/* Lag 3: mørk gradient for lesbarhet */}
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,8,4,.28)_0%,rgba(10,8,4,.06)_38%,rgba(10,8,4,.82)_100%)]" />
+          {/* Lag 3: mørk gradient for lesbarhet — sterkere i nedre halvdel der teksten sitter */}
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,8,4,.30)_0%,rgba(10,8,4,.08)_30%,rgba(10,8,4,.58)_68%,rgba(10,8,4,.93)_100%)]" />
+          {/* Lag 3b: venstre-scrim så venstrestilt tekst er lesbar mot lyse motiv */}
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,8,4,.62)_0%,rgba(10,8,4,.22)_42%,transparent_68%)]" />
 
           {/* Innhold */}
           <div className="relative z-[1] flex flex-wrap items-end justify-between gap-6 p-9 max-[560px]:p-6">
             <div className="min-w-0">
-              <p className="m-0 mb-3 font-mono text-[10px] tracking-[.14em] text-white/70 uppercase">
+              <p className="m-0 mb-3 font-mono text-[10px] font-semibold tracking-[.14em] text-white/85 uppercase [text-shadow:0_1px_10px_rgba(0,0,0,.55)]">
                 Velkommen tilbake
               </p>
               <div className="flex items-center gap-4">
