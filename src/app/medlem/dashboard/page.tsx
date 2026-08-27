@@ -45,8 +45,8 @@ const cards = [
   },
   {
     icon: "ph-calendar-plus",
-    title: "Arrangementer",
-    body: "Publiser arrangementene deres på FRAMs arrangementsside.",
+    title: "Publiser arrangement",
+    body: "Legg ut arrangementene deres på FRAMs arrangementsside.",
     tint: "#E58A3A",
   },
   {
@@ -191,10 +191,13 @@ export default function MemberDashboardPage() {
           })}
         </div>
 
-        {/* Koble — gala-banner nederst, lenker til Koble-siden */}
+        {/* Arrangementer — FRAMs samlinger, adskilt fra administrer-boksene */}
+        <h2 className="mt-14 mb-4 font-mono text-[11px] tracking-[.14em] text-[var(--muted)] uppercase">Arrangementer</h2>
+
+        {/* Koble — gala-banner, lenker til Koble-siden */}
         <Link
           href="/medlem/dashboard/koble"
-          className="group relative mt-8 grid grid-cols-[1.1fr_.9fr] overflow-hidden rounded-[24px] bg-[linear-gradient(135deg,#1A0B26_0%,#3A0F5E_55%,#6B1A8A_100%)] text-[#F7EEFF] no-underline shadow-[0_20px_50px_-24px_rgba(26,11,38,.7)] [transition:transform_.2s] hover:-translate-y-0.5 max-[720px]:grid-cols-1"
+          className="group relative grid grid-cols-[1.1fr_.9fr] overflow-hidden rounded-[24px] bg-[linear-gradient(135deg,#1A0B26_0%,#3A0F5E_55%,#6B1A8A_100%)] text-[#F7EEFF] no-underline shadow-[0_20px_50px_-24px_rgba(26,11,38,.7)] [transition:transform_.2s] hover:-translate-y-0.5 max-[720px]:grid-cols-1"
         >
           <div className="relative z-[1] p-9 max-[560px]:p-6">
             <KobleMark className="mb-4 h-9 w-auto text-white" />
@@ -216,6 +219,43 @@ export default function MemberDashboardPage() {
             <div className="absolute inset-0 bg-[linear-gradient(90deg,#3A0F5E_0%,transparent_55%)] max-[720px]:bg-[linear-gradient(0deg,#3A0F5E_0%,transparent_60%)]" />
           </div>
         </Link>
+
+        <div className="mt-5 grid grid-cols-2 gap-5 max-[560px]:grid-cols-1">
+          {/* Mini-Koble */}
+          <div className="flex min-h-[190px] flex-col overflow-hidden rounded-[22px] bg-[linear-gradient(135deg,#3A0F5E_0%,#6B1A8A_100%)] p-6 text-[#F7EEFF]">
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-[13px] bg-white/[.12] text-[22px] text-[#F1CDF8]">
+              <i className="ph ph-coffee" aria-hidden="true" />
+            </span>
+            <h3 className="mt-auto mb-1.5 pt-4 text-[20px] font-extrabold tracking-[-.01em] text-white">Mini-Koble</h3>
+            <p className="m-0 text-[13.5px] leading-[1.5] text-[#E5C8F0]">
+              En mindre og mer uformell møteplass der organisasjonene blir bedre kjent.
+            </p>
+          </div>
+
+          {/* Innovasjonsdagene */}
+          <Link
+            href="/innovasjonsdagene"
+            className="group relative flex min-h-[190px] flex-col justify-end overflow-hidden rounded-[22px] p-6 text-white no-underline shadow-[0_10px_30px_-16px_rgba(10,30,50,.4)] [transition:transform_.3s_ease] hover:-translate-y-1"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/innovasjonsdagene-hovedscenen.avif"
+              alt="Innovasjonsdagene på hovedscenen"
+              className="absolute inset-0 h-full w-full object-cover [transition:transform_.6s_ease] group-hover:scale-[1.05]"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(9,26,44,.94)_0%,rgba(9,26,44,.3)_55%,rgba(9,26,44,.05)_100%)]" />
+            <div className="relative z-10">
+              <h3 className="mt-0 mb-1.5 text-[20px] font-extrabold tracking-[-.01em]">Innovasjonsdagene</h3>
+              <p className="m-0 text-[13.5px] leading-[1.5] text-white/80">
+                Vis frem miljøet til nye studenter og møt potensielle medlemmer.
+              </p>
+              <span className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#8FD3F0]">
+                Les mer
+                <i className="ph ph-arrow-up-right [transition:transform_.3s_ease] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
+              </span>
+            </div>
+          </Link>
+        </div>
       </main>
     </div>
   );
