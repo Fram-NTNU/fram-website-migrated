@@ -65,9 +65,9 @@ export default function KoblePage() {
             <p className="m-0 mb-3 font-mono text-[11px] font-semibold tracking-[.2em] text-[#6B1A8A] uppercase">Om Koble</p>
             <p className="m-0 text-[17px] leading-[1.65] text-[var(--ink-soft)]">
               En kveld i året kler medlemmene av Fram seg opp, samles på Frimurerlogen, og feirer året som har
-              gått. Koble er årets største interne samling for medlemsorganisasjonene — en arena for å bygge
-              relasjoner, dele erfaringer og skape samarbeid på tvers av miljøene. Kun for medlemsorganisasjoner;
-              påmelding legges ut i leder-Slack i månedene før arrangementet.
+              gått. Koble er årets store feiring for medlemsorganisasjonene — show, middag, taler og dans, der
+              hele innovasjonsmiljøet samles for å heie på hverandre og markere alt som er skapt. Kun for
+              medlemsorganisasjoner; påmelding åpner i månedene før arrangementet.
             </p>
           </div>
           <dl className="m-0 grid grid-cols-1 gap-3">
