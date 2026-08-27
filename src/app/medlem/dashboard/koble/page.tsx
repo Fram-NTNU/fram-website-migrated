@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { GoogleDriveLogo } from "@/components/google-drive-logo";
 import { KobleCarousel } from "@/components/koble-carousel";
 import { MemberTopbar } from "@/components/member-topbar";
 import { placeholderProfile } from "@/lib/member-profile";
@@ -23,13 +24,12 @@ const meta = [
   { label: "Hvem", value: "Fram-medlemmer" },
 ];
 
-// Galleri. For å legge til flere bilder: dropp webp-filer i public/assets/koble/
-// og legg til en linje her ({ src, alt, year }). Ingen Drive-lenker — bildene
-// serveres direkte fra siden.
-const gallery = [
-  { src: "/assets/koble-2026-sax.webp", alt: "Koble 2026 — show på scenen", year: "2026" },
-  { src: "/assets/koble-2026-vinnere.webp", alt: "Koble 2026 — prisvinnere", year: "2026" },
-  { src: "/assets/koble-2025.webp", alt: "Koble 2025 på Frimurerlogen", year: "2025" },
+// Album per år. Coveret ligger i repoet; selve bildene ligger i et Google
+// Disk-album som `href` peker til.
+// TODO(innhold): bytt "#" med de faktiske Google Disk-lenkene.
+const albums = [
+  { year: "2026", cover: "/assets/koble-2026-sax.webp", href: "#" },
+  { year: "2025", cover: "/assets/koble-2025.webp", href: "#" },
 ];
 
 export default function KoblePage() {
@@ -105,25 +105,47 @@ export default function KoblePage() {
           </div>
         </section>
 
-        {/* Galleri */}
+        {/* Bildealbum — lenker til Google Disk */}
         <section className="mt-14">
           <p className="m-0 mb-3 font-mono text-[11px] font-semibold tracking-[.2em] text-[#6B1A8A] uppercase">Galleri</p>
-          <h2 className="mt-0 mb-6 text-[clamp(24px,3.5vw,32px)] font-extrabold tracking-[-.02em]">Bilder fra Koble</h2>
-          <div className="grid grid-cols-3 gap-4 max-[640px]:grid-cols-2 max-[440px]:grid-cols-1">
-            {gallery.map((g) => (
-              <figure key={g.src} className="group relative m-0 aspect-[4/3] overflow-hidden rounded-[16px] border border-[var(--line)] bg-[var(--bg-soft)]">
+          <h2 className="mt-0 mb-6 text-[clamp(24px,3.5vw,32px)] font-extrabold tracking-[-.02em]">Bildealbum fra Koble</h2>
+          <div className="grid grid-cols-2 gap-5 max-[560px]:grid-cols-1">
+            {albums.map((album) => (
+              <a
+                key={album.year}
+                href={album.href}
+                target="_blank"
+                rel="noopener"
+                className="group relative block aspect-[3/2] overflow-hidden rounded-[22px] border border-[var(--line)] no-underline shadow-[0_10px_30px_-16px_rgba(26,11,38,.4)] [transition:transform_.3s_ease,box-shadow_.3s_ease] hover:-translate-y-1.5 hover:shadow-[0_28px_56px_-22px_rgba(26,11,38,.55)]"
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={g.src}
-                  alt={g.alt}
+                  src={album.cover}
+                  alt={`Koble ${album.year}`}
                   loading="lazy"
                   decoding="async"
-                  className="absolute inset-0 h-full w-full object-cover [transition:transform_.45s_ease] group-hover:scale-[1.04]"
+                  className="absolute inset-0 h-full w-full object-cover [transition:transform_.6s_ease] group-hover:scale-[1.06]"
                 />
-                <figcaption className="absolute bottom-2 left-2 rounded-full bg-[#1A0B26]/80 px-2.5 py-1 font-mono text-[10px] font-semibold tracking-[.1em] text-[#F7EEFF] backdrop-blur-sm">
-                  {g.year}
-                </figcaption>
-              </figure>
+                <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(26,11,38,.92)_0%,rgba(26,11,38,.25)_55%,rgba(26,11,38,.05)_100%)]" />
+
+                {/* Drive-badge oppe til høyre */}
+                <div className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white shadow-[0_4px_14px_-4px_rgba(0,0,0,.4)] [transition:transform_.3s_ease] group-hover:scale-110">
+                  <GoogleDriveLogo className="h-[22px] w-[22px]" />
+                </div>
+
+                {/* Innhold nede */}
+                <div className="absolute inset-x-0 bottom-0 p-6 text-white max-[560px]:p-5">
+                  <p className="m-0 font-mono text-[11px] tracking-[.18em] text-[#F1CDF8] uppercase">Koble</p>
+                  <h3 className="m-0 text-[44px] leading-[.95] font-extrabold tracking-[-.03em] [text-shadow:0_2px_18px_rgba(0,0,0,.45)] max-[560px]:text-[36px]">
+                    {album.year}
+                  </h3>
+                  <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/12 px-4 py-2 text-[13px] font-semibold text-white backdrop-blur-sm [transition:background_.3s_ease] group-hover:bg-white/20">
+                    <GoogleDriveLogo className="h-4 w-4" />
+                    Åpne album i Google Disk
+                    <i className="ph ph-arrow-up-right [transition:transform_.3s_ease] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
+                  </span>
+                </div>
+              </a>
             ))}
           </div>
         </section>
