@@ -40,6 +40,7 @@ const cards = [
     icon: "ph-users-three",
     title: "Medlemstall",
     body: "Rapporter hvor mange medlemmer organisasjonen har.",
+    href: "/medlem/dashboard/medlemstall",
     tint: "#3CBFAB",
   },
   {
