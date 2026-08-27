@@ -29,8 +29,9 @@ const orgInitials = orgName
 const cards = [
   {
     icon: "ph-address-book",
-    title: "Kontaktpersoner & verv",
-    body: "Hold oversikt over leder, nestleder, IT-ansvarlig og andre verv.",
+    title: "Kontaktpersoner",
+    body: "Hold oversikt over leder, nestleder, IT-ansvarlig og andre roller.",
+    href: "/medlem/dashboard/kontaktpersoner",
   },
   {
     icon: "ph-users-three",
