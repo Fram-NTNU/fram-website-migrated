@@ -221,13 +221,13 @@ export default function MemberDashboardPage() {
         </Link>
 
         <div className="mt-5 grid grid-cols-2 gap-5 max-[560px]:grid-cols-1">
-          {/* Mini-Koble — lysere, uformell «lillebror» til Koble */}
-          <div className="flex min-h-[190px] flex-col overflow-hidden rounded-[22px] border border-[#E4D0F5] bg-[linear-gradient(135deg,#F5EBFD_0%,#E7D2F6_100%)] p-6 text-[#3A1052]">
-            <span className="inline-flex h-11 w-11 items-center justify-center rounded-[13px] bg-white/70 text-[22px] text-[#9333B8]">
+          {/* Mini-Koble — varm FRAM-gradient, uformell «lillebror» til Koble */}
+          <div className="flex min-h-[190px] flex-col overflow-hidden rounded-[22px] bg-[linear-gradient(135deg,#FDC82F_0%,#E58A3A_48%,#E85A5A_100%)] p-6 text-white shadow-[0_10px_30px_-16px_rgba(229,90,58,.5)]">
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-[13px] bg-white/25 text-[22px] text-white backdrop-blur-sm">
               <i className="ph ph-coffee" aria-hidden="true" />
             </span>
-            <h3 className="mt-auto mb-1.5 pt-4 text-[20px] font-extrabold tracking-[-.01em] text-[#3A1052]">Mini-Koble</h3>
-            <p className="m-0 text-[13.5px] leading-[1.5] text-[#6E4E85]">
+            <h3 className="mt-auto mb-1.5 pt-4 text-[20px] font-extrabold tracking-[-.01em] text-white [text-shadow:0_1px_12px_rgba(0,0,0,.25)]">Mini-Koble</h3>
+            <p className="m-0 text-[13.5px] leading-[1.5] text-white/90 [text-shadow:0_1px_10px_rgba(0,0,0,.2)]">
               En mindre og mer uformell møteplass der organisasjonene blir bedre kjent.
             </p>
           </div>
