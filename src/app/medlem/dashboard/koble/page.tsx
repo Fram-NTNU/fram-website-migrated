@@ -23,6 +23,15 @@ const meta = [
   { label: "Hvem", value: "Fram-medlemmer" },
 ];
 
+// Galleri. For å legge til flere bilder: dropp webp-filer i public/assets/koble/
+// og legg til en linje her ({ src, alt, year }). Ingen Drive-lenker — bildene
+// serveres direkte fra siden.
+const gallery = [
+  { src: "/assets/koble-2026-sax.webp", alt: "Koble 2026 — show på scenen", year: "2026" },
+  { src: "/assets/koble-2026-vinnere.webp", alt: "Koble 2026 — prisvinnere", year: "2026" },
+  { src: "/assets/koble-2025.webp", alt: "Koble 2025 på Frimurerlogen", year: "2025" },
+];
+
 export default function KoblePage() {
   return (
     <div className="flex min-h-screen flex-col bg-[#FBF7F0] font-sans text-[#1A1A1A] [--bg-soft:#F4EFE5] [--bg:#FBF7F0] [--blue:#2E86C1] [--card:#fff] [--ink-soft:#555] [--ink:#1A1A1A] [--line:#E9E2D3] [--muted:#8a8a8a] [--nav-accent:#E85A5A] [--orange:#E58A3A] [--yellow:#FDC82F]">
@@ -92,6 +101,29 @@ export default function KoblePage() {
                 </span>
                 <span className="text-[15px] font-bold">{h.label}</span>
               </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Galleri */}
+        <section className="mt-14">
+          <p className="m-0 mb-3 font-mono text-[11px] font-semibold tracking-[.2em] text-[#6B1A8A] uppercase">Galleri</p>
+          <h2 className="mt-0 mb-6 text-[clamp(24px,3.5vw,32px)] font-extrabold tracking-[-.02em]">Bilder fra Koble</h2>
+          <div className="grid grid-cols-3 gap-4 max-[640px]:grid-cols-2 max-[440px]:grid-cols-1">
+            {gallery.map((g) => (
+              <figure key={g.src} className="group relative m-0 aspect-[4/3] overflow-hidden rounded-[16px] border border-[var(--line)] bg-[var(--bg-soft)]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={g.src}
+                  alt={g.alt}
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 h-full w-full object-cover [transition:transform_.45s_ease] group-hover:scale-[1.04]"
+                />
+                <figcaption className="absolute bottom-2 left-2 rounded-full bg-[#1A0B26]/80 px-2.5 py-1 font-mono text-[10px] font-semibold tracking-[.1em] text-[#F7EEFF] backdrop-blur-sm">
+                  {g.year}
+                </figcaption>
+              </figure>
             ))}
           </div>
         </section>
