@@ -60,10 +60,10 @@ export function MemberRecruitingToggle() {
             aria-checked={on}
             aria-label="Vi søker medlemmer"
             onClick={toggle}
-            className={`relative h-[30px] w-[54px] rounded-full [transition:background_.25s] ${on ? "bg-[#3CBFAB]" : "bg-[var(--line)]"}`}
+            className={`flex h-[30px] w-[54px] items-center rounded-full border-0 p-[3px] [transition:background_.25s] ${on ? "bg-[#3CBFAB]" : "bg-[var(--line)]"}`}
           >
             <span
-              className={`absolute top-[3px] flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-[0_1px_3px_rgba(0,0,0,.3)] [transition:left_.25s] ${on ? "left-[27px]" : "left-[3px]"}`}
+              className={`flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-[0_1px_3px_rgba(0,0,0,.3)] [transition:transform_.25s] ${on ? "translate-x-[24px]" : "translate-x-0"}`}
             >
               {on && <i className="ph ph-check text-[13px] font-bold text-[#2AA891]" aria-hidden="true" />}
             </span>
