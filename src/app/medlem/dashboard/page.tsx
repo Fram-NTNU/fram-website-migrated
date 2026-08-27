@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { KobleMark } from "@/components/koble-mark";
 import { MemberRecruitingToggle } from "@/components/member-recruiting-toggle";
 import { MemberTopbar } from "@/components/member-topbar";
 import { accentHex, placeholderProfile } from "@/lib/member-profile";
@@ -195,6 +196,32 @@ export default function MemberDashboardPage() {
             );
           })}
         </div>
+
+        {/* Koble — gala-banner nederst, lenker til Koble-siden */}
+        <Link
+          href="/medlem/dashboard/koble"
+          className="group relative mt-8 grid grid-cols-[1.1fr_.9fr] overflow-hidden rounded-[24px] bg-[linear-gradient(135deg,#1A0B26_0%,#3A0F5E_55%,#6B1A8A_100%)] text-[#F7EEFF] no-underline shadow-[0_20px_50px_-24px_rgba(26,11,38,.7)] [transition:transform_.2s] hover:-translate-y-0.5 max-[720px]:grid-cols-1"
+        >
+          <div className="relative z-[1] p-9 max-[560px]:p-6">
+            <KobleMark className="mb-4 h-9 w-auto text-white" />
+            <h3 className="m-0 text-[30px] font-extrabold tracking-[-.02em]">
+              <span className="text-[#FFD1F7]">Koble.</span>
+            </h3>
+            <p className="mt-1 mb-3 text-[15px] font-medium text-[#E8B0F5] italic">Innovasjonskollektivets årlige galla.</p>
+            <p className="m-0 max-w-[420px] text-[14px] leading-[1.55] text-[#E5C8F0]">
+              En kveld i året samles hele Fram-miljøet på Frimurerlogen for show, middag og dans.
+            </p>
+            <span className="mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold text-[#FFD1F7]">
+              Se Koble
+              <i className="ph ph-arrow-right [transition:transform_.2s] group-hover:translate-x-0.5" aria-hidden="true" />
+            </span>
+          </div>
+          <div className="relative min-h-[220px] max-[720px]:min-h-[170px]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/assets/koble-2026-sax.webp" alt="Koble-galla på Frimurerlogen" className="absolute inset-0 h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,#3A0F5E_0%,transparent_55%)] max-[720px]:bg-[linear-gradient(0deg,#3A0F5E_0%,transparent_60%)]" />
+          </div>
+        </Link>
       </main>
     </div>
   );

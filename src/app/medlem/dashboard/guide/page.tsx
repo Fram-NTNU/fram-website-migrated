@@ -166,28 +166,27 @@ export default function MemberGuidePage() {
           <Eyebrow>Møteplasser</Eyebrow>
           <SectionTitle>Viktige møteplasser gjennom året</SectionTitle>
 
-          {/* Koble — eksklusiv, klikkbar boks med eget symbol */}
+          {/* Koble — eksklusiv, klikkbar boks i gala-lilla med eget symbol */}
           <Link
             href="/medlem/dashboard/koble"
-            className="group relative mb-3 flex items-center gap-5 overflow-hidden rounded-[18px] bg-[#0E0D0B] p-5 text-white no-underline [transition:transform_.2s] hover:-translate-y-0.5"
+            className="group relative mb-3 flex items-center gap-5 overflow-hidden rounded-[18px] bg-[linear-gradient(135deg,#1A0B26_0%,#3A0F5E_55%,#6B1A8A_100%)] p-5 text-[#F7EEFF] no-underline [transition:transform_.2s] hover:-translate-y-0.5"
           >
-            <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_0%_0%,rgba(201,162,75,.20),transparent_55%)]" />
-            <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(201,162,75,.55),transparent)]" />
-            <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-[14px] border border-white/15 bg-white/[.06]">
+            <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,209,247,.6),transparent)]" />
+            <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-[14px] border border-white/15 bg-white/[.08]">
               <KobleMark className="h-8 w-auto text-white" />
             </span>
             <span className="relative min-w-0 flex-1">
               <span className="flex items-center gap-2">
                 <span className="text-[17px] font-extrabold tracking-[-.01em] text-white">Koble</span>
-                <span className="rounded-full border px-2 py-0.5 font-mono text-[9px] tracking-[.12em] text-[#C9A24B] uppercase" style={{ borderColor: "#C9A24B55" }}>
-                  Årets samling
+                <span className="rounded-full border border-[#FFD1F7]/35 px-2 py-0.5 font-mono text-[9px] tracking-[.12em] text-[#FFD1F7] uppercase">
+                  Årlig galla
                 </span>
               </span>
-              <span className="mt-1 block text-[13.5px] leading-[1.5] text-white/60">
-                Årets største interne samling for medlemsorganisasjonene — bygg relasjoner og skap samarbeid på tvers.
+              <span className="mt-1 block text-[13.5px] leading-[1.5] text-[#E5C8F0]">
+                Innovasjonskollektivets årlige galla — én kveld i året samles hele miljøet på Frimurerlogen.
               </span>
             </span>
-            <i className="ph ph-arrow-right relative shrink-0 text-white/70 [transition:transform_.2s] group-hover:translate-x-0.5" aria-hidden="true" />
+            <i className="ph ph-arrow-right relative shrink-0 text-[#E8B0F5] [transition:transform_.2s] group-hover:translate-x-0.5" aria-hidden="true" />
           </Link>
 
           <div className="flex flex-col gap-3">
