@@ -57,7 +57,9 @@ const orgs: Org[] = [
 
 const coordinators = [
   { name: "Eir Ilić Holen", initials: "EH", email: "eir.ilic.h@gmail.com" },
-  { name: "James Henriksen", initials: "JH", email: "James.henriksen@revolve.no" },
+  { name: "Matiss Podins", initials: "MP", email: "matiss.podins@gmail.com" },
+  { name: "James Henriksen", initials: "JH", email: "james.henriksen@revolve.no" },
+  { name: "Sander Ranbø", initials: "SR", email: "sander.ranbo@gmail.com" },
 ];
 
 const pressArticles = [
@@ -242,18 +244,20 @@ export default function TeknologihallenPage() {
             <p className="mt-3 mb-0 max-w-[560px] text-[15.5px] leading-[1.66] text-[var(--ink-soft)]">TO-koordinatorene representerer fellesskapet av tekniske organisasjoner. Lurer du på noe om Teknologihallen eller organisasjonene som befinner seg her så ta kontakt med dem.</p>
 
             <div className="mt-[38px] grid grid-cols-2 gap-14 max-[860px]:grid-cols-1 max-[860px]:gap-10">
-              <div className="flex flex-col gap-2">
+              <div>
                 <p className="m-0 mb-3.5 font-mono text-[11px] tracking-[.12em] text-[var(--muted)] uppercase">Dagens koordinatorer</p>
-                {coordinators.map((person) => (
-                  <div key={person.name} className="flex items-center gap-4 rounded-[16px] p-3.5 transition-colors hover:bg-[var(--bg-soft)]">
-                    <span aria-hidden="true" className="grid h-[72px] w-[72px] flex-none place-items-center rounded-full border border-[var(--line)] bg-[var(--steel)] text-[22px] font-bold tracking-[-.01em] text-[var(--accent-deep)] shadow-[0_0_0_3px_var(--bg-soft)]">{person.initials}</span>
-                    <div className="flex min-w-0 flex-col gap-[3px]">
-                      <span className="text-[17px] font-bold tracking-[-.01em]">{person.name}</span>
-                      <span className="flex items-center gap-[7px] font-mono text-[10px] tracking-[.1em] text-[var(--accent-deep)] uppercase before:h-1.5 before:w-1.5 before:flex-none before:rounded-full before:bg-[var(--accent)] before:content-['']">TO-koordinator</span>
-                      <RevealEmail encoded={Buffer.from(person.email).toString("base64")} />
+                <div className="grid grid-cols-2 gap-2 max-[560px]:grid-cols-1">
+                  {coordinators.map((person) => (
+                    <div key={person.name} className="flex items-center gap-3.5 rounded-[16px] p-3.5 transition-colors hover:bg-[var(--bg-soft)]">
+                      <span aria-hidden="true" className="grid h-16 w-16 flex-none place-items-center rounded-full border border-[var(--line)] bg-[var(--steel)] text-[19px] font-bold tracking-[-.01em] text-[var(--accent-deep)] shadow-[0_0_0_3px_var(--bg-soft)]">{person.initials}</span>
+                      <div className="flex min-w-0 flex-col gap-[3px]">
+                        <span className="text-[16px] leading-tight font-bold tracking-[-.01em]">{person.name}</span>
+                        <span className="flex items-center gap-[7px] font-mono text-[10px] tracking-[.1em] text-[var(--accent-deep)] uppercase before:h-1.5 before:w-1.5 before:flex-none before:rounded-full before:bg-[var(--accent)] before:content-['']">TO-koordinator</span>
+                        <RevealEmail encoded={Buffer.from(person.email).toString("base64")} />
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
 
               <div>
