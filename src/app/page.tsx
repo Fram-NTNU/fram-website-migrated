@@ -300,9 +300,9 @@ export default function HomePage() {
                 Se alle arrangementer →
               </Link>
             </div>
-            <div className="grid grid-cols-[1.3fr_1fr] items-stretch gap-6 max-[900px]:grid-cols-1">
-              {/* Flaggskip: Innovasjonsdagene */}
-              <article className="group flex flex-col overflow-hidden rounded-[28px] border border-white/12">
+            <div className="grid grid-cols-[1fr_1.3fr] items-stretch gap-6 max-[900px]:grid-cols-1">
+              {/* Flaggskip: Innovasjonsdagene (høyre på desktop, under på mobil) */}
+              <article className="group order-2 flex flex-col overflow-hidden rounded-[28px] border border-white/12">
                 <div className="relative flex min-h-[280px] flex-col justify-end overflow-hidden bg-[#2B7FD4] bg-[url('/assets/innovasjonsdagene-hovedscenen.avif')] bg-cover bg-center px-10 py-9 text-white [transition:box-shadow_.4s_ease] after:pointer-events-none after:absolute after:inset-0 after:bg-[linear-gradient(180deg,rgba(20,20,24,.5)_0%,rgba(20,20,24,.12)_40%,rgba(20,20,24,.72)_100%)] group-hover:[box-shadow:0_24px_60px_rgba(43,127,212,.32)] max-[760px]:min-h-[220px] max-[760px]:px-6 max-[760px]:py-7">
                   <div className="relative z-[1] text-[clamp(52px,6vw,92px)] leading-[.9] font-extrabold tracking-[-.04em] [transition:transform_.4s_cubic-bezier(.22,1,.36,1)] group-hover:[transform:translateY(-6px)]">
                     19–20
@@ -361,8 +361,8 @@ export default function HomePage() {
                 </div>
               </article>
 
-              {/* Fram-arrangementer + Andre arrangementer */}
-              <div className="flex flex-col rounded-[28px] border border-white/12 bg-[#0F0F0F] px-8 py-8 max-[760px]:px-6 max-[760px]:py-7">
+              {/* Fram-arrangementer + Andre arrangementer (venstre på desktop, øverst på mobil) */}
+              <div className="order-1 flex flex-col rounded-[28px] border border-white/12 bg-[#0F0F0F] px-8 py-8 max-[760px]:px-6 max-[760px]:py-7">
                 <h3 className="mt-0 mb-1 font-mono text-[12px] font-semibold tracking-[.16em] text-[#8A8A8A] uppercase">
                   Fram-arrangementer
                 </h3>
