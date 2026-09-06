@@ -3,7 +3,7 @@
 
 @theme {
   --font-sans: "Poppins", "Poppins Fallback", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-mono: "Space Grotesk", "Poppins Fallback", system-ui, sans-serif;
   --color-fram-teal: #47b99f;
   --color-fram-blue: #1385b3;
   --color-fram-red: #e36672;
@@ -61,36 +61,13 @@
   src: url("/assets/fonts/poppins-900.woff2") format("woff2");
 }
 
+/* Space Grotesk (variabel, 300-700) brukes til all liten versal-tekst (font-mono) */
 @font-face {
-  font-family: "JetBrains Mono";
+  font-family: "Space Grotesk";
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300 700;
   font-display: swap;
-  src: url("/assets/fonts/jetbrainsmono-400.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("/assets/fonts/jetbrainsmono-500.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("/assets/fonts/jetbrainsmono-600.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("/assets/fonts/jetbrainsmono-700.woff2") format("woff2");
+  src: url("/assets/fonts/spacegrotesk-latin.woff2") format("woff2");
 }
 
 @font-face {

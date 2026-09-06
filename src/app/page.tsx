@@ -10,6 +10,7 @@ import {
 } from "@/components/home-interactions";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { upcomingEvents } from "@/lib/events";
 import { organizations } from "@/lib/organizations";
 
 const description =
@@ -288,62 +289,116 @@ export default function HomePage() {
           className="rounded-t-3xl bg-[var(--ink)] py-[72px] text-[var(--bg)]"
         >
           <div className={wrap}>
-            <div className="grid grid-cols-[1.1fr_1fr] overflow-hidden rounded-[28px] border border-white/12 max-[760px]:grid-cols-1">
-              <div className="group relative flex min-h-[440px] flex-col justify-between overflow-hidden bg-[#2B7FD4] bg-[url('/assets/innovasjonsdagene-hovedscenen.avif')] bg-cover bg-center px-10 py-9 text-white [transition:box-shadow_.4s_ease,transform_.35s_cubic-bezier(.22,1,.36,1)] after:pointer-events-none after:absolute after:inset-0 after:bg-[linear-gradient(180deg,rgba(20,20,24,.55)_0%,rgba(20,20,24,.15)_38%,rgba(20,20,24,.65)_100%)] hover:[box-shadow:0_24px_60px_rgba(43,127,212,.35)] hover:[transform:scale(1.012)] max-[760px]:min-h-[280px] max-[760px]:px-6 max-[760px]:py-7">
-                <div className="relative z-[1]" />
-                <div className="relative z-[1] text-[clamp(72px,8vw,112px)] leading-[.9] font-extrabold tracking-[-.04em] [transition:transform_.4s_cubic-bezier(.22,1,.36,1)] group-hover:[transform:translateY(-6px)]">
-                  19–20
-                  <small className="mt-3.5 block text-[13px] font-semibold tracking-[.18em] uppercase opacity-85">
-                    August · 2026
-                  </small>
+            <div className="mb-[42px] flex flex-wrap items-end justify-between gap-x-8 gap-y-5">
+              <h2 className="mt-0 mb-0 max-w-[740px] text-[clamp(40px,4.8vw,72px)] leading-[1.02] font-bold tracking-[-.03em]">
+                Dette skjer.
+              </h2>
+              <Link
+                href="/arrangementer"
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-2.5 text-[13px] font-semibold text-[var(--bg)] no-underline [transition:background_.2s,border-color_.2s] hover:border-white/40 hover:bg-white/[.06]"
+              >
+                Se alle arrangementer →
+              </Link>
+            </div>
+            <div className="grid grid-cols-[1.3fr_1fr] items-stretch gap-6 max-[900px]:grid-cols-1">
+              {/* Flaggskip: Innovasjonsdagene */}
+              <article className="group flex flex-col overflow-hidden rounded-[28px] border border-white/12">
+                <div className="relative flex min-h-[280px] flex-col justify-end overflow-hidden bg-[#2B7FD4] bg-[url('/assets/innovasjonsdagene-hovedscenen.avif')] bg-cover bg-center px-10 py-9 text-white [transition:box-shadow_.4s_ease] after:pointer-events-none after:absolute after:inset-0 after:bg-[linear-gradient(180deg,rgba(20,20,24,.5)_0%,rgba(20,20,24,.12)_40%,rgba(20,20,24,.72)_100%)] group-hover:[box-shadow:0_24px_60px_rgba(43,127,212,.32)] max-[760px]:min-h-[220px] max-[760px]:px-6 max-[760px]:py-7">
+                  <div className="relative z-[1] text-[clamp(52px,6vw,92px)] leading-[.9] font-extrabold tracking-[-.04em] [transition:transform_.4s_cubic-bezier(.22,1,.36,1)] group-hover:[transform:translateY(-6px)]">
+                    19–20
+                    <small className="mt-3 block text-[13px] font-semibold tracking-[.18em] uppercase opacity-85">
+                      August · 2026
+                    </small>
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-col gap-5 bg-[#0F0F0F] px-14 py-12 text-[var(--bg)] max-[760px]:min-w-0 max-[760px]:px-6 max-[760px]:py-8">
-                <h3 className="m-0 text-5xl leading-[1.05] font-extrabold tracking-[-.025em] max-[760px]:text-[28px]">
-                  Innovasjons&shy;dagene{" "}
-                  <span className="text-[var(--yellow)]">&apos;26</span>
+                <div className="flex flex-1 flex-col gap-5 bg-[#0F0F0F] px-10 py-9 max-[760px]:px-6 max-[760px]:py-8">
+                  <h3 className="m-0 text-[clamp(28px,3.2vw,44px)] leading-[1.05] font-extrabold tracking-[-.025em]">
+                    Innovasjons&shy;dagene{" "}
+                    <span className="text-[var(--yellow)]">&apos;26</span>
+                  </h3>
+                  <p className="m-0 text-[15px] leading-[1.6] text-[#ccc]">
+                    Innovasjonsdagene er den viktigste møteplassen for nye og
+                    gamle studenter som ønsker å bli kjent med
+                    innovasjonsmiljøene ved NTNU. Over to dager viser
+                    organisasjonene i FRAM frem prosjektene sine og svarer på
+                    spørsmål om alt fra studentlivet til hvordan du selv kan
+                    engasjere deg.
+                  </p>
+                  <dl className="my-1 grid grid-cols-3 gap-5 max-[760px]:gap-3">
+                    <div className="border-t border-white/15 pt-3.5">
+                      <dt className="mb-1.5 font-mono text-[11px] tracking-[.12em] text-[#888] uppercase">
+                        Når
+                      </dt>
+                      <dd className="m-0 text-[14px] leading-[normal] font-medium">
+                        19.–20. august
+                      </dd>
+                    </div>
+                    <div className="border-t border-white/15 pt-3.5">
+                      <dt className="mb-1.5 font-mono text-[11px] tracking-[.12em] text-[#888] uppercase">
+                        Hvor
+                      </dt>
+                      <dd className="m-0 text-[14px] leading-[normal] font-medium">
+                        Gruva
+                      </dd>
+                    </div>
+                    <div className="border-t border-white/15 pt-3.5">
+                      <dt className="mb-1.5 font-mono text-[11px] tracking-[.12em] text-[#888] uppercase">
+                        Billett
+                      </dt>
+                      <dd className="m-0 text-[14px] leading-[normal] font-medium">
+                        Drop in – gratis
+                      </dd>
+                    </div>
+                  </dl>
+                  <div className="mt-auto flex flex-wrap gap-2.5 pt-1">
+                    <Link
+                      href="/innovasjonsdagene"
+                      className={`${button} border-[var(--yellow)] bg-[var(--yellow)] text-[var(--charcoal)] hover:[transform:translateY(-2px)]`}
+                    >
+                      Les mer →
+                    </Link>
+                  </div>
+                </div>
+              </article>
+
+              {/* Fram-arrangementer + Andre arrangementer */}
+              <div className="flex flex-col rounded-[28px] border border-white/12 bg-[#0F0F0F] px-8 py-8 max-[760px]:px-6 max-[760px]:py-7">
+                <h3 className="mt-0 mb-1 font-mono text-[12px] font-semibold tracking-[.16em] text-[#8A8A8A] uppercase">
+                  Fram-arrangementer
                 </h3>
-                <p className="m-0 text-[15px] leading-[1.6] text-[#ccc]">
-                  Innovasjonsdagene er den viktigste møteplassen for nye og
-                  gamle studenter som ønsker å bli kjent med innovasjonsmiljøene
-                  ved NTNU. Over to dager viser organisasjonene i FRAM frem
-                  prosjektene sine, forteller om hva de jobber med og svarer på
-                  spørsmål om alt fra studentlivet til hvordan du selv kan
-                  engasjere deg.
-                </p>
-                <dl className="my-2 grid grid-cols-3 gap-5 max-[760px]:gap-3">
-                  <div className="border-t border-white/15 pt-3.5">
-                    <dt className="mb-1.5 font-mono text-[11px] tracking-[.12em] text-[#888] uppercase">
-                      Når
-                    </dt>
-                    <dd className="m-0 text-[14px] leading-[normal] font-medium">
-                      19.–20. august
-                    </dd>
-                  </div>
-                  <div className="border-t border-white/15 pt-3.5">
-                    <dt className="mb-1.5 font-mono text-[11px] tracking-[.12em] text-[#888] uppercase">
-                      Hvor
-                    </dt>
-                    <dd className="m-0 text-[14px] leading-[normal] font-medium">
-                      Gruva
-                    </dd>
-                  </div>
-                  <div className="border-t border-white/15 pt-3.5">
-                    <dt className="mb-1.5 font-mono text-[11px] tracking-[.12em] text-[#888] uppercase">
-                      Billett
-                    </dt>
-                    <dd className="m-0 text-[14px] leading-[normal] font-medium">
-                      Drop in – gratis
-                    </dd>
-                  </div>
-                </dl>
-                <div className="mt-1 flex flex-wrap gap-2.5">
-                  <Link
-                    href="/innovasjonsdagene"
-                    className={`${button} border-[var(--yellow)] bg-[var(--yellow)] text-[var(--charcoal)] hover:[transform:translateY(-2px)]`}
-                  >
-                    Les mer →
-                  </Link>
+                <ul className="m-0 flex flex-1 list-none flex-col p-0">
+                  {upcomingEvents.map((event) => (
+                    <li
+                      key={`${event.month}-${event.day}-${event.title}`}
+                      className="flex flex-1 items-center gap-4 border-t border-white/10 py-[18px] first:border-t-0"
+                    >
+                      <div className="flex w-11 shrink-0 flex-col items-center">
+                        <span className="text-[26px] leading-none font-extrabold tracking-[-.03em]">
+                          {event.day}
+                        </span>
+                        <span className="mt-1 font-mono text-[10px] tracking-[.12em] text-[#888] uppercase">
+                          {event.month}
+                        </span>
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-[16px] leading-tight font-semibold">
+                          {event.title}
+                        </div>
+                        <div className="mt-1 font-mono text-[11px] tracking-[.06em] text-[#9a9a9a] uppercase">
+                          {event.meta} · {event.location}
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-6 flex min-h-[146px] flex-col border-t border-white/10 pt-4">
+                  <h3 className="m-0 font-mono text-[12px] font-semibold tracking-[.16em] text-[#8A8A8A] uppercase">
+                    Andre arrangementer
+                  </h3>
+                  <p className="mt-2.5 mb-0 max-w-[42ch] text-[13px] leading-[1.6] text-[#999]">
+                    Snart kan du se arrangementer fra resten av
+                    innovasjonsmiljøet på NTNU.
+                  </p>
                 </div>
               </div>
             </div>
