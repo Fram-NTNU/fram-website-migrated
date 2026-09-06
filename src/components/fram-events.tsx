@@ -40,7 +40,7 @@ export function FramEvents() {
     <div className="mb-8 flex flex-wrap items-end justify-between gap-x-8 gap-y-5">
       <div className="min-w-0">
         <h2 className="m-0 text-[clamp(24px,2.4vw,32px)] leading-[1.1] font-extrabold tracking-[-.02em]">Fram-arrangementer</h2>
-        <p className="mt-2 mb-0 max-w-[52ch] text-[15px] leading-[1.55] text-[var(--ink-soft)]">Arrangementer i regi av Fram, åpne for alle medlemmer.</p>
+        <p className="mt-2 mb-0 max-w-[52ch] text-[15px] leading-[1.55] text-[var(--ink-soft)]">Arrangementer i regi av Fram, åpne for alle studenter på NTNU.</p>
       </div>
       <div role="tablist" aria-label="Vis Fram-arrangementer" className="inline-flex shrink-0 rounded-full border border-[var(--line)] bg-[var(--card)] p-1">
         {([["kommende", "Kommende", upcomingEvents.length], ["tidligere", "Tidligere", pastEvents.length]] as const).map(([key, label, count]) =>
