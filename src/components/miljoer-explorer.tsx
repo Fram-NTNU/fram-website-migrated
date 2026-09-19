@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
@@ -8,11 +9,13 @@ export type Organization = {
   media?: "dark" | "dark-navy" | "deeper";
   logo: string;
   logoAlt: string;
-  logoSize?: "tall" | "big" | "big-tall";
+  logoSize?: "tall" | "big" | "big-tall" | "xl";
   photo: string;
   photoAlt: string;
   photoPosition?: string;
   photoContain?: boolean;
+  /** Roterer bildet med en avtagende spinn når kortet scrolles inn i view. */
+  spin?: boolean;
   category: string;
   name: string;
   description: string;
@@ -217,7 +220,7 @@ function localMatch(text: string, organizations: Organization[]) {
     }));
 }
 
-function OrgCard({
+export function OrgCard({
   organization,
   logoMode,
 }: {
@@ -229,7 +232,30 @@ function OrgCard({
       ? "#16181D"
       : organization.media === "dark-navy"
         ? "#022641"
-        : panelColors[organization.accent];
+        : organization.media === "deeper"
+          ? "#20232A"
+          : panelColors[organization.accent];
+  const photoRef = useRef<HTMLImageElement | null>(null);
+  const [spun, setSpun] = useState(false);
+  useEffect(() => {
+    if (!organization.spin) return;
+    const el = photoRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setSpun(true);
+            observer.disconnect();
+          }
+        }
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [organization.spin]);
   const logoSize =
     organization.logoSize === "tall"
       ? "max-h-[106px] max-w-[54%]"
@@ -237,21 +263,22 @@ function OrgCard({
         ? "max-h-[90px] max-w-[76%]"
         : organization.logoSize === "big-tall"
           ? "max-h-[120px] max-w-[60%]"
-          : "max-h-[74px] max-w-[74%]";
+          : organization.logoSize === "xl"
+            ? "max-h-[134px] max-w-[72%]"
+            : "max-h-[74px] max-w-[74%]";
   return (
     <a
       href={organization.href}
       target="_blank"
       rel="noopener"
       data-accent={organization.accent}
-      className="group flex flex-col overflow-hidden rounded-[18px] border border-[var(--line)] bg-[var(--card)] text-[var(--ink)] no-underline [transition:transform_.25s_ease,border-color_.25s_ease,box-shadow_.25s_ease] hover:border-[var(--ink)] hover:shadow-[0_24px_46px_-26px_rgba(0,0,0,.28)] hover:[transform:translateY(-5px)]"
+      className="group flex flex-col overflow-hidden rounded-[3px] border border-[var(--line)] bg-[var(--card)] text-[var(--ink)] no-underline [transition:transform_.25s_ease,border-color_.25s_ease,box-shadow_.25s_ease] hover:border-[var(--ink)] hover:shadow-[0_24px_46px_-26px_rgba(0,0,0,.28)] hover:[transform:translateY(-5px)]"
     >
       <div
-        className="relative grid h-[140px] place-items-center overflow-hidden border-b border-[var(--line)]"
+        className="relative grid h-[160px] place-items-center overflow-hidden border-b border-[var(--line)]"
         style={{ background: dark }}
       >
         {/* Plain img is retained deliberately during visual-parity migration. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={organization.logo}
           alt={organization.logoAlt}
@@ -261,22 +288,25 @@ function OrgCard({
           className={`pointer-events-none absolute inset-0 z-[1] [transition:opacity_.35s_ease] ${logoMode ? "opacity-[.97] group-hover:opacity-0" : "opacity-0 group-hover:opacity-[.97]"}`}
           style={{ background: dark }}
         />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={organization.photo}
-          alt={organization.photoAlt}
-          className={`absolute inset-0 z-0 h-full w-full ${organization.photoContain ? "object-contain" : "object-cover"} [transition:transform_.7s_ease,opacity_.4s_ease] ${logoMode ? "opacity-0 [transform:scale(1.001)] group-hover:opacity-100 group-hover:[transform:scale(1.05)]" : "opacity-100 [transform:scale(1.001)] group-hover:[transform:scale(1.05)]"}`}
-          style={{ objectPosition: organization.photoPosition }}
-        />
+        {organization.spin ? (
+          // Transparent turbofan plassert med navet i bunn-senter, slik at kun
+          // øvre halvdel vises. Spinner rundt navet når kortet scrolles inn.
+          <img
+            ref={photoRef}
+            src={organization.photo}
+            alt={organization.photoAlt}
+            className={`pointer-events-none absolute top-0 left-1/2 z-0 w-[min(300px,112%)] [transform-origin:50%_50%] [transition:opacity_.4s_ease] ${logoMode ? "opacity-0 group-hover:opacity-100" : "opacity-100"} ${spun ? "[animation:jet-spin_1.6s_cubic-bezier(.16,.84,.28,1)_both]" : "[transform:translate(-50%,0)]"}`}
+          />
+        ) : (
+          <img
+            src={organization.photo}
+            alt={organization.photoAlt}
+            className={`absolute inset-0 z-0 h-full w-full [transition:transform_.7s_ease,opacity_.4s_ease] ${organization.photoContain ? "object-contain" : "object-cover"} ${logoMode ? "opacity-0 [transform:scale(1.001)] group-hover:opacity-100 group-hover:[transform:scale(1.05)]" : "opacity-100 [transform:scale(1.001)] group-hover:[transform:scale(1.05)]"}`}
+            style={{ objectPosition: organization.photoPosition }}
+          />
+        )}
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-[7px] px-5 pt-[18px] pb-[22px]">
-        <div className="flex items-center gap-[7px] font-mono text-[10px] tracking-[.12em] text-[var(--muted)] uppercase">
-          <span
-            className="h-1.5 w-1.5 flex-none rounded-full"
-            style={{ background: accentColors[organization.accent] }}
-          />
-          {organization.category}
-        </div>
         <h3 className="mt-px mb-0 text-[19px] leading-[1.12] font-bold tracking-[-.015em] [overflow-wrap:break-word]">
           {organization.name}
         </h3>
@@ -353,11 +383,17 @@ function CompassEmblem() {
         </g>
         <circle cx="50" cy="50" r="16.5" fill="url(#fkBadgeReact)" />
         <g className="motion-safe:animate-[fk-rock_6s_ease-in-out_infinite] [transform-box:view-box] [transform-origin:50px_50px]">
-          <path
+          <g
             fill="url(#fkOriReact)"
-            d="M50 39 58 47 58 31 66 39 50 39 42 31 42 47 34 39Z"
-          />
-          <path fill="#16415f" d="m58 39-8 1.4V39Z" />
+            transform="translate(48 50.5) scale(0.028) translate(-500 -500)"
+          >
+            <polygon points="712.1,924.1 500.3,712.2 500.3,288.6 712.1,500.5" />
+            <polygon points="76.5,288.6 288.4,500.5 712.1,500.5 500.2,288.6" />
+            <polygon points="924,712.3 712.1,500.4 712.1,76.8 924,288.7" />
+            <polygon points="288.4,76.8 500.3,288.7 924,288.7 712.1,76.8" />
+            <polygon points="712.1,500.5 500.3,537.1 500.3,500.6" />
+            <polygon points="924,288.6 712.1,325.2 712.1,288.7" />
+          </g>
         </g>
         <circle
           cx="50"
@@ -455,7 +491,7 @@ function FramCompass({
       onMouseDown={(event) => event.target === event.currentTarget && onClose()}
       onKeyDown={trapFocus}
     >
-      <div className="relative w-full max-w-[720px] animate-[fm-pop_.24s_ease] rounded-[28px] bg-[var(--card)] px-10 pt-[34px] pb-[30px] shadow-[0_20px_60px_rgba(0,0,0,.25)] max-[640px]:px-[22px] max-[640px]:pt-7 max-[640px]:pb-6">
+      <div className="relative w-full max-w-[720px] animate-[fm-pop_.24s_ease] rounded-[3px] bg-[var(--card)] px-10 pt-[34px] pb-[30px] shadow-[0_20px_60px_rgba(0,0,0,.25)] max-[640px]:px-[22px] max-[640px]:pt-7 max-[640px]:pb-6">
         <button
           type="button"
           onClick={onClose}
@@ -464,7 +500,7 @@ function FramCompass({
         >
           ×
         </button>
-        <div className="relative mb-5 flex items-center gap-5 overflow-hidden rounded-[18px] border border-[var(--line)] bg-[radial-gradient(110%_130%_at_8%_0%,color-mix(in_srgb,var(--blue)_9%,#fff)_0%,transparent_60%),linear-gradient(135deg,#fbfdfe_0%,#f2f7fb_100%)] px-[26px] py-[22px] shadow-[inset_0_1px_0_rgba(255,255,255,.9),0_16px_32px_-24px_rgba(16,36,58,.5)] max-[560px]:flex-col max-[560px]:gap-3 max-[560px]:p-[18px] max-[560px]:text-center">
+        <div className="relative mb-5 flex items-center gap-5 overflow-hidden rounded-[3px] border border-[var(--line)] bg-[radial-gradient(110%_130%_at_8%_0%,color-mix(in_srgb,var(--blue)_9%,#fff)_0%,transparent_60%),linear-gradient(135deg,#fbfdfe_0%,#f2f7fb_100%)] px-[26px] py-[22px] shadow-[inset_0_1px_0_rgba(255,255,255,.9),0_16px_32px_-24px_rgba(16,36,58,.5)] max-[560px]:flex-col max-[560px]:gap-3 max-[560px]:p-[18px] max-[560px]:text-center">
           <CompassEmblem />
           <div className="relative z-[1] flex min-w-0 flex-col">
             <span className="mb-1.5 text-[11px] tracking-[.16em] text-[var(--ink-soft)]">
@@ -472,7 +508,7 @@ function FramCompass({
             </span>
             <h2
               id="fm-title"
-              className="m-0 bg-[linear-gradient(95deg,#2E86C1_0%,#3FC4A3_100%)] bg-clip-text text-[34px] leading-none font-extrabold tracking-[-.01em] text-transparent max-[560px]:text-[28px]"
+              className="m-0 text-[34px] leading-none font-extrabold tracking-[-.01em] text-[var(--blue)] max-[560px]:text-[28px]"
             >
               Framkompasset
             </h2>
@@ -497,12 +533,12 @@ function FramCompass({
             rows={3}
             maxLength={300}
             placeholder="F.eks. «Jeg liker å bygge ting med hendene og er fascinert av romfart og elektronikk»"
-            className="flex-1 resize-none rounded-[18px] border-[1.5px] border-[var(--line)] bg-[var(--bg)] px-4 py-3.5 font-sans text-base leading-[1.45] text-[var(--ink)] outline-none [transition:border-color_.2s,box-shadow_.2s] placeholder:text-[var(--muted)] focus:border-[var(--blue)] focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--blue)_18%,transparent)]"
+            className="flex-1 resize-none rounded-[3px] border-[1.5px] border-[var(--line)] bg-[var(--bg)] px-4 py-3.5 font-sans text-base leading-[1.45] text-[var(--ink)] outline-none [transition:border-color_.2s,box-shadow_.2s] placeholder:text-[var(--muted)] focus:border-[var(--blue)] focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--blue)_18%,transparent)]"
           />
           <button
             disabled={loading}
             type="submit"
-            className="inline-flex min-h-[54px] flex-none cursor-pointer items-center justify-center gap-2.5 rounded-[18px] border-0 bg-[var(--ink)] px-[26px] text-[15px] font-semibold text-white [transition:transform_.12s,background_.2s,opacity_.2s] hover:bg-black hover:[transform:translateY(-1px)] disabled:cursor-default disabled:opacity-60 disabled:transform-none"
+            className="inline-flex min-h-[54px] flex-none cursor-pointer items-center justify-center gap-2.5 rounded-[3px] border-0 bg-[var(--ink)] px-[26px] text-[15px] font-semibold text-white [transition:transform_.12s,background_.2s,opacity_.2s] hover:bg-black hover:[transform:translateY(-1px)] disabled:cursor-default disabled:opacity-60 disabled:transform-none"
           >
             {loading && (
               <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/35 border-t-white" />
@@ -559,8 +595,8 @@ function FramCompass({
                       href={org.href}
                       target="_blank"
                       rel="noopener"
-                      className="block rounded-[18px] border border-l-4 border-[var(--line)] bg-[var(--bg)] px-5 py-[18px] text-inherit no-underline [transition:transform_.15s,box-shadow_.2s] hover:shadow-[0_10px_30px_rgba(0,0,0,.07)] hover:[transform:translateY(-2px)]"
-                      style={{ borderLeftColor: accentColors[org.accent] }}
+                      className="block rounded-[3px] border-2 bg-[var(--bg)] px-5 py-[18px] text-inherit no-underline [transition:transform_.15s,box-shadow_.2s] hover:shadow-[0_10px_30px_rgba(0,0,0,.07)] hover:[transform:translateY(-2px)]"
+                      style={{ borderColor: accentColors[org.accent] }}
                     >
                       <div className="mb-[5px] font-mono text-[11px] tracking-[.04em] text-[var(--muted)]">
                         {org.category}
@@ -649,11 +685,9 @@ export function MiljoerExplorer({
               setModalOpen(true);
               trackGoatCounter("framkompasset-open", "Framkompasset – åpnet");
             }}
-            className="ml-auto inline-flex cursor-pointer items-center gap-[7px] rounded-full border-0 bg-[var(--blue)] px-[18px] py-2.5 font-sans text-sm leading-[normal] font-semibold text-white shadow-[0_4px_14px_color-mix(in_srgb,var(--blue)_32%,transparent)] [transition:background_.2s_ease,box-shadow_.2s_ease,transform_.12s_ease] hover:bg-[color-mix(in_srgb,var(--blue)_90%,#000)] hover:shadow-[0_7px_20px_color-mix(in_srgb,var(--blue)_42%,transparent)] hover:[transform:translateY(-1px)] active:[transform:translateY(0)] max-[520px]:ml-0 max-[520px]:w-full max-[520px]:justify-center"
+            className="ml-auto inline-flex cursor-pointer items-center gap-[9px] rounded-[3px] border-2 border-transparent bg-[var(--blue)] px-[18px] py-2.5 font-sans text-sm leading-[normal] font-semibold text-white [transition:transform_.2s_ease,box-shadow_.2s_ease] hover:[transform:translateY(-3px)] hover:shadow-[0_6px_0_var(--teal)] active:[transform:translateY(0)] max-[520px]:ml-0 max-[520px]:w-full max-[520px]:justify-center"
           >
-            <span className="inline-block text-sm leading-none motion-safe:animate-[fm-twinkle_3.4s_ease-in-out_infinite]">
-              ✨
-            </span>
+            <span aria-hidden="true" className="h-2 w-2 rotate-45 bg-[var(--teal)]" />
             Finn din match
           </button>
         </div>

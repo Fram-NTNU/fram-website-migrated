@@ -73,9 +73,19 @@ const MILJOER = [
     desc: "Driver teknisk bistand og prosjekter i utviklingsland – rent vann, skoler, energi og infrastruktur. For deg som vil bruke teknologi til noe samfunnsnyttig, jobbe frivillig, hjelpe andre og bidra globalt med bærekraft.",
   },
   {
+    navn: "Jet NTNU",
+    kat: "Luft · Jetmotor",
+    desc: "Norges første studentdrevne jetmotororganisasjon. NTNU-studenter som designer, produserer og tester sin egen turbojetmotor. Jobber med jetmotorer, forbrenning, termodynamikk, turbiner, mekanikk, konstruksjon og testing. For deg som er fascinert av jetmotorer, luftfart, framdrift, forbrenningsmotorer og å bygge fysiske maskiner.",
+  },
+  {
     navn: "Make NTNU",
     kat: "Makerspace",
     desc: "Driver et makerverksted i Realfagbygget åpent 24/7 og gratis for alle, med 3D-printere, symaskiner, loddeutstyr og verktøy. Holder kurs og events. For deg som vil bygge egne prosjekter, lage ting med hendene, drive med DIY, håndverk og prototyper.",
+  },
+  {
+    navn: "Marinor NTNU",
+    kat: "Hav · Autonomi",
+    desc: "Bygger og tester autonome maritime fartøy og systemer, og bruker forskning til å løse reelle utfordringer til havs. Jobber med marin teknologi, robotikk, automasjon, kybernetikk, sensorer og programmering, i samarbeid med NTNU-miljøer og industri. For deg som er interessert i hav, maritim teknologi, autonome båter og praktisk ingeniørarbeid.",
   },
   {
     navn: "Njord",

@@ -66,7 +66,7 @@ export default function StillingerPage() {
       <section className="py-[84px] max-[560px]:py-14">
         <div className="mx-auto max-w-[1360px] px-12 max-[900px]:px-5 max-[520px]:px-4">
           <h2 className="m-0 mb-7 text-[clamp(28px,3vw,42px)] leading-[1.05] font-extrabold tracking-[-.02em]">Ledige stillinger</h2>
-          <div className="max-w-[680px] rounded-2xl border border-[var(--line)] bg-[var(--card)] px-[38px] py-9 max-[560px]:px-6 max-[560px]:py-[26px]">
+          <div className="max-w-[680px] rounded-[3px] border border-[var(--line)] bg-[var(--card)] px-[38px] py-9 max-[560px]:px-6 max-[560px]:py-[26px]">
             <h3 className="m-0 mb-2.5 text-xl leading-[normal] font-bold tracking-[-.01em]">Ingen ledige stillinger akkurat nå</h3>
             <p className="m-0 text-base leading-[1.65] text-[var(--ink-soft)]">Vi har ingen utlysninger ute for øyeblikket, men det dukker stadig opp nye muligheter. Følg oss på Instagram eller ta kontakt – vi hører gjerne fra deg.</p>
           </div>

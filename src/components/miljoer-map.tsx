@@ -74,7 +74,7 @@ export function MiljoerMap() {
       className="border-b border-[var(--line)] pt-12 pb-[110px] max-[760px]:border-b-0 max-[760px]:p-0"
     >
       <div className="mx-auto max-w-[1640px] px-8 max-[760px]:p-0">
-        <div className="overflow-hidden rounded-[20px] border border-[var(--line)] bg-[var(--bg-soft)] shadow-[0_14px_40px_-28px_rgba(0,0,0,.4)] max-[760px]:rounded-none max-[760px]:border-x-0">
+        <div className="overflow-hidden rounded-[3px] border border-[var(--line)] bg-[var(--bg-soft)] shadow-[0_14px_40px_-28px_rgba(0,0,0,.4)] max-[760px]:rounded-none max-[760px]:border-x-0">
           <div className="flex items-center gap-[22px] border-b border-[var(--line)] bg-[var(--card)] px-[26px] py-5 max-[640px]:flex-wrap max-[640px]:gap-3.5 max-[640px]:px-[18px] max-[640px]:py-4">
             {/* Plain img is retained deliberately during visual-parity migration. */}{" "}
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -134,7 +134,7 @@ export function MiljoerMap() {
               onClick={() => setActive(true)}
               className={`group absolute inset-0 z-[4] flex h-full w-full cursor-pointer items-center justify-center border-0 bg-transparent p-0 font-sans [transition:opacity_.3s_ease] ${active ? "pointer-events-none opacity-0" : "opacity-100"}`}
             >
-              <span className="inline-flex items-center gap-2.5 rounded-full bg-[var(--ink)] px-6 py-3.5 text-[15px] font-semibold tracking-[.01em] text-white shadow-[0_10px_30px_-10px_rgba(0,0,0,.5)] [transition:transform_.2s_ease] before:h-2 before:w-2 before:flex-none before:rounded-full before:bg-[var(--teal)] group-hover:[transform:translateY(-2px)]">
+              <span className="inline-flex items-center gap-2.5 rounded-[3px] border-2 border-transparent bg-[var(--ink)] px-6 py-3.5 text-[15px] font-semibold tracking-[.01em] text-white [transition:transform_.2s_ease,box-shadow_.2s_ease] before:h-2 before:w-2 before:flex-none before:rotate-45 before:bg-[var(--teal)] group-hover:[transform:translateY(-3px)] group-hover:shadow-[0_6px_0_var(--teal)]">
                 Trykk for å utforske økosystemet
               </span>
             </button>

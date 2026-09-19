@@ -9,6 +9,7 @@ const expectedRoutes = [
   "/miljoer",
   "/om",
   "/stillinger",
+  "/teknologihallen",
 ];
 
 test("all public routes render without browser errors", async ({ page }) => {
@@ -49,7 +50,7 @@ test("Slack dialog opens and closes", async ({ page }) => {
 
 test("shared event data still renders event cards", async ({ page }) => {
   await page.goto("/arrangementer");
-  await expect(page.locator(".ev-card")).toHaveCount(6);
+  await expect(page.locator(".ev-card")).toHaveCount(4);
 });
 
 test("all local links and referenced media resolve", async ({ page, request, baseURL }) => {
@@ -116,7 +117,9 @@ test("external embeds and analytics integrations are preserved", async ({ page }
           ?.endpoint,
     ),
   ).toBe("https://framntnu.goatcounter.com/count");
-  await expect(page.locator('a[href*="link.mazemap.com"]')).toHaveCount(6);
+  await page.goto("/booking");
+  await page.locator("#scenerommet article").click();
+  await expect(page.locator('#scenerommet iframe[src*="link.mazemap.com"]')).toBeAttached();
 
   await page.goto("/idegarasjen");
   await expect(page.locator('iframe[src*="use.mazemap.com"]')).toBeAttached();

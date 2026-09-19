@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
+import { OrigamiEasterEgg } from "@/components/origami-easter-egg";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,9 +22,15 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="no" suppressHydrationWarning>
+    <html lang="nb" suppressHydrationWarning>
       <body suppressHydrationWarning>
+        <link rel="preload" href="/assets/fonts/poppins-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/assets/fonts/jetbrainsmono-600.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         {children}
+        <OrigamiEasterEgg />
+        <Analytics />
         <Script id="goatcounter-loader" strategy="afterInteractive">
           {`window.goatcounter=window.goatcounter||{};window.goatcounter.endpoint="https://framntnu.goatcounter.com/count";(function(){var s=document.createElement("script");s.async=true;s.src="//gc.zgo.at/count.js";document.head.appendChild(s);}());`}
         </Script>

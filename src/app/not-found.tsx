@@ -1,7 +1,12 @@
 import { BackButton } from "@/components/back-button";
 import { OrigamiPlane } from "@/components/origami-plane";
 import { SiteHeader } from "@/components/site-header";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "404 — FRAM NTNU",
+};
 
 export default function NotFoundPage() {
   return (

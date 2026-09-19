@@ -23,6 +23,7 @@ const nextConfig: NextConfig = {
       { source: "/about", destination: "/booking", permanent: true },
       { source: "/blank-page", destination: "/booking", permanent: true },
       { source: "/medlemmer-1", destination: "/miljoer", permanent: true },
+      { source: "/index.html", destination: "/", permanent: true },
       ...["arrangementer", "booking", "idegarasjen", "innovasjonsdagene", "miljoer", "om", "stillinger"].map((route) => ({
         source: `/${route}.html`,
         destination: `/${route}`,

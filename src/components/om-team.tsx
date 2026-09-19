@@ -7,7 +7,7 @@ type Member = { name: string; role: string; image: string; accent: string };
 const teams: Record<string, Member[]> = {
   "2026": [
     { name: "Malin", role: "Leder", image: "/assets/team/malin.avif", accent: "#FDC82F" },
-    { name: "Jonas", role: "Nestleder", image: "/assets/team/jonas.avif", accent: "#2E86C1" },
+    { name: "Jonas", role: "Nestleder & Web", image: "/assets/team/jonas.avif", accent: "#2E86C1" },
     { name: "Britt", role: "Arrangement", image: "/assets/team/britt.avif", accent: "#E85A5A" },
     { name: "Mie", role: "Arrangement", image: "/assets/team/mie.avif", accent: "#3FC4A3" },
     { name: "Sutha", role: "Arrangement", image: "/assets/team/sutha.avif", accent: "#FDC82F" },
@@ -31,7 +31,7 @@ export function OmTeam() {
   const [year, setYear] = useState("2026");
 
   return <>
-    <div className="mb-14 grid grid-cols-[1fr_1.2fr] items-end gap-16 max-[760px]:grid-cols-1 max-[760px]:gap-6">
+    <div className="mb-14 grid grid-cols-[1fr_1.2fr] items-end gap-16 border-b border-[var(--line)] pb-7 max-[760px]:grid-cols-1 max-[760px]:gap-6">
       <div><h2 className="m-0 text-[clamp(36px,3.6vw,60px)] leading-[1.02] font-extrabold tracking-[-.02em]">Dette er Gjengen<span className="text-[var(--teal)]">&lt;3</span></h2></div>
       <div className="flex items-center justify-self-end gap-3 font-mono max-[640px]:mt-2 max-[640px]:justify-self-start">
         <label htmlFor="team-year" className="text-[11px] tracking-[.1em] text-[var(--muted)] uppercase">Styreår</label>
