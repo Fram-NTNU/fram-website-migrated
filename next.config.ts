@@ -9,6 +9,7 @@ const immutableAssetHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  distDir: process.env.FRAM_TEST_DIST_DIR || ".next",
   trailingSlash: false,
   devIndicators: false,
   outputFileTracingRoot: projectRoot,

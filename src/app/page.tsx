@@ -9,7 +9,8 @@ import {
 } from "@/components/home-interactions";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { upcomingEvents } from "@/lib/events";
+import { eventDate, isUpcoming } from "@/lib/events";
+import { publishedEvents } from "@/lib/published-events";
 import { organizations } from "@/lib/organizations";
 
 const description =
@@ -159,7 +160,9 @@ function Desc({ children }: { children: ReactNode }) {
   );
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { events, unavailable, now } = await publishedEvents();
+  const upcomingEvents = events.filter(event => isUpcoming(event, now)).sort((a, b) => Date.parse(a.starts_at) - Date.parse(b.starts_at)).slice(0, 4);
   return (
     <div className="min-h-screen overflow-x-hidden bg-[var(--bg)] font-sans text-[var(--ink)] [--accent:var(--blue)] [--bg-soft:#F2EDE3] [--bg:#FAF7F2] [--blue:#2E86C1] [--card:#fff] [--charcoal:#3A3A3A] [--ink-soft:#555] [--ink:#2A2A2A] [--line:#E6E0D5] [--muted:#8A8A8A] [--nav-accent:var(--blue)] [--red:#E85A5A] [--teal:#3FC4A3] [--yellow:#FDC82F]">
       <script
@@ -356,45 +359,43 @@ export default function HomePage() {
                 </div>
               </article>
 
-              {/* Fram-arrangementer + Andre arrangementer (venstre på desktop, øverst på mobil) */}
+              {/* Samlet arrangementsoversikt */}
               <div className="order-1 flex flex-col border-y-2 border-white/35 bg-[#0F0F0F] px-8 py-8 max-[760px]:px-6 max-[760px]:py-7">
                 <h3 className="mt-0 mb-1 font-mono text-[12px] font-semibold tracking-[.16em] text-[#8A8A8A] uppercase">
-                  Fram-arrangementer
+                  Kommende arrangementer
                 </h3>
                 <ul className="m-0 flex flex-1 list-none flex-col p-0">
-                  {upcomingEvents.map((event) => (
+                  {upcomingEvents.map((event) => {
+                    const date = eventDate(event);
+                    return (
                     <li
-                      key={`${event.month}-${event.day}-${event.title}`}
-                      className="flex flex-1 items-center gap-4 border-t border-white/10 py-[18px] first:border-t-0"
+                      key={event.id}
+                      className="flex flex-1 border-t border-white/10 first:border-t-0"
                     >
+                      <Link href={`/arrangementer?arrangement=${encodeURIComponent(event.id)}`} className="flex w-full items-center gap-4 py-[18px] text-inherit no-underline hover:opacity-80">
                       <div className="flex w-11 shrink-0 flex-col items-center">
                         <span className="text-[26px] leading-none font-extrabold tracking-[-.03em]">
-                          {event.day}
+                          {date.day}
                         </span>
                         <span className="mt-1 font-mono text-[10px] tracking-[.12em] text-[#888] uppercase">
-                          {event.month}
+                          {date.month}
                         </span>
                       </div>
                       <div className="min-w-0">
                         <div className="text-[16px] leading-tight font-semibold">
-                          {event.title}
+                          {event.title}{event.cancelled ? " (avlyst)" : ""}
                         </div>
                         <div className="mt-1 font-mono text-[11px] tracking-[.06em] text-[#9a9a9a] uppercase">
-                          {event.meta} · {event.location}
+                          {date.detail} · {event.location}
                         </div>
                       </div>
+                      {event.is_fram ? <img src="/assets/fram-logo.webp" alt="Arrangert av FRAM" className="ml-auto h-auto w-16 shrink-0 bg-white p-2" /> : event.logo_url && <img src={event.logo_url} alt={event.logo_alt} className="ml-auto max-h-8 w-18 shrink-0 object-contain" style={event.logo_on_dark ? undefined : { filter: "brightness(0) invert(1)" }} />}
+                      </Link>
                     </li>
-                  ))}
+                  );})}
+                  {!upcomingEvents.length && <li className="py-8 text-sm leading-relaxed text-white/75">{unavailable ? "Vi får ikke hentet arrangementene akkurat nå." : "Ingen kommende arrangementer akkurat nå."}</li>}
                 </ul>
-                <div className="mt-6 flex min-h-[146px] flex-col border-t border-white/10 pt-4">
-                  <h3 className="m-0 font-mono text-[12px] font-semibold tracking-[.16em] text-[#8A8A8A] uppercase">
-                    Andre arrangementer
-                  </h3>
-                  <p className="mt-2.5 mb-0 max-w-[42ch] text-[13px] leading-[1.6] text-[#999]">
-                    Snart kan du se arrangementer fra resten av
-                    innovasjonsmiljøet på NTNU.
-                  </p>
-                </div>
+                <Link href="/arrangementer" className="mt-6 border-t border-white/10 pt-5 text-sm font-semibold text-white underline-offset-4">Se alle arrangementer</Link>
               </div>
             </div>
           </div>

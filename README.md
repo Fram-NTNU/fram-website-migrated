@@ -11,6 +11,8 @@ npm run dev
 
 Kopier `.env.example` til `.env.local` og legg inn `ANTHROPIC_API_KEY` for å teste Framkompasset mot Anthropic. Lokal fallback kan testes uten nøkkel.
 
+Arrangementer og forsidens arrangementsoversikt henter godkjent innhold fra portalens `/api/v1/events`. Integrasjonen bruker de samme servervariablene som booking: `FRAM_PORTAL_API_URL`, `FRAM_BOOKING_INTEGRATION_SECRET` lokalt og Vercel OIDC i produksjon. En konfigurert portal er den eneste kilden til arrangementer. Eksisterende program må overføres til portalen ved overgang; uten konfigurert integrasjon beholdes dagens program som reserve.
+
 ## Kvalitetssjekker
 
 ```bash

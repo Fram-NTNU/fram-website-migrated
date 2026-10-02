@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FramEvents } from "@/components/fram-events";
+import { publishedEvents } from "@/lib/published-events";
+import "../events.css";
 import { KobleCarousel } from "@/components/koble-carousel";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -19,7 +21,9 @@ export const metadata: Metadata = {
 const breadcrumbData = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Hjem", item: "https://www.framntnu.no/" }, { "@type": "ListItem", position: 2, name: "Arrangementer", item: "https://www.framntnu.no/arrangementer" }] };
 const organizationAndEventData = [{ "@context": "https://schema.org", "@type": "Organization", name: "FRAM NTNU", url: "https://www.framntnu.no", logo: "https://www.framntnu.no/assets/og-fram.png", description: "FRAM NTNU er NTNUs senter for studentinnovasjon — et fellesskap for studenter som vil skape noe.", sameAs: ["https://www.instagram.com/framntnu/", "https://www.facebook.com/framntnu", "https://www.linkedin.com/company/framntnu/"] }, { "@context": "https://schema.org", "@type": "Event", name: "Innovasjonsdagene '26", startDate: "2026-08-19", endDate: "2026-08-20", eventStatus: "https://schema.org/EventScheduled", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode", location: { "@type": "Place", name: "Gruva — FRAM NTNU", address: { "@type": "PostalAddress", addressLocality: "Trondheim", addressCountry: "NO" } }, organizer: { "@type": "Organization", name: "FRAM NTNU", url: "https://www.framntnu.no" }, description: "Innovasjonsdagene er en møteplass for å bli kjent med FRAMs medlemsorganisasjoner. Over to dager kan du utforske hva som faktisk bygges av studenter på NTNU.", isAccessibleForFree: true, url: "https://www.framntnu.no/innovasjonsdagene" }];
 
-export default function ArrangementerPage() {
+export default async function ArrangementerPage({ searchParams }: { searchParams: Promise<{ arrangement?: string }> }) {
+  const { events, unavailable, now } = await publishedEvents();
+  const { arrangement } = await searchParams;
   return <div className="min-h-screen bg-[var(--bg)] font-sans text-[var(--ink)] [--bg-soft:#F2EDE3] [--bg:#FAF7F2] [--blue:#2E86C1] [--card:#fff] [--charcoal:#1E1E1E] [--ink-soft:#555] [--ink:#1E1E1E] [--line:#E6E0D5] [--muted:#8A8A8A] [--nav-accent:#E85A5A] [--red:#E85A5A] [--teal:#3FC4A3] [--yellow:#FDC82F]">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }} />
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationAndEventData) }} />
@@ -27,7 +31,7 @@ export default function ArrangementerPage() {
 
     <section id="kommende" className="border-b border-[var(--line)] py-24"><div className="mx-auto max-w-[1360px] px-12 max-[900px]:px-5 max-[520px]:px-4">
       <div className="mb-12 grid grid-cols-[1fr_auto] items-end gap-8 border-b border-[var(--line)] pb-7"><h1 className="m-0 max-w-[16ch] text-[clamp(36px,4vw,56px)] leading-[1.03] font-extrabold tracking-[-.025em]">Arrangementer.</h1></div>
-      <FramEvents />
+      <FramEvents events={events} unavailable={unavailable} now={now} initialSelectedId={arrangement} />
     </div></section>
 
     <section id="flaggskip" className="border-0 bg-[var(--charcoal)] py-24 text-[var(--bg)]"><div className="mx-auto max-w-[1360px] px-12 max-[900px]:px-5 max-[520px]:px-4">

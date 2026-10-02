@@ -1,5 +1,7 @@
 node_modules/
 .next/
+.next-events-e2e/
+.impeccable/review/
 out/
 playwright-report/
 test-results/
