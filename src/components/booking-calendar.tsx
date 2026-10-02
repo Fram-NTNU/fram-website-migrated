@@ -62,8 +62,8 @@ export function BookingCalendar({ roomName, date, start, end, busy, hours, minDa
       <h3 className="booking-calendar-period">{new Intl.DateTimeFormat("nb-NO", { month: "long", year: "numeric" }).formatRange(days[0], days.at(-1)!)}</h3>
       <div className="booking-calendar-controls">
         {comparisonRooms && <div className="booking-fields booking-availability-date"><label><span className="sr-only">Dato</span><input type="date" value={date} min={calendarDate(new Date())} max={maxDate} onChange={event => { if (event.target.value) onDateChange(event.target.value); }} /></label></div>}
-        <div className="booking-calendar-navigation">
-          <button type="button" onClick={() => onDateChange(calendarDate(new Date()))}>I dag</button>
+        <button type="button" className="booking-calendar-today" onClick={() => onDateChange(calendarDate(new Date()))}>I dag</button>
+        <div className="booking-calendar-navigation" role="group" aria-label="Bytt periode">
           <button type="button" aria-label="Forrige periode" disabled={calendarDate(mode === "week" ? monday : selected) <= calendarDate(new Date())} onClick={() => changePeriod(previous)}><i className="ph ph-caret-left" aria-hidden="true" /></button>
           <button type="button" aria-label="Neste periode" disabled={calendarDate(mode === "week" ? shiftDay(monday, 6) : selected) >= maxDate} onClick={() => changePeriod(next)}><i className="ph ph-caret-right" aria-hidden="true" /></button>
         </div>

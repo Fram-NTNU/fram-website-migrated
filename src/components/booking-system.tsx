@@ -2,6 +2,7 @@
 import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { availabilityWeek, roomCalendarColor } from "@/lib/calendar-selection";
 import { createAvailabilityCache, type RoomAvailability } from "@/lib/availability-cache";
+import { bookingTimeOptions } from "@/lib/booking-time-options";
 import { useBookingClock } from "@/lib/booking-clock";
 import { BookingCalendar } from "./booking-calendar";
 
@@ -132,6 +133,8 @@ export function BookingSystem() {
   const selectedBusy = busy[roomId] ?? [];
   const availabilityLoading = !availabilityCache[week] && (availabilityState.week !== week || availabilityState.loading);
   const availabilityError = availabilityState.week === week ? availabilityState.error : "";
+  const timeOptions = bookingTimeOptions({ date, opening, busy: selectedRoom?.showAvailability ? selectedBusy : [], start, minimum: selectedRoom?.minDurationMinutes ?? 15, maximum: selectedRoom?.maxDurationMinutes ?? 1440, now });
+  const timePickerUnavailable = Boolean(!opening || (selectedRoom?.showAvailability && (availabilityLoading || availabilityError)));
   const startsAt = Date.parse(`${date}T${start}:00`);
   const endsAt = Date.parse(`${date}T${end}:00`);
   const conflicts = selectedRoom?.showAvailability && selectedBusy.some(item => Date.parse(item.start) < endsAt && Date.parse(item.end) > startsAt);
@@ -225,8 +228,8 @@ export function BookingSystem() {
             /> : <><h2>Ønsket tidspunkt</h2><p className="booking-special-note">For {selectedRoom?.name} kan du sende forespørsel opptil {selectedRoom?.bookingHorizonDays} dager frem i tid. Tilgjengelighet avtales med Fram. Legg inn ønsket dato og tidspunkt.</p></>}
             {view === "booking" && <><div className="booking-fields booking-time-fields">
               <label>Dato<input name="date" type="date" required value={date} min={minDate} max={maxDate} onChange={(event) => { if (!event.target.value) return; setDate(event.target.value); setStart(""); setEnd(""); }} /></label>
-              <label>Fra<input name="start" type="time" step="900" required min={opening?.open} max={opening?.close} value={start} onChange={(event) => setStart(event.target.value)} /></label>
-              <label>Til<input name="end" type="time" step="900" required min={start || opening?.open} max={opening?.close} value={end} onChange={(event) => setEnd(event.target.value)} /></label>
+              <label>Fra<select name="start" required value={timeOptions.starts.includes(start) ? start : ""} disabled={timePickerUnavailable || !timeOptions.starts.length} onChange={event => { setStart(event.target.value); setEnd(""); }}><option value="" disabled>--:--</option>{timeOptions.starts.map(time => <option key={time} value={time}>{time}</option>)}</select></label>
+              <label>Til<select name="end" required value={timeOptions.ends.includes(end) ? end : ""} disabled={timePickerUnavailable || !start || !timeOptions.ends.length} onChange={event => setEnd(event.target.value)}><option value="" disabled>--:--</option>{timeOptions.ends.map(time => <option key={time} value={time}>{time}</option>)}</select></label>
             </div>
             {timingError && <p className="booking-timing-error" role="alert">{timingError}</p>}</>}
           </div>

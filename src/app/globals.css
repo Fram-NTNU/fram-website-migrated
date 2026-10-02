@@ -388,7 +388,7 @@ body {
 .booking-recurrence .booking-calendar-help { margin-top: 16px; }
 
 .booking-calendar-surface { position: relative; }
-.booking-calendar-surface > .booking-calendar-status { position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; box-sizing: border-box; }
+.booking-calendar-surface > .booking-calendar-status { position: absolute; inset: 0; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; box-sizing: border-box; }
 
 .booking-calendar-controls { flex-wrap: wrap; }
 .booking-room-step > .booking-type { margin-bottom: 28px; }
@@ -436,3 +436,53 @@ body {
 .booking-calendar-controls { flex-shrink: 1; flex-wrap: wrap; justify-content: flex-end; }
 .booking-availability-view .booking-room-step { padding-bottom: 24px; }
 @media (max-width: 760px) { .booking-calendar-controls { justify-content: flex-start; } }
+
+/* Keep dropdown arrows inside the field with the same inset as the text. */
+select:not([multiple]):not([size]) {
+  appearance: none;
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23262625' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px 16px;
+}
+select[name="start"], select[name="end"] { font-variant-numeric: tabular-nums; }
+@media (forced-colors: active) { select:not([multiple]):not([size]) { appearance: auto; background-image: none; } }
+
+/* Separate date navigation from the calendar view selector. */
+.booking-calendar-controls {
+  gap: 18px;
+}
+.booking-calendar-navigation,
+.booking-calendar-modes {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: white;
+}
+.booking-calendar-controls .booking-calendar-navigation button,
+.booking-calendar-controls .booking-calendar-modes button {
+  border: 0;
+  border-radius: 0;
+  min-height: 42px;
+}
+.booking-calendar-controls .booking-calendar-navigation button + button,
+.booking-calendar-controls .booking-calendar-modes button + button {
+  border-left: 1px solid var(--line);
+}
+.booking-calendar-controls .booking-calendar-modes button {
+  min-width: 58px;
+}
+.booking-calendar-navigation:has(button:focus-visible),
+.booking-calendar-modes:has(button:focus-visible) {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+@media (max-width: 760px) {
+  .booking-calendar-controls {
+    gap: 12px;
+  }
+}
