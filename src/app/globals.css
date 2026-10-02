@@ -420,3 +420,19 @@ body {
 .booking-availability-view .booking-time-step { padding-top: 24px; border-bottom: 0; }
 .booking-calendar-toolbar .booking-availability-date { margin-top: 0; }
 .booking-calendar-toolbar .booking-availability-date label { gap: 0; }
+
+/* Keep calendar navigation and period headings consistent across booking views. */
+.booking-calendar-toolbar { align-items: center; gap: 16px; margin-top: 16px; }
+.booking-calendar-period { margin: 0; font-size: 20px; font-weight: 600; line-height: 1.3; text-transform: capitalize; }
+.booking-calendar-controls { align-items: center; gap: 12px; }
+.booking-calendar-controls button { display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+.booking-calendar-controls button[aria-label="Forrige periode"], .booking-calendar-controls button[aria-label="Neste periode"] { width: 40px; height: 40px; padding: 0; flex-shrink: 0; }
+.booking-calendar-controls button svg, .booking-calendar-controls button .ph { display: block; line-height: 1; flex-shrink: 0; }
+.booking-calendar-controls .booking-availability-date { margin: 0; width: auto; }
+.booking-availability-view .booking-time-step { padding-top: 0; }
+@media (max-width: 760px) { .booking-calendar-toolbar { align-items: flex-start; } .booking-calendar-controls { flex-wrap: wrap; width: 100%; justify-content: flex-start; } .booking-calendar-controls button[aria-label="Forrige periode"], .booking-calendar-controls button[aria-label="Neste periode"] { width: 44px; height: 44px; } }
+
+.booking-calendar-period { flex-shrink: 0; white-space: nowrap; }
+.booking-calendar-controls { flex-shrink: 1; flex-wrap: wrap; justify-content: flex-end; }
+.booking-availability-view .booking-room-step { padding-bottom: 24px; }
+@media (max-width: 760px) { .booking-calendar-controls { justify-content: flex-start; } }

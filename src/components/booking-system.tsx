@@ -1,6 +1,7 @@
 "use client";
 import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { availabilityWeek, roomCalendarColor } from "@/lib/calendar-selection";
+import { createAvailabilityCache, type RoomAvailability } from "@/lib/availability-cache";
 import { useBookingClock } from "@/lib/booking-clock";
 import { BookingCalendar } from "./booking-calendar";
 
@@ -27,7 +28,6 @@ type PublicRoom = {
   openingHours: Record<string, { open: string; close: string } | null>;
 };
 type Organization = { id: string; name: string };
-type Busy = Record<string, { start: string; end: string; title?: string }[]>;
 
 const dateValue = (date: Date) => {
   const year = date.getFullYear();
@@ -45,7 +45,15 @@ export function BookingSystem() {
   const now = useBookingClock();
   const [rooms, setRooms] = useState<PublicRoom[]>([]);
   const [organizations, setOrganizations] = useState<Organization[]>([]);
-  const [busy, setBusy] = useState<Busy>({});
+  const [availabilityCache, setAvailabilityCache] = useState<Record<string, { busy: RoomAvailability; expiresAt: number }>>({});
+  const [availabilityLoader] = useState(() => createAvailabilityCache(async (fromDay, toDay) => {
+    const from = new Date(`${fromDay}T00:00:00`).toISOString();
+    const to = new Date(`${toDay}T00:00:00`).toISOString();
+    const response = await fetch(`/api/booking?view=availability&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`, { cache: "no-store", signal: AbortSignal.timeout(20000) });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error ?? "Kunne ikke hente ledighet.");
+    return data.busy ?? {};
+  }));
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
   const [result, setResult] = useState<{ type: "success" | "error"; text: string } | null>(null);
@@ -97,32 +105,32 @@ export function BookingSystem() {
 
   const selectedRoom = rooms.find((room) => room.id === roomId);
   const week = availabilityWeek(date);
+  const busy = availabilityCache[week]?.busy ?? {};
+  const cachedFresh = Boolean(availabilityCache[week] && availabilityCache[week].expiresAt > now);
   useEffect(() => {
     if (!selectedRoom?.showAvailability) return;
-    const controller = new AbortController();
-    const from = new Date(`${week}T12:00:00`);
-    from.setHours(0, 0, 0, 0);
-    const to = addDays(from, 8);
-    fetch(`/api/booking?view=availability&from=${encodeURIComponent(from.toISOString())}&to=${encodeURIComponent(to.toISOString())}`, { cache: "no-store", signal: controller.signal })
-      .then(async (response) => {
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.error ?? "Kunne ikke hente ledighet.");
-        if (controller.signal.aborted) return;
-        setBusy(data.busy ?? {});
-        setAvailabilityState({ week, loading: false, error: "" });
-      })
-      .catch((error) => {
-        if (!controller.signal.aborted) { setAvailabilityState({ week, loading: false, error: error instanceof Error ? error.message : "Kunne ikke hente ledighet." }); }
+    let active = true;
+    availabilityLoader.load(week).then(window => {
+      if (!active) return;
+      setAvailabilityCache(previous => {
+        const next = { ...previous };
+        for (const cachedWeek of window.weeks) next[cachedWeek] = { busy: window.busy, expiresAt: window.expiresAt };
+        const keys = Object.keys(next).sort((a, b) => next[b].expiresAt - next[a].expiresAt);
+        return Object.fromEntries(keys.slice(0, 32).map(key => [key, next[key]]));
       });
-    return () => controller.abort();
-  }, [selectedRoom?.showAvailability, week, availabilityRetry]);
+      setAvailabilityState({ week, loading: false, error: "" });
+    }).catch(error => {
+      if (active) setAvailabilityState({ week, loading: false, error: error instanceof Error ? error.message : "Kunne ikke hente ledighet." });
+    });
+    return () => { active = false; };
+  }, [selectedRoom?.showAvailability, week, availabilityRetry, availabilityLoader, cachedFresh]);
 
   const minDate = dateValue(now ? new Date(now) : today);
   const maxDate = selectedRoom?.bookingHorizonDays ? dateValue(addDays(new Date(), selectedRoom.bookingHorizonDays)) : "9999-12-31";
   const weekday = ((new Date(`${date}T12:00:00`).getDay() + 6) % 7) + 1;
   const opening = selectedRoom?.openingHours[String(weekday)];
   const selectedBusy = busy[roomId] ?? [];
-  const availabilityLoading = availabilityState.week !== week || availabilityState.loading;
+  const availabilityLoading = !availabilityCache[week] && (availabilityState.week !== week || availabilityState.loading);
   const availabilityError = availabilityState.week === week ? availabilityState.error : "";
   const startsAt = Date.parse(`${date}T${start}:00`);
   const endsAt = Date.parse(`${date}T${end}:00`);
@@ -213,7 +221,7 @@ export function BookingSystem() {
               loading={availabilityLoading} error={availabilityError}
               onChoose={(day, from, to) => { setDate(day); setStart(from); setEnd(to); setResult(null); }}
               onDateChange={(day) => { setDate(day); setStart(""); setEnd(""); }}
-              onRetry={() => { setAvailabilityState({ week, loading: true, error: "" }); setAvailabilityRetry(value => value + 1); }}
+              onRetry={() => { availabilityLoader.clear(); setAvailabilityState({ week, loading: true, error: "" }); setAvailabilityRetry(value => value + 1); }}
             /> : <><h2>Ønsket tidspunkt</h2><p className="booking-special-note">For {selectedRoom?.name} kan du sende forespørsel opptil {selectedRoom?.bookingHorizonDays} dager frem i tid. Tilgjengelighet avtales med Fram. Legg inn ønsket dato og tidspunkt.</p></>}
             {view === "booking" && <><div className="booking-fields booking-time-fields">
               <label>Dato<input name="date" type="date" required value={date} min={minDate} max={maxDate} onChange={(event) => { if (!event.target.value) return; setDate(event.target.value); setStart(""); setEnd(""); }} /></label>

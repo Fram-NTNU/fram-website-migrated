@@ -57,9 +57,11 @@ export function BookingCalendar({ roomName, date, start, end, busy, hours, minDa
     onDateChange([calendarDate(new Date()), calendarDate(nextDate), maxDate].sort()[1]);
   }
   return <div className={`booking-calendar ${comparisonRooms ? "booking-calendar-comparison" : ""}`}>
+    {!comparisonRooms && <h2>Velg tidspunkt</h2>}
     <div className="booking-calendar-toolbar">
-      {comparisonRooms ? <div className="booking-fields booking-availability-date"><label><span className="sr-only">Dato</span><input type="date" value={date} min={calendarDate(new Date())} max={maxDate} onChange={event => { if (event.target.value) onDateChange(event.target.value); }} /></label></div> : <h2>Velg tidspunkt</h2>}
+      <h3 className="booking-calendar-period">{new Intl.DateTimeFormat("nb-NO", { month: "long", year: "numeric" }).formatRange(days[0], days.at(-1)!)}</h3>
       <div className="booking-calendar-controls">
+        {comparisonRooms && <div className="booking-fields booking-availability-date"><label><span className="sr-only">Dato</span><input type="date" value={date} min={calendarDate(new Date())} max={maxDate} onChange={event => { if (event.target.value) onDateChange(event.target.value); }} /></label></div>}
         <div className="booking-calendar-navigation">
           <button type="button" onClick={() => onDateChange(calendarDate(new Date()))}>I dag</button>
           <button type="button" aria-label="Forrige periode" disabled={calendarDate(mode === "week" ? monday : selected) <= calendarDate(new Date())} onClick={() => changePeriod(previous)}><i className="ph ph-caret-left" aria-hidden="true" /></button>
@@ -134,7 +136,7 @@ export function BookingCalendar({ roomName, date, start, end, busy, hours, minDa
               })}
               {(comparisonRooms ? calendarEventLayout(intervals) : intervals.map(interval => ({ ...interval, column: 0, columns: 1 }))).map((interval, index) => <div key={`${interval.start}-${interval.end}-${index}`} className="booking-calendar-occupied" style={{ top: (interval.start - firstMinute) / 60 * hourHeight, height: (interval.end - interval.start) / 60 * hourHeight, ...(comparisonRooms ? { left: `calc(${interval.column / interval.columns * 100}% + 2px)`, width: `calc(${100 / interval.columns}% - 4px)`, right: "auto", "--room-color": interval.color } : {}) } as CSSProperties} title={`${interval.roomName ? `${interval.roomName} · ` : ""}${interval.title} · ${timeLabel(interval.start)}–${timeLabel(interval.end)}`}>{comparisonRooms && <span className="booking-calendar-event-room">{interval.roomName}</span>}<strong>{interval.title}</strong><span>{timeLabel(interval.start)}–{timeLabel(interval.end)}</span></div>)}
               {now > 0 && value === todayDate && currentMinute >= firstMinute && currentMinute <= lastMinute && <div className="booking-calendar-now" style={{ top: (currentMinute - firstMinute) / 60 * hourHeight }} aria-label={`Nå, ${timeLabel(currentMinute)}, ${new Intl.DateTimeFormat("nb-NO", { weekday: "long", day: "numeric", month: "long" }).format(currentDay)}`}><span>{timeLabel(currentMinute)}</span></div>}
-              {!comparisonRooms && value === date && start && end && minuteOfDay(end) > minuteOfDay(start) && <div className="booking-calendar-selection" style={{ top: (Math.max(firstMinute, minuteOfDay(start)) - firstMinute) / 60 * hourHeight, height: Math.max(0, Math.min(lastMinute, minuteOfDay(end)) - Math.max(firstMinute, minuteOfDay(start))) / 60 * hourHeight }}><strong>Ditt valg</strong><span>{start}–{end}</span></div>}
+              {!comparisonRooms && value === date && start && end && minuteOfDay(end) > minuteOfDay(start) && <div className="booking-calendar-selection" style={{ top: (Math.max(firstMinute, minuteOfDay(start)) - firstMinute) / 60 * hourHeight, height: Math.max(0, Math.min(lastMinute, minuteOfDay(end)) - Math.max(firstMinute, minuteOfDay(start))) / 60 * hourHeight }}><span>{start}–{end}</span></div>}
             </div>;
           })}
         </div>
