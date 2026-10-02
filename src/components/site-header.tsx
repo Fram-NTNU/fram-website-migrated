@@ -16,7 +16,7 @@ function Dropdown({ label, items, caretFontFamily, active = false }: DropdownPro
   const [open, setOpen] = useState(false);
 
   return (
-    <div className={`nav-dd group relative inline-flex items-center after:absolute after:top-full after:right-0 after:left-0 after:h-3.5 after:content-[''] max-[900px]:block max-[900px]:w-full max-[900px]:after:hidden ${open ? "open" : ""}`}>
+    <div onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }} className={`nav-dd group relative inline-flex items-center after:absolute after:top-full after:right-0 after:left-0 after:h-3.5 after:content-[''] max-[900px]:block max-[900px]:w-full max-[900px]:after:hidden ${open ? "open" : ""}`}>
       <button
         type="button"
         className={`nav-dd-btn relative inline-flex cursor-pointer items-center gap-1.5 border-0 bg-transparent px-0 py-1.5 font-sans text-sm leading-[normal] font-medium transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-[3px] after:origin-left after:scale-x-0 after:rounded-sm after:bg-[#E85A5A] after:transition-transform after:duration-200 group-hover:after:scale-x-100 hover:text-[var(--ink)] max-[900px]:w-full max-[900px]:justify-between max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:px-1 max-[900px]:py-[15px] max-[900px]:text-base max-[900px]:after:hidden ${active ? "!text-[var(--ink)] after:scale-x-100" : "text-[var(--ink-soft)]"}`}
@@ -71,7 +71,7 @@ export function SiteHeader({
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img width="400" height="142" decoding="async" src={logoSrc ?? "/assets/fram-logo.webp"} alt="FRAM NTNU" className={`logo-img block h-[38px] w-auto max-[900px]:h-8 ${logoClassName ?? ""} ${!logoSrc && dark ? "[filter:brightness(0)_invert(1)]" : ""}`} />
         </Link>
-        <div className={`nav-links flex items-center gap-8 text-sm font-medium max-[900px]:fixed max-[900px]:inset-x-0 max-[900px]:top-16 max-[900px]:z-40 max-[900px]:max-h-[calc(100vh-64px)] max-[900px]:flex-col max-[900px]:items-stretch max-[900px]:gap-0 max-[900px]:overflow-y-auto max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:bg-[var(--bg)] max-[900px]:px-5 max-[900px]:pt-2 max-[900px]:pb-5 max-[900px]:shadow-[0_24px_40px_-24px_rgba(0,0,0,.35)] max-[520px]:px-4 ${menuOpen ? "max-[900px]:translate-y-0 max-[900px]:opacity-100 max-[900px]:pointer-events-auto" : "max-[900px]:-translate-y-3 max-[900px]:opacity-0 max-[900px]:pointer-events-none"} max-[900px]:transition-[opacity,transform] max-[900px]:duration-200`} onClick={(event) => {
+        <div className={`nav-links flex items-center gap-8 text-sm font-medium max-[900px]:fixed max-[900px]:inset-x-0 max-[900px]:top-16 max-[900px]:z-40 max-[900px]:max-h-[calc(100vh-64px)] max-[900px]:flex-col max-[900px]:items-stretch max-[900px]:gap-0 max-[900px]:overflow-y-auto max-[900px]:border-b max-[900px]:border-[var(--line)] max-[900px]:bg-[var(--bg)] max-[900px]:px-5 max-[900px]:pt-2 max-[900px]:pb-5 max-[900px]:shadow-[0_24px_40px_-24px_rgba(0,0,0,.35)] max-[520px]:px-4 ${menuOpen ? "max-[900px]:visible max-[900px]:translate-y-0 max-[900px]:opacity-100 max-[900px]:pointer-events-auto" : "max-[900px]:invisible max-[900px]:-translate-y-3 max-[900px]:opacity-0 max-[900px]:pointer-events-none"} max-[900px]:transition-[opacity,transform] max-[900px]:duration-200`} onClick={(event) => {
           if ((event.target as HTMLElement).closest("a")) setMenuOpen(false);
         }}>
           <Link href="/" aria-current={currentPath === "/" ? "page" : undefined} className={`${topLink} ${currentPath === "/" ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>Hjem</Link>
@@ -81,7 +81,10 @@ export function SiteHeader({
             { href: "/arrangementer", label: "Alle arrangementer" },
           ]} />
           <Link href="/miljoer" aria-current={currentPath === "/miljoer" ? "page" : undefined} className={`${topLink} ${currentPath === "/miljoer" ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>Miljøene</Link>
-          <Link href="/booking" aria-current={currentPath === "/booking" ? "page" : undefined} className={`${topLink} ${currentPath === "/booking" ? "!text-[var(--ink)] after:scale-x-100" : ""}`}>Booking</Link>
+          <Dropdown active={currentPath?.startsWith("/booking")} caretFontFamily={caretFontFamily} label="Booking" items={[
+            { href: "/booking", label: "Book rom" },
+            { href: "/booking/lokaler", label: "Våre lokaler" },
+          ]} />
           <Dropdown active={currentPath === "/idegarasjen" || currentPath === "/teknologihallen"} caretFontFamily={caretFontFamily} label="Arealer & rom" items={[
             { href: "https://www.gruvantnu.no/", label: "Gruva", external: true },
             { href: "/idegarasjen", label: "Idégarasjen" },

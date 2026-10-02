@@ -56,7 +56,7 @@ const rooms: Room[] = [
       </>
     ),
     primary: "Utforsk Fellesrommet →",
-    primaryHref: "/booking#fellesrommet",
+    primaryHref: "/booking/lokaler#fellesrommet",
   },
   {
     id: 0,
@@ -89,7 +89,7 @@ const rooms: Room[] = [
       </>
     ),
     primary: "Utforsk Scenerommet →",
-    primaryHref: "/booking#scenerommet",
+    primaryHref: "/booking/lokaler#scenerommet",
   },
   {
     id: 3,
@@ -112,7 +112,7 @@ const rooms: Room[] = [
     image: "/assets/collage.webp",
     description: <>Tre rom for møter, veiledning og fokusert gruppearbeid.</>,
     primary: "Utforsk Møterom →",
-    primaryHref: "/booking#moterom",
+    primaryHref: "/booking/lokaler#moterom",
   },
   {
     id: 6,
@@ -126,7 +126,7 @@ const rooms: Room[] = [
       </>
     ),
     primary: "Utforsk Podcastrommet →",
-    primaryHref: "/booking#podcastrommet",
+    primaryHref: "/booking/lokaler",
   },
   {
     id: 5,

@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
-import { LargeRoom, MeetingRoom, SmallRoom } from "@/components/booking-rooms";
+import Link from "next/link";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { BookingSystem } from "@/components/booking-system";
 
 export const metadata: Metadata = {
-  title: "Book lokaler — FRAM NTNU",
+  title: "Book rom — FRAM NTNU",
   description: "Book lokaler på FRAM NTNU i Trondheim — Gruva, Scenerommet, Fellesrommet og møterom for student-arrangementer, workshops og møter.",
   alternates: { canonical: "https://www.framntnu.no/booking" },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website", siteName: "FRAM NTNU", locale: "nb_NO",
-    title: "Book lokaler — FRAM NTNU",
+    title: "Book rom — FRAM NTNU",
     description: "Book lokaler på FRAM NTNU i Trondheim — Gruva, Scenerommet, Fellesrommet og møterom for student-arrangementer, workshops og møter.",
     url: "https://www.framntnu.no/booking",
     images: [{ url: "/assets/og-fram.png", width: 1200, height: 630 }],
   },
   twitter: {
-    card: "summary_large_image", title: "Book lokaler — FRAM NTNU",
+    card: "summary_large_image", title: "Book rom — FRAM NTNU",
     description: "Book lokaler på FRAM NTNU i Trondheim — Gruva, Scenerommet, Fellesrommet og møterom for student-arrangementer, workshops og møter.",
     images: ["/assets/og-fram.png"],
   },
@@ -30,120 +31,38 @@ const breadcrumbData = {
   ],
 };
 
-const organizationData = {
-  "@context": "https://schema.org", "@type": "Organization", name: "FRAM NTNU",
-  url: "https://www.framntnu.no", logo: "https://www.framntnu.no/assets/og-fram.png",
-  description: "FRAM NTNU er NTNUs senter for studentinnovasjon — et fellesskap for studenter som vil skape noe.",
-  sameAs: ["https://www.instagram.com/framntnu/", "https://www.facebook.com/framntnu", "https://www.linkedin.com/company/framntnu/"],
-};
-
 export default function BookingPage() {
   return (
     <div className="min-h-screen bg-[#FBF7F0] font-sans text-[#1A1A1A] [scroll-behavior:smooth] [--bg-soft:#F4EFE5] [--bg:#FBF7F0] [--blue:#2E86C1] [--card:#fff] [--gruva-green:#3D4F47] [--ink-soft:#555] [--ink:#1A1A1A] [--line:#E9E2D3] [--muted:#8a8a8a] [--nav-accent:#E85A5A] [--orange:#E58A3A] [--yellow:#FDC82F]">
-      <link rel="preload" as="image" href="/assets/fram-isometric.webp" fetchPriority="high" />
       <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }} />
-      <SiteHeader currentPath="/booking" caretFontFamily={'Poppins, "Poppins Fallback", sans-serif'} />
-
-      <header className="border-b border-[var(--line)] py-[66px] pb-[76px] max-[760px]:py-11 max-[760px]:pb-[52px]">
-        <div className="mx-auto max-w-[1360px] px-12 max-[900px]:px-5 max-[520px]:px-4">
-          <div className="grid grid-cols-[1.15fr_.85fr] items-center gap-14 max-[760px]:grid-cols-1 max-[760px]:gap-8">
-            <div>
-              <h1 className="mt-0 mb-[26px] text-[clamp(40px,4.8vw,66px)] leading-[1.02] font-extrabold tracking-[-.03em]">Book et rom på FRAM.</h1>
-              <p className="mt-0 mb-[34px] max-w-[520px] text-[19px] leading-[1.6] text-[var(--ink-soft)]">Lokalene våre brukes til alt fra møter og workshops til foredrag, middager og releasefester — alt som bidrar til læring, samarbeid og nyskaping.</p>
-              <div className="flex flex-wrap gap-3">
-                <a href="#book" className="inline-flex items-center gap-[9px] rounded-[3px] border-2 border-transparent bg-[var(--ink)] px-6 py-3.5 text-[15px] font-semibold text-white no-underline [transition:transform_.2s,background_.2s,border-color_.2s,color_.2s,box-shadow_.2s] hover:[transform:translateY(-3px)] hover:shadow-[0_6px_0_var(--yellow)]">Slik booker du <i className="ph ph-arrow-right" /></a>
-                <a href="mailto:framntnu@gmail.com" className="inline-flex items-center gap-[9px] rounded-[3px] border-2 border-[var(--ink)] px-6 py-3.5 text-[15px] font-semibold text-[var(--ink)] no-underline [transition:transform_.2s,background_.2s,border-color_.2s,color_.2s] hover:bg-[var(--ink)] hover:text-[var(--bg)]">framntnu@gmail.com</a>
+      <SiteHeader currentPath="/booking" />
+      <main className="booking-page">
+        <header className="booking-hero">
+          <div className="booking-container booking-hero-grid">
+            <div className="booking-hero-intro">
+              <h1>Book rom.</h1>
+              <p>Velg rom og finn en ledig tid. Book et enkelt møte, hele dagen eller en fast møteserie.</p>
+              <div className="booking-hero-actions">
+                <Link className="booking-primary-link" href="/booking/lokaler">Utforsk lokaler <i className="ph ph-arrow-right" aria-hidden="true" /></Link>
+                <a className="booking-secondary-link" href="mailto:framntnu@gmail.com">Kontakt Fram</a>
               </div>
             </div>
-            <figure className="m-0 max-w-[440px] justify-self-end max-[760px]:hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="block h-auto w-full" width="1320" height="1408" decoding="async" src="/assets/fram-isometric.webp" alt="Isometrisk illustrasjon av FRAMs lokaler" />
-            </figure>
+          <aside className="booking-guide" aria-labelledby="booking-guide-title">
+            <h2 id="booking-guide-title">Slik fungerer booking</h2>
+            <dl>
+              <div><dt>Medlemsorganisasjon</dt><dd>Velg organisasjonen din. Deres bookingansvarlige behandler bookingforespørselen.</dd></div>
+              <div><dt>Eksterne</dt><dd>Rommene er hovedsakelig for medlemmer. Eksterne kan sende en forespørsel til Fram og få booke dersom det er ledig.</dd></div>
+              <div><dt>Bekreftelse på e-post</dt><dd>Tidspunktet reserveres først når forespørselen er godkjent. Da får du en kalenderinvitasjon med tittelen du har valgt.</dd></div>
+            </dl>
+            <p>Gruva har egen booking på <a href="https://www.gruvantnu.no/" target="_blank" rel="noopener">gruvantnu.no</a>.</p>
+          </aside>
           </div>
+        </header>
+        <div className="booking-container booking-layout" id="book">
+          <BookingSystem />
         </div>
-      </header>
-
-      <section id="lokaler" className="py-[92px] max-[760px]:py-[62px]">
-        <div className="mx-auto max-w-[1360px] px-12 max-[900px]:px-5 max-[520px]:px-4">
-          <div className="mb-[46px] border-b border-[var(--line)] pb-7 max-[760px]:mb-8"><h2 className="m-0 max-w-[680px] text-[clamp(34px,3.6vw,54px)] leading-[1.04] font-extrabold tracking-[-.025em]">Lokalene våre.</h2></div>
-
-          <div className="relative mb-6 overflow-hidden rounded-[3px] bg-[var(--gruva-green)] p-14 text-[#F4EFE5] before:pointer-events-none before:absolute before:-top-20 before:-right-20 before:h-[380px] before:w-[380px] before:rounded-full before:bg-[radial-gradient(circle_at_center,rgba(229,138,58,.18),transparent_70%)] max-[760px]:px-6 max-[760px]:py-8">
-            <div className="relative z-[1] grid grid-cols-[1.1fr_.9fr] items-center gap-12 max-[760px]:[grid-template-columns:1fr]">
-              <div>
-                <div className="mb-7 flex items-center gap-[18px] border-b border-white/12 pb-6">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img className="h-9 w-auto" width="6000" height="1120" loading="lazy" decoding="async" src="/assets/gruva-logo-orange.webp" alt="Gruva logo" />
-                </div>
-                <h3 className="mt-0 mb-5 text-[64px] leading-[.95] font-extrabold tracking-[-.03em] text-white max-[760px]:text-[38px]">Skreddersydd<br />for <span className="text-[var(--orange)]">store ideer.</span></h3>
-                <p className="mt-0 mb-[18px] max-w-[480px] text-[17px] leading-[1.65] text-white/78">Gruva har kapasitet til 200 personer og brukes til alt fra workshops og pitchekvelder til nettverksarrangementer og konkurranser. Mellom arrangementene er lokalet en åpen møteplass for studenter og hjertet i innovasjonsmiljøet ved NTNU.</p>
-                <div className="mt-7 mb-6 grid [grid-template-columns:repeat(3,1fr)] gap-3.5 max-[760px]:gap-2">
-                  {[["200", "Kapasitet", true], ["120+", "Arrangementer årlig", false], ["Åpen", "Hverdager", false]].map(([number, label, orange]) => <div key={String(label)} className="rounded-[3px] border border-white/10 bg-white/6 p-[18px] max-[760px]:p-3"><div className={`text-[34px] leading-none font-extrabold tracking-[-.02em] max-[760px]:text-2xl ${orange ? "text-[var(--orange)]" : "text-white"}`}>{number}</div><div className="mt-2 font-mono text-[10px] tracking-[.1em] text-white/55 uppercase">{label}</div></div>)}
-                </div>
-                <p className="mt-0 mb-3.5 text-[15px] leading-[1.65] text-white/70">Gruva bookes direkte på Gruvas egen nettside.</p>
-                <div className="mt-2 flex flex-wrap gap-3"><a href="https://www.gruvantnu.no/" target="_blank" rel="noopener" className="inline-flex items-center gap-2.5 rounded-[3px] border-2 border-transparent bg-[var(--orange)] px-[22px] py-3.5 text-[14px] font-semibold text-white no-underline [transition:transform_.2s,box-shadow_.2s] hover:[transform:translateY(-3px)] hover:shadow-[0_6px_0_rgba(255,255,255,.32)]">Book Gruva på gruvantnu.no ↗</a></div>
-              </div>
-              <div className="aspect-[4/3] overflow-hidden rounded-[3px] shadow-[0_30px_80px_-30px_rgba(0,0,0,.5)]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="block h-full w-full object-cover" width="1920" height="1280" loading="lazy" decoding="async" src="/assets/gruva-event.webp" alt="Arrangement i Gruva" />
-              </div>
-            </div>
-          </div>
-
-          <div className="mb-6 grid grid-cols-2 items-stretch gap-6 max-[760px]:grid-cols-1">
-            <LargeRoom id="scenerommet" image="/assets/scenerommet.avif" alt="Scenerommet" capacity="120" title={<>Scene&shy;rommet.</>} roomName="Scenerommet" maze="https://link.mazemap.com/2S7qcBrY" description="En fleksibel arena for arrangementer, små konserter, foredrag og workshops. Ellers åpent for alle." features={[{icon:"ph ph-armchair",label:"70 sittende"},{icon:"ph ph-microphone-stage",label:"Talerstol"},{icon:"ph ph-speaker-hifi",label:"PA-anlegg"},{icon:"ph ph-sun",label:"Lyssetting"},{icon:"ph ph-projector-screen",label:"Projektor"}]} />
-            <LargeRoom id="fellesrommet" image="/assets/fram-fellesrom.webp" alt="Fellesrommet" capacity="~40" title={<>Felles&shy;rommet.</>} roomName="Fellesrommet" maze="https://link.mazemap.com/Icfh3qjb" description="Åpent for alle studenter og egner seg like godt til skolearbeid som til en kaffe eller lunsjpause. For større arrangementer: avtal med leder i Fram." features={[{icon:"ph ph-coffee",label:"Kaffemaskin"},{icon:"ph ph-ping-pong",label:"Bordtennis"},{icon:"ph ph-fork-knife",label:"Kjøkken & langbord"},{icon:"ph ph-couch",label:"Sofakrok"},{icon:"ph ph-clock",label:"Alltid åpent"}]} />
-          </div>
-
-          <div id="moterom" className="mb-6 grid scroll-mt-[110px] grid-cols-3 gap-5 max-[760px]:grid-cols-1">
-            <MeetingRoom accent="#2E86C1" image="/assets/rooms/storemoterom.avif" alt="Store møterom" capacity="16" title="Store møterom." roomName="Store møterom" maze="https://link.mazemap.com/CI3cG2d5" description="Det mest bookede rommet på FRAM. Egner seg godt til større møter, og fungerer også som undervisningsrom for små grupper." />
-            <MeetingRoom accent="#E85A5A" image="/assets/rooms/lillemoterom.avif" alt="Lille møterom" capacity="7" title="Lille møterom." roomName="Lille møterom" maze="https://link.mazemap.com/GLtbZdTq" description="Ligger i hjørnet på FRAM med vinduer ut og en god og intim stemning. Perfekt for tette møter eller intervjuer." />
-            <MeetingRoom accent="#FDC82F" image="/assets/Bananrommet.webp" alt="Bananrommet" capacity="12" title={<>Banan&shy;rommet.</>} roomName="Bananrommet" maze="https://link.mazemap.com/XAD8uBqO" description="Bananrommet også kjent som det gule møterom. Ligger rett utenfor døren inn til Fram." />
-          </div>
-
-          <div className="grid grid-cols-2 gap-[22px] max-[760px]:grid-cols-1">
-            <SmallRoom id="podcastrommet" image="/assets/Podcastrommet.webp" alt="Podcastrommet på FRAM" title="Podcastrommet." maze="https://link.mazemap.com/WbokT9PE" features={[{icon:"ph ph-microphone",label:"Mikrofoner"},{icon:"ph ph-faders",label:"Rodecaster"},{icon:"ph ph-lamp",label:"Belysning"},{icon:"ph ph-couch",label:"Sofa"},{icon:"ph ph-headphones",label:"Hodetelefoner"}]}>Fullt utstyrt for podkast, intervju og lydinnhold. Ta kontakt med oss på <a href="mailto:framntnu@gmail.com" className="font-semibold text-[var(--ink)]">framntnu@gmail.com</a> så finner vi et podkastrom som passer til ditt bruk.</SmallRoom>
-            <SmallRoom href="/idegarasjen" image="/assets/Idegarasjen2.webp" logo="/assets/idegarasjen-logo-hvit.webp" alt="Idégarasjen — studentenes innovasjonsverksted" title="Idégarasjen." features={[{icon:"ph ph-cube",label:"3D-printere"},{icon:"ph ph-scissors",label:"Laserkutter"},{icon:"ph ph-wrench",label:"Loddestasjoner"},{icon:"ph ph-printer",label:"Storformatprinter"},{icon:"ph ph-hammer",label:"Håndverktøy"},{icon:"ph ph-plugs-connected",label:"Elverktøy"}]}>Studentenes åpne innovasjonsverksted — med 3D-printere, laserkutter, loddestasjoner og alt du trenger til prototyping.</SmallRoom>
-          </div>
-        </div>
-      </section>
-
-      <section id="book" className="py-[92px] max-[760px]:py-[62px]">
-        <div className="mx-auto max-w-[1360px] px-12 max-[900px]:px-5 max-[520px]:px-4">
-          <div className="relative overflow-hidden rounded-[3px] bg-[var(--ink)] p-14 text-white before:pointer-events-none before:absolute before:-top-[90px] before:-right-[90px] before:h-[380px] before:w-[380px] before:rounded-full before:bg-[radial-gradient(circle,rgba(253,200,47,.16),transparent_70%)] max-[760px]:px-[26px] max-[760px]:py-[34px]">
-            <div className="relative z-[1]">
-              <h2 className="mt-0 mb-3.5 text-[clamp(30px,3vw,46px)] leading-[1.04] font-extrabold tracking-[-.02em] text-white">Slik booker <span className="text-[var(--yellow)]">du.</span></h2>
-              <p className="mt-0 mb-[34px] max-w-[540px] text-base leading-[1.6] text-white/74">De fleste rommene bookes via FRAM. Gruva har sin egen booking på gruvantnu.no.</p>
-              <div className="mb-[22px] grid grid-cols-2 gap-[18px] max-[760px]:grid-cols-1 max-[760px]:gap-3.5">
-                <div className="rounded-[3px] border border-white/12 bg-white/6 px-8 py-[30px]"><h3 className="mt-0 mb-2.5 text-[19px] font-bold tracking-[-.01em] text-white">Medlemsorganisasjon</h3><p className="m-0 text-[14.5px] leading-[1.62] text-white/80">Hør med din nærmeste leder hvordan du booker i kalenderen, eller kontakt <a className="font-semibold text-[var(--yellow)]" href="mailto:framntnu@gmail.com">framntnu@gmail.com</a> for interne bookinger.</p></div>
-                <div className="rounded-[3px] border border-white/12 bg-white/6 px-8 py-[30px]"><h3 className="mt-0 mb-2.5 text-[19px] font-bold tracking-[-.01em] text-white">Ekstern</h3><p className="m-0 text-[14.5px] leading-[1.62] text-white/80">Send oss en e-post på <a className="font-semibold text-[var(--yellow)]" href="mailto:framntnu@gmail.com">framntnu@gmail.com</a>, så finner vi et rom og en tid som passer.</p></div>
-              </div>
-              <div className="flex items-center gap-3 rounded-[3px] border border-[rgba(253,200,47,.25)] bg-[rgba(253,200,47,.1)] px-6 py-4 text-sm leading-[1.5] text-white/85 max-[760px]:items-start"><span className="mt-[6px] h-2 w-2 flex-none rotate-45 bg-[var(--yellow)] shadow-[0_0_0_4px_rgba(253,200,47,.2)]" /><span>Vi jobber med et nytt bookingsystem som skal gjøre det enklere for alle å booke lokalene våre.</span></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="kommer" className="py-[92px] max-[760px]:py-[62px]">
-        <div className="mx-auto max-w-[1360px] px-12 max-[900px]:px-5 max-[520px]:px-4">
-          <div className="mb-[46px] border-b border-[var(--line)] pb-7 max-[760px]:mb-8"><h2 className="mt-0 mb-4 max-w-[680px] text-[clamp(34px,3.6vw,54px)] leading-[1.04] font-extrabold tracking-[-.025em]">Kommer snart.</h2><p className="m-0 max-w-[680px] text-[17px] leading-[1.6] text-[var(--ink-soft)]">FRAM flytter snart ned til det nye Økonomi- og innovasjonsbygget på Hesthagen — med oppgraderte lokaler og helt nye rom.</p></div>
-          <div className="grid grid-cols-[1.15fr_.85fr] items-stretch gap-6 max-[760px]:grid-cols-1">
-            <div className="relative min-h-[360px] overflow-hidden rounded-[3px]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="absolute inset-0 block h-full w-full object-cover" width="1920" height="1080" loading="lazy" decoding="async" src="/assets/gruva-concept.webp" alt="Konsept for nye Gruva på Hesthagen" />
-              <div className="absolute inset-x-0 bottom-0 z-[1] bg-[linear-gradient(to_top,rgba(8,6,3,.82),rgba(8,6,3,.2)_70%,transparent)] px-[34px] py-[30px] text-white"><h3 className="mt-0 mb-2 text-2xl font-extrabold tracking-[-.02em] text-white">Nye Gruva på Hesthagen</h3><p className="m-0 max-w-[420px] text-[14.5px] leading-[1.55] text-white/82">Gruva og resten av FRAMs lokaler flytter til det nye bygget. Slik kan nye Gruva bli.</p></div>
-            </div>
-            <div className="flex flex-col rounded-[3px] border border-[var(--line)] bg-[var(--bg-soft)] px-[38px] py-10 max-[760px]:px-[26px] max-[760px]:py-8">
-              <div className="mb-[18px] inline-flex self-start items-center gap-2 rounded-full bg-[var(--ink)] px-[13px] py-1.5 font-mono text-[10px] tracking-[.12em] text-white uppercase"><span className="h-1.5 w-1.5 rounded-full bg-[var(--orange)] shadow-[0_0_8px_var(--orange)]" />Kommer snart</div>
-              <h3 className="mt-0 mb-3 text-[28px] font-extrabold tracking-[-.02em]">Mediarom</h3>
-              <p className="mt-0 mb-auto max-w-[380px] text-[15px] leading-[1.62] text-[var(--ink-soft)]">Et eget rom for podkast-, video- og innholdsproduksjon — i det nye bygget på Hesthagen.</p>
-              <div className="mt-7 flex items-baseline gap-2.5 border-t border-[var(--line)] pt-[22px]"><span className="text-[30px] font-extrabold tracking-[-.02em]">2027/28</span><span className="font-mono text-[10px] tracking-[.12em] text-[var(--muted)] uppercase">Ferdig</span></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      </main>
       <SiteFooter mobileExtraBottomPadding />
     </div>
   );
