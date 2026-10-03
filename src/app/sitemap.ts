@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { publishedNews } from "@/lib/published-news";
 
 const BASE = "https://www.framntnu.no";
 
@@ -17,6 +18,7 @@ type Entry = {
 
 const PAGES: Entry[] = [
   { path: "/", changeFrequency: "weekly", priority: 1.0, lastModified: "2026-08-23" },
+  { path: "/nyheter", changeFrequency: "weekly", priority: 0.8, lastModified: "2026-10-03" },
   { path: "/arrangementer", changeFrequency: "weekly", priority: 0.9 },
   { path: "/om", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-08-23" },
   { path: "/miljoer", changeFrequency: "monthly", priority: 0.8 },
@@ -28,11 +30,12 @@ const PAGES: Entry[] = [
   { path: "/stillinger", changeFrequency: "weekly", priority: 0.6 },
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  return PAGES.map((p) => ({
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const { news } = await publishedNews();
+  return [...PAGES.map((p) => ({
     url: `${BASE}${p.path}`,
     lastModified: p.lastModified ?? DEFAULT_MODIFIED,
     changeFrequency: p.changeFrequency,
     priority: p.priority,
-  }));
+  })), ...news.map((item) => ({ url: `${BASE}/nyheter/${item.id}`, lastModified: item.published_at, changeFrequency: "monthly" as const, priority: 0.6 }))];
 }

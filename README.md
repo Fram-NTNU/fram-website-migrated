@@ -27,3 +27,5 @@ npm test
 ## Migreringsstatus
 
 Alle offentlige sider rendres nå som React-komponenter med JSX og Tailwind. Originalrepoet på baseline-committen brukes som fasit ved visuell og funksjonell sammenligning.
+
+Nyheter hentes fra portalens `/api/v1/news` med samme serverintegrasjon som arrangementer. `/nyheter` viser nyeste publiserte artikler først; `/nyheter/<id>` viser bilder og brødtekst. Godkjent innhold vises mens endringer vurderes. Ingen eksempelnyheter legges på nettsiden uten publisering i portalen.
