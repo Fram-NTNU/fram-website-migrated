@@ -1,5 +1,6 @@
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
+@import "./booking-calendar.css";
 
 @theme {
   --font-sans: "Poppins", "Poppins Fallback", system-ui, sans-serif;
@@ -263,7 +264,9 @@ body {
 .booking-submit button { transition: transform .2s, box-shadow .2s; display: inline-flex; align-items: center; gap: 9px; min-height: 50px; padding: 13px 22px; border: 2px solid #1a1a1a; border-radius: 3px; background: #1a1a1a; color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
 .booking-submit button:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 6px 0 var(--yellow); }
 .booking-submit button:disabled { cursor: wait; opacity: .55; }
-.booking-submit p { max-width: 240px; margin: 0; color: #625e57; font-size: 11px; text-align: right; }
+.booking-submit p { max-width: 300px; margin: 0; color: #625e57; font-size: 11px; text-align: right; }
+.booking-submit p a { color: inherit; text-underline-offset: 3px; }
+.booking-submit-action { display: grid; justify-items: start; gap: 10px; min-width: 0; }
 .booking-message { margin: 24px 0 0; padding: 15px 17px; border: 1px solid #bfd7ca; background: #edf8f3; color: #225843; }
 .booking-message.error { border-color: #e3b8b1; background: #fff0ed; color: #8b3128; }
 .booking-message strong, .booking-message span { display: block; }
@@ -360,9 +363,6 @@ body {
 .booking-calendar-slot:hover:not(:disabled) span, .booking-calendar-slot:focus-visible span { opacity: 1; }
 .booking-calendar-slot:disabled { cursor: not-allowed; }
 .booking-calendar-column.outside-window .booking-calendar-slot, .booking-calendar-slot.closed { background: var(--bg-soft); }
-.booking-calendar-occupied, .booking-calendar-selection { box-sizing: border-box; pointer-events: none; position: absolute; z-index: 2; left: 3px; right: 3px; overflow: hidden; padding: 3px 6px; border: 1px solid var(--line); border-radius: 3px; background: #e9e2d3; color: var(--ink); font-size: 10px; line-height: 1.45; }
-.booking-calendar-occupied strong, .booking-calendar-selection strong { display: block; font-weight: 600; overflow-wrap: anywhere; }
-.booking-calendar-selection { border-color: #d4ac25; background: var(--yellow); }
 .booking-calendar-legend { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 16px; font-size: 12px; }
 .booking-calendar-legend span { display: inline-flex; align-items: center; gap: 8px; }
 .booking-calendar-legend i { width: 12px; height: 12px; border-radius: 2px; }
@@ -406,8 +406,6 @@ body {
 .booking-room-filter input:checked { background-color: var(--room-color); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3 8 3 3 7-7' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 .booking-room-filter input:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 @media (max-width: 760px) { .booking-room-filter { min-height: 44px; } }
-.booking-calendar-comparison .booking-calendar-occupied { background: color-mix(in srgb, var(--room-color) 28%, white); border-color: var(--room-color); }
-.booking-calendar-event-room { display: block; font-weight: 600; overflow-wrap: anywhere; }
 @media (prefers-reduced-motion: reduce) { .booking-room-filter { transition: none; } }
 
 .booking-calendar-comparison .booking-calendar-surface { margin-top: 24px; }

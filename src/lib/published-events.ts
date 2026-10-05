@@ -9,7 +9,7 @@ export async function publishedEvents(): Promise<{ events: EventItem[]; unavaila
   if (!base) return { events: fallbackEvents, unavailable: false, now };
   try {
     const token = (await headers()).get("x-vercel-oidc-token");
-    const requireOidc = process.env.FRAM_BOOKING_REQUIRE_OIDC === "true" || process.env.DEPLOYMENT_ENV === "production";
+    const requireOidc = process.env.FRAM_BOOKING_REQUIRE_OIDC === "true" || process.env.DEPLOYMENT_ENV === "production" || process.env.VERCEL_ENV === "production";
     const secret = process.env.FRAM_BOOKING_INTEGRATION_SECRET;
     const auth: Record<string, string> = {};
     if (token) auth.Authorization = `Bearer ${token}`;

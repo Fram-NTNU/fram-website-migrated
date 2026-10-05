@@ -179,7 +179,7 @@ test("API preserves method, origin and validation errors", async ({ request, bas
   expect(longResponse.status()).toBe(413);
 });
 
-test("API preserves malformed-body and rate-limit behavior", async ({ request, baseURL }) => {
+test("API rejects malformed input before requesting paid generation", async ({ request, baseURL }) => {
   const malformedResponse = await request.post("/api/forslag", {
     data: "{",
     headers: {
@@ -199,7 +199,7 @@ test("API preserves malformed-body and rate-limit behavior", async ({ request, b
         "X-Forwarded-For": "198.51.100.221",
       },
     });
-    expect(response.status()).toBe(attempt === 6 ? 429 : 400);
+    expect(response.status()).toBe(400);
   }
 });
 

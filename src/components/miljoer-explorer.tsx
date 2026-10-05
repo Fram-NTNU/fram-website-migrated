@@ -1,9 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { framkompassCaptcha } from "@/lib/recaptcha-browser";
+import { lockPageScroll } from "@/lib/scroll-lock";
+import { useRouter } from "next/navigation";
 import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 
 export type Organization = {
+  slug?: string;
+  recruiting?: boolean;
   accent: "yellow" | "blue" | "red" | "teal";
   href: string;
   media?: "dark" | "dark-navy" | "deeper";
@@ -19,6 +24,7 @@ export type Organization = {
   category: string;
   name: string;
   description: string;
+  longDescription?: string;
 };
 
 type Suggestion = { navn: string; grunn?: string };
@@ -223,9 +229,13 @@ function localMatch(text: string, organizations: Organization[]) {
 export function OrgCard({
   organization,
   logoMode,
+  onOpen,
+  lifted,
 }: {
   organization: Organization;
   logoMode: boolean;
+  onOpen: (hovered: boolean) => void;
+  lifted: boolean;
 }) {
   const dark =
     organization.media === "dark"
@@ -267,44 +277,58 @@ export function OrgCard({
             ? "max-h-[134px] max-w-[72%]"
             : "max-h-[74px] max-w-[74%]";
   return (
-    <a
-      href={organization.href}
-      target="_blank"
-      rel="noopener"
+    <button
+      type="button"
+      onClick={(event) => onOpen(event.currentTarget.matches(":hover"))}
+      aria-haspopup="dialog"
+      aria-label={`Les mer om ${organization.name}${organization.recruiting ? ", søker medlemmer" : ""}`}
+      data-org-name={organization.name}
       data-accent={organization.accent}
-      className="group flex flex-col overflow-hidden rounded-[3px] border border-[var(--line)] bg-[var(--card)] text-[var(--ink)] no-underline [transition:transform_.25s_ease,border-color_.25s_ease,box-shadow_.25s_ease] hover:border-[var(--ink)] hover:shadow-[0_24px_46px_-26px_rgba(0,0,0,.28)] hover:[transform:translateY(-5px)]"
+      className={`org-card group flex min-w-0 cursor-pointer flex-col overflow-hidden rounded-[3px] border border-[var(--line)] bg-[var(--card)] p-0 text-left font-[inherit] text-[var(--ink)] [transition:transform_.25s_ease,border-color_.25s_ease,box-shadow_.25s_ease] hover:border-[var(--ink)] hover:shadow-[0_24px_46px_-26px_rgba(0,0,0,.28)] hover:[transform:translateY(-5px)]${lifted ? " is-lifted" : ""}`}
     >
       <div
         className="relative grid h-[160px] place-items-center overflow-hidden border-b border-[var(--line)]"
         style={{ background: dark }}
       >
         {/* Plain img is retained deliberately during visual-parity migration. */}
-        <img
-          src={organization.logo}
-          alt={organization.logoAlt}
-          className={`relative z-[2] h-auto w-auto object-contain [transition:opacity_.35s_ease,transform_.45s_ease] ${logoSize} ${logoMode ? "opacity-100 [transform:scale(1)] group-hover:opacity-0 group-hover:[transform:scale(.96)]" : "opacity-0 [transform:scale(.88)] group-hover:opacity-100 group-hover:[transform:scale(1)]"}`}
-        />
+        {organization.recruiting && (
+          <span className="org-recruiting-badge">Søker medlemmer</span>
+        )}
+        {organization.logo ? (
+          <img
+            src={organization.logo}
+            alt={organization.logoAlt}
+            className={`relative z-[2] h-auto w-auto object-contain [transition:opacity_.35s_ease,transform_.45s_ease] ${logoSize} ${!organization.photo ? "opacity-100" : logoMode ? "opacity-100 [transform:scale(1)] group-hover:opacity-0 group-hover:[transform:scale(.96)]" : "opacity-0 [transform:scale(.88)] group-hover:opacity-100 group-hover:[transform:scale(1)]"}`}
+          />
+        ) : (
+          <span
+            className={`relative z-[2] px-5 text-center text-lg font-semibold ${organization.media ? "text-white" : "text-[var(--ink)]"} ${!organization.photo ? "opacity-100" : logoMode ? "opacity-100 group-hover:opacity-0" : "opacity-0 group-hover:opacity-100"}`}
+          >
+            {organization.name}
+          </span>
+        )}
         <span
           className={`pointer-events-none absolute inset-0 z-[1] [transition:opacity_.35s_ease] ${logoMode ? "opacity-[.97] group-hover:opacity-0" : "opacity-0 group-hover:opacity-[.97]"}`}
           style={{ background: dark }}
         />
-        {organization.spin ? (
-          // Transparent turbofan plassert med navet i bunn-senter, slik at kun
-          // øvre halvdel vises. Spinner rundt navet når kortet scrolles inn.
-          <img
-            ref={photoRef}
-            src={organization.photo}
-            alt={organization.photoAlt}
-            className={`pointer-events-none absolute top-0 left-1/2 z-0 w-[min(300px,112%)] [transform-origin:50%_50%] [transition:opacity_.4s_ease] ${logoMode ? "opacity-0 group-hover:opacity-100" : "opacity-100"} ${spun ? "[animation:jet-spin_1.6s_cubic-bezier(.16,.84,.28,1)_both]" : "[transform:translate(-50%,0)]"}`}
-          />
-        ) : (
-          <img
-            src={organization.photo}
-            alt={organization.photoAlt}
-            className={`absolute inset-0 z-0 h-full w-full [transition:transform_.7s_ease,opacity_.4s_ease] ${organization.photoContain ? "object-contain" : "object-cover"} ${logoMode ? "opacity-0 [transform:scale(1.001)] group-hover:opacity-100 group-hover:[transform:scale(1.05)]" : "opacity-100 [transform:scale(1.001)] group-hover:[transform:scale(1.05)]"}`}
-            style={{ objectPosition: organization.photoPosition }}
-          />
-        )}
+        {organization.photo &&
+          (organization.spin ? (
+            // Transparent turbofan plassert med navet i bunn-senter, slik at kun
+            // øvre halvdel vises. Spinner rundt navet når kortet scrolles inn.
+            <img
+              ref={photoRef}
+              src={organization.photo}
+              alt={organization.photoAlt}
+              className={`pointer-events-none absolute top-0 left-1/2 z-0 w-[min(300px,112%)] [transform-origin:50%_50%] [transition:opacity_.4s_ease] ${logoMode ? "opacity-0 group-hover:opacity-100" : "opacity-100"} ${spun ? "[animation:jet-spin_1.6s_cubic-bezier(.16,.84,.28,1)_both]" : "[transform:translate(-50%,0)]"}`}
+            />
+          ) : (
+            <img
+              src={organization.photo}
+              alt={organization.photoAlt}
+              className={`absolute inset-0 z-0 h-full w-full [transition:transform_.7s_ease,opacity_.4s_ease] ${organization.photoContain ? "object-contain" : "object-cover"} ${logoMode ? "opacity-0 [transform:scale(1.001)] group-hover:opacity-100 group-hover:[transform:scale(1.05)]" : "opacity-100 [transform:scale(1.001)] group-hover:[transform:scale(1.05)]"}`}
+              style={{ objectPosition: organization.photoPosition }}
+            />
+          ))}
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-[7px] px-5 pt-[18px] pb-[22px]">
         <h3 className="mt-px mb-0 text-[19px] leading-[1.12] font-bold tracking-[-.015em] [overflow-wrap:break-word]">
@@ -313,8 +337,202 @@ export function OrgCard({
         <p className="m-0 text-[13.5px] leading-[1.5] text-[var(--ink-soft)]">
           {organization.description}
         </p>
+        <span className="mt-auto flex items-center gap-2 pt-3 text-xs font-semibold">
+          Les mer
+          <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            aria-hidden="true"
+          >
+            <path d="M4 12h16m-6-6 6 6-6 6" />
+          </svg>
+        </span>
       </div>
-    </a>
+    </button>
+  );
+}
+
+function OrganizationDialog({
+  organization,
+  onClose,
+}: {
+  organization: Organization;
+  onClose: () => void;
+}) {
+  const ref = useRef<HTMLDialogElement>(null);
+  useEffect(() => {
+    const dialog = ref.current;
+    const unlock = lockPageScroll();
+    dialog?.showModal();
+    return () => {
+      dialog?.close();
+      unlock();
+    };
+  }, []);
+  const logoBackground =
+    organization.media === "dark"
+      ? "#16181D"
+      : organization.media === "dark-navy"
+        ? "#022641"
+        : organization.media === "deeper"
+          ? "#20232A"
+          : panelColors[organization.accent];
+  return (
+    <dialog
+      ref={ref}
+      className="event-dialog org-dialog"
+      aria-labelledby="org-dialog-title"
+      onKeyDown={(event) => {
+        if (event.key !== "Tab") return;
+        const controls = [
+          ...event.currentTarget.querySelectorAll<HTMLElement>(
+            "button:not(:disabled), a[href]",
+          ),
+        ];
+        if (event.shiftKey && document.activeElement === controls[0]) {
+          event.preventDefault();
+          controls.at(-1)?.focus();
+        } else if (
+          !event.shiftKey &&
+          document.activeElement === controls.at(-1)
+        ) {
+          event.preventDefault();
+          controls[0]?.focus();
+        }
+      }}
+      onClose={() => {
+        if (!ref.current?.open) onClose();
+      }}
+      onClick={(event) => {
+        if (event.target !== event.currentTarget) return;
+        const box = event.currentTarget.getBoundingClientRect();
+        if (
+          event.clientX < box.left ||
+          event.clientX > box.right ||
+          event.clientY < box.top ||
+          event.clientY > box.bottom
+        )
+          event.currentTarget.close();
+      }}
+    >
+      <div className="event-dialog-toolbar">
+        <button
+          type="button"
+          className="event-dialog-close"
+          aria-label="Lukk miljø"
+          onClick={() => ref.current?.close()}
+          autoFocus
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            aria-hidden="true"
+          >
+            <path d="m6 6 12 12M6 18 18 6" />
+          </svg>
+        </button>
+      </div>
+      {organization.photo && (
+        <div
+          className="event-dialog-image"
+          style={{ background: logoBackground }}
+        >
+          <img
+            src={organization.photo}
+            alt={organization.photoAlt}
+            style={{
+              objectPosition: organization.photoPosition,
+              objectFit:
+                organization.photoContain || organization.spin
+                  ? "contain"
+                  : "cover",
+            }}
+          />
+        </div>
+      )}
+      <div
+        className={`event-dialog-body${organization.photo ? "" : " org-dialog-without-photo"}`}
+      >
+        <div className="org-dialog-heading">
+          <h2 id="org-dialog-title">{organization.name}</h2>
+          {organization.logo && (
+            <div
+              className="org-dialog-logo"
+              style={{ background: logoBackground }}
+            >
+              <img
+                src={organization.logo}
+                alt={organization.logoAlt}
+                width={112}
+                height={64}
+              />
+            </div>
+          )}
+        </div>
+        <dl className="event-facts org-facts">
+          {organization.category && (
+            <div>
+              <dt>Miljø</dt>
+              <dd>{organization.category}</dd>
+            </div>
+          )}
+          <div>
+            <dt>Søker medlemmer</dt>
+            <dd
+              className={
+                organization.recruiting ? "org-recruiting-status" : undefined
+              }
+            >
+              {organization.recruiting === true
+                ? "Ja"
+                : organization.recruiting === false
+                  ? "Nei"
+                  : "Ikke oppgitt"}
+            </dd>
+          </div>
+        </dl>
+        {organization.description && (
+          <p className="event-dialog-summary">{organization.description}</p>
+        )}
+        {organization.longDescription && (
+          <div className="event-description">
+            {organization.longDescription}
+          </div>
+        )}
+        {organization.href && (
+          <div className="event-registration">
+            <a
+              className="event-registration-link"
+              href={organization.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Besøk nettsiden
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                aria-hidden="true"
+              >
+                <path d="M7 17 17 7M7 7h10v10" />
+              </svg>
+            </a>
+          </div>
+        )}
+      </div>
+    </dialog>
   );
 }
 
@@ -412,9 +630,11 @@ function CompassEmblem() {
 function FramCompass({
   organizations,
   onClose,
+  onOpenOrganization,
 }: {
   organizations: Organization[];
   onClose: () => void;
+  onOpenOrganization: (organization: Organization) => void;
 }) {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [input, setInput] = useState("");
@@ -464,7 +684,10 @@ function FramCompass({
       const response = await fetch("/api/forslag", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ interesser: clean }),
+        body: JSON.stringify({
+          interesser: clean,
+          recaptchaToken: await framkompassCaptcha(),
+        }),
       });
       if (!response.ok) throw new Error("api");
       const data = await response.json();
@@ -590,12 +813,13 @@ function FramCompass({
                         result.navn.toLowerCase().includes(name.toLowerCase()),
                     );
                   return org ? (
-                    <a
+                    <button
+                      type="button"
                       key={org.name}
-                      href={org.href}
-                      target="_blank"
-                      rel="noopener"
-                      className="block rounded-[3px] border-2 bg-[var(--bg)] px-5 py-[18px] text-inherit no-underline [transition:transform_.15s,box-shadow_.2s] hover:shadow-[0_10px_30px_rgba(0,0,0,.07)] hover:[transform:translateY(-2px)]"
+                      onClick={() => onOpenOrganization(org)}
+                      aria-haspopup="dialog"
+                      aria-label={`Les mer om ${org.name}`}
+                      className="org-suggestion block cursor-pointer rounded-[3px] border-2 bg-[var(--bg)] px-5 py-[18px] text-left font-[inherit] text-inherit [transition:transform_.15s,box-shadow_.2s] hover:shadow-[0_10px_30px_rgba(0,0,0,.07)] hover:[transform:translateY(-2px)]"
                       style={{ borderColor: accentColors[org.accent] }}
                     >
                       <div className="mb-[5px] font-mono text-[11px] tracking-[.04em] text-[var(--muted)]">
@@ -608,9 +832,9 @@ function FramCompass({
                         {result.grunn || org.description}
                       </p>
                       <span className="text-[13px] font-semibold text-[var(--blue)]">
-                        Besøk nettsiden →
+                        Les mer om miljøet
                       </span>
-                    </a>
+                    </button>
                   ) : null;
                 })}
                 <p className="mt-1 text-xs text-[var(--muted)]">
@@ -628,11 +852,16 @@ function FramCompass({
 
 export function MiljoerExplorer({
   organizations,
+  unavailable = false,
 }: {
   organizations: Organization[];
+  unavailable?: boolean;
 }) {
   const [logoMode, setLogoMode] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [selected, setSelected] = useState<Organization | null>(null);
+  const [lifted, setLifted] = useState(false);
+  const router = useRouter();
   useEffect(() => {
     const frame = requestAnimationFrame(() =>
       setLogoMode(localStorage.getItem("framOrgMode") === "logo"),
@@ -640,10 +869,7 @@ export function MiljoerExplorer({
     return () => cancelAnimationFrame(frame);
   }, []);
   useEffect(() => {
-    document.body.style.overflow = modalOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    if (modalOpen) return lockPageScroll();
   }, [modalOpen]);
   function setMode(logos: boolean) {
     setLogoMode(logos);
@@ -667,6 +893,7 @@ export function MiljoerExplorer({
             <button
               type="button"
               onClick={() => setMode(false)}
+              aria-pressed={!logoMode}
               className={`cursor-pointer rounded-full border-0 px-[18px] py-2 font-sans text-[13px] font-semibold [transition:background_.2s_ease,color_.2s_ease] hover:text-[var(--ink)] ${logoMode ? "bg-transparent text-[var(--ink-soft)]" : "bg-[var(--ink)] text-[var(--bg)] hover:text-[var(--bg)]"}`}
             >
               Bilder
@@ -674,29 +901,59 @@ export function MiljoerExplorer({
             <button
               type="button"
               onClick={() => setMode(true)}
+              aria-pressed={logoMode}
               className={`cursor-pointer rounded-full border-0 px-[18px] py-2 font-sans text-[13px] font-semibold [transition:background_.2s_ease,color_.2s_ease] hover:text-[var(--ink)] ${logoMode ? "bg-[var(--ink)] text-[var(--bg)] hover:text-[var(--bg)]" : "bg-transparent text-[var(--ink-soft)]"}`}
             >
               Logoer
             </button>
           </div>
-          <button
-            type="button"
-            onClick={() => {
-              setModalOpen(true);
-              trackGoatCounter("framkompasset-open", "Framkompasset – åpnet");
-            }}
-            className="ml-auto inline-flex cursor-pointer items-center gap-[9px] rounded-[3px] border-2 border-transparent bg-[var(--blue)] px-[18px] py-2.5 font-sans text-sm leading-[normal] font-semibold text-white [transition:transform_.2s_ease,box-shadow_.2s_ease] hover:[transform:translateY(-3px)] hover:shadow-[0_6px_0_var(--teal)] active:[transform:translateY(0)] max-[520px]:ml-0 max-[520px]:w-full max-[520px]:justify-center"
-          >
-            <span aria-hidden="true" className="h-2 w-2 rotate-45 bg-[var(--teal)]" />
-            Finn din match
-          </button>
+          {!unavailable && organizations.length > 0 && (
+            <button
+              type="button"
+              onClick={() => {
+                setModalOpen(true);
+                trackGoatCounter("framkompasset-open", "Framkompasset – åpnet");
+              }}
+              className="ml-auto inline-flex cursor-pointer items-center gap-[9px] rounded-[3px] border-2 border-transparent bg-[var(--blue)] px-[18px] py-2.5 font-sans text-sm leading-[normal] font-semibold text-white [transition:transform_.2s_ease,box-shadow_.2s_ease] hover:[transform:translateY(-3px)] hover:shadow-[0_6px_0_var(--teal)] active:[transform:translateY(0)] max-[520px]:ml-0 max-[520px]:w-full max-[520px]:justify-center"
+            >
+              <span
+                aria-hidden="true"
+                className="h-2 w-2 rotate-45 bg-[var(--teal)]"
+              />
+              Finn din match
+            </button>
+          )}
         </div>
+        {unavailable ? (
+          <div className="events-empty" role="status">
+            <h2>Vi får ikke hentet miljøene akkurat nå.</h2>
+            <p>Prøv igjen om litt.</p>
+            <button
+              type="button"
+              className="event-registration-link"
+              onClick={() => router.refresh()}
+            >
+              Prøv igjen
+            </button>
+          </div>
+        ) : (
+          organizations.length === 0 && (
+            <div className="events-empty">
+              <h2>Ingen miljøer å vise akkurat nå.</h2>
+            </div>
+          )
+        )}
         <div className="grid grid-cols-4 gap-[18px] max-[1180px]:grid-cols-3 max-[760px]:grid-cols-2 max-[760px]:gap-2.5">
           {organizations.map((organization) => (
             <OrgCard
               key={organization.name}
               organization={organization}
               logoMode={logoMode}
+              lifted={selected?.name === organization.name && lifted}
+              onOpen={(hovered) => {
+                setLifted(hovered);
+                setSelected(organization);
+              }}
             />
           ))}
         </div>
@@ -704,6 +961,25 @@ export function MiljoerExplorer({
           <FramCompass
             organizations={organizations}
             onClose={() => setModalOpen(false)}
+            onOpenOrganization={(organization) => {
+              // The compass result disappears; return focus to its matching card.
+              [
+                ...document.querySelectorAll<HTMLButtonElement>(
+                  "button[data-org-name]",
+                ),
+              ]
+                .find((button) => button.dataset.orgName === organization.name)
+                ?.focus({ preventScroll: true });
+              setModalOpen(false);
+              setLifted(false);
+              setSelected(organization);
+            }}
+          />
+        )}
+        {selected && (
+          <OrganizationDialog
+            organization={selected}
+            onClose={() => setSelected(null)}
           />
         )}
       </div>

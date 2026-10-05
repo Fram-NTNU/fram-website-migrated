@@ -1,6 +1,5 @@
 node_modules/
-.next/
-.next-events-e2e/
+.next*/
 .impeccable/review/
 out/
 playwright-report/

@@ -1,0 +1,333 @@
+/* Shared between fram-portal and fram-website-migrated. Keep both copies identical. */
+
+/* Events: title and time only — the colour already says which room. */
+.booking-calendar .booking-calendar-occupied,
+.booking-calendar .booking-calendar-selection {
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  padding: 3px 6px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: #ece6da;
+  box-shadow: 0 0 0 1px #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 11px;
+  line-height: 14px;
+  text-align: left;
+  pointer-events: none;
+  container-type: inline-size;
+}
+.booking-calendar-comparison .booking-calendar-occupied {
+  border-color: color-mix(in srgb, var(--room-color) 45%, white);
+  border-left: 3px solid var(--room-color);
+  background: color-mix(in srgb, var(--room-color) 20%, white);
+}
+.booking-calendar .booking-calendar-occupied strong,
+.booking-calendar .booking-calendar-selection strong {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--title-lines, 2);
+  line-clamp: var(--title-lines, 2);
+  flex: none;
+  min-width: 0;
+  overflow: hidden;
+  font-weight: 600;
+  /* Never split words letter by letter; clip and show the rest on hover. */
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: auto;
+}
+.booking-calendar .booking-calendar-occupied > span,
+.booking-calendar .booking-calendar-selection > span {
+  flex: none;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+  font-variant-numeric: tabular-nums;
+}
+/* Short events: one line, title first. */
+.booking-calendar .booking-calendar-occupied.compact,
+.booking-calendar .booking-calendar-selection.compact {
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  padding-block: 0;
+}
+.booking-calendar .compact strong {
+  display: block;
+  flex: 0 1 auto;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+@container (max-width: 96px) {
+  .booking-calendar-occupied.compact > span,
+  .booking-calendar-selection.compact > span {
+    display: none;
+  }
+}
+@container (max-width: 64px) {
+  .booking-calendar-occupied strong,
+  .booking-calendar-occupied > span {
+    font-size: 10px;
+    letter-spacing: -0.01em;
+  }
+}
+@container (max-width: 40px) {
+  .booking-calendar-occupied > span {
+    display: none;
+  }
+}
+.booking-calendar button.booking-calendar-occupied {
+  pointer-events: auto;
+  cursor: pointer;
+}
+.booking-calendar button.booking-calendar-occupied:hover,
+.booking-calendar button.booking-calendar-occupied:focus-visible {
+  z-index: 20;
+  outline: 2px solid var(--room-color, var(--ink));
+  outline-offset: -2px;
+}
+.booking-calendar .booking-calendar-selection {
+  z-index: 30;
+  left: 3px;
+  right: 3px;
+  border: 2px solid #c99a0e;
+  background: var(--yellow);
+  box-shadow: 0 2px 10px rgb(26 26 26 / 14%);
+}
+.booking-calendar .booking-calendar-selection > span {
+  color: var(--ink);
+}
+/* Times where no room is free cannot be dragged over. */
+.booking-calendar-selectable .booking-calendar-slot:disabled {
+  background: var(--bg-soft);
+}
+.booking-calendar .booking-calendar-retry {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--ink);
+  border-radius: 3px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Booking flow: time first, then room. */
+.booking-system .booking-form > .booking-time-step:first-child {
+  padding-top: 0;
+}
+.booking-system .booking-form > .booking-time-step + .booking-room-step {
+  padding-top: 32px;
+}
+.booking-system .booking-time-step .booking-room-filters {
+  margin-bottom: 8px;
+}
+.booking-system .booking-room-hint {
+  margin: -8px 0 20px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.booking-system .booking-room-swatch {
+  display: inline-block;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+  border-radius: 2px;
+  background: var(--room-color);
+  vertical-align: 1px;
+}
+.booking-system .booking-room-options em.free {
+  color: #2f7a52;
+}
+.booking-system .booking-room-options button.active em,
+.booking-system .booking-room-options button:hover:not(:disabled) em {
+  color: #fff;
+}
+.booking-system .booking-submit .booking-submit-summary {
+  max-width: none;
+  margin: 0;
+  text-align: left;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.booking-system .booking-submit .booking-submit-summary::first-letter {
+  text-transform: uppercase;
+}
+
+/* Each day column is its own stacking layer, so events never cover the sticky day headings. */
+.booking-calendar .booking-calendar-column {
+  isolation: isolate;
+}
+.booking-calendar > .booking-room-filters {
+  margin-bottom: 20px;
+}
+/* Toolbar: period on the left (today, arrows, title), display options on the right. */
+.booking-calendar .booking-calendar-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+}
+.booking-calendar .booking-calendar-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.booking-calendar .booking-calendar-period {
+  margin: 0 0 0 6px;
+  font-size: 20px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.booking-calendar .booking-calendar-period::first-letter {
+  text-transform: uppercase;
+}
+.booking-calendar .booking-calendar-display-controls {
+  gap: 10px;
+  /* Stays on the right, also when it wraps below the period controls. */
+  margin-left: auto;
+}
+/* Compact date picker next to the period title (admin overview). */
+.booking-calendar .booking-calendar-period-controls .booking-availability-date {
+  width: auto;
+  max-width: none;
+  margin: 0;
+}
+.booking-calendar
+  .booking-calendar-period-controls
+  .booking-availability-date
+  label {
+  display: block;
+}
+.booking-calendar
+  .booking-calendar-period-controls
+  .booking-availability-date
+  input {
+  width: auto;
+  height: 42px;
+  min-height: 42px;
+  padding: 0 10px;
+  font-size: 14px;
+}
+/* Default calendar height; zoom changes what fits inside it. */
+.booking-calendar .booking-calendar-scroll {
+  height: 720px;
+  max-height: 78vh;
+}
+
+/* Size controls: one compact icon group — zoom out, level, zoom in, full screen. */
+.booking-calendar .booking-calendar-size {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: stretch;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: #fff;
+}
+.booking-calendar .booking-calendar-controls .booking-calendar-size button {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  min-width: 40px;
+  min-height: 42px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+.booking-calendar .booking-calendar-size:has(button:focus-visible) {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+.booking-calendar .booking-calendar-zoom {
+  display: grid;
+  place-items: center;
+  min-width: 52px;
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.booking-calendar
+  .booking-calendar-controls
+  .booking-calendar-size
+  .booking-calendar-fullscreen {
+  border-left: 1px solid var(--line);
+}
+
+/* Full screen: the calendar fills the viewport; the grid takes all spare height. */
+body > .booking-calendar-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  margin: 0;
+  padding: 12px clamp(12px, 1.5vw, 24px);
+  overflow: hidden;
+  background: var(--bg, var(--paper, #fbf7f0));
+}
+.booking-calendar-overlay > .booking-calendar {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+.booking-calendar-overlay .booking-calendar > .booking-room-filters {
+  margin-bottom: 8px;
+}
+.booking-calendar-overlay .booking-calendar .booking-calendar-help {
+  margin: 6px 0;
+  font-size: 13px;
+}
+.booking-calendar-overlay .booking-calendar .booking-calendar-surface {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  margin-top: 0;
+}
+.booking-calendar-overlay .booking-calendar .booking-calendar-scroll {
+  flex: 1;
+  height: auto;
+  max-height: none;
+  min-height: 0;
+}
+.booking-calendar-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 200px;
+  border: 1px dashed var(--line);
+  border-radius: 3px;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+@media (max-width: 760px) {
+  .booking-calendar .booking-calendar-toolbar,
+  .booking-calendar .booking-calendar-display-controls {
+    justify-content: flex-start;
+  }
+  .booking-calendar .booking-calendar-display-controls {
+    margin-left: 0;
+  }
+  .booking-calendar .booking-calendar-period {
+    flex-basis: 100%;
+    order: -1;
+    margin: 0;
+  }
+}

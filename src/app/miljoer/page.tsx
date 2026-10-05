@@ -3,7 +3,9 @@ import { MiljoerExplorer } from "@/components/miljoer-explorer";
 import { MiljoerMap } from "@/components/miljoer-map";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { organizations } from "@/lib/organizations";
+import { publishedOrganizations } from "@/lib/published-organizations";
+import "../events.css";
+import "../miljoer.css";
 
 const description =
   "Oversikt over alle innovasjonsmiljøer og studentorganisasjoner ved NTNU i Trondheim tilknyttet FRAM — fra dronebygging og AI til entreprenørskap og design.";
@@ -47,7 +49,11 @@ const breadcrumbData = {
     },
   ],
 };
-const itemListData = {
+const itemListData = (
+  organizations: Awaited<
+    ReturnType<typeof publishedOrganizations>
+  >["organizations"],
+) => ({
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: "Innovasjonsmiljøene og studentorganisasjonene ved NTNU",
@@ -60,7 +66,7 @@ const itemListData = {
     position: index + 1,
     item: { "@type": "Organization", name: organization.name },
   })),
-};
+});
 const organizationData = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -76,7 +82,8 @@ const organizationData = {
   ],
 };
 
-export default function MiljoerPage() {
+export default async function MiljoerPage() {
+  const { organizations, unavailable } = await publishedOrganizations();
   return (
     <div className="min-h-screen bg-[var(--bg)] font-sans text-[var(--ink)] [--bg-soft:#F2EDE3] [--bg:#FAF7F2] [--blue:#2E86C1] [--card:#fff] [--ink-soft:#555] [--ink:#1E1E1E] [--line:#E6E0D5] [--muted:#8A8A8A] [--nav-accent:#E85A5A] [--red:#E85A5A] [--teal:#3FC4A3] [--yellow:#FDC82F]">
       <script
@@ -85,13 +92,22 @@ export default function MiljoerPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListData) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(itemListData(organizations)).replace(
+            /</g,
+            "\\u003c",
+          ),
+        }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }}
       />
-      <link rel="preconnect" href="https://app.atlas.co" crossOrigin="anonymous" />
+      <link
+        rel="preconnect"
+        href="https://app.atlas.co"
+        crossOrigin="anonymous"
+      />
       <SiteHeader currentPath="/miljoer" />
       <header className="border-b border-[var(--line)] py-9">
         <div className="mx-auto max-w-[1360px] px-12 max-[900px]:px-5 max-[520px]:px-4">
@@ -108,7 +124,7 @@ export default function MiljoerPage() {
           <div className="mt-7 flex items-start gap-10">
             <div>
               <div className="text-[clamp(38px,3.6vw,52px)] leading-[.9] font-extrabold tracking-[-.03em] text-[var(--yellow)]">
-                {organizations.length}
+                {unavailable ? "–" : organizations.length}
               </div>
               <div className="mt-3.5 font-mono text-xs tracking-[.12em] text-[var(--muted)] uppercase">
                 organisasjoner
@@ -126,7 +142,10 @@ export default function MiljoerPage() {
           </div>
         </div>
       </header>
-      <MiljoerExplorer organizations={organizations} />
+      <MiljoerExplorer
+        organizations={organizations}
+        unavailable={unavailable}
+      />
       <MiljoerMap />
       <section id="bli-medlem" className="bg-[var(--bg-soft)] py-[110px]">
         <div className="mx-auto grid max-w-[1360px] grid-cols-2 items-center gap-12 px-12 max-[860px]:grid-cols-1 max-[860px]:gap-8 max-[760px]:px-4">

@@ -6,7 +6,7 @@ async function forward(request: Request, path: string, init?: RequestInit) {
   const oidcToken = request.headers.get("x-vercel-oidc-token");
   const oidcRequired =
     process.env.FRAM_BOOKING_REQUIRE_OIDC === "true" ||
-    process.env.DEPLOYMENT_ENV === "production";
+    process.env.DEPLOYMENT_ENV === "production" || process.env.VERCEL_ENV === "production";
   if (!base || (oidcRequired ? !oidcToken : !secret && !oidcToken))
     return Response.json(
       { error: "Booking er ikke konfigurert ennå. Kontakt framntnu@gmail.com." },

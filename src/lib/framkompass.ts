@@ -1,3 +1,4 @@
+import { framkompassLimit } from "./framkompass-rate-limit";
 import Anthropic from "@anthropic-ai/sdk";
 
 /* ============================================================
@@ -214,21 +215,6 @@ const SCHEMA = {
   additionalProperties: false,
 };
 
-// Enkel rate-limiting per instans (best effort – ekte vern er
-// utgiftstaket på API-nøkkelen + lengdegrensen under).
-const RATE = new Map<string, number[]>();
-const RATE_WINDOW_MS = 5 * 60_000;
-const RATE_MAX = 5;
-
-function rateLimited(ip: string) {
-  const now = Date.now();
-  const hits = (RATE.get(ip) || []).filter((t) => now - t < RATE_WINDOW_MS);
-  hits.push(now);
-  RATE.set(ip, hits);
-  if (RATE.size > 5000) RATE.clear(); // unngå minnelekkasje
-  return hits.length > RATE_MAX;
-}
-
 // Memoisering av populære søk (best effort per varm instans). Gjentatte søk på
 // samme tekst – «AI», «bil», «rakett» osv. – serveres uten nytt modell-kall.
 const MEMO = new Map<string, { t: number; forslag: Forslag[] }>();
@@ -254,11 +240,10 @@ function memoSet(key: string, forslag: Forslag[]) {
 
 // Slipp bare gjennom forespørsler som kommer fra siden selv.
 function sammeOpprinnelse(request: Request) {
-  const host = request.headers.get("host");
   const ref = request.headers.get("origin") || request.headers.get("referer");
-  if (!host || !ref) return false;
+  if (!ref) return false;
   try {
-    return new URL(ref).host === host;
+    return new URL(ref).origin === new URL(request.url).origin;
   } catch {
     return false;
   }
@@ -275,19 +260,11 @@ export async function handleFramkompass(request: Request): Promise<Response> {
     return Response.json({ error: "Ugyldig opprinnelse." }, { status: 403 });
   }
 
-  const ip =
-    (request.headers.get("x-forwarded-for") || "").split(",")[0].trim() ||
-    "ukjent";
-  if (rateLimited(ip)) {
-    return Response.json(
-      { error: "For mange forespørsler. Vent litt." },
-      { status: 429 },
-    );
-  }
-
   let body: unknown;
   try {
-    body = await request.json();
+    const bytes = await request.arrayBuffer();
+    if (bytes.byteLength > 10000) return Response.json({ error: "Forespørselen er for stor." }, { status: 413 });
+    body = JSON.parse(new TextDecoder().decode(bytes));
   } catch {
     body = undefined;
   }
@@ -310,6 +287,9 @@ export async function handleFramkompass(request: Request): Promise<Response> {
     );
   }
 
+  const token = typeof body === "object" && body !== null && "recaptchaToken" in body && typeof body.recaptchaToken === "string" ? body.recaptchaToken : undefined;
+  const limited = await framkompassLimit(request, "request", token);
+  if (limited) return limited;
   // Servér tidligere svar på samme søk uten nytt modell-kall.
   const mkey = memoKey(interesser);
   const cached = memoGet(mkey);
@@ -324,8 +304,11 @@ export async function handleFramkompass(request: Request): Promise<Response> {
     );
   }
 
+  const budget = await framkompassLimit(request, "generation");
+  if (budget) return budget;
+
   try {
-    const client = new Anthropic();
+    const client = new Anthropic({ maxRetries: 0, timeout: 15000 });
     const response = await client.messages.create({
       model: "claude-haiku-4-5",
       max_tokens: 150,
@@ -355,13 +338,9 @@ export async function handleFramkompass(request: Request): Promise<Response> {
     }
 
     memoSet(mkey, forslag);
-    console.log(
-      "framkompasset:",
-      JSON.stringify({ q: interesser, treff: forslag.map((f) => f.navn) }),
-    );
     return Response.json({ forslag });
-  } catch (err) {
-    console.error("forslag-feil:", err);
+  } catch {
+    console.error("framkompass-generation-failed");
     return Response.json(
       { error: "Klarte ikke hente forslag akkurat nå." },
       { status: 502 },

@@ -54,6 +54,8 @@ export function SiteFooter({ mobileExtraBottomPadding = false, dark = false, log
                 <img width="400" height="142" decoding="async" src={logoSrc ?? "/assets/fram-logo.webp"} alt="FRAM NTNU" className={`block h-[26px] w-auto ${logoSrc ? "" : dark ? logoFilter : "saturate-[.4]"}`} />
               </div>
               <div className="leading-[1.9]">Sem Sælands vei 1, 7034 Trondheim<br /><a href="mailto:framntnu@gmail.com" className="text-[var(--muted)] no-underline transition-colors hover:text-[var(--ink)]">framntnu@gmail.com</a></div>
+              <a href="https://portal.framntnu.no/" className="flex min-h-11 w-fit items-center text-xs text-[var(--ink-soft)] underline decoration-[var(--line)] underline-offset-4 transition-colors hover:text-[var(--ink)] hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]">Fram-portalen</a>
+              <a href="https://portal.framntnu.no/personvern" className="flex min-h-11 w-fit items-center text-xs text-[var(--ink-soft)] underline decoration-[var(--line)] underline-offset-4 transition-colors hover:text-[var(--ink)] hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]">Personvern</a>
               <div className="flex items-center gap-2.5">
                 {socials.map(({ name, href, color }) => (
                   <a key={name} href={href} target="_blank" rel="noopener" aria-label={name} className={`${socialButton} hover:border-current`} style={{ color }}>
@@ -81,7 +83,7 @@ export function SiteFooter({ mobileExtraBottomPadding = false, dark = false, log
               <div className="flex flex-col gap-2">
                 <div className="mb-1 text-[10px] font-semibold tracking-[.14em] uppercase">Sider</div>
                 {[
-                  ["/miljoer", "Miljøene"], ["/arrangementer", "Arrangementer"], ["/booking", "Book lokalene"], ["/om", "Om Fram"], ["/innovasjonsdagene", "Innovasjonsdagene"],
+                  ["/miljoer", "Miljøene"], ["/arrangementer", "Arrangementer"], ["/booking/lokaler", "Lokaler"], ["/booking", "Book rom"], ["/nyheter", "Nyheter"], ["/om", "Om Fram"],
                 ].map(([href, label]) => <Link key={href} href={href} className="text-xs leading-[1.8] text-[var(--ink-soft)] no-underline transition-colors hover:text-[var(--ink)]">{label}</Link>)}
               </div>
             </div>

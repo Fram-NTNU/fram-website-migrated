@@ -34,6 +34,7 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     const securityHeaders = [
+      { key: "Content-Security-Policy", value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://gc.zgo.at; style-src 'self' 'unsafe-inline' https://unpkg.com; font-src 'self' https://unpkg.com; img-src 'self' data: blob: https:; connect-src 'self' https://www.google.com https://www.gstatic.com https://framntnu.goatcounter.com https://vitals.vercel-insights.com; frame-src https://www.google.com https://recaptcha.google.com https://www.youtube.com https://www.youtube-nocookie.com https://app.atlas.co https://use.mazemap.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'" },
       { key: "X-Content-Type-Options", value: "nosniff" },
       { key: "X-Frame-Options", value: "SAMEORIGIN" },
       { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
